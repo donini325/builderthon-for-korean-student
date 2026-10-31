@@ -79,6 +79,18 @@ import type { PressEntry } from "../components/shared/PressRows";
 // 제목만 나루의 것으로 바꿉니다. 받는 쪽 편지함에서 제로백 빌더톤의 스레드와
 // 섞이지 않아야, 어느 이벤트 이야기인지 열어 보지 않고 압니다.
 // ─────────────────────────────────────────────────────────────────────────────
+// DECIDED 2026-10-31 (docs/talent-two-places-brief.md, 사용자: 기업이 한국과 싱가포르 두 곳에서 학교에서 온 학생을 보는 자리가 홈과
+// 크로싱 서울 둘 다에 보이게. D1 12월 학교 이름을 씀, D2 싱가포르 쪽 학교 이름은 쓰지 않음): 12월 학회가 들어오는 한국 학교 셋.
+// 이슈 파트너 브리프 3절 그대로. 후원 상자 출제사가 얻는 것 1, 큐레이션 팀 구성, 남는 것 05가 이 키 하나에서 읽습니다.
+// 학교가 바뀌면 여기만 고칩니다. "좋은 학교", "명문", "인재", "탤런트"처럼 꾸미지 않고 이름만 씁니다(brand 4장, 5장).
+export const schools = {
+  ko: ["서울대", "연세대", "건국대"],
+  en: ["Seoul National", "Yonsei", "Konkuk"],
+} as const;
+const SCHOOLS_KO = schools.ko.join(", ");
+const SCHOOLS_EN_AND = `${schools.en.slice(0, -1).join(", ")} and ${schools.en[schools.en.length - 1]}`;
+const SCHOOLS_EN = schools.en.join(", ");
+
 const CONTACT = "pjh030924@gmail.com";
 
 export const naruLinks = {
@@ -1026,8 +1038,9 @@ export const naru = {
         title: { ko: "국경 너머의 팀", en: "A team across borders" },
         days: [1, 2, 3, 4],
         body: {
-          ko: "어느 나라에서 공부하든 Day 1에 한 팀이 되어 끝까지 함께합니다.",
-          en: "Wherever you study, you become one team on Day 1 and stay together to the end.",
+          // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T5, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
+          ko: `${SCHOOLS_KO}와 싱가포르의 학생이 Day 1에 한 팀이 되어 끝까지 함께합니다.`,
+          en: `Students from ${SCHOOLS_EN} and Singapore become one team on Day 1 and stay together to the end.`,
         },
       },
     ] as { num: string; title: Phrase; body: Phrase; days: number[]; split?: boolean; evidence?: Phrase }[],
@@ -1660,7 +1673,8 @@ export const naru = {
     companyLabel: { ko: "출제사가 얻는 것", en: "What the company gets" },
     company: [
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md H4, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-      { title: { ko: "일하는 모습으로 보는 사람", en: "People seen at work" }, body: { ko: "이력서 대신, 묻고 반박받고 고치는 모습을 닷새 동안 봅니다.", en: "Instead of a CV, you watch five days of asking, being pushed back on, and fixing." } },
+      // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T2, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
+      { title: { ko: "일하는 모습으로 보는 사람", en: "People seen at work" }, body: { ko: `${SCHOOLS_KO} 학회원과 싱가포르 한인 대학생을, 이력서 대신 묻고 반박받고 고치는 모습으로 닷새 동안 봅니다.`, en: `Students from the societies at ${SCHOOLS_EN_AND} and Korean students in Singapore, seen over five days asking, being pushed back on and fixing, instead of on a CV.` } },
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md H5, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
       { title: { ko: "바깥에서 보는 여러 답", en: "Several answers from outside" }, body: { ko: "같은 이슈를 받은 팀마다 다른 병목을 골라 다른 툴을 만들고, 안에서 묻지 않던 전제가 드러납니다.", en: "Each team given the same issue picks a different bottleneck and builds a different tool, and assumptions nobody inside questioned come up." } },
       // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O7, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
@@ -1748,8 +1762,9 @@ export const naru = {
         gets: {
           // DECIDED 2026-10-26 (사용자, 스크린숏: "이거 어색해"): brand 4장 대상별 한 문장에 맞춤. 그 전: "한인 학생과 만나는 자리가 생기고, 회차의 기록에 이름이 남습니다."
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md H4, humanize-korean 우선): 그 전 문장은 git 9c77437.
-          ko: "한 이슈에 대한 서로 다른 시도 여럿을 닷새 안에 보고, 회차의 기록에 회사 이름이 적힙니다.",
-          en: "You see several different attempts at one issue within five days, and the company's name is written into the record of that edition.",
+          // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T1, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
+          ko: "한국과 싱가포르 두 곳의 학교에서 온 학생들이 한 이슈에 내는 서로 다른 시도 여럿을 닷새 안에 보고, 회차의 기록에 회사 이름이 적힙니다.",
+          en: "You watch students from schools in Korea and Singapore make several different attempts at one issue within five days, and the company's name is written into the record of that edition.",
         },
         // DECIDED 2026-10-24 (사용자, 같은 문서 N1): "이름이 남는다"의 증거는 8월 파트너 표입니다. 후원 상자에서만 가리킵니다.
         proof: {
@@ -1974,7 +1989,8 @@ export const naru = {
         k: { ko: "팀 구성", en: "Teams" },
         // DECIDED 2026-10-25 (사용자: 칸마다 줄 수를 같게): 세 칸 모두 두 줄. 그 전 "모든 팀에 싱가포르에서 공부하는 학생 몇 명과, 서로 다른 학교의 학생이 한 명씩 섞입니다. 나라나 학교끼리 겨루는 대항전이 아닙니다."
         // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C12, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-        v: { ko: "모든 팀에 싱가포르에서 공부하는 학생과 여러 학교 학생, 직접 만드는 학생과 숫자를 다루는 학생이 섞입니다. 대항전이 아닙니다.", en: "Every team mixes students studying in Singapore with students from different schools, and students who build with students who handle numbers. It is not a contest between countries or schools." },
+        // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T3, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
+        v: { ko: `모든 팀에 ${SCHOOLS_KO} 학회원과 싱가포르 한인 대학생, 직접 만드는 학생과 숫자를 다루는 학생이 섞입니다. 대항전이 아닙니다.`, en: `Every team mixes society members from ${SCHOOLS_EN_AND} with Korean students in Singapore, and students who build with students who handle numbers. It is not a contest between countries or schools.` },
       },
       // DECIDED 2026-10-22 (UX 점검, brand 2장 판단 질문 둘): "세션"(어느 3시간을 떼어 와도 따로 열 수 있게)과 "왜 날마다"(한 팀에게
       // 몰아 주는 것보다 나누는 쪽) 두 줄을 뺐습니다. 파트너에게 하는 설계 설명이라 참가자의 어느 코어도 돕지 않았습니다.
@@ -2238,8 +2254,9 @@ export const naru = {
             // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C9, D2 채용 뺌, humanize-korean 우선): 그 전 문장은 git 9c77437.
             // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C21, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
             // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O6, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
-            ko: "팀마다 다른 병목을 반박을 거쳐 푼 작은 툴과 생각 한 장, 발표와 질의를 기록으로 받으십니다. 더 이야기하고 싶은 한 팀을 골라 주시면 됩니다.",
-            en: "You receive each team's small tool, fixed through pushback on a different bottleneck, with its one page, presentation and questions as a record. Pick one team you want to keep talking with.",
+            // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T4, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
+            ko: "한국과 싱가포르 두 곳의 학교에서 온 팀마다 다른 병목을 반박을 거쳐 푼 작은 툴과 생각 한 장, 발표와 질의를 기록으로 받으십니다. 더 이야기하고 싶은 한 팀을 골라 주시면 됩니다.",
+            en: "From teams drawn from schools in Korea and Singapore, you receive each team's small tool, fixed through pushback on a different bottleneck, with its one page, presentation and questions as a record. Pick one team you want to keep talking with.",
           },
         },
         {
