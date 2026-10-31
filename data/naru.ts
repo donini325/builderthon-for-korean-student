@@ -79,18 +79,6 @@ import type { PressEntry } from "../components/shared/PressRows";
 // 제목만 나루의 것으로 바꿉니다. 받는 쪽 편지함에서 제로백 빌더톤의 스레드와
 // 섞이지 않아야, 어느 이벤트 이야기인지 열어 보지 않고 압니다.
 // ─────────────────────────────────────────────────────────────────────────────
-// DECIDED 2026-10-31 (docs/talent-two-places-brief.md, 사용자: 기업이 한국과 싱가포르 두 곳에서 학교에서 온 학생을 보는 자리가 홈과
-// 크로싱 서울 둘 다에 보이게. D1 12월 학교 이름을 씀, D2 싱가포르 쪽 학교 이름은 쓰지 않음): 12월 학회가 들어오는 한국 학교 셋.
-// 이슈 파트너 브리프 3절 그대로. 후원 상자 출제사가 얻는 것 1, 큐레이션 팀 구성, 남는 것 05가 이 키 하나에서 읽습니다.
-// 학교가 바뀌면 여기만 고칩니다. "좋은 학교", "명문", "인재", "탤런트"처럼 꾸미지 않고 이름만 씁니다(brand 4장, 5장).
-export const schools = {
-  ko: ["서울대", "연세대", "건국대"],
-  en: ["Seoul National", "Yonsei", "Konkuk"],
-} as const;
-const SCHOOLS_KO = schools.ko.join(", ");
-const SCHOOLS_EN_AND = `${schools.en.slice(0, -1).join(", ")} and ${schools.en[schools.en.length - 1]}`;
-const SCHOOLS_EN = schools.en.join(", ");
-
 const CONTACT = "pjh030924@gmail.com";
 
 export const naruLinks = {
@@ -1039,8 +1027,9 @@ export const naru = {
         days: [1, 2, 3, 4],
         body: {
           // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T5, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
-          ko: `${SCHOOLS_KO}와 싱가포르의 학생이 Day 1에 한 팀이 되어 끝까지 함께합니다.`,
-          en: `Students from ${SCHOOLS_EN} and Singapore become one team on Day 1 and stay together to the end.`,
+          // DECIDED 2026-10-31 (사용자, 스크린숏: "exact 학교 이름들이 mention 이 되지는 않았으면 함"): 학교 이름 대신 한국과 싱가포르. schools 키는 뺐습니다. 그 전 문장은 git 82a564e.
+          ko: "한국과 싱가포르의 학생이 Day 1에 한 팀이 되어 끝까지 함께합니다.",
+          en: "Students from Korea and Singapore become one team on Day 1 and stay together to the end.",
         },
       },
     ] as { num: string; title: Phrase; body: Phrase; days: number[]; split?: boolean; evidence?: Phrase }[],
@@ -1674,13 +1663,16 @@ export const naru = {
     company: [
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md H4, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
       // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T2, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
-      { title: { ko: "일하는 모습으로 보는 사람", en: "People seen at work" }, body: { ko: `${SCHOOLS_KO} 학회원과 싱가포르 한인 대학생을, 이력서 대신 묻고 반박받고 고치는 모습으로 닷새 동안 봅니다.`, en: `Students from the societies at ${SCHOOLS_EN_AND} and Korean students in Singapore, seen over five days asking, being pushed back on and fixing, instead of on a CV.` } },
+      // DECIDED 2026-10-31 (사용자, 스크린숏: "exact 학교 이름들이 mention 이 되지는 않았으면 함"): 학교 이름 대신 한국과 싱가포르. schools 키는 뺐습니다. 그 전 문장은 git 82a564e.
+      { title: { ko: "일하는 모습으로 보는 사람", en: "People seen at work" }, body: { ko: "한국과 싱가포르의 학생을, 이력서 대신 반박받고 고치는 모습으로 봅니다.", en: "Students from Korea and Singapore, seen fixing under pushback instead of on a CV." } },
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md H5, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-      { title: { ko: "바깥에서 보는 여러 답", en: "Several answers from outside" }, body: { ko: "같은 이슈를 받은 팀마다 다른 병목을 골라 다른 툴을 만들고, 안에서 묻지 않던 전제가 드러납니다.", en: "Each team given the same issue picks a different bottleneck and builds a different tool, and assumptions nobody inside questioned come up." } },
+      // DECIDED 2026-10-31 (사용자, 스크린숏: "너무 문장의 길이가 제각각임"): 같은 묶음의 칸이 1280~2560과 390에서 같은 줄 수가 되게 글자 수를 맞춤. 그 전 문장은 git 82a564e.
+      { title: { ko: "바깥에서 보는 여러 답", en: "Several answers from outside" }, body: { ko: "팀마다 다른 병목과 툴이 나와, 안에서 묻지 않던 전제가 드러납니다.", en: "Each team takes a different bottleneck, and assumptions nobody inside asked about come up." } },
       // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O7, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
       { title: { ko: "결과보다 과정", en: "Process over output" }, body: { ko: "첫날의 생각이 반박을 거쳐 마지막 날의 툴까지 어떻게 달라졌는지 봅니다.", en: "You see how the first day's thinking changed, through pushback, into the last day's tool." } },
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md H6, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-      { title: { ko: "이어지는 만남", en: "A conversation that continues" }, body: { ko: "마지막 날 더 이야기하고 싶은 한 팀을 고르시면 따로 자리를 만듭니다. 결과물을 도입할 의무는 없습니다.", en: "On the last day you pick one team you want to keep talking with, and we set up a time. There is no obligation to adopt what they built." } },
+      // DECIDED 2026-10-31 (사용자, 스크린숏: "너무 문장의 길이가 제각각임"): 같은 묶음의 칸이 1280~2560과 390에서 같은 줄 수가 되게 글자 수를 맞춤. 그 전 문장은 git 82a564e.
+      { title: { ko: "이어지는 만남", en: "A conversation that continues" }, body: { ko: "더 이야기하고 싶은 한 팀과 자리를 만듭니다. 도입할 의무는 없습니다.", en: "We set up a time with one team you want to keep talking with. No obligation to adopt." } },
     ] as { title: Phrase; body: Phrase }[],
     eyebrow: { ko: "세 층", en: "Three layers" },
     heading: { ko: "어떻게 일하는가", en: "How we work" },
@@ -1990,7 +1982,8 @@ export const naru = {
         // DECIDED 2026-10-25 (사용자: 칸마다 줄 수를 같게): 세 칸 모두 두 줄. 그 전 "모든 팀에 싱가포르에서 공부하는 학생 몇 명과, 서로 다른 학교의 학생이 한 명씩 섞입니다. 나라나 학교끼리 겨루는 대항전이 아닙니다."
         // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C12, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
         // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T3, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
-        v: { ko: `모든 팀에 ${SCHOOLS_KO} 학회원과 싱가포르 한인 대학생, 직접 만드는 학생과 숫자를 다루는 학생이 섞입니다. 대항전이 아닙니다.`, en: `Every team mixes society members from ${SCHOOLS_EN_AND} with Korean students in Singapore, and students who build with students who handle numbers. It is not a contest between countries or schools.` },
+        // DECIDED 2026-10-31 (사용자, 스크린숏: "exact 학교 이름들이 mention 이 되지는 않았으면 함"): 학교 이름 대신 한국과 싱가포르. schools 키는 뺐습니다. 그 전 문장은 git 82a564e.
+        v: { ko: "모든 팀에 한국과 싱가포르의 대학생, 직접 만드는 학생과 숫자를 다루는 학생이 섞입니다. 대항전이 아닙니다.", en: "Every team mixes students from Korea and Singapore, and students who build with students who handle numbers. It is not a contest between countries or schools." },
       },
       // DECIDED 2026-10-22 (UX 점검, brand 2장 판단 질문 둘): "세션"(어느 3시간을 떼어 와도 따로 열 수 있게)과 "왜 날마다"(한 팀에게
       // 몰아 주는 것보다 나누는 쪽) 두 줄을 뺐습니다. 파트너에게 하는 설계 설명이라 참가자의 어느 코어도 돕지 않았습니다.
@@ -2957,7 +2950,8 @@ export const naru = {
         // 2026-09-30 (사용자: 상자 셋의 글이 많음): 세 문장에서 한 문장으로. 선배가 졸업하면 알던 것도 나간다는
         // 문장은 뺐습니다. 두 방향(학교 사이, 한국과)은 남았습니다.
         lack: {
-          ko: "학교마다 한인 학생이 있지만, 학교를 가로질러 잇는 자리도, 한국과 이어져 있을 자리도 없었습니다.",
+          // DECIDED 2026-10-31 (사용자, 스크린숏: "너무 문장의 길이가 제각각임"): 같은 묶음의 칸이 1280~2560과 390에서 같은 줄 수가 되게 글자 수를 맞춤. 그 전 문장은 git 82a564e.
+          ko: "학교마다 한인 학생이 있지만, 학교끼리도 한국과도 이어질 자리가 없었습니다.",
           en: "Every campus has Korean students, but nothing connects them across campuses or back to Korea.",
         },
         opens: {
@@ -2986,8 +2980,9 @@ export const naru = {
         // 자리가 없습니다. 싱가포르 칸("학교를 가로질러 잇는 자리도")과 같은 문법으로, 없는 자리 둘을 적습니다.
         lack: {
           // DECIDED 2026-10-21 (사용자: 문장이 너무 많다): 세 칸은 한 줄씩. 두 문장을 한 문장으로, 없는 자리 둘은 그대로.
-          ko: "한국 안에서는 학교가 다르면, 밖으로는 나라가 다르면 같은 문제를 놓고 만날 자리가 없었습니다.",
-          en: "In Korea, a different university meant no place to meet over a shared problem, and so did a different country.",
+          // DECIDED 2026-10-31 (사용자, 스크린숏: "너무 문장의 길이가 제각각임"): 같은 묶음의 칸이 1280~2560과 390에서 같은 줄 수가 되게 글자 수를 맞춤. 그 전 문장은 git 82a564e.
+          ko: "학교가 다르면, 나라가 다르면 같은 문제를 놓고 만날 자리가 없었습니다.",
+          en: "A different university or a different country meant no place to meet over a shared problem.",
         },
         // 2026-09-29 (9/28 자문, "크로스보더는 양쪽에 카운터파트가 있어야"): 한국 쪽의 결핍은 "밖으로".
         // 한국의 학생이 이 자리에 오는 이유는 건너편에 싱가포르가 있기 때문입니다.
