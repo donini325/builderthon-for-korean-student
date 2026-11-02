@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-02 Supabase 감사, 브라우저 역할 권한 걷기와 함수 search_path](#2026-11-02-supabase-audit)
 - [2026-11-02 멘토링 칸은 정각에만, 한 시간 한 칸](#2026-11-02-hourly-slots)
 - [2026-11-02 등록 폼은 필수 질문 먼저, 링크드인은 맨 끝](#2026-11-02-form-order)
 - [2026-11-02 등록 폼의 전공을 필수로, 참가에는 영향 없음](#2026-11-02-major-required)
@@ -449,6 +450,17 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-02-supabase-audit"></a>
+## 2026-11-02 Supabase 감사, 브라우저 역할 권한 걷기와 함수 search_path
+- 범위: supabase/migrations/0015_revoke_browser_roles.sql
+- 한 것: 사용자 요청("supabase에 아무 이상 없는지 쭉 audit", 뒤이어 "3,4 정리"). 실서버를 읽기만 해서 감사했습니다. 마이그레이션 14개 적용 일치, 모든 표 RLS 켜짐(정책 없음), 뷰는 전부 security_invoker, 버킷 비공개, 예약 제약이 코드와 같은 값, 등록 라우트의 칸과 표가 맞음, 12월 표에 테스트 행 없음, 프로덕션이 같은 DB. 고칠 것 둘을 0015로: anon, authenticated에 남은 Supabase 기본 권한(쓰기, TRUNCATE)과 앞으로 만들 객체의 기본 권한을 걷고(CLAUDE.md 2026-10-23 규칙), 함수 넷의 search_path를 빈 값으로 고정합니다. 브라우저는 언제나 서버를 거치므로 바뀌는 동작은 없습니다.
+- 남은 것: 멘토 이름, 트랙 이름, 멘토 가능 시간은 자리표시 그대로. .env.local의 SUPABASE_ACCESS_TOKEN 만료.
+- 근거: brand 해당 없음(사이트의 글, 그림, 구조를 바꾸지 않는 DB 정리).
+- 검증: db push --dry-run에서 0015 하나만 대기.
+- 커밋: 이 항목과 같은 커밋
 
 ---
 
