@@ -102,6 +102,11 @@ export const timetableRules: { icon: "tap" | "clock" | "two" | "lock" | "open" |
   { icon: "today", key: { ko: "당일은 오후 칸만", en: "On the day, afternoon only" }, body: { ko: "그날이 되면 그날의 칸은 14:00 이후만 넣습니다. 오전 칸은 전날까지 넣어 주세요.", en: "On the day itself, only slots from 14:00 can be added. Book morning slots the day before." } },
 ];
 
+// 멘토를 부르는 말. DECIDED 2026-11-03 (사용자: "정확히 성함이 있어야지", "맨토님"): 이름은 DB crossing_mentors.name에만 두고
+// (레포에 쓰지 않음, 운영진 문서 크로싱서울_멘토링크 기준), 화면에서 한국어는 "OOO 멘토님"으로 부릅니다. 아직 자리 이름("멘토 01")이면 붙이지 않습니다.
+export const mentorTitle = (name: string, locale: string): string =>
+  locale === "ko" && !name.startsWith("멘토") ? `${name} 멘토님` : name;
+
 // 멘토 페이지(/crossing/mentor?k=)의 글(2026-10-26). 멘토가 찾아올 팀과 그 팀의 1장을 미리 봅니다.
 export const mentorCopy = {
   title: { ko: "멘토 페이지", en: "Mentor page" },
@@ -113,8 +118,9 @@ export const mentorCopy = {
   day: { ko: "Day", en: "Day" },
   // DECIDED 2026-11-02 (사용자: "팀이 없습니다 이런식으로 말고 뭔가 좀 더 visual"): 빈 날도 그 멘토의 칸 띠를 그리고, 아래 한 줄로 무엇이 뜰지 말합니다.
   empty: { ko: "팀이 칸을 넣으면 그 시간에 팀 이름이 뜨고, 아래에 그 팀의 파일이 붙습니다.", en: "When a team books a slot, its name appears at that hour and its files show up below." },
-  // 2026-11-03 (사용자): 멘토는 Day 2, 3 중 하루의 반나절만 맡습니다. 맡지 않은 날에 이 한 줄이 뜹니다.
-  offDay: { ko: "이날은 맡지 않습니다.", en: "You are not on this day." },
+  // DECIDED 2026-11-03 (사용자: "본인이 맡지 않는 날은 그냥 없애는 걸로"): 맡지 않은 날은 구획째 그리지 않습니다.
+  // 이 한 줄은 맡은 날이 하나도 없을 때(보류, 예비 자리)만 뜹니다.
+  offDay: { ko: "아직 맡은 날이 없습니다.", en: "No day assigned to you yet." },
   openSlot: { ko: "빈 칸", en: "Open" },
   slotCount: { ko: "{n}칸 중 {b}팀", en: "{b} of {n} slots booked" },
   // 2026-10-26: 팀이 올린 PDF를 날마다 하나씩(Day 1 1장, Day 2 고친 1장, Day 3 발표 자료). 인증 사진은 내보내지 않습니다.

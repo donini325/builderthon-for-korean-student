@@ -15,14 +15,14 @@ import { useCallback, useEffect, useState } from "react";
 import { useLocale } from "@/lib/LocaleContext";
 import { BODY, META, SUBTITLE } from "@/components/ui/typography";
 import ToolHeader from "@/components/crossing/ToolHeader";
-import { mentorCopy as c } from "@/data/crossingTeam";
+import { mentorCopy as c, mentorTitle } from "@/data/crossingTeam";
 import { OPS_DAYS, dayDate, fmtKst, trackTint, type Track } from "@/lib/crossingOps";
 
 type Row = { id: string; day: number; team: string; track: string; startsAt: string; endsAt: string; files: { day: number; url: string }[] };
 type Data = { mentor: { name: string; field: string | null }; tracks: Track[]; slots?: Record<string, string[]>; bookings: Row[] };
 
 export default function MentorTool() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [data, setData] = useState<Data | null>(null);
   const [err, setErr] = useState<"bad" | "generic" | null>(null);
 
@@ -68,7 +68,7 @@ export default function MentorTool() {
       <div className="mx-auto flex max-w-3xl flex-col gap-[32px]">
         <div className="flex flex-col gap-[6px]">
           <p className={`${META} font-semibold text-naru-muted`}>{t(c.title)}</p>
-          {data && <h1 className={`${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>{data.mentor.name}{data.mentor.field && <span className={`ml-2 ${META} font-normal text-naru-muted`}>{data.mentor.field}</span>}</h1>}
+          {data && <h1 className={`${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>{mentorTitle(data.mentor.name, locale)}{data.mentor.field && <span className={`ml-2 ${META} font-normal text-naru-muted`}>{data.mentor.field}</span>}</h1>}
           {!data && <h1 className={`${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>{t(c.title)}</h1>}
         </div>
         {err === "bad" && <p role="alert" className={`card-sunken rounded-xl px-[16px] py-[14px] ${BODY} text-white`}>{t(c.badLink)}</p>}
@@ -77,9 +77,12 @@ export default function MentorTool() {
         {data && (
           <>
             <p className={`${BODY} leading-relaxed text-naru-muted`}>{t(c.lead)} <span className={`${META} text-naru-muted/80`}>{t(c.refresh)}</span></p>
+            {/* DECIDED 2026-11-03 (사용자: "본인이 맡지 않는 날은 그냥 없애는 걸로"): 칸도 팀도 없는 날은 구획째 뺍니다. */}
+            {!OPS_DAYS.some((d) => (data.slots?.[String(d)] ?? []).length || data.bookings.some((b) => b.day === d)) && <p className={`${META} text-naru-muted`}>{t(c.offDay)}</p>}
             {OPS_DAYS.map((d) => {
               const rows = data.bookings.filter((b) => b.day === d);
               const slots = data.slots?.[String(d)] ?? [];
+              if (!slots.length && !rows.length) return null;
               return (
                 <section key={d} aria-labelledby={`mentor-day-${d}`} className="flex flex-col gap-[12px]">
                   <h2 id={`mentor-day-${d}`} className={`flex items-baseline gap-[10px] ${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>
@@ -107,8 +110,7 @@ export default function MentorTool() {
                       })}
                     </ol>
                   )}
-                  {/* 2026-11-03: 멘토는 하루의 반나절만 맡습니다. 맡지 않은 날은 칸도 팀도 없어 그렇게 말합니다. */}
-                  {!rows.length && <p className={`${META} text-naru-muted`}>{t(slots.length ? c.empty : c.offDay)}</p>}
+                  {!rows.length && <p className={`${META} text-naru-muted`}>{t(c.empty)}</p>}
                   {rows.map((b) => {
                     const tint = trackTint(trackOf(b.track)?.color);
                     const tr = trackOf(b.track);

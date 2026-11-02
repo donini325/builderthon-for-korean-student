@@ -16,7 +16,7 @@ import { useLocale } from "@/lib/LocaleContext";
 import { BODY, META, SUBTITLE } from "@/components/ui/typography";
 import { buttonClass } from "@/components/ui/Button";
 import LocaleToggle from "@/components/LocaleToggle";
-import { teamCopy as c, timetableRules } from "@/data/crossingTeam";
+import { teamCopy as c, timetableRules, mentorTitle } from "@/data/crossingTeam";
 import {
   BUFFER_MINUTES, bookingGate, isPhoneUA, kstTime, BOOKING_OPENS_DAY, BOOKING_OPENS_AT, teamHasPending, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, slotStarts, trackTint,
   type ProofDay, type ProofKind, type Track, type Window,
@@ -35,7 +35,7 @@ const load = (k: string) => { try { return localStorage.getItem(k) ?? ""; } catc
 const save = (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* 저장 못 해도 화면은 돕니다 */ } };
 
 export default function TeamTool() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [day, setDay] = useState<ProofDay>(2);
   const [teams, setTeams] = useState<string[]>([]);
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -246,7 +246,7 @@ export default function TeamTool() {
                     <th className={`sticky left-0 z-10 bg-naru-surface-2 px-3 py-3 text-left ${META} font-semibold text-naru-muted`}>{t(c.time)}</th>
                     {mentors!.map((m) => (
                       <th key={m.id} className="min-w-[120px] border-l border-white/5 px-2 py-3 text-left align-bottom">
-                        <span className={`block ${META} font-semibold text-white`}>{m.name}</span>
+                        <span className={`block ${META} font-semibold text-white`}>{mentorTitle(m.name, locale)}</span>
                         {m.field && <span className={`block ${META} font-normal text-naru-muted`}>{m.field}</span>}
                       </th>
                     ))}
