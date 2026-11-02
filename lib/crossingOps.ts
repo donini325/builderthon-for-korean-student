@@ -5,6 +5,7 @@
 // DECIDED 2026-10-17 (사용자): 멘토링은 예약제이고, 예약 하나가 그 앞뒤 10분을 막습니다(같은 날 15분에서 10분으로).
 // DECIDED 2026-10-17 (사용자: "10분씩 보여주니까 너무 정신이 없음, 30분 간격으로, 어짜피 앞뒤 10분하면 1시간"): 줄은 30분이었습니다.
 // DECIDED 2026-11-02 (사용자): 칸은 정각에만 시작하고 줄은 한 시간입니다(GRID_MINUTES). 칸 하나(40분)가 한 줄입니다.
+// DECIDED 2026-11-03 (사용자): 멘토 한 분은 Day 2 또는 Day 3 중 하루의 반나절(오전 10:00~13:00 또는 오후 14:00~17:00)만 맡습니다(마이그레이션 0017). 13:00~14:00은 점심이라 칸이 없습니다.
 // 막는 규칙의 정본은 DB의 exclude 제약입니다. 여기의 계산은 화면에 칸을 그리고 미리 거절하는 용도이고,
 // BUFFER_MINUTES를 바꾸면 마이그레이션 0008의 crossing_plus_minutes(ends_at, 10)도 같이 바꿔야 합니다.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -36,11 +37,6 @@ export const TEAM_COOLDOWN_MINUTES = 120;
  */
 export const teamHasPending = (teamBookingsThatDay: Booking[], now = Date.now()): boolean =>
   teamBookingsThatDay.some((b) => Date.parse(b.startsAt) + GRID_MINUTES * MIN > now);
-/**
- * 멘토가 받는 시간을 표에 적지 않았을 때 쓰는 기본값(한국 시간). TODO: confirm.
- * DECIDED 2026-10-17 (사용자: "지금은 tentative 한거니까 availability를 오전 10시부터 오후 10시로").
- */
-export const DEFAULT_WINDOW = { start: "10:00", end: "22:00" } as const;
 /**
  * 홈의 Day 2, Day 3 카드 버튼이 눌리는지. false면 버튼이 보이되 잠겨 있습니다.
  * DECIDED 2026-10-17 (사용자: "production에도 열어줘, 그런데 당장은 이용자들이 바로면 안되서, 일단 button은 disable").
@@ -141,10 +137,10 @@ export function toWindow(day: number, start: string, end: string): Window | null
   const a = kstTime(day, String(start).slice(0, 5)), b = kstTime(day, String(end).slice(0, 5));
   return a && b && b > a ? { startsAt: a.toISOString(), endsAt: b.toISOString() } : null;
 }
-// 그 날 적힌 시간이 없으면 기본값(10:00~22:00, 임시)으로 봅니다(2026-10-17 사용자).
+// DECIDED 2026-11-03 (사용자): 멘토는 맡은 날의 반나절(10:00~13:00 또는 14:00~17:00)만 받습니다(마이그레이션 0017).
+// 그날 행이 없으면 그날은 맡지 않는 것이라 칸이 없습니다. 그 전(2026-10-17)에는 임시 기본값 10:00~22:00으로 채웠습니다.
 export function windowsFor(day: number, rows: { start_time: string; end_time: string }[]): Window[] {
-  const ws = rows.map((w) => toWindow(day, w.start_time, w.end_time)).filter((w): w is Window => !!w);
-  return ws.length ? ws : [toWindow(day, DEFAULT_WINDOW.start, DEFAULT_WINDOW.end)!];
+  return rows.map((w) => toWindow(day, w.start_time, w.end_time)).filter((w): w is Window => !!w);
 }
 
 /** t 이상인 첫 칸 경계(GRID_MINUTES의 배수, 정각). KST는 UTC+9 정수 시간이라 UTC 기준으로 나눠도 한국 정각입니다. */
@@ -174,12 +170,13 @@ export function fitsWindow(t: number, windows: Window[]): boolean {
  * and day 3, 그리고 시간이 지나면 그 지나간 시간은 block. do the same for the day 3"):
  * - Day 1(12.18) 12:00 KST부터 Day 2, 3 칸을 함께 넣을 수 있습니다. 그 전에는 닫혀 있습니다.
  *   (같은 날 사용자: "Day 1(12.18) 에는 12시 부터 열어줘". 그 전 00:00.)
- * - 그날이 되면 그날의 칸은 SAME_DAY_FROM(13:00) 이후만 넣습니다. 오전 칸은 전날까지 넣어야 멘토가 1장을 미리 봅니다.
+ * - 그날이 되면 그날의 칸은 SAME_DAY_FROM 이후만 넣습니다.
  * - 지난 시간은 막힙니다(slotState의 past, 서버의 past).
  */
 export const BOOKING_OPENS_DAY = 1;
 export const BOOKING_OPENS_AT = "12:00";
-export const SAME_DAY_FROM = "13:00";
+// DECIDED 2026-11-03 (사용자): 당일에는 오후 칸(14:00부터)만. 오전 칸은 전날까지 넣어야 멘토가 1장을 미리 봅니다(그 전 13:00).
+export const SAME_DAY_FROM = "14:00";
 export type BookingGate = "ok" | "not_yet" | "same_day_morning";
 export function bookingGate(day: number, t: number, now = Date.now()): BookingGate {
   if (now < kstTime(BOOKING_OPENS_DAY, BOOKING_OPENS_AT)!.getTime()) return "not_yet";

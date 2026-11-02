@@ -107,7 +107,8 @@ export default function MentorTool() {
                       })}
                     </ol>
                   )}
-                  {!rows.length && <p className={`${META} text-naru-muted`}>{t(c.empty)}</p>}
+                  {/* 2026-11-03: 멘토는 하루의 반나절만 맡습니다. 맡지 않은 날은 칸도 팀도 없어 그렇게 말합니다. */}
+                  {!rows.length && <p className={`${META} text-naru-muted`}>{t(slots.length ? c.empty : c.offDay)}</p>}
                   {rows.map((b) => {
                     const tint = trackTint(trackOf(b.track)?.color);
                     const tr = trackOf(b.track);

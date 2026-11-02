@@ -18,7 +18,7 @@ import { buttonClass } from "@/components/ui/Button";
 import LocaleToggle from "@/components/LocaleToggle";
 import { teamCopy as c, timetableRules } from "@/data/crossingTeam";
 import {
-  BUFFER_MINUTES, GRID_MINUTES, gridCeil, bookingGate, isPhoneUA, kstTime, BOOKING_OPENS_DAY, BOOKING_OPENS_AT, teamHasPending, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, trackTint,
+  BUFFER_MINUTES, bookingGate, isPhoneUA, kstTime, BOOKING_OPENS_DAY, BOOKING_OPENS_AT, teamHasPending, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, slotStarts, trackTint,
   type ProofDay, type ProofKind, type Track, type Window,
 } from "@/lib/crossingOps";
 
@@ -73,15 +73,8 @@ export default function TeamTool() {
   // 다른 팀이 넣은 칸이 보이도록 20초마다 다시 읽습니다.
   useEffect(() => { const id = setInterval(refresh, 20_000); return () => clearInterval(id); }, [refresh]);
 
-  const rows = useMemo(() => {
-    const ws = (mentors ?? []).flatMap((m) => m.windows);
-    if (!ws.length) return [];
-    // 2026-11-02: 줄은 정각부터 한 시간씩(칸이 정각에만 시작하므로).
-    const a = gridCeil(Math.min(...ws.map((w) => Date.parse(w.startsAt)))), b = Math.max(...ws.map((w) => Date.parse(w.endsAt)));
-    const out: number[] = [];
-    for (let x = a; x < b; x += GRID_MINUTES * MIN) out.push(x);
-    return out;
-  }, [mentors]);
+  // DECIDED 2026-11-03 (사용자): 줄은 멘토들의 칸 시작 시각을 모은 것입니다(정각, 2026-11-02). 반나절 구간 사이의 점심(13:00) 줄은 생기지 않습니다.
+  const rows = useMemo(() => [...new Set((mentors ?? []).flatMap((m) => slotStarts(m.windows)))].sort((a, b) => a - b), [mentors]);
 
   // DECIDED 2026-10-17 (사용자: "팀 선택을 해야 업로드나 시간표에 슬롯 넣는 것이 풀리는 걸로"): 목록에 있는 팀을 골라야
   // 인증 올리기와 칸 넣기가 풀립니다. 그 전에는 두 영역이 보이되 잠겨 있습니다.
@@ -103,9 +96,9 @@ export default function TeamTool() {
   };
 
   const cell = (m: Mentor, r: number) => {
-    const inWin = m.windows.some((w) => Date.parse(w.startsAt) <= r && r < Date.parse(w.endsAt));
-    if (!inWin) return <td key={m.id} className="border-l border-white/5 bg-naru-ink/60" />;
     const b = m.bookings.find((x) => Date.parse(x.startsAt) <= r && r < Date.parse(x.endsAt));
+    // 2026-11-03: 그 멘토가 받지 않는 시간(다른 반나절)은 "지남"보다 먼저 빈칸으로 끝냅니다.
+    if (!b && !fitsWindow(r, m.windows)) return <td key={m.id} className="border-l border-white/5 bg-naru-ink/60" />;
     if (b) {
       // DECIDED 2026-10-18 (사용자: "두개의 상자 불편함. 하나의 상자면 좋겠음"): 40분 칸이 30분 줄 둘에 걸쳐도
       // 첫 줄의 칸이 그 줄들을 합쳐(rowSpan) 상자 하나로 그립니다. 뒤 줄에는 칸을 그리지 않습니다.
@@ -139,7 +132,7 @@ export default function TeamTool() {
     if (r < Date.now()) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.035)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/40`}>{t(c.past)}</td>;
     const free = fitsWindow(r, m.windows) && slotState(r, m.bookings, []) === "open";
     const full = teamHasPending(mine); // 2026-11-02: 이 날 넣은 칸이 끝나기 전에는 다음 칸을 열지 않습니다
-    // 2026-10-26: Day 1 전에는 닫혀 있고, 그날에는 13:00 전 칸이 닫힙니다(bookingGate). 닫힌 칸도 흐린 "+"로 보입니다.
+    // 2026-10-26: Day 1 전에는 닫혀 있고, 그날에는 14:00 전 칸이 닫힙니다(bookingGate, 2026-11-03). 닫힌 칸도 흐린 "+"로 보입니다.
     const gated = bookingGate(day, r) !== "ok";
     const ok = !phone && !timetableLocked && !gated && !!picked && !full && free && slotState(r, m.bookings, mine) === "open";
     const asking = pending?.m === m.id && pending.r === r;
@@ -242,7 +235,7 @@ export default function TeamTool() {
             </div>
           )}
 
-          {mentors && !rows.length && <p className={`${BODY} text-naru-muted`}>{t(c.noMentors)}</p>}
+          {mentors && !rows.length && !timetableLocked && <p className={`${BODY} text-naru-muted`}>{t(c.noMentors)}</p>}
           {/* 2026-10-23 (모바일 점검): 폰에서 표가 옆으로 굴러간다는 한 줄과 오른쪽 끝 페이드. */}
           {!!rows.length && <p className={`${META} text-naru-muted sm:hidden`}>{t(c.swipeHint)}</p>}
           {!!rows.length && (
