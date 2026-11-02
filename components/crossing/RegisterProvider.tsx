@@ -15,9 +15,15 @@ import { CURRENT_EVENT, registrationState, type RegistrationState } from "@/lib/
 
 export const CROSSING_REGISTERED_KEY = `naru.register.${CURRENT_EVENT}.done`;
 
+/** 완료 화면이 되비치는 보낸 값(이 기기에만). DECIDED 2026-11-02 (docs/register-ux-brief.md O1, O2): done 키는 그 전에 "1"만 쓰고
+ *  읽는 곳이 없었습니다. 이제 보낸 이름, 카카오톡 ID, 이메일을 담아, 새로고침 뒤에도 버튼이 "등록했습니다"이고 완료 화면이 같은 값으로 열립니다.
+ *  예전 값("1")은 등록한 것으로 보되 되비칠 값은 비웁니다. */
+export type RegisteredEcho = { name: string; contact: string; email: string };
+
 interface Value {
   openRegister: () => void;
   registered: boolean;
+  echo: RegisteredEcho | null;
   registerOpen: boolean;
   state: RegistrationState;
 }
@@ -37,6 +43,7 @@ export function useCrossingRegisterOptional(): Value | null {
 export function CrossingRegisterProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [registered, setRegistered] = useState(false);
+  const [echo, setEcho] = useState<RegisteredEcho | null>(null);
   const [state, setState] = useState<RegistrationState>("not_open");
   const [ref, setRef] = useState<string | null>(null);
 
@@ -44,7 +51,14 @@ export function CrossingRegisterProvider({ children }: { children: React.ReactNo
     const s = registrationState(CURRENT_EVENT);
     setState(s);
     try {
-      if (window.localStorage.getItem(CROSSING_REGISTERED_KEY)) setRegistered(true);
+      const done = window.localStorage.getItem(CROSSING_REGISTERED_KEY);
+      if (done) {
+        setRegistered(true);
+        try {
+          const e = JSON.parse(done) as Partial<RegisteredEcho>;
+          if (e && typeof e === "object" && typeof e.email === "string") setEcho({ name: String(e.name ?? ""), contact: String(e.contact ?? ""), email: e.email });
+        } catch { /* 예전 값 "1" */ }
+      }
     } catch { /* storage blocked */ }
     const params = new URLSearchParams(window.location.search);
     const r = params.get("ref");
@@ -66,7 +80,7 @@ export function CrossingRegisterProvider({ children }: { children: React.ReactNo
   }, []);
 
   return (
-    <Ctx.Provider value={{ openRegister, registered, registerOpen: open, state }}>
+    <Ctx.Provider value={{ openRegister, registered, echo, registerOpen: open, state }}>
       {children}
       <RegisterModal
         open={open}
@@ -74,9 +88,10 @@ export function CrossingRegisterProvider({ children }: { children: React.ReactNo
         refSource={ref}
         preview={state !== "open"}
         closed={state === "closed"}
-        onRegistered={() => {
-          setRegistered(true);
-          try { window.localStorage.setItem(CROSSING_REGISTERED_KEY, "1"); } catch { /* ignore */ }
+        registeredEcho={registered ? echo ?? { name: "", contact: "", email: "" } : null}
+        onRegistered={(e) => {
+          setRegistered(true); setEcho(e);
+          try { window.localStorage.setItem(CROSSING_REGISTERED_KEY, JSON.stringify(e)); } catch { /* ignore */ }
         }}
       />
     </Ctx.Provider>

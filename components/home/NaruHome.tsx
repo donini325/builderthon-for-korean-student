@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { useLocale } from "@/lib/LocaleContext";
-import { naru, naruLinks, openChatLabels, register as registerCopy, registerNoteShort, decemberPartners, type RecordPhoto } from "@/data/naru";
+import { naru, naruLinks, openChatLabels, register as registerCopy, registerNoteShort, registerNoteOpen, decemberPartners, type RecordPhoto } from "@/data/naru";
 import { useCrossingRegisterOptional } from "@/components/crossing/RegisterProvider";
 import { links, type Phrase } from "@/data/dictionaryCore";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -1049,8 +1049,9 @@ export default function NaruHome() {
                 폰은 한 칸이고 "프로그램 보기"는 전처럼 폰에서 숨깁니다. */}
             <div className={`mx-auto mt-10 grid w-fit max-w-full lg:mx-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
               {regState === "open" ? (
-                <button type="button" onClick={() => { track("naru_cta", { src: "hero", to: "register" }); reg?.openRegister(); }} className={`group ${buttonClass("primary", "naru")}`}>
-                  {t(registerCopy.cta)}
+                // DECIDED 2026-11-02 (docs/register-ux-brief.md O1, D4): 이 기기에서 등록했으면 "등록했습니다"(유령 필). 누르면 완료 화면이 다시 열립니다.
+                <button type="button" onClick={() => { track("naru_cta", { src: "hero", to: reg?.registered ? "registered" : "register" }); reg?.openRegister(); }} className={`group ${reg?.registered ? `${buttonClass("secondary")} ${HERO_BUTTON_GROUND}` : buttonClass("primary", "naru")}`}>
+                  {t(reg?.registered ? registerCopy.registered : registerCopy.cta)}
                   <span aria-hidden className={ARROW_CLASS}>→</span>
                 </button>
               ) : regState === "closed" ? (
@@ -1082,8 +1083,9 @@ export default function NaruHome() {
             </div>
             {/* DECIDED 2026-10-12 (등록 브리프 1.2, 리뷰 S1 S3): 언제 열리는지, 혼자 등록해도 되는지, 전공과 코딩 경험이 조건인지가
                 첫 화면 안에서 답해집니다. DECIDED 2026-10-13 (사용자: "너무 길어"): 한 줄(registerNoteShort)입니다. 전부는 모달에(2026-10-13부터 등록 블록은 스크리닝 한 줄만). */}
-            {regState === "not_open" && (
-              <p id="hero-register-note" className={`mt-3 text-balance break-keep ${META} leading-snug text-white/85`}>{t(registerNoteShort)}</p>
+            {/* DECIDED 2026-11-02 (브리프 O3): 열리면 여는 때만 빠지고 혼자 등록과 조건 없음은 같은 자리에 남습니다(registerNoteOpen). */}
+            {regState !== "closed" && (
+              <p id="hero-register-note" className={`mt-3 text-balance break-keep ${META} leading-snug text-white/85`}>{t(regState === "open" ? registerNoteOpen : registerNoteShort)}</p>
             )}
           </div>
           {/* 오른쪽 단 = 8월 행사 사진 넷 (DECIDED 2026-09-17, 사용자). 8월 히어로의
@@ -1347,10 +1349,11 @@ export default function NaruHome() {
         {regState === "not_open" && (
           <p className={`mt-[8px] break-keep text-center ${META} text-caption`}>{t(naru.december.opensLine)}</p>
         )}
-        <div className="mt-[24px] flex flex-col items-center gap-[13.5px] max-sm:[&>*]:w-full sm:mt-[32px] sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-[18px]">
+        {/* DECIDED 2026-11-02 (브리프 R5): 버튼 줄도 히어로처럼 격자입니다. 두 버튼이 같은 폭(그 전 242px과 181px). */}
+        <div className={`mx-auto mt-[24px] grid w-fit max-w-full grid-cols-1 gap-[13.5px] max-sm:w-full sm:mt-[32px] sm:gap-[18px] [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal ${regState === "not_open" ? "sm:grid-cols-2" : ""}`}>
           {regState === "open" ? (
-            <button type="button" onClick={() => { track("naru_cta", { src: "december", to: "register" }); reg?.openRegister(); }} className={`group ${buttonClass("primary", "naru")}`}>
-              {t(registerCopy.cta)}
+            <button type="button" onClick={() => { track("naru_cta", { src: "december", to: reg?.registered ? "registered" : "register" }); reg?.openRegister(); }} className={`group ${reg?.registered ? buttonClass("secondary") : buttonClass("primary", "naru")}`}>
+              {t(reg?.registered ? registerCopy.registered : registerCopy.cta)}
               <span aria-hidden className={ARROW_CLASS}>→</span>
             </button>
           ) : regState === "not_open" ? (
@@ -1365,8 +1368,9 @@ export default function NaruHome() {
           ) : null}
         </div>
         {regState === "not_open" && links.openChat && (
-          // 2026-10-26: 휴대폰 안내라 lg부터는 그리지 않습니다(PC 글 양 줄이기).
-          <p id="december-chat-note" className={`mt-[13.5px] break-keep ${META} leading-snug text-caption lg:hidden`}>{t(openChatLabels.phoneHint)}</p>
+          // DECIDED 2026-11-02 (브리프 O5, D6 뒤집음): 카카오톡 설치 안내가 뜨는 쪽은 데스크톱이라 이 줄은 lg부터만 그립니다.
+          // 그 전 2026-10-26: 휴대폰 안내라 lg부터는 그리지 않았습니다(PC 글 양 줄이기).
+          <p id="december-chat-note" className={`mt-[13.5px] hidden break-keep ${META} leading-snug text-caption lg:block`}>{t(openChatLabels.phoneHint)}</p>
         )}
         {/* DECIDED 2026-10-12 (등록 브리프 1.3, 리뷰 S8): 출제사와 후원 문의는 버튼에서 텍스트 링크로 내려갑니다. 학생이 누를 문이
             아니라서 버튼 줄 밖, 한 단 아래에 섭니다. mailto는 그대로입니다. 2026-09-19(모바일 감사 16)에 유령 필로 올렸던 것은

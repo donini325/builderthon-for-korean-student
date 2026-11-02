@@ -33,6 +33,7 @@ import { useBodyScrollLock } from "@/lib/useBodyScrollLock";
 import { CURRENT_EVENT } from "@/lib/registrationWindow";
 import TurnstileWidget from "@/components/crossing/TurnstileWidget";
 import MatchTeaser from "@/components/crossing/MatchTeaser";
+import type { RegisteredEcho } from "@/components/crossing/RegisterProvider";
 import { TURNSTILE_ACTION } from "@/lib/register/turnstileAction";
 import { naruLinks, openChatLabels, register as copy } from "@/data/naru";
 import { links, type Phrase } from "@/data/dictionaryCore";
@@ -57,6 +58,11 @@ const LARGE = "text-base";
 // 포커스는 블루 테두리. 그 전: 52px, 흰 45% 테두리, 흰 4% 면. 미리 보기 안내는 호박색 대신 블루 틴트 면(card-tint).
 const FIELD = `min-h-[44px] w-full rounded-lg border border-white/10 bg-naru-surface-2 px-[14px] py-[10px] ${LARGE} text-white placeholder:text-naru-muted/70 transition-colors focus:border-accent/60 focus:outline-none`;
 const PRIMARY = `${buttonClass("primary", "naru")} justify-center disabled:opacity-60 disabled:hover:translate-y-0`;
+// DECIDED 2026-11-02 (docs/register-ux-brief.md R2): 선택 칸(공부하는 나라)이 appearance-none이라 글 칸과 같은 모양이었고, 나라를 자판으로
+// 적으려는 사람이 있었습니다. 오른쪽에 ∨ 하나. 색은 naru-muted(#A3A3B0, docs/brand.md 10장 보조 글자)와 같습니다.
+const SELECT_ARROW = `appearance-none bg-[url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23A3A3B0'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M6%209l6%206%206-6'/%3E%3C/svg%3E")] bg-[length:16px_16px] bg-[position:right_14px_center] bg-no-repeat pr-[40px]`;
+// 보안 확인 토큰을 기다리는 시간(브리프 O4). 넘으면 그 전의 "잠시 기다려 주세요" 문구를 보여 줍니다.
+const BOT_WAIT_MS = 20_000;
 
 type Answers = Record<string, string | boolean>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -64,8 +70,10 @@ type Status = "idle" | "submitting" | "success" | "error";
 // preview (2026-10-08): 등록 창이 열리기 전의 미리 보기. 폼은 그대로 보이고 채울 수도 있지만 제출 버튼이 꺼져 있고
 // 요청을 보내지 않습니다. 서버도 창이 열리기 전에는 403입니다.
 // closed: 폼이 열린 채로 마감 시각을 넘긴 경우. 안내가 "아직 열리지 않았습니다"가 아니라 "마감됐습니다"여야 합니다.
-export default function RegisterModal({ open, onClose, onRegistered, refSource, preview = false, closed = false }: {
-  open: boolean; onClose: () => void; onRegistered: () => void; refSource: string | null; preview?: boolean; closed?: boolean;
+// registeredEcho (2026-11-02, 브리프 O1): 이 기기에서 이미 등록했으면 그 보낸 값. 있으면 열 때 완료 화면으로 엽니다.
+export default function RegisterModal({ open, onClose, onRegistered, refSource, preview = false, closed = false, registeredEcho = null }: {
+  open: boolean; onClose: () => void; onRegistered: (echo: RegisteredEcho) => void; refSource: string | null; preview?: boolean; closed?: boolean;
+  registeredEcho?: RegisteredEcho | null;
 }) {
   const { t, locale } = useLocale();
   const reduce = useReducedMotion();
@@ -75,7 +83,11 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
   const [status, setStatus] = useState<Status>("idle");
   const [errorCode, setErrorCode] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [sentEmail, setSentEmail] = useState("");
+  const [echo, setEcho] = useState<RegisteredEcho | null>(null);
+  // "다른 사람으로 등록"을 누른 뒤에는 다시 열어도 완료 화면이 아니라 폼입니다(다음 완료까지).
+  const [another, setAnother] = useState(false);
+  // 보낼 준비가 됐는데 보안 확인 토큰만 없을 때(브리프 O4). 토큰이 오면 같은 제출을 이어 보냅니다.
+  const [waitingBot, setWaitingBot] = useState(false);
   // 봇 확인(Cloudflare Turnstile, 2026-09-23). 사이트 키가 없으면(로컬) 위젯을 그리지 않고,
   // 서버도 개발 빌드에서는 확인을 건너뜁니다. 토큰은 한 번 쓰면 끝이라 보낸 뒤 실패하면 새로 받습니다.
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
@@ -122,13 +134,17 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
   //   닫을 때 봇 토큰을 버립니다(다시 열면 위젯이 새 토큰을 받습니다). 남아 있던 서버 오류 문구도 지웁니다.
   useEffect(() => {
     if (open) {
+      // DECIDED 2026-11-02 (브리프 O1, D4): 이 기기에서 등록했으면 완료 화면으로 엽니다. 버튼이 "등록했습니다"이고, 오픈채팅과 테스트와 문의가 그 화면에 있습니다.
+      if (registeredEcho && !preview && !another) { setEcho(registeredEcho); setStatus("success"); return; }
       if (statusRef.current === "success") {
-        setPerson({}); setReg({}); setErrors({}); setTouched(false); setSentEmail(""); setStatus("idle");
+        setPerson({}); setReg({}); setErrors({}); setTouched(false); setEcho(null); setStatus("idle");
       }
       return;
     }
-    setBotToken(null); setBotFailed(false); setErrorCode(null);
+    setBotToken(null); setBotFailed(false); setErrorCode(null); setWaitingBot(false);
     setStatus((s) => (s === "error" ? "idle" : s));
+    // registeredEcho, preview, another는 여는 순간의 값만 봅니다. 열린 채로 바뀌어도 화면을 갈아 끼우지 않습니다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   // 열림/닫힘 수명 주기: ESC, Tab 가두기, 뒤 페이지 inert, 닫으면 연 자리로 포커스 복원.
@@ -200,7 +216,17 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
       });
       return;
     }
-    if (turnstileSiteKey && !botToken) { setStatus("error"); setErrorCode(botFailed ? "bot_check_load_failed" : "bot_check_pending"); return; }
+    if (turnstileSiteKey && !botToken) {
+      // DECIDED 2026-11-02 (브리프 O4): 그 전에는 "보안 확인이 끝날 때까지 잠시 기다려 주세요"를 띄우고 다시 누르게 했습니다.
+      // 이제 라벨이 "보안 확인 중"으로 바뀌고, 토큰이 오는 순간 아래 effect가 같은 제출을 보냅니다. 위젯이 실패했으면 그 문구를 바로.
+      if (botFailed) { setStatus("error"); setErrorCode("bot_check_load_failed"); return; }
+      setWaitingBot(true);
+      return;
+    }
+    await send();
+  };
+
+  const send = async () => {
     setStatus("submitting");
     // 서버로 보내는 꼴. 한 폼에 한 사람이라 members는 늘 하나입니다. 나라가 목록에 있으면 나라 이름 칸은 보내지 않습니다.
     const member: Answers = { ...person };
@@ -221,15 +247,34 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
       });
       const data = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) { setStatus("error"); setErrorCode(data.error ?? "generic"); setBotToken(null); setBotReset((n) => n + 1); return; }
-      setSentEmail(email);
+      // 되비침은 서버 응답이 아니라 보낸 값 그대로입니다(브리프 O2, 5장 4).
+      const sent: RegisteredEcho = { name: String(person.name ?? "").trim(), contact: String(person.contact ?? "").trim(), email };
+      setEcho(sent); setAnother(false);
       setStatus("success");
       try { window.localStorage.removeItem(DRAFT_KEY); } catch { /* ignore */ }
-      onRegistered();
+      onRegistered(sent);
     } catch {
       setStatus("error"); setErrorCode("generic"); setBotToken(null); setBotReset((n) => n + 1);
     } finally {
       window.clearTimeout(timer);
     }
+  };
+
+  // 토큰을 기다리는 동안: 오면 이어 보내고, 위젯이 실패하거나 20초가 지나면 그 전의 문구로 알립니다.
+  useEffect(() => {
+    if (!waitingBot) return;
+    if (botToken) { setWaitingBot(false); void send(); return; }
+    if (botFailed) { setWaitingBot(false); setStatus("error"); setErrorCode("bot_check_load_failed"); return; }
+    const id = window.setTimeout(() => { setWaitingBot(false); setStatus("error"); setErrorCode("bot_check_pending"); }, BOT_WAIT_MS);
+    return () => window.clearTimeout(id);
+    // send는 렌더마다 새로 만들어지고 그때의 입력값을 읽습니다. 토큰과 실패 표시가 바뀔 때만 다시 봅니다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [waitingBot, botToken, botFailed]);
+
+  // "다른 사람으로 등록"(브리프 O1): 같은 기기에서 친구를 등록합니다. 빈 폼으로, 보안 확인도 새로.
+  const registerAnother = () => {
+    setPerson({}); setReg({}); setErrors({}); setTouched(false); setErrorCode(null); setEcho(null);
+    setAnother(true); setStatus("idle"); setBotToken(null); setBotReset((n) => n + 1);
   };
 
   const maxOf = (f: Field) => f.maxLen ?? (f.type === "textarea" ? MAX_TEXTAREA : MAX_TEXT);
@@ -301,7 +346,7 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
         {f.type === "textarea" ? (
           <textarea {...common} value={String(value ?? "")} maxLength={max} rows={3} onChange={(e) => set(e.target.value)} className={FIELD} />
         ) : f.type === "select" || f.type === "country" ? (
-          <select {...common} value={String(value ?? "")} onChange={(e) => set(e.target.value)} className={`${FIELD} appearance-none`}>
+          <select {...common} value={String(value ?? "")} onChange={(e) => set(e.target.value)} className={`${FIELD} ${SELECT_ARROW}`}>
             <option value="">{t(copy.selectPlaceholder)}</option>
             {(f.options ?? []).map((o) => <option key={o.value} value={o.value}>{t(o.label)}</option>)}
           </select>
@@ -352,25 +397,39 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
                     <svg aria-hidden width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="text-accent"><path d="M4 12.5l5 5L20 6.5" /></svg>
                   </span>
                   <h3 ref={successRef} tabIndex={-1} id="crossing-register-title" className={`mt-6 ${LARGE} font-bold leading-tight text-white focus:outline-none`}>{t(copy.successTitle)}</h3>
-                  <p className={`mx-auto mt-3 max-w-sm break-keep ${BODY} leading-relaxed text-naru-muted`}>{t(copy.successBody).replace("{email}", sentEmail)}</p>
+                  {/* DECIDED 2026-11-02 (브리프 O2): 보낸 이름, 카카오톡 ID, 이메일을 그대로 되비칩니다. 오타를 잡을 곳이 이 화면 하나입니다.
+                      예전 done 값("1")으로 열려 되비칠 값이 없으면 그리지 않습니다. 아래 한 줄은 고치는 길과 다시 보냈을 때 일어나는 일(O1). */}
+                  {echo?.email && (
+                    <p id="crossing-register-echo" className={`mx-auto mt-3 max-w-sm break-keep ${BODY} leading-relaxed text-white/85`}>
+                      {t(copy.successEcho).replace("{name}", echo.name).replace("{contact}", echo.contact).replace("{email}", echo.email)}
+                    </p>
+                  )}
+                  <p className={`mx-auto mt-2 max-w-sm break-keep ${META} leading-relaxed text-naru-muted`}>{t(copy.successResend)}</p>
+                  <p className={`mx-auto mt-3 max-w-sm break-keep ${BODY} leading-relaxed text-naru-muted`}>{t(copy.successBody)}</p>
                   {/* DECIDED 2026-10-15 (사용자): 소식은 오픈채팅으로만 나가므로, 이 화면에서 그 방으로 가는 버튼이 테스트 카드보다 먼저 섭니다. */}
                   {links.openChat && (
                     <a href={links.openChat} target="_blank" rel="noopener noreferrer" onClick={() => trackOpenChat("naru-register-success")} className={`${buttonClass("secondary", "naru")} mt-5 w-full max-w-sm justify-center`}>
                       {t(openChatLabels.december)}<span aria-hidden className="ml-1.5">→</span>
                     </a>
                   )}
+                  {/* DECIDED 2026-11-02 (브리프 O5, D6 뒤집음): 카카오톡 설치 안내가 뜨는 쪽은 데스크톱이라 휴대폰 안내는 lg부터만. */}
+                  {links.openChat && <p className={`mx-auto mt-2 hidden max-w-sm break-keep ${META} leading-snug text-naru-muted lg:block`}>{t(openChatLabels.phoneHint)}</p>}
                   {/* DECIDED 2026-10-15 (사용자): 보낸 뒤의 다음 할 일은 AI 유형 테스트 하나. 이 화면의 주 버튼이고, 닫기는 글자 버튼으로 내렸습니다. */}
                   <MatchTeaser />
                   <p className={`mx-auto mt-7 max-w-sm break-keep ${META} leading-relaxed text-naru-muted`}>{t(copy.successHelp)}</p>
                   <a href={naruLinks.general} className={`mt-2 inline-flex min-h-[44px] items-center ${BODY} font-semibold text-accent underline underline-offset-4 hover:text-white`}>{naruLinks.contact}</a>
                   <div className="mt-3"><button type="button" onClick={onClose} className={`inline-flex min-h-[44px] items-center ${BODY} text-naru-muted underline underline-offset-4 hover:text-white`}>{t(copy.close)}</button></div>
+                  {/* DECIDED 2026-11-02 (브리프 O1, D4): 같은 기기에서 다른 사람을 등록하는 길. 맨 아래 글자 링크. */}
+                  {!preview && <div><button type="button" onClick={registerAnother} className={`inline-flex min-h-[44px] items-center ${META} text-naru-muted underline underline-offset-4 hover:text-white`}>{t(copy.registerAnother)}</button></div>}
                 </div>
               ) : (
                 <>
                   {/* DECIDED 2026-10-15 (사용자, 스크린숏: "이 내용 빼줘, 그냥 바로 form만 보여줘"): 폼 위의 첫 줄(스크리닝, 혼자 등록)과
                       미리 보기 안내 상자(registerNote 세 줄 + previewKeep)를 뺐습니다. 언제 여는지와 혼자 등록한다는 말은 히어로 한 줄이
                       하고, 꺼진 버튼의 라벨이 11월을 말합니다. 마감 안내만 남깁니다. */}
-                  {!preview && <p className={`${META} leading-relaxed text-naru-muted`}>{t(copy.draftNote)}</p>}
+                  {/* DECIDED 2026-11-02 (브리프 R1, D1 둠): 미리 보기에서도 적은 내용이 이 기기에 남으므로 같은 한 줄 자리에 previewNote. 마감 뒤에는 없음. */}
+                  {!preview ? <p className={`${META} leading-relaxed text-naru-muted`}>{t(copy.draftNote)}</p>
+                    : !closed && <p id="crossing-register-preview-note" className={`${META} leading-relaxed text-naru-muted`}>{t(copy.previewNote)}</p>}
                   {closed && (
                     <p id="crossing-register-preview" role="note" className={`mt-4 card-tint rounded-xl p-[16px] ${META} leading-relaxed text-white sm:p-[18px]`}>{t(copy.closed)}</p>
                   )}
@@ -404,7 +463,7 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
                         )}
                       </>
                     ) : (
-                      <button type="submit" disabled={status === "submitting"} className={`${PRIMARY} mt-[3px]`}>{t(status === "submitting" ? copy.submitting : copy.submit)}</button>
+                      <button type="submit" disabled={status === "submitting" || waitingBot} className={`${PRIMARY} mt-[3px]`}>{t(status === "submitting" ? copy.submitting : waitingBot ? copy.checking : copy.submit)}</button>
                     )}
                   </form>
                 </>

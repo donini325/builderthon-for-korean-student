@@ -30,6 +30,13 @@ export const dynamic = "force-dynamic";
 const TABLE = "crossing_registrations";
 const MEMBERS = "crossing_members";
 
+// DECIDED 2026-11-02 (docs/register-ux-brief.md O6): 링크드인은 검사하지 않고 막지도 않습니다. 주소에 linkedin.com이 있는데
+// https://가 없으면 앞에 붙여 저장합니다("linkedin.com/in/hong" → "https://linkedin.com/in/hong"). 그 밖의 값("hong")은 그대로.
+function linkedinUrl(v: string | null): string | null {
+  if (!v) return v;
+  return !/^[a-z]+:\/\//i.test(v) && /linkedin\.com/i.test(v) ? `https://${v.replace(/^\/+/, "")}` : v;
+}
+
 const isPlainObject = (v: unknown): v is Json => typeof v === "object" && v !== null && !Array.isArray(v);
 
 /** 스키마의 키만 남기고 문자열로 정리한 answers. 모르는 키는 버리고 개수만 로그에(키 이름은 보낸 쪽이 정하는 값이라 남기지 않습니다). */
@@ -153,7 +160,7 @@ export async function POST(req: Request) {
     contact: normalizeKakaoId(str(m.contact)) ?? str(m.contact),
     university: optStr(m.university),
     study_country: otherCountry ? null : str(m.study_country),
-    linkedin: optStr(m.linkedin),
+    linkedin: linkedinUrl(optStr(m.linkedin)),
     answers: memberAnswers,
   };
 

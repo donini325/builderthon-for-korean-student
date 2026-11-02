@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-02 등록 뒤 상태와 완료 화면 되비침, 미리 보기 한 줄, 나라 선택 화살표](#2026-11-02-register-ux)
 - [2026-11-02 멘토 페이지의 하루 칸 띠, PDF 흐름 끝에서 끝 시험](#2026-11-02-mentor-strip)
 - [2026-11-02 멘토 칸은 하루 한도 없이, 넣은 칸이 끝난 뒤에 다음 칸](#2026-11-02-one-pending)
 - [2026-11-02 Supabase 감사, 브라우저 역할 권한 걷기와 함수 search_path](#2026-11-02-supabase-audit)
@@ -452,6 +453,18 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-02-register-ux"></a>
+## 2026-11-02 등록 뒤 상태와 완료 화면 되비침, 미리 보기 한 줄, 나라 선택 화살표
+- 범위: components/crossing/RegisterModal.tsx, components/crossing/RegisterProvider.tsx, components/home/NaruHome.tsx, data/naru.ts(register, registerNoteOpen), app/api/crossing/register/route.ts
+- 한 것: 등록 UX 브리프 1장 R1, R2, R5와 2장 O1~O6(사용자 요청, 문장은 브리프 그대로). 미리 보기 첫 줄 previewNote(D1 둠), 나라 칸 ∨, 등록 블록 버튼 격자. 이 기기에서 등록하면 버튼이 "등록했습니다"이고 누르면 완료 화면, 맨 아래 "다른 사람으로 등록"(D4 함). done 키에 보낸 이름, 카카오톡 ID, 이메일을 담아 새로고침 뒤에도 같음. 완료 화면에 보낸 값 되비침과 재제출 한 줄, successHelp 수정. 열리면 히어로 한 줄은 registerNoteOpen. 보안 확인 토큰 전 보내기는 "보안 확인 중"으로 기다렸다 이어 보냄. phoneHint는 lg부터(D6 뒤집음), 완료 화면에도. 링크드인은 linkedin.com이 있고 https://가 없으면 붙여 저장.
+- 하지 않은 것: D2(여는 날짜, 카운트다운), D3(홈 헤더 칩), D5(참가자 방 초대 문장)는 사용자 확인 대기. 질문 아홉과 순서, 카카오톡 ID 도움말 없음, 전공 필수, 코어 둘은 그대로. 브리프의 "프로그램 끝" 등록 버튼은 지금 코드에 없어 두 자리(히어로, 등록 블록)에 적용.
+- 근거: brand 4장(참가자 한 문장, 혼자 등록), 5장(약속하지 않는다, 같은 사실 두 번까지). 판단 질문 1: 등록한 학생이 됐는지, 무엇으로 됐는지 헤매지 않습니다.
+- 검증: 브리프 5장 여덟 통과. 3~6은 스크래치 복사본에서만 opensAt을 채우고 Turnstile 테스트 키로 빌드, 등록 API는 브라우저에서 가짜 201(DB에 쓰지 않음), 확인 뒤 되돌림. 금지어 0, docs/brand.md와 data/crossingForm.ts 변화 0, npm run build 통과.
+- 브리프: docs/register-ux-brief.md
+- 커밋: 이 항목과 같은 커밋
 
 ---
 

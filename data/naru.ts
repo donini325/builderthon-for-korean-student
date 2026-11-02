@@ -241,6 +241,12 @@ export const registerNoteShort: Phrase = {
   en: "Registration opens at the end of the second week of November. You register on your own; your major and coding experience are not conditions.",
 };
 
+// DECIDED 2026-11-02 (브리프 O3): 등록이 열리면 위 줄의 "11월 둘째 주 끝"만 빠지고, 혼자 등록과 조건 없음은 같은 자리에 남습니다.
+export const registerNoteOpen: Phrase = {
+  ko: "혼자 등록하고, 전공과 코딩 경험은 조건이 아닙니다.",
+  en: "You register on your own; your major and coding experience are not conditions.",
+};
+
 export const register = {
   cta: { ko: "등록하기", en: "Register" },
   // 2026-09-18 (감사 반영 브리프 1.1): 창이 열리기 전의 버튼 라벨과 그 아래 캡션. 비활성
@@ -265,11 +271,23 @@ export const register = {
   // 2026-10-08 (폼 리뷰 10): 초안이 이 기기에 남는다는 것을 알립니다. 동의 표시는 초안에 넣지 않습니다.
   // 2026-10-12: 등록이 열린 뒤에만 그립니다.
   draftNote: { ko: "입력한 내용은 보내기 전까지 이 기기에만 임시로 저장됩니다.", en: "What you type is kept on this device only until you send it." },
+  // DECIDED 2026-11-02 (docs/register-ux-brief.md R1, D1 둠): 미리 보기에서도 적은 내용이 이 기기에 남습니다. 열린 뒤 draftNote가 서는 그 한 줄 자리에 섭니다.
+  // 2026-10-15에 뺀 것은 안내 상자 세 줄이고 이것은 그 상자가 아닙니다.
+  previewNote: { ko: "적은 내용은 보내기 전까지 이 기기에만 남고, 열리면 그대로 보낼 수 있습니다.", en: "What you type stays on this device only until you send it, and you can send it as it is when registration opens." },
   optional: { ko: "(선택)", en: "(optional)" },
   selectPlaceholder: { ko: "선택", en: "Select" },
   submit: { ko: "등록 보내기", en: "Send registration" },
   submitting: { ko: "보내는 중", en: "Sending" },
+  // DECIDED 2026-11-02 (브리프 O4): 보안 확인 토큰이 오기 전에 보내기를 누르면 이 라벨로 기다렸다가 토큰이 오는 순간 같은 제출을 이어 보냅니다.
+  checking: { ko: "보안 확인 중", en: "Checking" },
+  // DECIDED 2026-11-02 (브리프 O1, D4 함): 이 기기에서 등록을 마친 뒤의 버튼 라벨. 누르면 완료 화면이 다시 열립니다.
+  registered: { ko: "등록했습니다", en: "You are registered" },
+  registerAnother: { ko: "다른 사람으로 등록", en: "Register someone else" },
   successTitle: { ko: "등록됐습니다.", en: "You are registered." },
+  // DECIDED 2026-11-02 (브리프 O2): 확인 메일이 없고(10/15) 카카오톡 ID는 형식 검사가 없어, 오타를 잡을 순간이 이 화면 하나입니다. 보낸 값을 그대로 되비칩니다.
+  successEcho: { ko: "이름 {name}, 카카오톡 ID {contact}, 이메일 {email}로 등록됐습니다.", en: "Registered as {name}, KakaoTalk ID {contact}, {email}." },
+  // DECIDED 2026-11-02 (브리프 O1, D4): 같은 이메일로 다시 보내면 서버는 처음 것을 남기고 조용히 201입니다(보안 감사 M3). 그 사실을 이 한 줄로 말합니다.
+  successResend: { ko: "고칠 것은 아래 주소로 알려 주세요. 같은 이메일로 다시 보내도 처음 것이 남습니다.", en: "Send corrections to the address below. Sending again with the same email keeps the first one." },
   // DECIDED 2026-10-08 (사용자: 등록 뒤 안내 메일은 "내가 수동으로"): 자동 메일을 약속하지 않습니다. 운영진이 직접
   // 보낸다고 적고, 오지 않을 때 할 일과 수정, 삭제의 길을 같이 적습니다. {email}은 등록한 주소로 바뀝니다.
   // DECIDED 2026-10-08 (사용자: 참가비와 장소, Day 0은 "참여자 대상 카톡방으로 공개"): 그 안내가 어디서 오는지도 여기서 말합니다.
@@ -280,9 +298,10 @@ export const register = {
     en: "News goes out in the KakaoTalk open chat. Join it now to stay up to date. Venue and Day 0 details are shared in the participant KakaoTalk room.",
   },
   // DECIDED 2026-10-15 (사용자, 스크린숏: "궁금한게 있으면 여기에 알려주세요"): 수정, 삭제 안내 대신 문의 한 줄.
+  // DECIDED 2026-11-02 (브리프 O2): 되비친 값이 틀렸을 때도 이 주소로. 그 전 "궁금한 게 있으면 여기로 알려 주세요."
   successHelp: {
-    ko: "궁금한 게 있으면 여기로 알려 주세요.",
-    en: "Any questions? Let us know here.",
+    ko: "틀린 게 있거나 궁금한 게 있으면 여기로 알려 주세요.",
+    en: "If anything is wrong or you have a question, let us know here.",
   },
   // DECIDED 2026-10-15 (사용자: "보내면 그 이후에 AI 유형 테스트로 direct 해주는 화면"): 완료 화면의 다음 할 일 하나.
   // 혼자 등록하고 팀은 현장에서 맺으므로, 그 팀을 맺는 재료(/match 결과)를 미리 해 보게 합니다. 결과는 Day 1부터 받으므로(lib/crossingMatch.ts)
