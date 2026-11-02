@@ -94,9 +94,10 @@ export const timetableRules: { icon: "tap" | "clock" | "two" | "lock" | "open" |
   // DECIDED 2026-11-02 (사용자: "무조건 9시, 10시 이런식으로"): 칸은 정각에 시작한다는 것을 이 카드가 말합니다.
   { icon: "clock", key: { ko: "정각에 시작, 40분", en: "On the hour, 40 minutes" }, body: { ko: "9:00, 10:00처럼 정각에만 넣고, 멘토링은 40분입니다. 앞뒤 10분은 멘토가 쉽니다.", en: "Slots start only on the hour, like 9:00 or 10:00, and run 40 minutes. The mentor rests ten minutes on either side." } },
   // DECIDED 2026-11-02 (사용자: "하루 한도는 없음", 넣은 칸이 끝난 뒤에 다음 칸, 2시간 뒤부터). 그 전 "하루 두 칸".
-  { icon: "two", key: { ko: "끝나면 다음 칸", en: "Next slot after this one" }, body: { ko: "같은 날의 다음 칸은 넣은 멘토링이 끝난 뒤에, 그 시작에서 2시간 뒤부터 넣습니다. 15:00 칸이면 16:00부터 17:00 이후 칸을 넣습니다.", en: "On the same day, add your next slot once the current one is over, two hours after it started. Booked 15:00? From 16:00 you can add 17:00 or later." } },
+  // 같은 날 사용자 확인: "끝난 뒤"가 40분 멘토링과 엇갈려 "한 시간이 지나면"으로, 언제 넣는가와 어느 칸인가를 두 문장으로 나눔.
+  { icon: "two", key: { ko: "한 칸씩, 끝나면 다음 칸", en: "One at a time" }, body: { ko: "같은 날에는 한 칸씩 넣습니다. 넣은 칸의 한 시간이 지나면 다음 칸을 넣을 수 있고, 다음 칸은 앞 칸 시작에서 2시간 뒤부터입니다. 예: 15:00 칸을 넣었다면 16:00부터 17:00 이후 칸을 넣습니다.", en: "On the same day, add one slot at a time. Once your slot's hour has passed you can add the next, starting two hours after the last one began. Example: booked 15:00? From 16:00 you can add 17:00 or later." } },
   { icon: "lock", key: { ko: "넣으면 못 바꿈", en: "No changes" }, body: { ko: "한 번 넣은 칸은 바꾸거나 뺄 수 없습니다.", en: "Once a slot is in, it cannot be changed or removed." } },
-  { icon: "open", key: { ko: "12.18 12:00 열림", en: "Opens Dec 18, 12:00" }, body: { ko: "Day 1 낮 12시부터 Day 2, 3 칸을 하나씩 미리 넣습니다.", en: "From noon on Day 1, book one Day 2 slot and one Day 3 slot ahead." } },
+  { icon: "open", key: { ko: "12.18 12:00 열림", en: "Opens Dec 18, 12:00" }, body: { ko: "Day 1 낮 12시부터 Day 2 칸 하나, Day 3 칸 하나를 미리 넣을 수 있습니다.", en: "From noon on Day 1, you can book one Day 2 slot and one Day 3 slot ahead." } },
   { icon: "today", key: { ko: "당일은 13:00부터", en: "On the day, from 13:00" }, body: { ko: "그날이 되면 그날의 칸은 13:00 이후만 넣습니다.", en: "On the day itself, only slots from 13:00 can be added." } },
 ];
 
