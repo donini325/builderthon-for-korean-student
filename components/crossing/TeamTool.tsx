@@ -4,7 +4,7 @@
 // /crossing/team. 모든 팀이 같이 보는 멘토 시간표와 Day 2, Day 3 미션 인증(2026-10-17).
 //
 // DECIDED 2026-10-17 (사용자: "너무 뭐가 많은데? 그냥 timetable where team can put in their available, 다른 팀과 공유"):
-// wejoinin처럼 표 하나입니다. 줄은 30분, 칸은 멘토. 팀을 고르고 빈 칸을 누르면 그 팀 이름이 30분 들어가고,
+// wejoinin처럼 표 하나입니다. 줄은 한 시간(정각, 2026-11-02), 칸은 멘토. 팀을 고르고 빈 칸을 누르면 그 팀 이름이 40분 들어가고,
 // 앞뒤 10분은 "쉬는 10분"으로 막힙니다(규칙의 정본은 DB 제약, lib/crossingOps.ts). 팀 코드는 없습니다.
 // 고른 팀은 이 기기의 localStorage에만 둡니다. 폰에서 표가 넓으면 표만 옆으로 밉니다(페이지는 밀리지 않음).
 // DECIDED 2026-10-18 (사용자: "멘토링 슬롯을 넣을때도 무슨 트랙인지에 따라서 슬롯 색깔이 달라졌으면"): 넣은 칸은 그 팀의
@@ -18,7 +18,7 @@ import { buttonClass } from "@/components/ui/Button";
 import LocaleToggle from "@/components/LocaleToggle";
 import { teamCopy as c, timetableRules } from "@/data/crossingTeam";
 import {
-  BUFFER_MINUTES, GRID_MINUTES, bookingGate, isPhoneUA, kstTime, BOOKING_OPENS_DAY, BOOKING_OPENS_AT, MAX_BOOKINGS_PER_TEAM_PER_DAY, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, trackTint,
+  BUFFER_MINUTES, GRID_MINUTES, gridCeil, bookingGate, isPhoneUA, kstTime, BOOKING_OPENS_DAY, BOOKING_OPENS_AT, MAX_BOOKINGS_PER_TEAM_PER_DAY, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, trackTint,
   type ProofDay, type ProofKind, type Track, type Window,
 } from "@/lib/crossingOps";
 
@@ -76,7 +76,8 @@ export default function TeamTool() {
   const rows = useMemo(() => {
     const ws = (mentors ?? []).flatMap((m) => m.windows);
     if (!ws.length) return [];
-    const a = Math.min(...ws.map((w) => Date.parse(w.startsAt))), b = Math.max(...ws.map((w) => Date.parse(w.endsAt)));
+    // 2026-11-02: 줄은 정각부터 한 시간씩(칸이 정각에만 시작하므로).
+    const a = gridCeil(Math.min(...ws.map((w) => Date.parse(w.startsAt)))), b = Math.max(...ws.map((w) => Date.parse(w.endsAt)));
     const out: number[] = [];
     for (let x = a; x < b; x += GRID_MINUTES * MIN) out.push(x);
     return out;
@@ -120,10 +121,10 @@ export default function TeamTool() {
             // 띠와 흰 테두리를 한 그림자에 둡니다(Tailwind ring도 그림자라 따로 쓰면 하나가 지워짐).
             // DECIDED 2026-10-21 (시각 통일): 예약 높이는 걸친 45px 시간표 줄 수입니다.
             className="rounded-md"
-            style={{ height: `${span.length * 45}px`, background: `linear-gradient(135deg, ${tint}${SLOT_ALPHA}, ${tint}${SLOT_ALPHA_END})`, boxShadow: `inset 4px 0 0 ${tint}${ours ? ", inset 0 0 0 2px rgba(255,255,255,0.9)" : ""}` }}>
+            style={{ minHeight: `${span.length * 45}px`, background: `linear-gradient(135deg, ${tint}${SLOT_ALPHA}, ${tint}${SLOT_ALPHA_END})`, boxShadow: `inset 4px 0 0 ${tint}${ours ? ", inset 0 0 0 2px rgba(255,255,255,0.9)" : ""}` }}>
             {/* 한 번 넣은 칸은 바꾸지 못합니다(2026-10-17). 우리 팀 칸도 이름만 보입니다. */}
             <span className={`block truncate py-1.5 pl-2.5 pr-1 ${META} font-bold ${ours ? "text-white" : "text-white/85"}`}>{b.team}</span>
-            <span className={`block pl-2.5 ${META} tabular-nums text-white/70`}>{fmtKst(s)}~{fmtKst(e)}</span>
+            <span className={`block pb-1.5 pl-2.5 ${META} tabular-nums text-white/70`}>{fmtKst(s)}~{fmtKst(e)}</span>
           </div>
         </td>
       );

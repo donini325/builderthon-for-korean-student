@@ -3,8 +3,8 @@
 // 표는 supabase/migrations/0008_crossing_teams_and_mentor_timetable.sql.
 //
 // DECIDED 2026-10-17 (사용자): 멘토링은 예약제이고, 예약 하나가 그 앞뒤 10분을 막습니다(같은 날 15분에서 10분으로).
-// DECIDED 2026-10-17 (사용자: "10분씩 보여주니까 너무 정신이 없음, 30분 간격으로, 어짜피 앞뒤 10분하면 1시간"): 줄은 30분입니다.
-// 칸 하나(40분)가 두 줄을 차지하고, 앞뒤 10분 때문에 다음 칸은 한 시간 뒤 줄부터 열립니다. 그 전(같은 날)은 10분 줄, 72줄이었습니다.
+// DECIDED 2026-10-17 (사용자: "10분씩 보여주니까 너무 정신이 없음, 30분 간격으로, 어짜피 앞뒤 10분하면 1시간"): 줄은 30분이었습니다.
+// DECIDED 2026-11-02 (사용자): 칸은 정각에만 시작하고 줄은 한 시간입니다(GRID_MINUTES). 칸 하나(40분)가 한 줄입니다.
 // 막는 규칙의 정본은 DB의 exclude 제약입니다. 여기의 계산은 화면에 칸을 그리고 미리 거절하는 용도이고,
 // BUFFER_MINUTES를 바꾸면 마이그레이션 0008의 crossing_plus_minutes(ends_at, 10)도 같이 바꿔야 합니다.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -16,8 +16,11 @@ import { DECEMBER_STARTS_AT } from "@/lib/naruDates";
 export const SESSION_MINUTES = 40;
 /** 예약 앞뒤로 막히는 시간(분). 마이그레이션 0008과 같아야 합니다. */
 export const BUFFER_MINUTES = 10;
-/** 시작 시각을 고르는 칸의 간격(분). */
-export const GRID_MINUTES = 30;
+/** 시작 시각을 고르는 칸의 간격(분).
+ * DECIDED 2026-11-02 (사용자: "9시 20분 30분 이런식으로 넣지 못하고, 무조건 9시, 10시", "다음 시 정각에 시작"): 칸은 정각에만 시작합니다.
+ * 한 칸이 한 시간입니다: 멘토링 40분(9:00~9:40)과 그 뒤 10분, 다음 칸의 앞 10분(9:50~10:00). 사용자가 고른 안은 멘토링이 정각에 시작하는 쪽입니다.
+ * 앞뒤 10분 규칙(DB 0008)은 그대로 맞습니다. 그 전 30분(2026-10-17). */
+export const GRID_MINUTES = 60;
 /**
  * 한 팀이 칸을 하나 넣으면 그 칸의 시작부터 이만큼은 어느 멘토의 칸도 넣지 못합니다. 하루 횟수 제한은 없습니다.
  * DECIDED 2026-10-17 (사용자: "한번 slot booking을 하면, 그 이후 2시간 동안은 같은 멘토던 다른 멘토던 booking 못하고").
@@ -126,11 +129,17 @@ export function slotState(t: number, mentorBookings: Booking[], teamBookings: Bo
   return "open";
 }
 
-/** 구간들 안에서 예약이 들어갈 수 있는 시작 시각(GRID_MINUTES 간격). */
+/** t 이상인 첫 칸 경계(GRID_MINUTES의 배수, 정각). KST는 UTC+9 정수 시간이라 UTC 기준으로 나눠도 한국 정각입니다. */
+export function gridCeil(t: number): number {
+  const g = GRID_MINUTES * MIN;
+  return Math.ceil(t / g) * g;
+}
+
+/** 구간들 안에서 예약이 들어갈 수 있는 시작 시각(정각, GRID_MINUTES 간격). 멘토가 14:30부터면 첫 칸은 15:00입니다. */
 export function slotStarts(windows: Window[]): number[] {
   const out = new Set<number>();
   for (const w of windows) {
-    const w0 = Date.parse(w.startsAt), w1 = Date.parse(w.endsAt);
+    const w0 = gridCeil(Date.parse(w.startsAt)), w1 = Date.parse(w.endsAt);
     for (let t = w0; t + SESSION_MINUTES * MIN <= w1; t += GRID_MINUTES * MIN) out.add(t);
   }
   return [...out].sort((a, b) => a - b);

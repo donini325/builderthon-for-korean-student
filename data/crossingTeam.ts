@@ -91,7 +91,8 @@ export const teamCopy = {
 // 규칙의 정본은 lib/crossingOps.ts(SESSION_MINUTES, BUFFER_MINUTES, MAX_BOOKINGS_PER_TEAM_PER_DAY, TEAM_COOLDOWN_MINUTES, BOOKING_OPENS_AT, SAME_DAY_FROM)입니다.
 export const timetableRules: { icon: "tap" | "clock" | "two" | "lock" | "open" | "today"; key: Phrase; body: Phrase }[] = [
   { icon: "tap", key: { ko: "두 번 눌러 넣기", en: "Tap twice" }, body: { ko: "빈 칸을 두 번 누르면 우리 팀 이름이 들어갑니다. 멘토와 모든 팀이 같은 표를 봅니다.", en: "Tap an empty cell twice to put your team in. Mentors and every team see the same table." } },
-  { icon: "clock", key: { ko: "한 칸 40분", en: "40 minutes a slot" }, body: { ko: "앞뒤 10분은 멘토가 쉬는 시간으로 비워 둡니다.", en: "Ten minutes on either side stay free for the mentor." } },
+  // DECIDED 2026-11-02 (사용자: "무조건 9시, 10시 이런식으로"): 칸은 정각에 시작한다는 것을 이 카드가 말합니다.
+  { icon: "clock", key: { ko: "정각에 시작, 40분", en: "On the hour, 40 minutes" }, body: { ko: "9:00, 10:00처럼 정각에만 넣고, 멘토링은 40분입니다. 앞뒤 10분은 멘토가 쉽니다.", en: "Slots start only on the hour, like 9:00 or 10:00, and run 40 minutes. The mentor rests ten minutes on either side." } },
   { icon: "two", key: { ko: "하루 두 칸", en: "Two slots a day" }, body: { ko: "두 칸은 2시간 이상 떨어져야 합니다.", en: "The two need to start at least two hours apart." } },
   { icon: "lock", key: { ko: "넣으면 못 바꿈", en: "No changes" }, body: { ko: "한 번 넣은 칸은 바꾸거나 뺄 수 없습니다.", en: "Once a slot is in, it cannot be changed or removed." } },
   { icon: "open", key: { ko: "12.18 12:00 열림", en: "Opens Dec 18, 12:00" }, body: { ko: "Day 1 낮 12시부터 Day 2, 3 칸을 함께 넣습니다.", en: "From noon on Day 1, add Day 2 and 3 slots together." } },
