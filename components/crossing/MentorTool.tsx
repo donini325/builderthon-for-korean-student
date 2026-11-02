@@ -5,7 +5,8 @@
 //
 // DECIDED 2026-10-26 (사용자: "올리면 팀이 멘토분들에게 사전에 공유줄 수 있도록", "멘토 전용 페이지"): 멘토는 자기 링크로 들어와
 // Day 2, 3에 자기 칸을 넣은 팀과 그 팀이 올린 PDF 전부(Day 1 1장, Day 2 고친 1장, Day 3 발표 자료)를 눌러 엽니다(2026-10-26).
-// 다른 멘토의 칸과 인증 사진은 보이지 않습니다. 보기 URL은 30분짜리라 1분마다 다시 읽습니다.
+// 인증 사진과 다른 멘토 칸의 파일은 보이지 않습니다. 보기 URL은 30분짜리라 1분마다 다시 읽습니다.
+// DECIDED 2026-11-03 (사용자): 맡은 날의 표 전체(같은 날 멘토 넷의 칸과 팀 이름)를 보여 주고 내 열을 블루 테두리로 감쌉니다. 그 전(2026-10-26)에는 내 칸만.
 // 머리와 글자 크기는 /crossing/team과 같습니다(BODY, META 둘).
 // DECIDED 2026-10-27 (사용자: 멘토 링크도 kwan-design을 따르게): 머리는 사이트 바와 같은 ToolHeader(워드마크, 가는 선, EN/KR).
 // Day 제목은 /crossing/team의 구획 제목처럼 SUBTITLE 굵게 흰색, 날짜는 META. 블루는 칸 안의 파일 타일에만 남깁니다.
@@ -13,13 +14,15 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useLocale } from "@/lib/LocaleContext";
-import { BODY, META, SUBTITLE } from "@/components/ui/typography";
+import { BODY, META, SUBTITLE, TITLE } from "@/components/ui/typography";
 import ToolHeader from "@/components/crossing/ToolHeader";
 import { mentorCopy as c, mentorTitle } from "@/data/crossingTeam";
 import { OPS_DAYS, dayDate, fmtKst, trackTint, type Track } from "@/lib/crossingOps";
 
 type Row = { id: string; day: number; team: string; track: string; startsAt: string; endsAt: string; files: { day: number; url: string }[] };
-type Data = { mentor: { name: string; field: string | null }; tracks: Track[]; slots?: Record<string, string[]>; bookings: Row[] };
+type BoardMentor = { name: string; field: string | null; me: boolean; slots: string[]; bookings: { team: string; track: string; startsAt: string; endsAt: string }[] };
+type Data = { mentor: { name: string; field: string | null }; tracks: Track[]; slots?: Record<string, string[]>; board?: Record<string, BoardMentor[]>; bookings: Row[] };
+const HOUR = 3_600_000;
 
 export default function MentorTool() {
   const { t, locale } = useLocale();
@@ -65,11 +68,24 @@ export default function MentorTool() {
     <div className="min-h-screen bg-naru-ink text-naru-text">
     <ToolHeader />
     <main id="main" className="px-4 pb-24 pt-[40px] sm:pt-[56px]">
-      <div className="mx-auto flex max-w-3xl flex-col gap-[32px]">
-        <div className="flex flex-col gap-[6px]">
+      {/* DECIDED 2026-11-03 (사용자: "너무 비쥬얼적으로 뭐가 없다. 좀 더 크게크게"): 이름은 TITLE, 맡은 시간은 BODY로 크게. 표가 넓어 폭을 5xl로. */}
+      <div className="mx-auto flex max-w-5xl flex-col gap-[40px]">
+        <div className="flex flex-col gap-[10px]">
           <p className={`${META} font-semibold text-naru-muted`}>{t(c.title)}</p>
-          {data && <h1 className={`${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>{mentorTitle(data.mentor.name, locale)}{data.mentor.field && <span className={`ml-2 ${META} font-normal text-naru-muted`}>{data.mentor.field}</span>}</h1>}
-          {!data && <h1 className={`${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>{t(c.title)}</h1>}
+          <h1 className={`${TITLE} font-bold leading-[1.1] tracking-[-0.03em] text-white`}>{data ? mentorTitle(data.mentor.name, locale) : t(c.title)}</h1>
+          {data?.mentor.field && <p className={`${BODY} text-naru-muted`}>{data.mentor.field}</p>}
+          {data && OPS_DAYS.map((d) => {
+            const mine = data.slots?.[String(d)] ?? [];
+            if (!mine.length) return null;
+            const from = fmtKst(mine[0]), to = fmtKst(Date.parse(mine[mine.length - 1]) + HOUR);
+            return (
+              <p key={d} className={`flex flex-wrap items-baseline gap-x-[10px] ${BODY} text-white`}>
+                <span className="text-naru-muted">{t(c.assigned)}</span>
+                <span className="font-semibold">{t(c.day)} {d} <span className="tabular-nums">{dayDate(d).slice(5).replace("-", ".")}</span></span>
+                <span className="font-semibold tabular-nums text-accent">{from}~{to}</span>
+              </p>
+            );
+          })}
         </div>
         {err === "bad" && <p role="alert" className={`card-sunken rounded-xl px-[16px] py-[14px] ${BODY} text-white`}>{t(c.badLink)}</p>}
         {err === "generic" && <p role="alert" className={`${META} text-rose-300`}>{t(c.errGeneric)}</p>}
@@ -91,25 +107,66 @@ export default function MentorTool() {
                       ? <span className={`ml-auto ${META} font-semibold tabular-nums text-naru-muted`}>{t(c.slotCount).replace("{n}", String(slots.length)).replace("{b}", String(rows.length))}</span>
                       : rows.length > 0 && <span className={`ml-auto ${META} font-semibold tabular-nums text-naru-muted`}>{t(c.teamCount).replace("{n}", String(rows.length))}</span>}
                   </h2>
-                  {/* DECIDED 2026-11-02 (사용자: "팀이 없습니다 이런식으로 말고 뭔가 좀 더 visual"): 그 날 이 멘토의 칸을 띠로 그립니다.
-                      학생 시간표의 한 열을 눕힌 모양입니다. 빈 칸은 점선, 팀이 넣은 칸은 그 팀 트랙의 옅은 틴트에 팀 이름. 색 띠 테두리는 쓰지 않습니다. */}
-                  {slots.length > 0 && (
-                    <ol className="grid grid-cols-3 gap-[6px] sm:grid-cols-6">
-                      {slots.map((s) => {
-                        const b = rows.find((x) => Date.parse(x.startsAt) === Date.parse(s));
-                        const tint = b ? trackTint(trackOf(b.track)?.color) : "";
-                        return (
-                          <li key={s} className={`flex min-h-[56px] flex-col justify-center gap-[2px] rounded-lg px-[10px] py-[8px] ${b ? "" : "border border-dashed border-white/10"}`}
-                            style={b ? { background: `${tint}26`, boxShadow: `inset 0 0 0 1px ${tint}40` } : undefined}>
-                            <span className={`${META} tabular-nums ${b ? "font-semibold text-white" : "text-naru-muted"}`}>{fmtKst(s)}</span>
-                            {b
-                              ? <span className={`flex min-w-0 items-center gap-[6px] ${META} font-semibold text-white`}><span aria-hidden className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: tint }} /><span className="truncate">{b.team}</span></span>
-                              : <span className={`${META} text-white/25`}>{t(c.openSlot)}</span>}
-                          </li>
-                        );
-                      })}
-                    </ol>
-                  )}
+                  {/* DECIDED 2026-11-03 (사용자: "본인 파트만 보이지 말고, 다른 분들 파트도 보일 수 있게 for those assigned at the same date"):
+                      그 날의 표 전체입니다. 학생 시간표(TeamTool)와 같은 모양으로 줄은 칸 시작 시각, 열은 그날 맡은 멘토.
+                      내 열은 블루 테두리로 위에서 아래까지 감쌉니다(강조 블루는 이 열에만). 넣은 칸은 그 팀 트랙의 틴트에 팀 이름. */}
+                  {(() => {
+                    const board = data.board?.[String(d)] ?? [];
+                    if (!board.length) return null;
+                    const times = [...new Set(board.flatMap((m) => m.slots))].sort();
+                    // 내 열의 테두리: 양옆은 모든 칸, 위는 머리, 아래는 마지막 줄. 그림자 클래스는 칸마다 하나만 씁니다(겹치면 하나가 지워짐).
+                    const ME_SIDES = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(154,168,238,0.45),inset_-1px_0_0_rgba(154,168,238,0.45)]";
+                    const ME_TOP = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(154,168,238,0.45),inset_-1px_0_0_rgba(154,168,238,0.45),inset_0_1px_0_rgba(154,168,238,0.45)]";
+                    const ME_BOTTOM = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(154,168,238,0.45),inset_-1px_0_0_rgba(154,168,238,0.45),inset_0_-1px_0_rgba(154,168,238,0.45)]";
+                    return (
+                      <div className="card-base overflow-x-auto rounded-2xl max-sm:[mask-image:linear-gradient(to_right,#000_calc(100%_-_32px),transparent)]">
+                        <table className="w-full min-w-max border-collapse">
+                          <thead>
+                            <tr className="bg-naru-surface-2">
+                              <th className={`sticky left-0 z-10 w-[84px] bg-naru-surface-2 px-[16px] py-[16px] text-left ${META} font-semibold text-naru-muted`}>{t(c.time)}</th>
+                              {board.map((m, i) => (
+                                <th key={i} className={`min-w-[160px] border-l border-white/5 px-[14px] py-[16px] text-left align-bottom ${m.me ? ME_TOP : ""}`}>
+                                  {m.me && <span className={`mb-[4px] block ${META} font-semibold text-accent`}>{t(c.me)}</span>}
+                                  <span className={`block ${BODY} font-bold ${m.me ? "text-white" : "text-white/85"}`}>{mentorTitle(m.name, locale)}</span>
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {times.map((s, ri) => (
+                              <tr key={s} className="border-t border-white/5">
+                                <td className={`sticky left-0 z-10 bg-naru-surface px-[16px] py-[10px] ${BODY} font-semibold tabular-nums text-white/80`}>{fmtKst(s)}</td>
+                                {board.map((m, i) => {
+                                  const b = m.bookings.find((x) => Date.parse(x.startsAt) === Date.parse(s));
+                                  const open = m.slots.includes(s);
+                                  const last = ri === times.length - 1;
+                                  const me = m.me ? (last ? ME_BOTTOM : ME_SIDES) : "";
+                                  if (b) {
+                                    const tint = trackTint(trackOf(b.track)?.color);
+                                    return (
+                                      <td key={i} className={`border-l border-white/5 p-[6px] ${me}`}>
+                                        <div className="flex min-h-[64px] flex-col justify-center gap-[2px] rounded-lg px-[12px] py-[8px]"
+                                          style={{ background: `linear-gradient(135deg, ${tint}59, ${tint}2E)`, boxShadow: `inset 0 0 0 1px ${tint}66` }}>
+                                          <span className={`truncate ${BODY} font-bold text-white`}>{b.team}</span>
+                                          <span className={`${META} tabular-nums text-white/75`}>{fmtKst(b.startsAt)}~{fmtKst(b.endsAt)}</span>
+                                        </div>
+                                      </td>
+                                    );
+                                  }
+                                  if (!open) return <td key={i} className={`border-l border-white/5 bg-naru-ink/60 ${me}`} />;
+                                  return (
+                                    <td key={i} className={`border-l border-white/5 p-[6px] ${me}`}>
+                                      <div className={`flex min-h-[64px] items-center rounded-lg px-[12px] ${META} ${m.me ? "border border-dashed border-accent/35 text-naru-muted" : "border border-dashed border-white/[0.07] text-white/30"}`}>{t(c.openSlot)}</div>
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    );
+                  })()}
                   {!rows.length && <p className={`${META} text-naru-muted`}>{t(c.empty)}</p>}
                   {rows.map((b) => {
                     const tint = trackTint(trackOf(b.track)?.color);

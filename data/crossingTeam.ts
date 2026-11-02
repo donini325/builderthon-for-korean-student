@@ -111,8 +111,8 @@ export const mentorTitle = (name: string, locale: string): string =>
 export const mentorCopy = {
   title: { ko: "멘토 페이지", en: "Mentor page" },
   lead: {
-    ko: "내 칸에 들어온 팀과, 그 팀이 지금까지 올린 파일입니다. 파일 이름을 누르면 새 창에서 열립니다.",
-    en: "The teams that booked you, and the files each team has uploaded so far. Tap a file to open it in a new tab.",
+    ko: "같은 날 맡은 멘토님들의 칸이 함께 보입니다. 내 칸에 들어온 팀의 파일은 표 아래에서 누르면 새 창에서 열립니다.",
+    en: "You can see every mentor's slots on your day. Files from the teams that booked you are below the table and open in a new tab.",
   },
   refresh: { ko: "1분마다 새로 읽습니다.", en: "Refreshes every minute." },
   day: { ko: "Day", en: "Day" },
@@ -122,6 +122,10 @@ export const mentorCopy = {
   // 이 한 줄은 맡은 날이 하나도 없을 때(보류, 예비 자리)만 뜹니다.
   offDay: { ko: "아직 맡은 날이 없습니다.", en: "No day assigned to you yet." },
   openSlot: { ko: "빈 칸", en: "Open" },
+  // 2026-11-03 (사용자: 같은 날 맡은 다른 멘토의 칸도 보이게): 표의 머리와 맡은 시간 줄.
+  me: { ko: "내 칸", en: "You" },
+  time: { ko: "시간", en: "Time" },
+  assigned: { ko: "맡은 시간", en: "Your session" },
   slotCount: { ko: "{n}칸 중 {b}팀", en: "{b} of {n} slots booked" },
   // 2026-10-26: 팀이 올린 PDF를 날마다 하나씩(Day 1 1장, Day 2 고친 1장, Day 3 발표 자료). 인증 사진은 내보내지 않습니다.
   file1: { ko: "Day 1 이슈에 대한 생각 1장", en: "Day 1 one page on the issue" },
