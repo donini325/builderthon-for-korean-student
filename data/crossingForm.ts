@@ -106,9 +106,6 @@ export const CROSSING_FORM: Field[] = [
   { key: "study_country_other", scope: "member", type: "text", required: false, maxLen: 60, autoComplete: "country-name",
     label: { ko: "나라 이름", en: "Country name" },
     placeholder: { ko: "예: 프랑스", en: "e.g. France" } },
-  { key: "linkedin", scope: "member", type: "text", required: false, fixed: true, autoComplete: "url", inputMode: "url", verbatim: true,
-    label: { ko: "링크드인", en: "LinkedIn" },
-    placeholder: { ko: "https://linkedin.com/in/...", en: "https://linkedin.com/in/..." } },
   // ── 폼 단위 ──────────────────────────────────────────────────────────────
   { key: "consent", scope: "registration", type: "checkbox", required: true, fixed: true,
     label: { ko: "개인정보 수집과 이용에 동의합니다.", en: "I agree to the collection and use of my personal data." },
@@ -153,6 +150,12 @@ export const CROSSING_FORM: Field[] = [
       { value: "connect", label: { ko: "AI에 다른 도구를 연결해 함께 쓰게 해 봤다", en: "Connected other tools to AI so it can use them" },
         hint: { ko: "MCP로 Claude나 ChatGPT에 노션, 깃허브, 캘린더 등을 연결", en: "Notion, GitHub or a calendar linked to Claude or ChatGPT through MCP" } },
     ] },
+  // DECIDED 2026-11-02 (사용자: "질문의 순서를 다시 생각. 필수가 먼저 와야함"): 필수 질문을 다 묻고 선택을 맨 끝에 둡니다.
+  // 링크드인이 학교와 나라 다음, 필수인 전공과 AI 질문 앞에 있었습니다. 고정 열이라 answers와 명단 열 순서는 바뀌지 않습니다.
+  // 폼에 그리는 순서는 이 배열의 순서이고, 동의 칸은 RegisterModal이 언제나 맨 끝에 그립니다.
+  { key: "linkedin", scope: "member", type: "text", required: false, fixed: true, autoComplete: "url", inputMode: "url", verbatim: true,
+    label: { ko: "링크드인", en: "LinkedIn" },
+    placeholder: { ko: "https://linkedin.com/in/...", en: "https://linkedin.com/in/..." } },
 ];
 
 export const MEMBER_FIELDS = CROSSING_FORM.filter((f) => f.scope === "member");
