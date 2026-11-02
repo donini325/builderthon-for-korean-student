@@ -13,6 +13,7 @@ import { timingSafeEqual } from "node:crypto";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { CURRENT_EVENT } from "@/lib/registrationWindow";
 import { PROOF_BUCKET, listTracks, mentorKey } from "@/lib/crossingOpsServer";
+import { OPS_DAYS, slotStarts, windowsFor } from "@/lib/crossingOps";
 
 export const dynamic = "force-dynamic";
 
@@ -29,9 +30,10 @@ export async function GET(req: Request) {
   const mentor = (mentors ?? []).find((m) => { const mk = mentorKey(m.id); return !!mk && same(mk, k); });
   if (!mentor) return NextResponse.json({ error: "unknown_mentor" }, { status: 404 });
 
-  const [{ data: bookings, error: bErr }, tracks] = await Promise.all([
+  const [{ data: bookings, error: bErr }, tracks, { data: windows }] = await Promise.all([
     db.from("crossing_mentor_bookings").select("id, day, team_name, track, starts_at, ends_at").eq("mentor_id", mentor.id).order("starts_at"),
     listTracks(db),
+    db.from("crossing_mentor_windows").select("day, start_time, end_time").eq("mentor_id", mentor.id).order("start_time"),
   ]);
   if (bErr || !tracks) return NextResponse.json({ error: "db" }, { status: 500 });
 
@@ -51,6 +53,9 @@ export async function GET(req: Request) {
   return NextResponse.json({
     mentor: { name: mentor.name, field: mentor.field },
     tracks,
+    // DECIDED 2026-11-02 (사용자: "팀이 없습니다 이런식으로 말고 뭔가 좀 더 visual"): 날마다 이 멘토가 받는 칸의 시작 시각(정각).
+    // 화면이 이 시각들로 하루 띠를 그리고, 넣은 팀은 그 칸에 이름으로 뜹니다. 학생 시간표와 같은 계산(windowsFor, slotStarts)입니다.
+    slots: Object.fromEntries(OPS_DAYS.map((d) => [d, slotStarts(windowsFor(d, (windows ?? []).filter((w) => w.day === d))).map((t) => new Date(t).toISOString())])),
     bookings: (bookings ?? []).map((b) => ({
       id: b.id, day: b.day, team: b.team_name, track: b.track, startsAt: b.starts_at, endsAt: b.ends_at,
       // 2026-10-26 (사용자: "멘토가 본인의 링크에 들어가서 클릭했을 때 그 파일들을 볼 수 있게"): 그 팀이 지금까지 올린 PDF 전부(날마다 하나).

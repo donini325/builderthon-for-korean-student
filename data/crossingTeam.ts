@@ -110,7 +110,10 @@ export const mentorCopy = {
   },
   refresh: { ko: "1분마다 새로 읽습니다.", en: "Refreshes every minute." },
   day: { ko: "Day", en: "Day" },
-  empty: { ko: "아직 넣은 팀이 없습니다.", en: "No teams yet." },
+  // DECIDED 2026-11-02 (사용자: "팀이 없습니다 이런식으로 말고 뭔가 좀 더 visual"): 빈 날도 그 멘토의 칸 띠를 그리고, 아래 한 줄로 무엇이 뜰지 말합니다.
+  empty: { ko: "팀이 칸을 넣으면 그 시간에 팀 이름이 뜨고, 아래에 그 팀의 파일이 붙습니다.", en: "When a team books a slot, its name appears at that hour and its files show up below." },
+  openSlot: { ko: "빈 칸", en: "Open" },
+  slotCount: { ko: "{n}칸 중 {b}팀", en: "{b} of {n} slots booked" },
   // 2026-10-26: 팀이 올린 PDF를 날마다 하나씩(Day 1 1장, Day 2 고친 1장, Day 3 발표 자료). 인증 사진은 내보내지 않습니다.
   file1: { ko: "Day 1 이슈에 대한 생각 1장", en: "Day 1 one page on the issue" },
   file2: { ko: "Day 2 고친 1장", en: "Day 2 updated page" },

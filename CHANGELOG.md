@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-02 멘토 페이지의 하루 칸 띠, PDF 흐름 끝에서 끝 시험](#2026-11-02-mentor-strip)
 - [2026-11-02 멘토 칸은 하루 한도 없이, 넣은 칸이 끝난 뒤에 다음 칸](#2026-11-02-one-pending)
 - [2026-11-02 Supabase 감사, 브라우저 역할 권한 걷기와 함수 search_path](#2026-11-02-supabase-audit)
 - [2026-11-02 멘토링 칸은 정각에만, 한 시간 한 칸](#2026-11-02-hourly-slots)
@@ -451,6 +452,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-02-mentor-strip"></a>
+## 2026-11-02 멘토 페이지의 하루 칸 띠, PDF 흐름 끝에서 끝 시험
+- 범위: components/crossing/MentorTool.tsx, app/api/crossing/mentor/route.ts(slots), lib/crossingOps.ts(windowsFor, toWindow를 시간표 라우트에서 옮김), app/api/crossing/mentoring/route.ts, data/crossingTeam.ts
+- 한 것: 사용자 요청("팀이 없습니다 이런식으로 말고 뭔가 좀 더 visual", "pdf가 제출부터 멘토 확인까지", "DB에 잘 저장이 되는지"). 멘토 페이지가 날마다 그 멘토의 칸을 띠로 그립니다. 빈 칸은 점선, 팀이 넣은 칸은 트랙 틴트에 팀 이름, 머리에 "12칸 중 n팀". 학생 시간표와 같은 계산(windowsFor, slotStarts)이라 두 화면의 칸이 같습니다.
+- 근거: brand 7장(팀이 올린 1장은 칸을 받은 멘토가 멘토 페이지에서 미리 본다). 판단 질문 2: 멘토가 찾아올 팀과 그 팀의 1장을 한눈에 보고 준비합니다.
+- 검증: 실사이트에서 시험 팀과 멘토 01 Day 2 15:00 칸을 만들고 팀처럼 Day 1, 2 PDF를 올림. sign 200, 업로드 200, confirm 201, 같은 날 두 번째 409, 팀 화면에는 주소 없이 제출만, DB 행 둘(트랙 a, application/pdf, 크기 일치), 멘토 링크에서 두 파일 200, 내용 일치. 시험 데이터와 파일은 모두 지움(남은 행 0). tsc 통과.
+- 커밋: 이 항목과 같은 커밋
 
 ---
 

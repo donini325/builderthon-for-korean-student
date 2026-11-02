@@ -135,6 +135,18 @@ export function slotState(t: number, mentorBookings: Booking[], teamBookings: Bo
   return "open";
 }
 
+// 2026-11-02: 멘토 페이지도 같은 시간을 쓰려고 app/api/crossing/mentoring/route.ts에서 옮겼습니다.
+// 멘토 시간은 표에 Day와 한국 시각("14:00:00")으로 들어 있습니다(운영진이 표 편집기에 바로 적음). 화면과 판정에는 시각으로 바꿔 씁니다.
+export function toWindow(day: number, start: string, end: string): Window | null {
+  const a = kstTime(day, String(start).slice(0, 5)), b = kstTime(day, String(end).slice(0, 5));
+  return a && b && b > a ? { startsAt: a.toISOString(), endsAt: b.toISOString() } : null;
+}
+// 그 날 적힌 시간이 없으면 기본값(10:00~22:00, 임시)으로 봅니다(2026-10-17 사용자).
+export function windowsFor(day: number, rows: { start_time: string; end_time: string }[]): Window[] {
+  const ws = rows.map((w) => toWindow(day, w.start_time, w.end_time)).filter((w): w is Window => !!w);
+  return ws.length ? ws : [toWindow(day, DEFAULT_WINDOW.start, DEFAULT_WINDOW.end)!];
+}
+
 /** t 이상인 첫 칸 경계(GRID_MINUTES의 배수, 정각). KST는 UTC+9 정수 시간이라 UTC 기준으로 나눠도 한국 정각입니다. */
 export function gridCeil(t: number): number {
   const g = GRID_MINUTES * MIN;

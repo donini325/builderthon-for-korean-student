@@ -19,7 +19,7 @@ import { mentorCopy as c } from "@/data/crossingTeam";
 import { OPS_DAYS, dayDate, fmtKst, trackTint, type Track } from "@/lib/crossingOps";
 
 type Row = { id: string; day: number; team: string; track: string; startsAt: string; endsAt: string; files: { day: number; url: string }[] };
-type Data = { mentor: { name: string; field: string | null }; tracks: Track[]; bookings: Row[] };
+type Data = { mentor: { name: string; field: string | null }; tracks: Track[]; slots?: Record<string, string[]>; bookings: Row[] };
 
 export default function MentorTool() {
   const { t } = useLocale();
@@ -79,13 +79,35 @@ export default function MentorTool() {
             <p className={`${BODY} leading-relaxed text-naru-muted`}>{t(c.lead)} <span className={`${META} text-naru-muted/80`}>{t(c.refresh)}</span></p>
             {OPS_DAYS.map((d) => {
               const rows = data.bookings.filter((b) => b.day === d);
+              const slots = data.slots?.[String(d)] ?? [];
               return (
                 <section key={d} aria-labelledby={`mentor-day-${d}`} className="flex flex-col gap-[12px]">
                   <h2 id={`mentor-day-${d}`} className={`flex items-baseline gap-[10px] ${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>
                     <span>{t(c.day)} {d}</span> <span className={`${META} font-normal text-naru-muted`}>{dayDate(d).slice(5).replace("-", ".")}</span>
-                    {rows.length > 0 && <span className={`ml-auto ${META} font-semibold tabular-nums text-naru-muted`}>{t(c.teamCount).replace("{n}", String(rows.length))}</span>}
+                    {slots.length > 0
+                      ? <span className={`ml-auto ${META} font-semibold tabular-nums text-naru-muted`}>{t(c.slotCount).replace("{n}", String(slots.length)).replace("{b}", String(rows.length))}</span>
+                      : rows.length > 0 && <span className={`ml-auto ${META} font-semibold tabular-nums text-naru-muted`}>{t(c.teamCount).replace("{n}", String(rows.length))}</span>}
                   </h2>
-                  {!rows.length && <p className={`card-sunken rounded-xl px-[16px] py-[14px] ${META} text-naru-muted`}>{t(c.empty)}</p>}
+                  {/* DECIDED 2026-11-02 (사용자: "팀이 없습니다 이런식으로 말고 뭔가 좀 더 visual"): 그 날 이 멘토의 칸을 띠로 그립니다.
+                      학생 시간표의 한 열을 눕힌 모양입니다. 빈 칸은 점선, 팀이 넣은 칸은 그 팀 트랙의 옅은 틴트에 팀 이름. 색 띠 테두리는 쓰지 않습니다. */}
+                  {slots.length > 0 && (
+                    <ol className="grid grid-cols-3 gap-[6px] sm:grid-cols-6">
+                      {slots.map((s) => {
+                        const b = rows.find((x) => Date.parse(x.startsAt) === Date.parse(s));
+                        const tint = b ? trackTint(trackOf(b.track)?.color) : "";
+                        return (
+                          <li key={s} className={`flex min-h-[56px] flex-col justify-center gap-[2px] rounded-lg px-[10px] py-[8px] ${b ? "" : "border border-dashed border-white/10"}`}
+                            style={b ? { background: `${tint}26`, boxShadow: `inset 0 0 0 1px ${tint}40` } : undefined}>
+                            <span className={`${META} tabular-nums ${b ? "font-semibold text-white" : "text-naru-muted"}`}>{fmtKst(s)}</span>
+                            {b
+                              ? <span className={`flex min-w-0 items-center gap-[6px] ${META} font-semibold text-white`}><span aria-hidden className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: tint }} /><span className="truncate">{b.team}</span></span>
+                              : <span className={`${META} text-white/25`}>{t(c.openSlot)}</span>}
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  )}
+                  {!rows.length && <p className={`${META} text-naru-muted`}>{t(c.empty)}</p>}
                   {rows.map((b) => {
                     const tint = trackTint(trackOf(b.track)?.color);
                     const tr = trackOf(b.track);
