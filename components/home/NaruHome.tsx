@@ -35,7 +35,7 @@ import CityShape, { type City } from "@/components/ui/CityShape";
 import SeoulCampuses from "@/components/home/SeoulCampuses";
 import {
   SUBHEADING, READ, WIDE, HERO_BUTTON_GROUND,
-  latinTrack, eyebrowTrack, PlateSegment, SiteFooter, usePlateLite,
+  latinTrack, eyebrowTrack, PlateSegment, SiteFooter, usePlateLite, PreparingButton,
 } from "./shared";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1047,7 +1047,7 @@ export default function NaruHome() {
             {/* DECIDED 2026-10-11 (사용자, 스크린숏: "여기에 있으면 좋겠음. 2x2, 버튼 별 사이즈는 똑같이"): AI 유형 테스트 버튼이 일정표의
                 Day 1에서 여기로 왔습니다. 버튼 넷이 두 칸 두 줄로 서고, 격자가 칸을 늘려 넷의 크기가 같습니다(글은 가운데).
                 폰은 한 칸이고 "프로그램 보기"는 전처럼 폰에서 숨깁니다. */}
-            <div className={`mx-auto mt-10 grid w-fit max-w-full lg:mx-0 grid-cols-1 gap-3 ${regState === "not_open" ? "" : "sm:grid-cols-2"} lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
+            <div className={`mx-auto mt-10 grid w-fit max-w-full lg:mx-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
               {regState === "open" ? (
                 <button type="button" onClick={() => { track("naru_cta", { src: "hero", to: "register" }); reg?.openRegister(); }} className={`group ${buttonClass("primary", "naru")}`}>
                   {t(registerCopy.cta)}
@@ -1069,6 +1069,12 @@ export default function NaruHome() {
                 regState === "open"
                   ? <OpenChatLink t={t} src="naru-hero" label={openChatLabels.join} variant="secondary" className={HERO_BUTTON_GROUND} />
                   : <OpenChatLink t={t} src="naru-hero" label={openChatLabels.december} variant="hero" />
+              )}
+              {/* DECIDED 2026-11-02 (사용자: "이제 신청 button을 display 해도 될 거 같음, will be open at the end of second week of november"):
+                  열리기 전에도 등록 버튼이 다시 섭니다. 누르면 폼이 미리 보기로 열리고 제출만 꺼져 있습니다(2026-10-08 규칙).
+                  kwan-design의 버튼 순서(주 필 먼저, 유령 필 다음)대로 오픈채팅 필 뒤에 유령 필로 섭니다. 2026-10-20에 내린 결정을 이 결정이 대신합니다. */}
+              {regState === "not_open" && (
+                <PreparingButton t={t} noteId="hero-register-note" onOpen={() => reg?.openRegister()} className={HERO_BUTTON_GROUND} />
               )}
               {/* DECIDED 2026-10-18 (사용자, 스크린숏: "중요한 버튼 2개만 남겨줘"): "프로그램 보기"(#december)와 "AI 유형 테스트"(/match)를 뺐습니다.
                   남는 둘은 등록과 소식 받기, 신청으로 가는 길입니다. /match는 등록 완료 화면과 Day 1 카드의 matchCta가 잇고,
@@ -1349,11 +1355,12 @@ export default function NaruHome() {
             </button>
           ) : regState === "not_open" ? (
             <>
-              {/* 2026-10-20 (hwang 브리프 3.7): 미리 보기 버튼을 내렸습니다. 히어로와 같은 이유입니다. */}
               {/* DECIDED 2026-10-12 (등록 브리프 1.3, 리뷰 S8): 알림 버튼은 히어로와 같은 그라데이션 필입니다. 그 전에는 미리 보기,
                   알림, 후원 문의 셋이 같은 윤곽선이라 무엇을 눌러야 하는지 보이지 않았습니다. "페이지의 그라데이션 필은 히어로
                   하나"(2026-09-17)는 이 결정이 대신합니다. 같은 문(오픈채팅)이 두 자리에서 같은 모양입니다. */}
               <OpenChatLink t={t} src="naru-december" label={openChatLabels.december} variant="hero" describedBy="december-chat-note" />
+              {/* 2026-10-20에 내렸던 미리 보기 버튼을 2026-11-02(사용자)에 다시 세웁니다. 히어로와 같은 순서(주 필 다음 유령 필)입니다. */}
+              <PreparingButton t={t} noteId="december-register-note" onOpen={() => reg?.openRegister()} />
             </>
           ) : null}
         </div>
