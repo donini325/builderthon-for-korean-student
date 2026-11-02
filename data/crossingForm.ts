@@ -66,8 +66,8 @@ export const CONSENT_RETENTION: { ko: string; en: string } | null = registerFact
 export const CONSENT_NOTICE_READY = CONSENT_RETENTION !== null;
 const retention = CONSENT_RETENTION;
 const CONSENT_BASE = {
-  ko: "수집 항목: 이름, 이메일, 카카오톡 ID, 학교, 공부하는 나라, 전공(선택), AI로 해 본 것, 링크드인(선택). 목적: 참가 안내와 현장 팀 편성. 동의하지 않을 수 있고, 그 경우 등록할 수 없습니다.",
-  en: "What we collect: name, email, KakaoTalk ID, school, country of study, major (optional), your AI step, and LinkedIn (optional). Purpose: participation notices and on-site team formation. You may decline, in which case you cannot register.",
+  ko: "수집 항목: 이름, 이메일, 카카오톡 ID, 학교, 공부하는 나라, 전공, AI로 해 본 것, 링크드인(선택). 목적: 참가 안내와 현장 팀 편성. 동의하지 않을 수 있고, 그 경우 등록할 수 없습니다.",
+  en: "What we collect: name, email, KakaoTalk ID, school, country of study, major, your AI step, and LinkedIn (optional). Purpose: participation notices and on-site team formation. You may decline, in which case you cannot register.",
 };
 const CONSENT_HELP = retention
   ? { ko: `${CONSENT_BASE.ko} 보유 기간: ${retention.ko}.`, en: `${CONSENT_BASE.en} Retention: ${retention.en}.` }
@@ -126,13 +126,15 @@ export const CROSSING_FORM: Field[] = [
   // 순서가 곧 단계 번호입니다(명단 스크립트가 "3. 라벨"로 냅니다). 순서를 바꾸지 마세요.
   // DECIDED 2026-10-12 (등록 브리프 1.4 D3, 리뷰 S15): 전공은 선택입니다. Day 1 전에 꼭 필요한 것은 이름, 이메일, 카카오톡 ID,
   // 나라, 동의입니다. 서버도 같은 스키마로 검증하므로 빈 전공을 받습니다(빈 답은 answers에 넣지 않습니다).
-  { key: "major", scope: "member", type: "text", required: false, maxLen: 80,
+  // DECIDED 2026-11-02 (사용자, 스크린숏: "전공을 필수로 하되, 거기에 참여에는 영향이 없다 이렇게 해줘"): 전공은 필수입니다. 위 10-12의 선택을
+  // 이 결정이 대신합니다. 정해지지 않은 사람은 "미정"이라 적으면 됩니다(placeholder). 도움말은 AI 질문과 같은 꼴로 참가에 영향이 없다고 적습니다.
+  { key: "major", scope: "member", type: "text", required: true, maxLen: 80,
     label: { ko: "전공", en: "Major" },
     // DECIDED 2026-10-09 (사용자, 스크린숏: "여러분들을 위한 과정을 위해서 물어보는 것, screening 이 아니라는 내용 추가해줘"):
     // 전공과 아래 AI 질문은 선발처럼 읽히기 쉬운 두 칸입니다. 둘 다 바로 아래에 왜 묻는지를 적습니다.
     // DECIDED 2026-10-12 (등록 브리프 1.4, 리뷰 S5): "스크리닝이 아닙니다"는 두 도움말에서 빼고 모달 도입부 한 번만 둡니다.
     // 세 번 되풀이하니 오히려 선발처럼 읽혔습니다(docs/brand.md 9장: 한 자리에 한 번).
-    help: { ko: "여러분에게 맞는 과정을 준비하려고 묻습니다.", en: "We ask so we can prepare a programme that fits you." },
+    help: { ko: "여러분에게 맞는 과정을 준비하려고 묻습니다. 무엇을 적어도 참가에는 영향이 없습니다.", en: "We ask so we can prepare a programme that fits you. Your answer does not affect whether you can join." },
     placeholder: { ko: "예: 경영학, 컴퓨터공학, 미정", en: "e.g. Business, Computer Science, Undeclared" } },
   // DECIDED 2026-10-12 (등록 브리프 1.4 D2, 리뷰 S5): 0단계 "아직 거의 써 보지 않았다"(값 none)를 맨 앞에 더합니다. 그 전에는
   // 아무것도 해 보지 않은 사람이 고를 칸이 없는데 필수였습니다. 번호는 0부터입니다(firstStep). 기존 넷의 값과 번호(1~4)는

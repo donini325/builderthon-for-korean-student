@@ -14,9 +14,9 @@ post "(e) unknown keys, 201"     "{\"eventSlug\":\"$E\",\"registration\":{\"cons
 post "(f) wrong eventSlug, 400"  "{\"eventSlug\":\"other\",\"registration\":{\"consent\":true},\"members\":[$M]}"
 post "(g) honeypot, quiet 201"   "{\"eventSlug\":\"$E\",\"url_confirm\":\"http://x\",\"registration\":{\"consent\":true},\"members\":[{\"name\":\"h\",\"email\":\"c4@example.com\",\"contact\":\"k\",\"study_country\":\"KR\",\"major\":\"테스트\",\"ai_level\":\"chat\"}]}"
 # 2026-10-07 (신청 폼 브리프 3.4): 목록 밖 단계는 400.
-# 2026-10-12 (등록 브리프 1.4): 전공은 선택이라 빈 전공은 201(answers에 major 없음). 0단계 none은 201.
+# 2026-11-02 (사용자): 전공은 필수라 빈 전공은 400. 0단계 none은 201.
 post "(h) ai_level not in list"  "{\"eventSlug\":\"$E\",\"registration\":{\"consent\":true},\"members\":[{\"name\":\"i\",\"email\":\"c5@example.com\",\"contact\":\"k\",\"study_country\":\"KR\",\"major\":\"테스트\",\"ai_level\":\"expert\"}]}"
-post "(i) empty major, 201"      "{\"eventSlug\":\"$E\",\"registration\":{\"consent\":true},\"members\":[{\"name\":\"j\",\"email\":\"c6@example.com\",\"contact\":\"k\",\"study_country\":\"KR\",\"major\":\"  \",\"ai_level\":\"chat\"}]}"
+post "(i) empty major, 400"      "{\"eventSlug\":\"$E\",\"registration\":{\"consent\":true},\"members\":[{\"name\":\"j\",\"email\":\"c6@example.com\",\"contact\":\"k\",\"study_country\":\"KR\",\"major\":\"  \",\"ai_level\":\"chat\"}]}"
 post "(p) ai_level none, 201"    "{\"eventSlug\":\"$E\",\"registration\":{\"consent\":true},\"members\":[{\"name\":\"p\",\"email\":\"c10@example.com\",\"contact\":\"k\",\"study_country\":\"KR\",\"ai_level\":\"none\"}]}"
 # 2026-10-08: 팀 꼴, 나라, 본문 모양.
 post "(j) two members, 400"      "{\"eventSlug\":\"$E\",\"registration\":{\"consent\":true},\"members\":[$M,$M]}"
