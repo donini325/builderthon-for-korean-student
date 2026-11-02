@@ -463,7 +463,7 @@
 - 범위: supabase/migrations/0017_crossing_mentor_halfday_windows.sql(새), lib/crossingOps.ts(DEFAULT_WINDOW 삭제, windowsFor, SAME_DAY_FROM), app/api/crossing/mentoring/route.ts(GET), components/crossing/TeamTool.tsx, components/crossing/MentorTool.tsx, data/crossingTeam.ts(offDay, 규칙 카드, 당일 문구), docs/brand.md 7장
 - 한 것: 사용자 결정(멘토 미팅에서 받은 가용 시간으로 배정). 멘토 한 분은 Day 2 또는 Day 3 중 하루의 반나절(오전 10:00~13:00, 오후 14:00~17:00)만 맡고, 반나절마다 두 분, 8명입니다. 13:00~14:00은 점심이라 칸이 없습니다. 0017이 sort 1~8에 구간을 넣고(9, 10은 비움), 행이 없는 날은 기본값 10:00~22:00 대신 칸이 없습니다. 학생 시간표는 그날 맡은 멘토만, 줄은 멘토 칸의 합집합(13:00 줄 없음), 다른 반나절은 "지남"이 아니라 빈칸. 멘토 페이지는 안 맡은 날에 "이날은 맡지 않습니다". 당일 예약은 14:00부터라 오류 문구 둘과 규칙 카드도 14:00으로.
 - 근거: brand 7장 멘토링 줄(같은 커밋에서 13:00을 14:00으로, 반나절 한 줄 추가). 판단 질문 2: 팀이 그날 실제로 만날 수 있는 멘토만 보여, 들고 간 1장을 확인받을 자리가 헛칸 없이 잡힙니다.
-- 검증: tsc 통과, next build 통과(npm run lint는 ESLint 설정이 없어 설정 질문에서 멈춤). bookingGate(Day 2 09:00 기준) 10:00 same_day_morning, 14:00 ok. 반나절 두 구간의 줄은 10, 11, 12, 14, 15, 16시. 실서버 멘토 10자리 구간 0행이라 0017은 8행을 넣습니다. 0017 실서버 적용과 API, 화면 확인(브리프 4절 2~5)은 적용 뒤에 합니다.
+- 검증: tsc 통과, next build 통과(npm run lint는 ESLint 설정이 없어 설정 질문에서 멈춤). bookingGate(Day 2 09:00 기준) 10:00 same_day_morning, 14:00 ok. 반나절 두 구간의 줄은 10, 11, 12, 14, 15, 16시. 0017 실서버 적용 뒤 구간 8행(sort 1~4 Day 2, 5~8 Day 3, 오전 10~13, 오후 14~17). API Day 2, 3 멘토 각 4명에 구간 하나, Day 1은 0명. /crossing/team(시계 Day 2 15:00 가정) Day 2 열 4개, 줄 10, 11, 12, 14, 15, 16시, 다른 반나절은 빈칸이고 지남은 맡은 시간에만. Day 1은 day1BookHint만. 멘토 페이지 sort 1은 Day 2 칸 셋, Day 3 "이날은 맡지 않습니다".
 - 브리프: docs/mentor-halfday-brief.md
 - 커밋: 이 항목과 같은 커밋
 
