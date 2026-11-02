@@ -13,7 +13,7 @@ import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { CURRENT_EVENT } from "@/lib/registrationWindow";
 import { findTeam, listTracks } from "@/lib/crossingOpsServer";
-import { OPS_DAYS, teamHasPending, windowsFor, SESSION_MINUTES, bookingGate, fitsWindow, isPhoneUA, isOpsDay, isProofDay } from "@/lib/crossingOps";
+import { OPS_DAYS, GRID_MINUTES, teamHasPending, windowsFor, SESSION_MINUTES, bookingGate, fitsWindow, isPhoneUA, isOpsDay, isProofDay } from "@/lib/crossingOps";
 
 export const dynamic = "force-dynamic";
 
@@ -33,9 +33,10 @@ export async function GET(req: Request) {
   if (teams.error || mentors.error || !tracks) return NextResponse.json({ error: "db" }, { status: 500 });
   const ids = (mentors.data ?? []).map((m) => m.id);
   const none = ["00000000-0000-0000-0000-000000000000"];
-  const [{ data: windows }, { data: bookings }] = await Promise.all([
+  const [{ data: windows }, { data: bookings }, { data: pending }] = await Promise.all([
     db.from("crossing_mentor_windows").select("mentor_id, start_time, end_time").eq("day", isOpsDay(day) ? day : -1).in("mentor_id", ids.length ? ids : none).order("start_time"),
     db.from("crossing_mentor_bookings").select("id, mentor_id, team_name, track, starts_at, ends_at").eq("day", isOpsDay(day) ? day : -1).in("mentor_id", ids.length ? ids : none).order("starts_at"),
+    db.from("crossing_mentor_bookings").select("team_name").in("mentor_id", ids.length ? ids : none).gt("starts_at", new Date(Date.now() - GRID_MINUTES * 60_000).toISOString()),
   ]);
   return NextResponse.json({
     // DECIDED 2026-10-18 (사용자: "트랙에 따라서 슬롯 색깔이 달라졌으면"): 화면이 팀과 칸을 트랙 색으로 칠합니다.
@@ -50,6 +51,8 @@ export async function GET(req: Request) {
         id: b.id, team: b.team_name, track: b.track, startsAt: b.starts_at, endsAt: b.ends_at,
       })),
     })).filter((m) => m.windows.length > 0),
+    // 2026-11-03: 넣은 멘토링이 아직 끝나지 않은 팀(이틀 통틀어, lib/crossingOps.ts teamHasPending). 그 팀은 다음 칸을 넣지 못합니다.
+    pendingTeams: [...new Set((pending ?? []).map((b) => b.team_name))],
   });
 }
 
@@ -70,13 +73,13 @@ export async function POST(req: Request) {
   const { data: windows } = await db.from("crossing_mentor_windows").select("day, start_time, end_time").eq("mentor_id", mentorId);
   const hit = OPS_DAYS.map((d) => ({ day: d, ws: windowsFor(d, (windows ?? []).filter((w) => w.day === d)) })).find((x) => fitsWindow(t, x.ws));
   if (!hit) return NextResponse.json({ error: "outside_window" }, { status: 400 });
-  // 2026-10-26: Day 1부터 열리고, 그날에는 SAME_DAY_FROM(14:00, 2026-11-03) 이후 칸만(lib/crossingOps.ts bookingGate).
-  const gate = bookingGate(hit.day, t);
+  // 2026-10-26: Day 1 12:00부터 열립니다(lib/crossingOps.ts bookingGate). 당일 오후 규칙은 2026-11-03에 없앴습니다.
+  const gate = bookingGate();
   if (gate !== "ok") return NextResponse.json({ error: gate }, { status: 400 });
 
-  // 2026-11-02: 그 날 넣은 칸이 끝나야 다음 칸(lib/crossingOps.ts teamHasPending). 미리 보고 알맞은 말로 거절하고,
+  // 2026-11-03: 넣은 칸이 끝나야 다음 칸, 이틀 통틀어(lib/crossingOps.ts teamHasPending). 미리 보고 알맞은 말로 거절하고,
   // 동시에 들어온 요청은 DB 트리거가 막습니다(P0001 team_pending).
-  const { data: ours } = await db.from("crossing_mentor_bookings").select("starts_at, ends_at").eq("team_name", team.name).eq("day", hit.day);
+  const { data: ours } = await db.from("crossing_mentor_bookings").select("starts_at, ends_at").eq("team_name", team.name);
   if (teamHasPending((ours ?? []).map((b) => ({ startsAt: b.starts_at, endsAt: b.ends_at })))) return NextResponse.json({ error: "team_pending" }, { status: 409 });
 
   const { error } = await db.from("crossing_mentor_bookings").insert({
@@ -85,7 +88,7 @@ export async function POST(req: Request) {
   });
   if (error) {
     if (error.code === "P0001" && (error.message ?? "").includes("team_pending")) return NextResponse.json({ error: "team_pending" }, { status: 409 });
-    if (error.code === "23P01") return NextResponse.json({ error: (error.message ?? "").includes("team_cooldown") ? "team_busy" : "taken" }, { status: 409 });
+    if (error.code === "23P01") return NextResponse.json({ error: (error.message ?? "").includes("team_overlap") ? "team_busy" : "taken" }, { status: 409 });
     console.error("[crossing/mentoring] insert failed", error.code);
     return NextResponse.json({ error: "db" }, { status: 500 });
   }

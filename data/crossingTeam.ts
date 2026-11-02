@@ -20,7 +20,6 @@ export const teamCopy = {
   // 2026-10-26 (사용자: "업로드 한 파일을 멘토들이 볼 수 있도록 이라고 워딩을 바꿔줘"): 멘토마다 자기 링크(/crossing/mentor)에서 자기 칸에 들어온 팀의 파일을 엽니다.
   carry: { ko: "우리 팀이 올린 파일은 칸을 넣은 멘토가 각자의 멘토 링크에서 열어 볼 수 있습니다.", en: "The mentors you book can open the files your team uploaded from their own mentor link." },
   notYet: { ko: "아직 열리지 않았습니다. Day 1(12.18) 12:00부터 넣을 수 있습니다.", en: "Not open yet. You can add slots from Day 1 (Dec 18) at 12:00." },
-  sameDay: { ko: "오늘은 14:00 이후 칸만 넣을 수 있습니다. 오전 칸은 전날까지 넣습니다.", en: "Today only slots from 14:00 can be added. Morning slots close the day before." },
   day1BookHint: { ko: "Day 2, 3 멘토 칸은 Day 1(12.18) 12:00부터 Day 2, Day 3 탭에서 넣습니다.", en: "From Day 1 (Dec 18) at 12:00, add your Day 2 and 3 mentor slots in the Day 2 and Day 3 tabs." },
   // 2026-10-18 (사용자: "트랙에 따라서 슬롯 색깔이 달라졌으면"). 우리 팀 칸은 흰 테두리로 가립니다.
   trackLegend: { ko: "칸의 색은 그 팀의 트랙입니다. 흰 테두리는 우리 팀입니다.", en: "Each slot takes its team's track colour. A white outline marks your team." },
@@ -30,11 +29,11 @@ export const teamCopy = {
   confirmPut: { ko: "넣기?", en: "Put in?" },
   noMentors: { ko: "이 날 시간을 연 멘토가 아직 없습니다.", en: "No mentors have opened times on this day yet." },
   errTaken: { ko: "방금 다른 팀이 들어간 칸입니다.", en: "Another team just took that cell." },
-  errTeamBusy: { ko: "우리 팀의 다른 칸과 2시간이 떨어져야 합니다.", en: "Your slots need to start at least two hours apart." },
-  errPending: { ko: "이 날 넣은 멘토링이 끝난 뒤에 다음 칸을 넣을 수 있습니다.", en: "You can add your next slot that day once the one you have is over." },
+  errTeamBusy: { ko: "우리 팀의 다른 칸과 시간이 겹칩니다.", en: "This overlaps another of your team's slots." },
+  // 2026-11-03: 이틀 통틀어 한 번에 한 칸. 시간표 위 안내로도 씁니다.
+  errPending: { ko: "우리 팀이 넣은 멘토링이 끝나면 다음 칸을 넣을 수 있습니다.", en: "Your team can add the next slot once its booked session is over." },
   errPast: { ko: "지난 시간입니다.", en: "That time has passed." },
   errNotYet: { ko: "Day 1(12.18) 12:00부터 넣을 수 있습니다.", en: "Slots open on Day 1 (Dec 18) at 12:00." },
-  errMorning: { ko: "오늘은 14:00 이후 칸만 넣을 수 있습니다.", en: "Today only slots from 14:00 can be added." },
   errGeneric: { ko: "잠시 뒤 다시 해 주세요.", en: "Something went wrong. Try again in a moment." },
 
   proofHeading: { ko: "미션 인증", en: "Mission check-in" },
@@ -68,6 +67,11 @@ export const teamCopy = {
   phoneNotice: { ko: "칸 넣기는 노트북이나 PC에서 합니다. 폰에서는 시간표를 보기만 할 수 있습니다. 인증 사진과 PDF는 폰에서도 올릴 수 있습니다.", en: "Book slots from a laptop or PC. On a phone you can only view the timetable. Photos and PDFs can be uploaded from a phone." },
   errPhone: { ko: "칸 넣기는 노트북이나 PC에서 합니다.", en: "Please book from a laptop or PC." },
   rulesHeading: { ko: "넣는 규칙", en: "How booking works" },
+  // 시간표 넣는 규칙(2026-10-26 카드 여섯 장). DECIDED 2026-11-03 (사용자): 규칙의 목적은 모든 팀이 한 번은 멘토님을 만나는 것과
+  // 멘토님께 무리가 가지 않는 것이라, 남길 규칙만 한 줄로 씁니다. 정본은 lib/crossingOps.ts(SESSION_MINUTES, teamHasPending, BOOKING_OPENS_AT).
+  // 같은 날 사용자: 이동 시간을 생각해 무리하게 붙여 잡지 않게 하는 한 줄을 더합니다(멘토는 오피스, 카페에 계시고 팀이 찾아감, brand 7장).
+  rulesLine: { ko: "팀마다 한 번에 한 칸, 40분입니다. 넣은 멘토링이 끝나면 다음 칸을 넣을 수 있습니다. 12.18 12:00에 열리고, 넣은 칸은 바꿀 수 없습니다.", en: "One slot at a time per team, 40 minutes each. Once your session is over, you can add the next. Booking opens Dec 18 at 12:00, and a slot cannot be changed once it is in." },
+  travelLine: { ko: "멘토님이 계신 곳(오피스, 카페)까지 가는 시간을 생각해, 다른 일정과 바로 붙여 무리하게 잡지 마세요.", en: "Leave time to get to where the mentor is (an office or a café). Do not squeeze it right up against your other plans." },
   // 2026-10-26 (사용자: 한 번만 올리기, 하루가 끝나기 전에 신중하게): 고른 뒤 한 번 더 묻고 올립니다.
   // 같은 날 이어서(사용자: "잘못 업로드 하면 운영진에게 알려달라"): 운영진이 crossing_mission_proofs의 그 행을 지우면 다시 올릴 수 있습니다.
   proofOnce: { ko: "사진과 PDF는 날마다 한 번씩만 올릴 수 있고, 올린 뒤에는 바꿀 수 없습니다. 그날이 끝나기 전에 확인하고 올려 주세요. 잘못 올렸다면 운영진에게 알려 주세요.", en: "You can upload each photo and PDF once a day, and it cannot be changed afterwards. Check it carefully before the day ends. If you uploaded the wrong file, tell the organisers." },
@@ -85,22 +89,6 @@ export const teamCopy = {
   proofTooBig: { ko: "이 파일은 {mb}MB까지 올릴 수 있습니다.", en: "This file can be up to {mb} MB." },
   proofBadType: { ko: "사진은 JPG, PNG, HEIC, 문서는 PDF로 올립니다.", en: "Photos as JPG, PNG or HEIC. Documents as a PDF." },
 } satisfies Record<string, Phrase>;
-
-// 시간표 사용 규칙(2026-10-26, 사용자: "시간표 사용 설명이 좀 더 visually engaging 했으면"). 한 문단이던 것을 카드 여섯 장으로.
-// 카드마다 핵심 한마디(key, 굵게)와 한 줄(body). 순서는 넣는 방법, 칸의 길이, 하루 상한, 바꿀 수 없음, 여는 때, 그날의 규칙.
-// 규칙의 정본은 lib/crossingOps.ts(SESSION_MINUTES, BUFFER_MINUTES, teamHasPending, TEAM_COOLDOWN_MINUTES, BOOKING_OPENS_AT, SAME_DAY_FROM)입니다.
-export const timetableRules: { icon: "tap" | "clock" | "two" | "lock" | "open" | "today"; key: Phrase; body: Phrase }[] = [
-  { icon: "tap", key: { ko: "두 번 눌러 넣기", en: "Tap twice" }, body: { ko: "빈 칸을 두 번 누르면 우리 팀 이름이 들어갑니다. 멘토와 모든 팀이 같은 표를 봅니다.", en: "Tap an empty cell twice to put your team in. Mentors and every team see the same table." } },
-  // DECIDED 2026-11-02 (사용자: "무조건 9시, 10시 이런식으로"): 칸은 정각에 시작한다는 것을 이 카드가 말합니다.
-  { icon: "clock", key: { ko: "정각에 시작, 40분", en: "On the hour, 40 minutes" }, body: { ko: "10:00, 11:00처럼 정각에만 넣고, 멘토링은 40분입니다. 앞뒤 10분은 멘토가 쉽니다.", en: "Slots start only on the hour, like 10:00 or 11:00, and run 40 minutes. The mentor rests ten minutes on either side." } },
-  // DECIDED 2026-11-02 (사용자: "하루 한도는 없음", 넣은 칸이 끝난 뒤에 다음 칸, 2시간 뒤부터). 그 전 "하루 두 칸".
-  // 같은 날 사용자 확인: "끝난 뒤"가 40분 멘토링과 엇갈려 "한 시간이 지나면"으로, 언제 넣는가와 어느 칸인가를 두 문장으로 나눔.
-  { icon: "two", key: { ko: "한 칸씩, 끝나면 다음 칸", en: "One at a time" }, body: { ko: "같은 날에는 한 칸씩 넣습니다. 넣은 칸의 한 시간이 지나면 다음 칸을 넣을 수 있고, 다음 칸은 앞 칸 시작에서 2시간 뒤부터입니다. 예: 15:00 칸을 넣었다면 16:00부터 17:00 이후 칸을 넣습니다.", en: "On the same day, add one slot at a time. Once your slot's hour has passed you can add the next, starting two hours after the last one began. Example: booked 15:00? From 16:00 you can add 17:00 or later." } },
-  { icon: "lock", key: { ko: "넣으면 못 바꿈", en: "No changes" }, body: { ko: "한 번 넣은 칸은 바꾸거나 뺄 수 없습니다.", en: "Once a slot is in, it cannot be changed or removed." } },
-  { icon: "open", key: { ko: "12.18 12:00 열림", en: "Opens Dec 18, 12:00" }, body: { ko: "Day 1 낮 12시부터 Day 2 칸 하나, Day 3 칸 하나를 미리 넣을 수 있습니다.", en: "From noon on Day 1, you can book one Day 2 slot and one Day 3 slot ahead." } },
-  // DECIDED 2026-11-03 (사용자): 멘토는 반나절씩이라 당일에는 오후 칸(14:00부터)만 넣습니다. 그 전 13:00.
-  { icon: "today", key: { ko: "당일은 오후 칸만", en: "On the day, afternoon only" }, body: { ko: "그날이 되면 그날의 칸은 14:00 이후만 넣습니다. 오전 칸은 전날까지 넣어 주세요.", en: "On the day itself, only slots from 14:00 can be added. Book morning slots the day before." } },
-];
 
 // 멘토를 부르는 말. DECIDED 2026-11-03 (사용자: "정확히 성함이 있어야지", "맨토님"): 이름은 DB crossing_mentors.name에만 두고
 // (레포에 쓰지 않음, 운영진 문서 크로싱서울_멘토링크 기준), 화면에서 한국어는 "OOO 멘토님"으로 부릅니다. 아직 자리 이름("멘토 01")이면 붙이지 않습니다.

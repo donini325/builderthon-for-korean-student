@@ -5,6 +5,7 @@
 // DECIDED 2026-10-17 (사용자): 멘토링은 예약제이고, 예약 하나가 그 앞뒤 10분을 막습니다(같은 날 15분에서 10분으로).
 // DECIDED 2026-10-17 (사용자: "10분씩 보여주니까 너무 정신이 없음, 30분 간격으로, 어짜피 앞뒤 10분하면 1시간"): 줄은 30분이었습니다.
 // DECIDED 2026-11-02 (사용자): 칸은 정각에만 시작하고 줄은 한 시간입니다(GRID_MINUTES). 칸 하나(40분)가 한 줄입니다.
+// DECIDED 2026-11-03 (사용자): 한 팀은 한 번에 한 칸(이틀 통틀어), 넣은 멘토링이 끝나면 다음 칸. 2시간 규칙과 당일 오후 규칙은 없앴습니다(마이그레이션 0018).
 // DECIDED 2026-11-03 (사용자): 멘토 한 분은 Day 2 또는 Day 3 중 하루의 반나절(오전 10:00~13:00 또는 오후 14:00~17:00)만 맡습니다(마이그레이션 0017). 13:00~14:00은 점심이라 칸이 없습니다.
 // 막는 규칙의 정본은 DB의 exclude 제약입니다. 여기의 계산은 화면에 칸을 그리고 미리 거절하는 용도이고,
 // BUFFER_MINUTES를 바꾸면 마이그레이션 0008의 crossing_plus_minutes(ends_at, 10)도 같이 바꿔야 합니다.
@@ -23,20 +24,14 @@ export const BUFFER_MINUTES = 10;
  * 앞뒤 10분 규칙(DB 0008)은 그대로 맞습니다. 그 전 30분(2026-10-17). */
 export const GRID_MINUTES = 60;
 /**
- * 한 팀이 칸을 하나 넣으면 그 칸의 시작부터 이만큼은 어느 멘토의 칸도 넣지 못합니다. 하루 횟수 제한은 없습니다(2026-11-02).
- * DECIDED 2026-10-17 (사용자: "한번 slot booking을 하면, 그 이후 2시간 동안은 같은 멘토던 다른 멘토던 booking 못하고").
- * 앞뒤 대칭입니다(16:00을 먼저 넣었으면 14:10~17:50 시작도 막힘). 마이그레이션 0008의 crossing_plus_minutes(starts_at, 120)과 같아야 합니다.
+ * 한 팀은 한 번에 한 칸만 넣습니다(Day 2, 3 통틀어). 넣은 멘토링이 끝나면(칸의 시작에서 한 줄, GRID_MINUTES) 다음 칸을 넣습니다.
+ * DECIDED 2026-11-03 (사용자): 목적은 모든 팀이 한 번은 멘토님을 만나는 것과 멘토님께 무리가 가지 않는 것. "한 칸 이상 가능",
+ * "본인이 booking 한 멘토링 시간이 끝나면 그때 넣을 수 있는거로". 그래서 미리(Day 1) 넣는 칸은 하나이고, 칸 24개에 16팀이 먼저 한 번씩 갑니다.
+ * 그 전(2026-11-02)에는 날마다 따로 세고 2시간 규칙(TEAM_COOLDOWN_MINUTES 120)이 있었습니다. 둘 다 없앴습니다.
+ * DB 트리거(0018 crossing_bookings_one_pending)와 같아야 합니다. teamBookings는 그 팀의 모든 날 칸입니다.
  */
-export const TEAM_COOLDOWN_MINUTES = 120;
-/**
- * 같은 날의 다음 칸은 그 날 넣은 칸이 끝난 뒤에 넣습니다. 끝은 칸의 시작에서 한 줄(GRID_MINUTES) 뒤입니다.
- * DECIDED 2026-11-02 (사용자: "하루 한도는 없음", "3시로 booking 을 하면, 4시에 마무리가 되니까, 4시 이후에 booking"):
- * 하루 두 칸(2026-10-17)을 없앴습니다. 날마다 따로 셉니다(사용자가 고른 안 "날마다 하나씩 미리"): Day 1에 Day 2, 3 칸을 하나씩 넣을 수 있습니다.
- * 2시간 규칙(TEAM_COOLDOWN_MINUTES)은 그대로라 15:00 칸 뒤의 다음 칸은 16:00부터 넣고, 17:00 이후입니다.
- * DB 트리거(0016 crossing_bookings_one_pending)와 같아야 합니다.
- */
-export const teamHasPending = (teamBookingsThatDay: Booking[], now = Date.now()): boolean =>
-  teamBookingsThatDay.some((b) => Date.parse(b.startsAt) + GRID_MINUTES * MIN > now);
+export const teamHasPending = (teamBookings: { startsAt: string }[], now = Date.now()): boolean =>
+  teamBookings.some((b) => Date.parse(b.startsAt) + GRID_MINUTES * MIN > now);
 /**
  * 홈의 Day 2, Day 3 카드 버튼이 눌리는지. false면 버튼이 보이되 잠겨 있습니다.
  * DECIDED 2026-10-17 (사용자: "production에도 열어줘, 그런데 당장은 이용자들이 바로면 안되서, 일단 button은 disable").
@@ -124,9 +119,9 @@ export function slotState(t: number, mentorBookings: Booking[], teamBookings: Bo
     if (overlap(t, end, b0 - buf, b1 + buf)) return "buffer";
   }
   if (t < now) return "past";
-  const cool = TEAM_COOLDOWN_MINUTES * MIN;
+  // 한 팀의 두 칸은 겹치지 않습니다(DB 0018 team_overlap, 60분). 2시간 규칙은 2026-11-03에 없앴습니다.
   for (const b of teamBookings) {
-    if (Math.abs(t - Date.parse(b.startsAt)) < cool) return "teamBusy";
+    if (Math.abs(t - Date.parse(b.startsAt)) < GRID_MINUTES * MIN) return "teamBusy";
   }
   return "open";
 }
@@ -168,20 +163,16 @@ export function fitsWindow(t: number, windows: Window[]): boolean {
  * 언제 칸을 넣을 수 있는지. 서버(POST)와 화면이 같은 판정을 씁니다.
  * DECIDED 2026-10-26 (사용자: "day 2,3 둘다 choose 할 수 있도록 at day 1 에 할 수 있도록. 그리고 day 2 에는 오전 시간대는 오후 1시 이상
  * and day 3, 그리고 시간이 지나면 그 지나간 시간은 block. do the same for the day 3"):
- * - Day 1(12.18) 12:00 KST부터 Day 2, 3 칸을 함께 넣을 수 있습니다. 그 전에는 닫혀 있습니다.
+ * - Day 1(12.18) 12:00 KST부터 Day 2, 3 칸을 넣을 수 있습니다. 그 전에는 닫혀 있습니다.
  *   (같은 날 사용자: "Day 1(12.18) 에는 12시 부터 열어줘". 그 전 00:00.)
- * - 그날이 되면 그날의 칸은 SAME_DAY_FROM 이후만 넣습니다.
  * - 지난 시간은 막힙니다(slotState의 past, 서버의 past).
+ * DECIDED 2026-11-03 (사용자): "당일은 오후 칸만"(SAME_DAY_FROM)을 없앴습니다. 예약이 Day 1에 열려 대부분 미리 넣고, 규칙만 늘어서.
  */
 export const BOOKING_OPENS_DAY = 1;
 export const BOOKING_OPENS_AT = "12:00";
-// DECIDED 2026-11-03 (사용자): 당일에는 오후 칸(14:00부터)만. 오전 칸은 전날까지 넣어야 멘토가 1장을 미리 봅니다(그 전 13:00).
-export const SAME_DAY_FROM = "14:00";
-export type BookingGate = "ok" | "not_yet" | "same_day_morning";
-export function bookingGate(day: number, t: number, now = Date.now()): BookingGate {
-  if (now < kstTime(BOOKING_OPENS_DAY, BOOKING_OPENS_AT)!.getTime()) return "not_yet";
-  if (now >= kstTime(day, "00:00")!.getTime() && t < kstTime(day, SAME_DAY_FROM)!.getTime()) return "same_day_morning";
-  return "ok";
+export type BookingGate = "ok" | "not_yet";
+export function bookingGate(now = Date.now()): BookingGate {
+  return now < kstTime(BOOKING_OPENS_DAY, BOOKING_OPENS_AT)!.getTime() ? "not_yet" : "ok";
 }
 
 /**

@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-03 멘토 칸은 이틀 통틀어 한 번에 한 칸, 규칙 카드를 한 줄로](#2026-11-03-one-at-a-time)
 - [2026-11-03 멘토 페이지를 그날의 표 전체로, 이름과 맡은 시간을 크게](#2026-11-03-mentor-board)
 - [2026-11-03 멘토를 "OOO 멘토님"으로, 맡지 않은 날은 멘토 페이지에서 뺌](#2026-11-03-mentor-title)
 - [2026-11-03 멘토는 하루의 반나절만, 당일은 14:00 이후 칸](#2026-11-03-mentor-halfday)
@@ -457,6 +458,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-03-one-at-a-time"></a>
+## 2026-11-03 멘토 칸은 이틀 통틀어 한 번에 한 칸, 규칙 카드를 한 줄로
+- 범위: supabase/migrations/0018_crossing_booking_one_at_a_time.sql(새), lib/crossingOps.ts(teamHasPending, slotState, bookingGate, TEAM_COOLDOWN_MINUTES와 SAME_DAY_FROM 삭제), app/api/crossing/mentoring/route.ts(pendingTeams, POST), components/crossing/TeamTool.tsx, data/crossingTeam.ts(rulesLine, travelLine, 오류 문구), docs/brand.md 7장
+- 한 것: 사용자 결정. 규칙의 목적은 모든 팀이 한 번은 멘토님을 만나는 것과 멘토님께 무리가 가지 않는 것. 한 팀은 Day 2, 3 통틀어 한 번에 한 칸, 넣은 멘토링이 끝나면(시작에서 60분) 다음 칸("한 칸 이상 가능", "본인이 booking 한 멘토링 시간이 끝나면 그때"). 그래서 미리 넣는 칸은 하나이고 칸 24개에 16팀이 먼저 한 번씩 갑니다. 2시간 규칙과 당일 오후 규칙은 없앴습니다. 규칙 카드 여섯 장을 한 줄로 줄이고, 이동 시간을 생각해 무리하게 붙여 잡지 말라는 한 줄을 더했습니다. 0018은 트리거를 팀 단위로, 2시간 제약을 60분 겹침 제약으로 바꿉니다.
+- 근거: brand 7장 멘토링 줄(같은 커밋에서 고침). 판단 질문 1: 늦게 넣는 팀도 한 번은 멘토를 만날 자리가 남습니다.
+- 검증: tsc, next build 통과. 10:00 칸을 넣으면 10:59까지 다음 칸 막힘, 11:00부터 12:00 칸과 Day 3 칸 열림. 12.18 11:59 닫힘, 12:00 열림. /crossing/team 1280px, 390px 오류 0, 가로 넘침 0. 0018 실서버 적용은 합치기 전에.
+- 커밋: 이 항목과 같은 커밋
 
 ---
 

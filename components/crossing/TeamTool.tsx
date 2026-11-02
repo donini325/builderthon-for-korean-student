@@ -16,9 +16,9 @@ import { useLocale } from "@/lib/LocaleContext";
 import { BODY, META, SUBTITLE } from "@/components/ui/typography";
 import { buttonClass } from "@/components/ui/Button";
 import LocaleToggle from "@/components/LocaleToggle";
-import { teamCopy as c, timetableRules, mentorTitle } from "@/data/crossingTeam";
+import { teamCopy as c, mentorTitle } from "@/data/crossingTeam";
 import {
-  BUFFER_MINUTES, bookingGate, isPhoneUA, kstTime, BOOKING_OPENS_DAY, BOOKING_OPENS_AT, teamHasPending, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, slotStarts, trackTint,
+  BUFFER_MINUTES, bookingGate, isPhoneUA, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, slotStarts, trackTint,
   type ProofDay, type ProofKind, type Track, type Window,
 } from "@/lib/crossingOps";
 
@@ -41,6 +41,8 @@ export default function TeamTool() {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [teamTracks, setTeamTracks] = useState<Record<string, string>>({});
   const [mentors, setMentors] = useState<Mentor[] | null>(null);
+  // 2026-11-03: 넣은 멘토링이 아직 끝나지 않은 팀(이틀 통틀어). 서버가 계산해 줍니다(lib/crossingOps.ts teamHasPending).
+  const [pendingTeams, setPendingTeams] = useState<string[]>([]);
   const [team, setTeam] = useState(""); // 팀 이름. 따로 만드는 ID는 없습니다
   const [pending, setPending] = useState<{ m: string; r: number } | null>(null); // 넣기 전에 한 번 묻는 칸
   const [msg, setMsg] = useState<string | null>(null);
@@ -60,14 +62,13 @@ export default function TeamTool() {
   const timetableLocked = day === 1;
   // 2026-10-26: 안내 줄에 쓰는 지금 상태. 칸마다의 판정은 bookingGate가 합니다. 시간표를 다시 읽을 때(20초) 같이 새로 셉니다.
   const now = Date.now();
-  const notYet = now < kstTime(BOOKING_OPENS_DAY, BOOKING_OPENS_AT)!.getTime();
-  const today = now >= kstTime(day, "00:00")!.getTime();
+  const notYet = bookingGate(now) === "not_yet";
 
   const refresh = useCallback(async () => {
     const r = await fetch(`/api/crossing/mentoring?day=${day}`, { cache: "no-store" });
     if (!r.ok) { setMsg(t(c.errGeneric)); return; }
     const j = await r.json();
-    setTeams(j.teams ?? []); setTracks(j.tracks ?? []); setTeamTracks(j.teamTracks ?? {}); setMentors(j.mentors ?? []);
+    setTeams(j.teams ?? []); setTracks(j.tracks ?? []); setTeamTracks(j.teamTracks ?? {}); setMentors(j.mentors ?? []); setPendingTeams(j.pendingTeams ?? []);
   }, [day]);
   useEffect(() => { setMentors(null); setMsg(null); setPending(null); void refresh(); }, [refresh]);
   // 다른 팀이 넣은 칸이 보이도록 20초마다 다시 읽습니다.
@@ -80,6 +81,7 @@ export default function TeamTool() {
   // 인증 올리기와 칸 넣기가 풀립니다. 그 전에는 두 영역이 보이되 잠겨 있습니다.
   const picked = teams.includes(team) ? team : "";
   const mine = (mentors ?? []).flatMap((m) => m.bookings.filter((b) => b.team === picked));
+  const teamPending = !!picked && pendingTeams.includes(picked);
   const trackOf = (id: string | undefined) => tracks.find((x) => x.id === id);
   const tintOf = (id: string | undefined) => trackTint(trackOf(id)?.color);
   const myTint = tintOf(teamTracks[picked]);
@@ -90,7 +92,7 @@ export default function TeamTool() {
     if (!r.ok) {
       const e = (await r.json().catch(() => ({}))).error;
       setMsg(t(e === "taken" ? c.errTaken : e === "team_busy" ? c.errTeamBusy : e === "team_pending" ? c.errPending : e === "past" ? c.errPast
-        : e === "not_yet" ? c.errNotYet : e === "same_day_morning" ? c.errMorning : e === "phone" ? c.errPhone : c.errGeneric));
+        : e === "not_yet" ? c.errNotYet : e === "phone" ? c.errPhone : c.errGeneric));
     }
     setPending(null); setBusy(false); void refresh();
   };
@@ -131,9 +133,9 @@ export default function TeamTool() {
     // 쉬는 10분과 같은 빗금이되 더 흐립니다. 팀이 넣은 칸은 위에서 먼저 그려져 시간이 지나도 그대로 남습니다.
     if (r < Date.now()) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.035)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/40`}>{t(c.past)}</td>;
     const free = fitsWindow(r, m.windows) && slotState(r, m.bookings, []) === "open";
-    const full = teamHasPending(mine); // 2026-11-02: 이 날 넣은 칸이 끝나기 전에는 다음 칸을 열지 않습니다
-    // 2026-10-26: Day 1 전에는 닫혀 있고, 그날에는 14:00 전 칸이 닫힙니다(bookingGate, 2026-11-03). 닫힌 칸도 흐린 "+"로 보입니다.
-    const gated = bookingGate(day, r) !== "ok";
+    const full = teamPending; // 2026-11-03: 넣은 칸이 끝나기 전에는 다음 칸을 열지 않습니다(이틀 통틀어)
+    // 2026-10-26: Day 1 12:00 전에는 닫혀 있습니다(bookingGate). 닫힌 칸도 흐린 "+"로 보입니다.
+    const gated = notYet;
     const ok = !phone && !timetableLocked && !gated && !!picked && !full && free && slotState(r, m.bookings, mine) === "open";
     const asking = pending?.m === m.id && pending.r === r;
     const locked = (phone || timetableLocked || gated || !picked) && free; // 팀을 고르면 열릴 칸: "+"를 흐리게 보여 줍니다
@@ -206,22 +208,20 @@ export default function TeamTool() {
             </p>
           </div>
 
-          {/* 넣는 규칙: 한 판, 여섯 줄. 시간 규칙 둘(열림, 당일)은 블루 점. */}
-          <dl className="card-sunken grid gap-x-[24px] gap-y-[14px] rounded-2xl p-[20px] sm:grid-cols-2 sm:p-[24px] lg:grid-cols-3">
-            {timetableRules.map((r) => (
-              <div key={r.icon} className="flex gap-[10px]">
-                <span aria-hidden className={`mt-[2px] shrink-0 ${r.icon === "open" || r.icon === "today" ? "text-accent" : "text-naru-muted"}`}><RuleIcon name={r.icon} size={18} /></span>
-                <div className="flex flex-col gap-[2px]">
-                  <dt className={`${META} font-semibold text-white`}>{t(r.key)}</dt>
-                  <dd className={`${META} leading-relaxed text-naru-muted`}>{t(r.body)}</dd>
-                </div>
-              </div>
-            ))}
-          </dl>
+          {/* DECIDED 2026-11-03 (사용자): 규칙 카드 여섯 장을 한 줄 안내로. 남긴 규칙은 한 번에 한 칸(40분), 12.18 12:00 열림, 넣으면 못 바꿈.
+              두 번 눌러 넣기, 정각과 앞뒤 10분은 표가 보여 주므로 설명하지 않습니다. 이동 시간 한 줄을 더합니다(같은 날 사용자). */}
+          <div className="card-sunken flex flex-col gap-[8px] rounded-2xl px-[20px] py-[16px]">
+            <p className={`flex items-start gap-[10px] ${BODY} text-white`}>
+              <span aria-hidden className="mt-[3px] shrink-0 text-naru-muted"><RuleIcon name="clock" size={18} /></span>{t(c.rulesLine)}
+            </p>
+            <p className={`flex items-start gap-[10px] ${META} leading-relaxed text-naru-muted`}>
+              <span aria-hidden className="mt-[1px] shrink-0"><RuleIcon name="walk" size={16} /></span>{t(c.travelLine)}
+            </p>
+          </div>
 
           {phone && <Note tone="accent">{t(c.phoneNotice)}</Note>}
           {!phone && notYet && <Note tone="accent">{t(c.notYet)}</Note>}
-          {!phone && !notYet && today && <Note tone="accent">{t(c.sameDay)}</Note>}
+          {!phone && !notYet && teamPending && <Note tone="accent">{t(c.errPending)}</Note>}
 
           {tracks.length > 0 && (
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -293,6 +293,7 @@ function RuleIcon({ name, size = 20 }: { name: string; size?: number }) {
     case "upload": return <svg {...p}><path d="M12 15V4" /><path d="m7 9 5-5 5 5" /><path d="M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" /></svg>;
     case "image": return <svg {...p}><rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="2" /><path d="m21 16-5-5-9 9" /></svg>;
     case "check": return <svg {...p}><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>;
+    case "walk": return <svg {...p}><circle cx="13" cy="4" r="2" /><path d="m9 20 3-6 3 3v4M6 12l3-4 4 1 3 4M12 14l-2-3" /></svg>;
     default: return <svg {...p}><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg>;
   }
 }
