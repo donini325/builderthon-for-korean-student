@@ -984,7 +984,7 @@ export const naru = {
       {
         num: "02",
         // DECIDED 2026-10-25 (사용자: 칸마다 줄 수를 같게): 02, 04, 05를 한 줄로 줄였습니다. 그 전 "...하루 두 번까지 찾아가...", "...어디까지 갔는지 발표하고, 질문을...", "...한 팀이 되어, 마지막 날까지 함께합니다."
-        // 규칙은 코드가 강제하는 것과 같습니다(app/api/crossing/mentoring/route.ts: 하루 두 칸, 2시간 간격).
+        // 규칙은 코드가 강제하는 것과 같습니다(app/api/crossing/mentoring/route.ts: 넣은 칸이 끝난 뒤 다음 칸, 2시간 간격. 2026-11-02 하루 두 칸을 없앰).
         // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O2, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
         title: { ko: "현업의 반박", en: "Pushback from the field" },
         days: [2, 3],

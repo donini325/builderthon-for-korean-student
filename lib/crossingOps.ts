@@ -22,14 +22,20 @@ export const BUFFER_MINUTES = 10;
  * 앞뒤 10분 규칙(DB 0008)은 그대로 맞습니다. 그 전 30분(2026-10-17). */
 export const GRID_MINUTES = 60;
 /**
- * 한 팀이 칸을 하나 넣으면 그 칸의 시작부터 이만큼은 어느 멘토의 칸도 넣지 못합니다. 하루 횟수 제한은 없습니다.
+ * 한 팀이 칸을 하나 넣으면 그 칸의 시작부터 이만큼은 어느 멘토의 칸도 넣지 못합니다. 하루 횟수 제한은 없습니다(2026-11-02).
  * DECIDED 2026-10-17 (사용자: "한번 slot booking을 하면, 그 이후 2시간 동안은 같은 멘토던 다른 멘토던 booking 못하고").
  * 앞뒤 대칭입니다(16:00을 먼저 넣었으면 14:10~17:50 시작도 막힘). 마이그레이션 0008의 crossing_plus_minutes(starts_at, 120)과 같아야 합니다.
  */
 export const TEAM_COOLDOWN_MINUTES = 120;
-/** 한 팀이 하루에 넣는 칸 수의 상한. DB 트리거(0010 crossing_bookings_daily_limit)와 같아야 합니다.
- * DECIDED 2026-10-17 (사용자: "they can put down their slot two times a day", "둘 다": 2시간 규칙과 함께). */
-export const MAX_BOOKINGS_PER_TEAM_PER_DAY = 2;
+/**
+ * 같은 날의 다음 칸은 그 날 넣은 칸이 끝난 뒤에 넣습니다. 끝은 칸의 시작에서 한 줄(GRID_MINUTES) 뒤입니다.
+ * DECIDED 2026-11-02 (사용자: "하루 한도는 없음", "3시로 booking 을 하면, 4시에 마무리가 되니까, 4시 이후에 booking"):
+ * 하루 두 칸(2026-10-17)을 없앴습니다. 날마다 따로 셉니다(사용자가 고른 안 "날마다 하나씩 미리"): Day 1에 Day 2, 3 칸을 하나씩 넣을 수 있습니다.
+ * 2시간 규칙(TEAM_COOLDOWN_MINUTES)은 그대로라 15:00 칸 뒤의 다음 칸은 16:00부터 넣고, 17:00 이후입니다.
+ * DB 트리거(0016 crossing_bookings_one_pending)와 같아야 합니다.
+ */
+export const teamHasPending = (teamBookingsThatDay: Booking[], now = Date.now()): boolean =>
+  teamBookingsThatDay.some((b) => Date.parse(b.startsAt) + GRID_MINUTES * MIN > now);
 /**
  * 멘토가 받는 시간을 표에 적지 않았을 때 쓰는 기본값(한국 시간). TODO: confirm.
  * DECIDED 2026-10-17 (사용자: "지금은 tentative 한거니까 availability를 오전 10시부터 오후 10시로").

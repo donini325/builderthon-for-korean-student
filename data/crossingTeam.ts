@@ -31,7 +31,7 @@ export const teamCopy = {
   noMentors: { ko: "이 날 시간을 연 멘토가 아직 없습니다.", en: "No mentors have opened times on this day yet." },
   errTaken: { ko: "방금 다른 팀이 들어간 칸입니다.", en: "Another team just took that cell." },
   errTeamBusy: { ko: "우리 팀의 다른 칸과 2시간이 떨어져야 합니다.", en: "Your slots need to start at least two hours apart." },
-  errLimit: { ko: "이 날은 이미 두 칸을 넣었습니다.", en: "Your team already has two slots that day." },
+  errPending: { ko: "이 날 넣은 멘토링이 끝난 뒤에 다음 칸을 넣을 수 있습니다.", en: "You can add your next slot that day once the one you have is over." },
   errPast: { ko: "지난 시간입니다.", en: "That time has passed." },
   errNotYet: { ko: "Day 1(12.18) 12:00부터 넣을 수 있습니다.", en: "Slots open on Day 1 (Dec 18) at 12:00." },
   errMorning: { ko: "오늘은 13:00 이후 칸만 넣을 수 있습니다.", en: "Today only slots from 13:00 can be added." },
@@ -88,14 +88,15 @@ export const teamCopy = {
 
 // 시간표 사용 규칙(2026-10-26, 사용자: "시간표 사용 설명이 좀 더 visually engaging 했으면"). 한 문단이던 것을 카드 여섯 장으로.
 // 카드마다 핵심 한마디(key, 굵게)와 한 줄(body). 순서는 넣는 방법, 칸의 길이, 하루 상한, 바꿀 수 없음, 여는 때, 그날의 규칙.
-// 규칙의 정본은 lib/crossingOps.ts(SESSION_MINUTES, BUFFER_MINUTES, MAX_BOOKINGS_PER_TEAM_PER_DAY, TEAM_COOLDOWN_MINUTES, BOOKING_OPENS_AT, SAME_DAY_FROM)입니다.
+// 규칙의 정본은 lib/crossingOps.ts(SESSION_MINUTES, BUFFER_MINUTES, teamHasPending, TEAM_COOLDOWN_MINUTES, BOOKING_OPENS_AT, SAME_DAY_FROM)입니다.
 export const timetableRules: { icon: "tap" | "clock" | "two" | "lock" | "open" | "today"; key: Phrase; body: Phrase }[] = [
   { icon: "tap", key: { ko: "두 번 눌러 넣기", en: "Tap twice" }, body: { ko: "빈 칸을 두 번 누르면 우리 팀 이름이 들어갑니다. 멘토와 모든 팀이 같은 표를 봅니다.", en: "Tap an empty cell twice to put your team in. Mentors and every team see the same table." } },
   // DECIDED 2026-11-02 (사용자: "무조건 9시, 10시 이런식으로"): 칸은 정각에 시작한다는 것을 이 카드가 말합니다.
   { icon: "clock", key: { ko: "정각에 시작, 40분", en: "On the hour, 40 minutes" }, body: { ko: "9:00, 10:00처럼 정각에만 넣고, 멘토링은 40분입니다. 앞뒤 10분은 멘토가 쉽니다.", en: "Slots start only on the hour, like 9:00 or 10:00, and run 40 minutes. The mentor rests ten minutes on either side." } },
-  { icon: "two", key: { ko: "하루 두 칸", en: "Two slots a day" }, body: { ko: "두 칸은 2시간 이상 떨어져야 합니다.", en: "The two need to start at least two hours apart." } },
+  // DECIDED 2026-11-02 (사용자: "하루 한도는 없음", 넣은 칸이 끝난 뒤에 다음 칸, 2시간 뒤부터). 그 전 "하루 두 칸".
+  { icon: "two", key: { ko: "끝나면 다음 칸", en: "Next slot after this one" }, body: { ko: "같은 날의 다음 칸은 넣은 멘토링이 끝난 뒤에, 그 시작에서 2시간 뒤부터 넣습니다. 15:00 칸이면 16:00부터 17:00 이후 칸을 넣습니다.", en: "On the same day, add your next slot once the current one is over, two hours after it started. Booked 15:00? From 16:00 you can add 17:00 or later." } },
   { icon: "lock", key: { ko: "넣으면 못 바꿈", en: "No changes" }, body: { ko: "한 번 넣은 칸은 바꾸거나 뺄 수 없습니다.", en: "Once a slot is in, it cannot be changed or removed." } },
-  { icon: "open", key: { ko: "12.18 12:00 열림", en: "Opens Dec 18, 12:00" }, body: { ko: "Day 1 낮 12시부터 Day 2, 3 칸을 함께 넣습니다.", en: "From noon on Day 1, add Day 2 and 3 slots together." } },
+  { icon: "open", key: { ko: "12.18 12:00 열림", en: "Opens Dec 18, 12:00" }, body: { ko: "Day 1 낮 12시부터 Day 2, 3 칸을 하나씩 미리 넣습니다.", en: "From noon on Day 1, book one Day 2 slot and one Day 3 slot ahead." } },
   { icon: "today", key: { ko: "당일은 13:00부터", en: "On the day, from 13:00" }, body: { ko: "그날이 되면 그날의 칸은 13:00 이후만 넣습니다.", en: "On the day itself, only slots from 13:00 can be added." } },
 ];
 

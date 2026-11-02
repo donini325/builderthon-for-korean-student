@@ -13,7 +13,7 @@ import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { CURRENT_EVENT } from "@/lib/registrationWindow";
 import { findTeam, listTracks } from "@/lib/crossingOpsServer";
-import { DEFAULT_WINDOW, MAX_BOOKINGS_PER_TEAM_PER_DAY, OPS_DAYS, SESSION_MINUTES, bookingGate, fitsWindow, isPhoneUA, isOpsDay, isProofDay, kstTime, type Window } from "@/lib/crossingOps";
+import { DEFAULT_WINDOW, OPS_DAYS, teamHasPending, SESSION_MINUTES, bookingGate, fitsWindow, isPhoneUA, isOpsDay, isProofDay, kstTime, type Window } from "@/lib/crossingOps";
 
 export const dynamic = "force-dynamic";
 
@@ -84,16 +84,17 @@ export async function POST(req: Request) {
   const gate = bookingGate(hit.day, t);
   if (gate !== "ok") return NextResponse.json({ error: gate }, { status: 400 });
 
-  // 하루 두 칸(2026-10-17). 미리 세어 알맞은 말로 거절하고, 동시에 들어온 요청은 DB 트리거가 막습니다(P0001 team_daily_limit).
-  const { count } = await db.from("crossing_mentor_bookings").select("id", { count: "exact", head: true }).eq("team_name", team.name).eq("day", hit.day);
-  if ((count ?? 0) >= MAX_BOOKINGS_PER_TEAM_PER_DAY) return NextResponse.json({ error: "team_limit" }, { status: 409 });
+  // 2026-11-02: 그 날 넣은 칸이 끝나야 다음 칸(lib/crossingOps.ts teamHasPending). 미리 보고 알맞은 말로 거절하고,
+  // 동시에 들어온 요청은 DB 트리거가 막습니다(P0001 team_pending).
+  const { data: ours } = await db.from("crossing_mentor_bookings").select("starts_at, ends_at").eq("team_name", team.name).eq("day", hit.day);
+  if (teamHasPending((ours ?? []).map((b) => ({ startsAt: b.starts_at, endsAt: b.ends_at })))) return NextResponse.json({ error: "team_pending" }, { status: 409 });
 
   const { error } = await db.from("crossing_mentor_bookings").insert({
     mentor_id: mentorId, team_name: team.name, day: hit.day,
     starts_at: new Date(t).toISOString(), ends_at: new Date(t + SESSION_MINUTES * 60_000).toISOString(),
   });
   if (error) {
-    if (error.code === "P0001" && (error.message ?? "").includes("team_daily_limit")) return NextResponse.json({ error: "team_limit" }, { status: 409 });
+    if (error.code === "P0001" && (error.message ?? "").includes("team_pending")) return NextResponse.json({ error: "team_pending" }, { status: 409 });
     if (error.code === "23P01") return NextResponse.json({ error: (error.message ?? "").includes("team_cooldown") ? "team_busy" : "taken" }, { status: 409 });
     console.error("[crossing/mentoring] insert failed", error.code);
     return NextResponse.json({ error: "db" }, { status: 500 });

@@ -18,7 +18,7 @@ import { buttonClass } from "@/components/ui/Button";
 import LocaleToggle from "@/components/LocaleToggle";
 import { teamCopy as c, timetableRules } from "@/data/crossingTeam";
 import {
-  BUFFER_MINUTES, GRID_MINUTES, gridCeil, bookingGate, isPhoneUA, kstTime, BOOKING_OPENS_DAY, BOOKING_OPENS_AT, MAX_BOOKINGS_PER_TEAM_PER_DAY, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, trackTint,
+  BUFFER_MINUTES, GRID_MINUTES, gridCeil, bookingGate, isPhoneUA, kstTime, BOOKING_OPENS_DAY, BOOKING_OPENS_AT, teamHasPending, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, trackTint,
   type ProofDay, type ProofKind, type Track, type Window,
 } from "@/lib/crossingOps";
 
@@ -96,7 +96,7 @@ export default function TeamTool() {
     const r = await fetch("/api/crossing/mentoring", { method, headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
     if (!r.ok) {
       const e = (await r.json().catch(() => ({}))).error;
-      setMsg(t(e === "taken" ? c.errTaken : e === "team_busy" ? c.errTeamBusy : e === "team_limit" ? c.errLimit : e === "past" ? c.errPast
+      setMsg(t(e === "taken" ? c.errTaken : e === "team_busy" ? c.errTeamBusy : e === "team_pending" ? c.errPending : e === "past" ? c.errPast
         : e === "not_yet" ? c.errNotYet : e === "same_day_morning" ? c.errMorning : e === "phone" ? c.errPhone : c.errGeneric));
     }
     setPending(null); setBusy(false); void refresh();
@@ -138,7 +138,7 @@ export default function TeamTool() {
     // 쉬는 10분과 같은 빗금이되 더 흐립니다. 팀이 넣은 칸은 위에서 먼저 그려져 시간이 지나도 그대로 남습니다.
     if (r < Date.now()) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.035)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/40`}>{t(c.past)}</td>;
     const free = fitsWindow(r, m.windows) && slotState(r, m.bookings, []) === "open";
-    const full = mine.length >= MAX_BOOKINGS_PER_TEAM_PER_DAY; // 이 날 두 칸을 다 넣었으면 더 열지 않습니다
+    const full = teamHasPending(mine); // 2026-11-02: 이 날 넣은 칸이 끝나기 전에는 다음 칸을 열지 않습니다
     // 2026-10-26: Day 1 전에는 닫혀 있고, 그날에는 13:00 전 칸이 닫힙니다(bookingGate). 닫힌 칸도 흐린 "+"로 보입니다.
     const gated = bookingGate(day, r) !== "ok";
     const ok = !phone && !timetableLocked && !gated && !!picked && !full && free && slotState(r, m.bookings, mine) === "open";

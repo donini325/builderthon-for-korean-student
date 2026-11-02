@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-02 멘토 칸은 하루 한도 없이, 넣은 칸이 끝난 뒤에 다음 칸](#2026-11-02-one-pending)
 - [2026-11-02 Supabase 감사, 브라우저 역할 권한 걷기와 함수 search_path](#2026-11-02-supabase-audit)
 - [2026-11-02 멘토링 칸은 정각에만, 한 시간 한 칸](#2026-11-02-hourly-slots)
 - [2026-11-02 등록 폼은 필수 질문 먼저, 링크드인은 맨 끝](#2026-11-02-form-order)
@@ -450,6 +451,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-02-one-pending"></a>
+## 2026-11-02 멘토 칸은 하루 한도 없이, 넣은 칸이 끝난 뒤에 다음 칸
+- 범위: lib/crossingOps.ts(teamHasPending, MAX_BOOKINGS_PER_TEAM_PER_DAY 삭제), app/api/crossing/mentoring/route.ts, components/crossing/TeamTool.tsx, data/crossingTeam.ts(규칙 카드, 오류 문구), supabase/migrations/0016_crossing_booking_one_pending.sql, docs/brand.md 7장
+- 한 것: 사용자 요청("하루 한도는 없음", "3시로 booking 을 하면, 4시에 마무리가 되니까, 4시 이후에 booking", 2시간 규칙은 그대로). 하루 두 칸을 없애고, 같은 날에 끝나지 않은 칸(시작에서 60분 전)이 있으면 다음 칸을 막습니다. 날마다 따로 셉니다(사용자가 고른 안 "날마다 하나씩 미리"): Day 1에 Day 2, 3 칸을 하나씩 넣습니다. 서버가 미리 거절하고(team_pending), 동시에 들어온 요청은 0016 트리거가 막습니다. 0010의 하루 두 칸 트리거와 함수는 걷었습니다.
+- 근거: brand 7장(멘토링 예약 규칙). 판단 질문 2: 한 팀이 칸을 몰아 잡지 않고, 멘토링을 받은 만큼 다시 찾아갈 수 있습니다.
+- 검증: tsc 통과. 15:00 칸이면 15:30, 15:59는 막힘, 16:00부터 17:00 칸 열림, 16:00 칸은 지남. 0016은 scripts/supabase-push.sh로 실서버에 적용합니다(코드 배포 전에).
+- 커밋: 이 항목과 같은 커밋
 
 ---
 
