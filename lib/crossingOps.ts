@@ -6,7 +6,7 @@
 // DECIDED 2026-10-17 (사용자: "10분씩 보여주니까 너무 정신이 없음, 30분 간격으로, 어짜피 앞뒤 10분하면 1시간"): 줄은 30분이었습니다.
 // DECIDED 2026-11-02 (사용자): 칸은 정각에만 시작하고 줄은 한 시간입니다(GRID_MINUTES). 칸 하나(40분)가 한 줄입니다.
 // DECIDED 2026-11-03 (사용자): 한 팀은 한 번에 한 칸(이틀 통틀어), 넣은 멘토링이 끝나면 다음 칸. 2시간 규칙과 당일 오후 규칙은 없앴습니다(마이그레이션 0018).
-// DECIDED 2026-11-03 (사용자): 멘토 한 분은 Day 2 또는 Day 3 중 하루의 반나절(오전 10:00~13:00 또는 오후 14:00~17:00)만 맡습니다(마이그레이션 0017). 13:00~14:00은 점심이라 칸이 없습니다.
+// DECIDED 2026-11-03 (사용자): 멘토 한 분은 Day 2 또는 Day 3 중 하루의 반나절(오전 10:00~13:00 또는 오후 13:00~16:00)만 맡습니다(마이그레이션 0017, 0019). 점심시간은 없고 13:00에 오후 멘토로 이어집니다.
 // 막는 규칙의 정본은 DB의 exclude 제약입니다. 여기의 계산은 화면에 칸을 그리고 미리 거절하는 용도이고,
 // BUFFER_MINUTES를 바꾸면 마이그레이션 0008의 crossing_plus_minutes(ends_at, 10)도 같이 바꿔야 합니다.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -132,7 +132,7 @@ export function toWindow(day: number, start: string, end: string): Window | null
   const a = kstTime(day, String(start).slice(0, 5)), b = kstTime(day, String(end).slice(0, 5));
   return a && b && b > a ? { startsAt: a.toISOString(), endsAt: b.toISOString() } : null;
 }
-// DECIDED 2026-11-03 (사용자): 멘토는 맡은 날의 반나절(10:00~13:00 또는 14:00~17:00)만 받습니다(마이그레이션 0017).
+// DECIDED 2026-11-03 (사용자): 멘토는 맡은 날의 반나절(10:00~13:00 또는 13:00~16:00)만 받습니다(마이그레이션 0017, 0019). 점심시간은 없고 13:00에 오후 멘토로 이어집니다.
 // 그날 행이 없으면 그날은 맡지 않는 것이라 칸이 없습니다. 그 전(2026-10-17)에는 임시 기본값 10:00~22:00으로 채웠습니다.
 export function windowsFor(day: number, rows: { start_time: string; end_time: string }[]): Window[] {
   return rows.map((w) => toWindow(day, w.start_time, w.end_time)).filter((w): w is Window => !!w);

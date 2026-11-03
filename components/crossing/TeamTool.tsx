@@ -77,7 +77,7 @@ export default function TeamTool() {
   // 다른 팀이 넣은 칸이 보이도록 20초마다 다시 읽습니다.
   useEffect(() => { const id = setInterval(refresh, 20_000); return () => clearInterval(id); }, [refresh]);
 
-  // DECIDED 2026-11-03 (사용자): 줄은 멘토들의 칸 시작 시각을 모은 것입니다(정각, 2026-11-02). 반나절 구간 사이의 점심(13:00) 줄은 생기지 않습니다.
+  // DECIDED 2026-11-03 (사용자): 줄은 멘토들의 칸 시작 시각을 모은 것입니다(정각, 2026-11-02). 줄은 10시부터 15시까지 여섯이 이어집니다(점심 없음, 0019).
   const rows = useMemo(() => [...new Set((mentors ?? []).flatMap((m) => slotStarts(m.windows)))].sort((a, b) => a - b), [mentors]);
 
   // DECIDED 2026-10-17 (사용자: "팀 선택을 해야 업로드나 시간표에 슬롯 넣는 것이 풀리는 걸로"): 목록에 있는 팀을 골라야
