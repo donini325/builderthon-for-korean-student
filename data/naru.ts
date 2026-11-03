@@ -3389,6 +3389,13 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
       logos: [{ name: "Lovable", src: "/partners/logos/color/lovable.png", w: 644, h: 110, url: "https://lovable.dev/" }],
       // DECIDED 2026-10-27 (사용자: "'Day 1에 Lovable 현장 워크숍을 진행합니다.' 이거 빼줘"): 로고 띠 아래 한 줄을 뺐습니다. 일정 카드 Day 1의 세션은 그대로입니다.
     },
+    // DECIDED 2026-11-03 (사용자: "Readray 와도 확정", "lovable 과 같이 묶이면 안되서, 수상 상품으로 크레딧 지원임. 따로 빼야함"): 시상에 쓰는 크레딧이라
+    // 기술, 크레딧 줄과 따로 둡니다. 이름은 "시상"(brand 4장 부문별 시상, 9장 금지어 우승, 1등을 피함). 원본은 12월 빌더톤/CI/Readray.svg이고,
+    // 어두운 바탕에서 읽히게 워드마크(#1C1E15)만 흰색으로 바꿨습니다. 라임 원과 눈은 원래 색입니다(밝은 판 없이). 옛 이름은 LilysAI(lilys.ai가 readray.ai로 넘어감).
+    {
+      label: { ko: "시상 크레딧", en: "Award credits" },
+      logos: [{ name: "Readray", src: "/partners/logos/color/readray.png", w: 1983, h: 377, url: "https://readray.ai" }],
+    },
     // DECIDED 2026-10-31 (사용자: 10/29 워크숍 인트로 미팅과 10/30 회신 메일, "이분이 있는 business를 넣어줘야함"): Day 1 Lovable 워크숍을 맡은 회사.
     // 회신 메일에서 법인 명칭을 함께 표기해 달라고 했습니다. 정식 이름은 Carraway & Gatsby Corporation이고, 회사 사이트(cgcorp.io)의 제목이
     // "Carraway & Gatsby"라 로고는 나침반 심볼 + "Carraway &" / "Gatsby" 두 줄입니다(사용자가 세 시안 중 고름). 전체 이름은 링크 이름과 대체 글에.
