@@ -61,8 +61,11 @@ export default function TeamTool() {
   // DECIDED 2026-10-17 (사용자: "day 1으로 들어왔을때는 timetable은 disable, 팀 이름을 넣던 말던"): Day 1 탭에서는 시간표가 늘 잠깁니다.
   const timetableLocked = day === 1;
   // 2026-10-26: 안내 줄에 쓰는 지금 상태. 칸마다의 판정은 bookingGate가 합니다. 시간표를 다시 읽을 때(20초) 같이 새로 셉니다.
-  const now = Date.now();
-  const notYet = bookingGate(now) === "not_yet";
+  // 2026-11-03 (끝에서 끝 시험): 이 페이지는 빌드 때 미리 그려져서, 렌더 중에 Date.now()를 읽으면 빌드 시각이 HTML에 박힙니다
+  // (12.18 12:00이 지나도 첫 화면에 "아직 열리지 않았습니다"). 지금 시각은 화면이 뜬 뒤 브라우저에서 읽고, 시간표를 다시 읽을 때 같이 새로 셉니다.
+  const [now, setNow] = useState(0);
+  useEffect(() => { setNow(Date.now()); }, [mentors]);
+  const notYet = now > 0 && bookingGate(now) === "not_yet";
 
   const refresh = useCallback(async () => {
     const r = await fetch(`/api/crossing/mentoring?day=${day}`, { cache: "no-store" });
@@ -135,7 +138,7 @@ export default function TeamTool() {
     const free = fitsWindow(r, m.windows) && slotState(r, m.bookings, []) === "open";
     const full = teamPending; // 2026-11-03: 넣은 칸이 끝나기 전에는 다음 칸을 열지 않습니다(이틀 통틀어)
     // 2026-10-26: Day 1 12:00 전에는 닫혀 있습니다(bookingGate). 닫힌 칸도 흐린 "+"로 보입니다.
-    const gated = notYet;
+    const gated = now === 0 || notYet; // 지금 시각을 읽기 전(첫 그림)에는 잠가 둡니다
     const ok = !phone && !timetableLocked && !gated && !!picked && !full && free && slotState(r, m.bookings, mine) === "open";
     const asking = pending?.m === m.id && pending.r === r;
     const locked = (phone || timetableLocked || gated || !picked) && free; // 팀을 고르면 열릴 칸: "+"를 흐리게 보여 줍니다
