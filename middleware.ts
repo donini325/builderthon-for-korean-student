@@ -10,7 +10,8 @@ import { NextResponse, type NextRequest } from "next/server";
 // ─────────────────────────────────────────────────────────────────────────────
 // DECIDED 2026-10-26 (naru-first, docs/naru-first-brief.md 1.1): 홈(/)은 나루, 크로싱 서울은 /crossing. /naru는 /로 308(쿼리 그대로).
 // /en/naru는 /?lang=en으로 바로. 그 전 홈의 /?register=1은 /crossing?register=1로(등록 프로바이더가 그 페이지에 있습니다).
-const PAGES = new Set(["/", "/crossing", "/2026-08"]);
+// 2026-11-03 (사용자: "그 영어 링크로 공유를 했을때, 여기가 영어가 아니던데?"): 시간표, 멘토, 투표, 팀 매칭도 영문 사본으로.
+const PAGES = new Set(["/", "/crossing", "/2026-08", "/crossing/team", "/crossing/mentor", "/crossing/vote", "/match"]);
 
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
@@ -45,5 +46,8 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/naru", "/crossing", "/2026-08", "/en", "/en/naru", "/en/crossing", "/en/2026-08"],
+  matcher: [
+    "/", "/naru", "/crossing", "/2026-08", "/crossing/team", "/crossing/mentor", "/crossing/vote", "/match",
+    "/en", "/en/naru", "/en/crossing", "/en/2026-08", "/en/crossing/team", "/en/crossing/mentor", "/en/crossing/vote", "/en/match",
+  ],
 };

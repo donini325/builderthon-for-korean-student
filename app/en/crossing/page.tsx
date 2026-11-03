@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 export { default } from "../../crossing/page";
+import { EN_OG_TITLE, EN_OG_DESCRIPTION } from "@/lib/crossingMeta";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 크로싱 서울(/crossing)의 영문 공유용 사본(2026-10-26, naru-first: 그 전에는 홈의 사본이었고 글은 그대로입니다).
@@ -14,9 +15,8 @@ export { default } from "../../crossing/page";
 // <title>은 한국어 그대로입니다. 탭 제목은 LocaleContext가 naru:title-en으로 바꿉니다(언어를 다시 바꿔도 맞게).
 // 영문 글은 사이트에 이미 있는 영문(data/naru.ts)입니다. 새 문장을 쓰지 않습니다.
 // ─────────────────────────────────────────────────────────────────────────────
-const TITLE = "CROSSING SEOUL, 17–21 December 2026";
-const DESCRIPTION =
-  "Each team takes an issue a company is facing now, finds the problem underneath it, and presents to that company on the fifth day. Whichever country you study in, you end up on the same team.";
+const TITLE = EN_OG_TITLE;
+const DESCRIPTION = EN_OG_DESCRIPTION;
 
 export const metadata: Metadata = {
   description: DESCRIPTION,
