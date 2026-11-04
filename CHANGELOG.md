@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-04 바이브 코딩 티 걷기(A1~A8)](#2026-11-04-site-tells)
 - [2026-11-04 캐치프레이즈 "왜 아직, 손으로?"와 남는 것 리드](#2026-11-04-catchphrase)
 - [2026-11-04 Day 2 오전 멘토 한 분은 9:00~12:00](#2026-11-04-mentor-9-12)
 - [2026-11-04 크로싱 서울 카운트다운 아래 로고 띠, 8월처럼](#2026-11-04-hero-strip)
@@ -466,6 +467,17 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-04-site-tells"></a>
+## 2026-11-04 바이브 코딩 티 걷기(A1~A8)
+- 범위: app/globals.css(카드 셋, .bg-cta, 판 흐림), components/home/NaruHome.tsx, components/naru/NaruPage.tsx, components/shared/RouteMap.tsx, components/journey/Journey.tsx, 모달 셋, Button, JourneyNav, ManifestoViewer, PhotoLightbox, ReturningGreeting, data/naru.ts(dayLabel)
+- 한 것: 2026-11-04 주간 회의 피드백(다른 학교에 보내기 전에 AI 티를 걷는다). 사용자 요청으로 브리프 1장 A1~A8만, 2장 색과 3장 양은 하지 않음. 쪼갠 영어 자간을 한 줄 META로(D4), DAY를 Day로, /crossing 번호 01~05 삭제, 그라데이션 면은 크로싱 서울 워드마크 하나만, 라벨 알약은 글자만, 장식 점과 흐림 삭제, / 역할 라벨의 영어 소라벨 삭제. 노선도의 정거장과 범례는 그림이라 남김(피드백: 그래픽은 괜찮다). 리빌은 10/20에 이미 걷혀 있었고 배경 캔버스는 그대로(D3).
+- 근거: brand 10장 사이트 규칙(글자 크기 넷, 버튼은 단색, 발광 없음), 2장 판단 질문(무대가 진짜라는 사실로 부른다, 꾸밈은 둘 다 돕지 않음).
+- 검증: /crossing 한 글자 span 13→0, DAY 10→0, 번호 9→0, 그라데이션 27→1(워드마크). / 그라데이션 10→0, 흐림 6→0, 라벨 알약 3→0. /2026-08 그라데이션 72→5(워드마크 1, 영상과 마감 덮개 등 가독성 페이드 4), 점 46→19(노선도). 글 변화는 위 넷뿐, 코어 둘과 질문 그대로. 1440, 390 KO/EN 가로 넘침 0. build 통과.
+- 브리프: docs/site-tells-brief.md
+- 커밋: 3fcfba0
 
 ---
 
