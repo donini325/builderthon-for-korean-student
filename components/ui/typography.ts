@@ -18,6 +18,8 @@
 //   SUBTITLE 챕터 안 소제목(h3, SUBHEADING)만. lg 아래는 BODY와 같고 lg(1024px)부터 22px(2026-10-26 압축안, 그 전 27px).
 //          DECIDED 2026-10-26 (사용자: "pc쪽이 너무 빽빽", 크기 넷 승인): 데스크톱에서 TITLE 67.5px와 BODY 18px 사이에
 //          단이 없어 소제목, 칸 제목, 본문이 한 덩어리로 읽혔습니다. 폰은 그대로입니다.
+//          예외 하나: /crossing 히어로의 캐치프레이즈 한 줄(eventHero.catch). DECIDED 2026-11-04 (docs/catchphrase-brief.md D2):
+//          히어로 화면의 크기는 워드마크(예외)를 빼면 TITLE(카운트다운), SUBTITLE, BODY, META 넷이라 규칙 안입니다.
 //   BODY   리드, 문단, 목록, 카드 제목, h4, 버튼. 폰 15.75px, sm(640px)부터 18px.
 //          카드 제목은 크기가 아니라 굵기와 색으로만 구분합니다.
 //   META   알약 라벨, Day 날짜, 칩, 표의 행 라벨, 캡션, 도식 안의 설명. 13.5px. 13px 아래로 내리지 않습니다.

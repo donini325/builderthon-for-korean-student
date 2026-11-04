@@ -30,7 +30,7 @@ import OpenChatLink from "@/components/ui/OpenChatLink";
 // RecordTabs: 2026-09-17에 뺐다가(사용자: 바로 아카이브로) 2026-09-18 감사 반영 브리프 5.2로
 // 다시 넣었습니다. 멘토 / 연사와 피드백 패널 둘만.
 // (2026-09-19: RecordTabs·PressRows·Funnel은 화면에서 내려가 import도 뺐습니다. 파일은 그대로.)
-import { TITLE, BODY, META, H2, H3, LABEL_HEADING, ROW_HEADING, GRADIENT_TEXT } from "@/components/ui/typography";
+import { TITLE, SUBTITLE, BODY, META, H2, H3, LABEL_HEADING, ROW_HEADING, GRADIENT_TEXT } from "@/components/ui/typography";
 import CityShape, { type City } from "@/components/ui/CityShape";
 import SeoulCampuses from "@/components/home/SeoulCampuses";
 import HeroPartnerStrip, { decemberStripTiers } from "@/components/shared/HeroPartnerStrip";
@@ -1034,8 +1034,11 @@ export default function NaruHome() {
             <p className={`mt-6 ${BODY} font-bold text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.6)] lg:mt-8`}>
               {formatDecemberDateLine(locale)}
             </p>
-            <p className={`mx-auto mt-4 max-w-xl break-keep ${BODY} font-bold leading-snug lg:mx-0 text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]`}>
-              {t(naru.december.heading)}
+            {/* DECIDED 2026-11-04 (docs/catchphrase-brief.md C1, D2, 사용자: 이슈는 아직 손으로 하는 일이 있다는 것 자체, 빌더는 만들기 전에 왜부터 묻는다):
+                이 굵은 한 줄이 december.heading 대신 캐치프레이즈를 그립니다. 그 전 문장은 git e1bed3f. 크기는 lg부터 SUBTITLE(22px), 그 아래는 BODY와 같습니다.
+                굵기, 색, 그림자, 간격은 그대로입니다. */}
+            <p className={`mx-auto mt-4 max-w-xl break-keep ${SUBTITLE} font-bold leading-snug lg:mx-0 text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]`}>
+              {t(naru.eventHero.catch)}
             </p>
             <p className={`mx-auto mt-3 max-w-xl text-balance break-keep ${BODY} leading-[1.65] lg:mx-0 text-white/85 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]`}>
               {/* 나루 한 문장이 서술 첫 줄(감사 반영 브리프 1.2). TODO: confirm(문구는 사용자가). */}
