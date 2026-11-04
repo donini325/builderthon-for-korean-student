@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-04 종이 팔레트와 목업 레이아웃](#2026-11-04-paper)
 - [2026-11-04 바이브 코딩 티 걷기(A1~A8)](#2026-11-04-site-tells)
 - [2026-11-04 캐치프레이즈 "왜 아직, 손으로?"와 남는 것 리드](#2026-11-04-catchphrase)
 - [2026-11-04 Day 2 오전 멘토 한 분은 9:00~12:00](#2026-11-04-mentor-9-12)
@@ -467,6 +468,17 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-04-paper"></a>
+## 2026-11-04 종이 팔레트와 목업 레이아웃
+- 범위: app/globals.css, tailwind.config.ts, components/home/NaruHome.tsx, components/journey/(Journey, JourneyNav), components/naru/NaruPage.tsx, components/shared/(Band, SiteChrome), BackgroundMount, typography, data/naru.ts, public/naru/*-paper, docs/brand.md 10장
+- 한 것: 사용자 요청으로 site-tells 목업(docs/screens/site-tells-mock-paper.png)을 이 브랜치에 모두 적용. 결정: 워드마크는 남색에 주황 점, 세 페이지 모두 종이, 배경 캔버스는 끔. 토큰을 크림 바탕, 잉크 글자, 남색 강조로 바꾸고 white/NN을 잉크로 돌림. /crossing 히어로는 사진 한 장과 숫자 넷 띠, 닷새 장은 Day 카드 다섯(한 줄씩)과 미션 한 문장(규칙은 /crossing/team). 카운트다운, 히어로 로고 띠, 노선도, 네 질문, 기업의 닷새 상자는 그리지 않음. / 의 양 줄이기(C3, 매니페스토 뷰어를 PDF로)는 하지 않음(10/25 사용자 결정으로 PDF를 지운 자리).
+- 근거: brand 10장 종이 팔레트(같은 커밋에서 사이트 UI 줄을 바꿈), 5장 숫자 하나가 문장을 대신, 8장 8월 숫자만.
+- 검증: build 통과. 1440, 390 KO 스크린숏으로 /crossing, /, /2026-08, /crossing/team 확인.
+- 브리프: docs/site-tells-brief.md
+- 커밋: 515f955
 
 ---
 
