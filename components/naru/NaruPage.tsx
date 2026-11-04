@@ -78,7 +78,7 @@ export default function NaruPage() {
         <Image
           // 2026-09-29: v2 파일명. 같은 이름으로 덮으면 1년짜리 immutable 캐시에 옛 링이 남습니다(public/naru/README.md).
           // 2026-09-30: v3(링 COLLECTIVE, 아랫줄 of 뺌).
-          src={locale === "en" ? "/naru/naru-master-en-v3-rev.svg" : "/naru/naru-master-v3-rev.png"}
+          src={locale === "en" ? "/naru/naru-master-en-v3-paper.svg" : "/naru/naru-master-v3-paper.png"}
           alt={t(naru.hero.logoAlt)}
           width={900}
           height={900}
@@ -758,7 +758,7 @@ function LayerDiagram({ t }: { t: (p: { ko: string; en: string }) => string }) {
         {center ? (
           <p className="mt-[9px] lg:mt-[12px]">
             <Image
-              src={locale === "en" ? "/naru/naru-name-en-rev.svg" : "/naru/naru-name-rev.png"}
+              src={locale === "en" ? "/naru/naru-name-en-paper.svg" : "/naru/naru-name-paper.png"}
               alt={t(layer.who)}
               width={locale === "en" ? 857 : 604}
               height={locale === "en" ? 142 : 168}

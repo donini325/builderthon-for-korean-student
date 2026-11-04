@@ -229,14 +229,15 @@ export default function JourneyNav({ anchors = DEFAULT_ANCHORS, page }: { anchor
                 지금 페이지면 #top, 아니면 홈(/)으로. */}
             {page === "crossing" ? (
             <a href="#top" className="-my-1 flex min-h-[44px] shrink-0 items-center py-1 leading-none">
-              <span lang={en ? "en" : undefined} className={`whitespace-nowrap pb-[0.08em] font-black tracking-[-0.02em] text-white ${en ? "text-sm sm:text-xl xl:text-2xl" : "text-xl sm:text-2xl xl:text-3xl"}`}>
+              <span lang={en ? "en" : undefined} className={`whitespace-nowrap pb-[0.08em] font-black tracking-[-0.02em] text-naru-navy ${en ? "text-sm sm:text-xl xl:text-2xl" : "text-xl sm:text-2xl xl:text-3xl"}`}>
+                {/* DECIDED 2026-11-04 (사용자, site-tells 목업 "종이"): 헤더 워드마크도 남색. */}
                 {decemberEventLabel(locale)}
               </span>
             </a>
             ) : (
             <a href={page === "naru" ? "#top" : "/"} className="-my-1 flex min-h-[44px] shrink-0 items-center py-1 leading-none">
               <Image
-                src={en ? "/naru/naru-name-en-rev.svg" : "/naru/naru-name-rev.png"}
+                src={en ? "/naru/naru-name-en-paper.svg" : "/naru/naru-name-paper.png"}
                 alt={en ? "NARU" : "나루 NARU"}
                 width={en ? 857 : 604}
                 height={en ? 142 : 168}

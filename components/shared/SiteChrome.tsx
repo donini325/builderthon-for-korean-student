@@ -144,7 +144,7 @@ export function SiteMenu({ page, sitemap }: { page: SitePage; sitemap: SitemapPa
       >
         {current?.label}
         {page === "aug" && (
-          <Image src="/partners/zero100-wordmark.png" alt="" width={602} height={127} className="h-3 w-auto opacity-70 brightness-0 invert" />
+          <Image src="/partners/zero100-wordmark.png" alt="" width={602} height={127} className="h-3 w-auto opacity-70 brightness-0" />
         )}
         <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className={`transition-transform duration-200 motion-reduce:transition-none ${open ? "rotate-180" : ""}`}>
           <path d="m6 9 6 6 6-6" />

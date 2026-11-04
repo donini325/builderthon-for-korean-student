@@ -1881,8 +1881,9 @@ function AwardsBox({ t }: { t: Tfn }) {
 // mount client-side to pick a source, and a <video> mounted after hydration would
 // not start loading in Chrome at all (readyState stuck at 0) - which is the second
 // reason this is back to the plain server-rendered element.
+// DECIDED 2026-11-04 (사용자, site-tells 2장 안 1 "종이"): 크림 바탕에서는 어두운 히어로 영상(과 그 위 덮개)을 그리지 않습니다.
 const HERO_VIDEO = {
-  enabled: true,
+  enabled: false,
   webm: "",
   mp4: "/hero/metal-human.mp4",
   // DECIDED 2026-10-22 (Speed Insights: /2026-08 LCP p75 2.4초, LCP 요소가 이 포스터): JPG 111KB → WebP 66KB. 페이지가 미리 받습니다(app/2026-08/page.tsx).
@@ -2019,7 +2020,7 @@ function ScrollToTop() {
           // DECIDED 2026-10-23 (모바일 점검): 폰(sm 아래)에서는 두지 않습니다. 카드 본문, FAQ의 펼침 단추와 거의 모든 화면에서 겹쳤고, 홈과 /naru에는 없는 단추입니다.
           className={`${chromeHidden ? "max-lg:pointer-events-none max-lg:!opacity-0" : ""} group fixed bottom-[calc(env(safe-area-inset-bottom,0px)+5.25rem)] right-6 z-50 hidden h-11 w-11 items-center justify-center transition-opacity duration-200 sm:right-8 sm:flex lg:bottom-8 lg:h-12 lg:w-12`}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] text-white/65 transition group-hover:border-white/35 group-hover:text-white lg:h-12 lg:w-12 lg:border-white/15 lg:bg-naru-purple/85 lg:text-white lg:group-hover:border-accent/60 lg:group-hover:bg-naru-plum lg:group-hover:text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] text-white/65 transition group-hover:border-white/35 group-hover:text-white lg:h-12 lg:w-12 lg:border-white/15 lg:bg-naru-surface lg:text-white lg:group-hover:border-accent/60 lg:group-hover:bg-naru-surface-2 lg:group-hover:text-white">
             {/* upward chevron */}
             <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 lg:h-5 lg:w-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 15l6-6 6 6" />
@@ -2173,7 +2174,8 @@ export default function Journey() {
                   box; with the tight leading the box cut off g/p descenders, so they
                   rendered transparent ("Singapore." looked clipped). The padding
                   extends the paint box below the baseline. */}
-              <span className="gradient-text gradient-text--zero100 block bg-gradient-to-r from-violet-300 via-fuchsia-300 to-cyan-300 bg-clip-text pb-[0.15em] text-transparent">
+              {/* DECIDED 2026-11-04 (site-tells 종이): "빌드의 무대"의 밝은 보라-시안 그라데이션은 크림 위에서 흐려 남색 단색으로. */}
+              <span className="block pb-[0.15em] text-naru-navy">
                 {t(dict.hero.titleLine2)}
               </span>
             </h1>

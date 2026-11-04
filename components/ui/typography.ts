@@ -58,7 +58,8 @@ export const META = "text-[0.8125rem]";
  */
 // DECIDED 2026-10-26 (사용자: 제목 위계를 색, 행간, 자간으로도): 챕터 제목은 가장 좁은 자간(-0.03em)과 가장 촘촘한 행간(1.12).
 // 소제목(SUBHEADING, logo-from 틴트, -0.02em, 1.3), 칸 제목(H3, 흰색, -0.01em, snug), 본문(white/70, relaxed) 순으로 넓어집니다.
-export const H2 = `mx-auto w-full max-w-3xl ${TITLE} font-bold leading-[1.15] tracking-[-0.03em] text-white`;
+// DECIDED 2026-11-04 (사용자, site-tells 2장 안 1 "종이"): 장 제목은 남색 #12246B(brand 10장 종이 팔레트의 제목 색). 그 전 text-white.
+export const H2 = `mx-auto w-full max-w-3xl ${TITLE} font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy`;
 
 /**
  * 챕터 안의 하위 블록 제목(h3). 2026-10-07부터 BODY 크기에 굵게입니다. 그 전의

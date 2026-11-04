@@ -354,10 +354,8 @@ export const naruNav: { id: string; label: Phrase; railLines?: Phrase; ariaLabel
   // 4.6 남는 것, 6.1 함께하는 곳)대로 여섯. "일정"(#schedule, 1.4)은 "프로그램"(#december, 1.1)과 0.3화면 차이라 하나로 합쳤고(#schedule id는 둠),
   // 칸이 없던 "과정 지향적인 이벤트를 큐레이션합니다"(#curation)와 "함께하는 곳"(#partners)을 더했습니다.
   { id: "december", label: { ko: "프로그램", en: "Programme" } },
-  { id: "curation", label: { ko: "진행 방식", en: "Format" } },
-  // DECIDED 2026-10-24 (companies-block-brief 1.6, 같은 날 사용자 "너무 직접적임"으로 "기업에게"는 안 씀): 라벨만 "이슈".
-  // id는 그대로라 밖의 #mentoring 링크는 같은 자리에 착지합니다.
-  { id: "mentoring", label: { ko: "이슈", en: "Issues" } },
+  // DECIDED 2026-11-04 (사용자, site-tells 목업): "진행 방식"(#curation)과 "이슈"(#mentoring)를 뺐습니다. 닷새 장이 한 판으로 줄었습니다.
+  // #mentoring id는 닷새 장의 미션 한 문장에 남아 밖의 링크가 같은 장에 착지합니다.
   { id: "register", label: { ko: "등록", en: "Register" } },
   // DECIDED 2026-10-22 (UX 점검, 사용자: "모든 것을 반영"): 영문 "Gains"는 "What you leave with"의 라벨로 어색했습니다. ariaLabel은 뺐습니다.
   // 보이는 글자("남는 것")와 읽히는 이름("오면 무엇이 남는가")이 달라 Lighthouse label-content-name-mismatch에 걸렸습니다.
@@ -653,6 +651,25 @@ export const naru = {
       singapore: { ko: "SINGAPORE", en: "SINGAPORE" },
       seoul: { ko: "SEOUL", en: "SEOUL" },
     },
+    // DECIDED 2026-11-04 (사용자, site-tells 목업 "종이"): 히어로 오른쪽은 사진 한 장(8월 마지막 날, 세 명이 자기 슬라이드 앞에 선 장면).
+    // 아래 photos 넷은 이제 그리지 않고 키만 둡니다. 같은 파일이 /2026-08 기록 벽에도 있습니다(목업대로, 같은 사진 두 번 규칙의 예외).
+    photo: {
+      src: "/record/day8-prove.webp",
+      width: 1600,
+      height: 1200,
+      day: { ko: "Day 8", en: "Day 8" },
+      alt: {
+        ko: "8월 마지막 날, 세 명으로 이루어진 팀이 자기 슬라이드 앞에 서서 발표하는 모습",
+        en: "The last day in August: a team of three presenting in front of their slide",
+      },
+    },
+    // DECIDED 2026-11-04 (site-tells 목업): 히어로 아래 숫자 넷 띠. 숫자는 brand 8장의 8월 실측만, 12월은 기간 하나.
+    facts: [
+      { v: { ko: "닷새", en: "5 days" }, l: { ko: "12월 17일부터 21일까지", en: "December 17 to 21" } },
+      { v: { ko: "74명", en: "74" }, l: { ko: "8월에 신청한 학생", en: "Students who applied in August" } },
+      { v: { ko: "21팀", en: "21 teams" }, l: { ko: "8월에 발표까지 간 팀", en: "Teams that presented on the last day in August" } },
+      { v: { ko: "14명", en: "14" }, l: { ko: "8월의 멘토", en: "Mentors in August" } },
+    ],
     // ── 히어로 사진 넷 (DECIDED 2026-09-17, 사용자) ─────────────────────────
     // "한국이랑 싱가폴 이미지 말고, 행사 이미지나 많이 보여주는 식으로." 오른쪽
     // 단의 형상 무대가 8월 행사 사진 넷으로 바뀌었습니다. 사람이 많이 나온 장면만.
@@ -2117,6 +2134,11 @@ export const naru = {
       },
     ] as { k: Phrase; v: Phrase }[],
     scheduleLabel: { ko: "일정", en: "Schedule" },
+    // DECIDED 2026-11-04 (site-tells 3장 C1): 닷새 장의 미션과 멘토링을 한 문장으로. 규칙 전부는 /crossing/team(data/crossingTeam.ts rulesLine).
+    rulesShort: {
+      ko: "Day 2와 Day 3에는 팀이 함께 멘토를 찾아가고 그날의 진척을 공유합니다. 멘토링 예약과 규칙은 시간표에 있습니다.",
+      en: "On Day 2 and Day 3, each team visits a mentor together and shares the day's progress. Booking and the rules are on the timetable.",
+    },
     // TODO: confirm (프로그램 브리프 2.6, D4 보류): 한 팀에 문제를 정의하는 사람과 실행하는 사람을 섞는 편성을 검토 중입니다.
     // 편성 기준이 정해지기 전에는 화면에 약속하지 않습니다. /match의 역할 결과(roleKey)가 그 재료입니다.
     scheduleLead: {
@@ -2593,6 +2615,8 @@ export const naru = {
         title: { ko: "컨텍스트 열기", en: "Context Open" },
         when: { ko: "Day 0", en: "Day 0" },
         dayOffset: 0,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "기업이 아직 손으로 하는 일 하나를 들려줍니다.", en: "A company shares one task it still does by hand." },
         body: {
           // 2026-10-08 (사용자 승인, 문장 감사 A1): 10월 7일의 "이슈에서 출발" 결정이 이 본문에 닿지 않았습니다. 바로 아래 칩은 "이슈 공개"였습니다.
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C3, humanize-korean 우선): 그 전 문장은 git 9c77437.
@@ -2624,6 +2648,8 @@ export const naru = {
         title: { ko: "찾기", en: "Find" },
         when: { ko: "Day 1", en: "Day 1" },
         dayOffset: 1,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "팀을 맺고 그 일 안의 병목 하나를 고릅니다.", en: "Teams form and pick one bottleneck inside that task." },
         // DECIDED 2026-10-26 (사용자: "GSC 를 1일차에 빼줘"): Day 1 정거장 위의 GSC 로고를 뺐습니다. 홈 "함께하는 곳"의 장소 줄은 그대로.
         // 그 전(2026-10-19): Day 1 GSC, Day 4 MARU180 로고. Day 4 로고는 남습니다.
         // DECIDED 2026-11-04 (사용자: "1일차에 Fastfive 로고 넣어주고, 4일차에는 MARU 넣어줘"): Day 1 장소 Fastfive. 흰색 단색(scripts/process-partner-logos.py).
@@ -2688,6 +2714,8 @@ export const naru = {
         title: { ko: "확인받기", en: "Check" },
         when: { ko: "Day 2", en: "Day 2" },
         dayOffset: 2,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "일을 해 본 사람의 감각으로 멘토에게 확인받습니다.", en: "Mentors check it with the sense of people who have done the work." },
         body: {
           // 2026-10-17: 위 line과 같은 이유로 첫 문장을 바꿨습니다(이 body는 지금 홈에 그려지지 않습니다).
           // DECIDED 2026-10-20 (hwang 브리프 1.2): 세 문장을 두 문장으로.
@@ -2753,6 +2781,8 @@ export const naru = {
         title: { ko: "만들기", en: "Build" },
         when: { ko: "Day 3", en: "Day 3" },
         dayOffset: 3,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "그 병목만 푸는 작은 툴을 만듭니다.", en: "Teams build a small tool that solves only that bottleneck." },
         body: {
           // DECIDED 2026-10-23 (사용자): 둘째 문장 "리허설을 팀끼리 서로 보여 주고 의견을 주고받습니다."를 뺐습니다. 아래 세션(Open tables)이
           // 같은 말을 하고, 그 미션은 2026-10-17에 멘토 찾아가기와 진척 공유로 바뀌었습니다.
@@ -2828,6 +2858,8 @@ export const naru = {
         title: { ko: "공유하기", en: "Share" },
         when: { ko: "Day 4", en: "Day 4" },
         dayOffset: 4,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "그 기업 앞에서 발표하고 질문을 받습니다.", en: "Teams present to that company and take questions." },
         // DECIDED 2026-10-26 (사용자: "4일차에 maru180 도 빼줘, 저기 하루만 있으니까 이상하네"): Day 4 정거장 위의 MARU180 로고를 뺐습니다.
         // 같은 날 Day 1 GSC를 뺀 뒤 로고가 한 정거장에만 남았습니다. 노선도에 로고가 하나도 없으면 RouteMap이 로고 줄을 그리지 않습니다.
         // 홈 "함께하는 곳"의 장소 줄의 MARU180은 그대로. 그 전(2026-10-19): Day 1 GSC, Day 4 MARU180 로고.
@@ -2876,6 +2908,7 @@ export const naru = {
     ] as {
       name: Phrase;
       title: Phrase;
+      short: Phrase;
       when: Phrase;
       dayOffset: number;
       /** 노선도 정거장 위의 로고(2026-10-19). 흰색 단색 PNG. name은 스크린리더가 읽습니다. */
