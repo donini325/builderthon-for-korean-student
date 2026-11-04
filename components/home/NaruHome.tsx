@@ -302,8 +302,8 @@ function CountdownPanel({ t, locale, className = "" }: { t: (p: Phrase) => strin
 // 같은 날 뒤(사용자, 스크린숏: "이부분이 짧은거 같음"): 날 칸을 최대 8rem까지 넓힙니다. 제목 칸은 18rem(가장 긴 "이슈를 낸 기업의 질문")을 지키고 남는 폭을 씁니다.
 const GAIN_COLS = "grid-cols-5 sm:grid-cols-[minmax(0,18rem)_repeat(5,minmax(0,1fr))] lg:grid-cols-[minmax(18rem,1fr)_repeat(5,minmax(4.5rem,8rem))]";
 // DECIDED 2026-10-20 (사용자, hwang 브리프 3.6, 감사 W2): 막대의 그라데이션을 accent 단색으로.
-// 2026-10-26: 날 막대는 7:3 블루 그라데이션(globals.css .bg-accent-gradient).
-const GAIN_BAR = "h-2 rounded-full bg-accent-gradient";
+// 2026-10-26: 날 막대는 7:3 블루 그라데이션. DECIDED 2026-11-04 (site-tells A4): 단색(globals.css .bg-cta).
+const GAIN_BAR = "h-2 rounded-full bg-cta";
 
 /** 머리: 왼쪽에 "닷새"(sm부터), 날마다 번호와 이름과 정거장. */
 function GainRouteHead({ label, names }: { label: string; names: string[] }) {
@@ -327,7 +327,7 @@ function GainRouteHead({ label, names }: { label: string; names: string[] }) {
   );
 }
 
-/** 한 행의 막대들. 이어진 날은 한 띠, split이면 날마다 한 칸. sm부터는 제목 줄(번호 배지 28px의 가운데) 높이에 섭니다.
+/** 한 행의 막대들. 이어진 날은 한 띠, split이면 날마다 한 칸. sm부터는 제목 줄(28px, 2026-11-04 전에는 번호 배지의 높이)의 가운데에 섭니다.
  *  폰에서는 글 아래 자기 다섯 칸 격자(grid-cols-5) 안에 같은 막대를 긋습니다. 두 폭이 칸 하나씩 다릅니다(sm은 글 칸이 1열). */
 function GainBars({ days, split }: { days: number[]; split?: boolean }) {
   const lo = Math.min(...days);
@@ -404,7 +404,7 @@ function HeroPhotos({ photos, t, className = "", desktopOnly = false }: {
             {photo.day && (
               <span
                 aria-hidden
-                className={`pointer-events-none absolute inset-x-0 bottom-0 hidden translate-y-full bg-gradient-to-t from-black/75 to-transparent px-3 pb-2 pt-6 ${META} font-bold text-white transition-transform duration-300 group-hover:translate-y-0 motion-reduce:transition-none lg:block`}
+                className={`pointer-events-none absolute inset-x-0 bottom-0 hidden translate-y-full bg-black/70 px-3 py-2 ${META} font-bold text-white transition-transform duration-300 group-hover:translate-y-0 motion-reduce:transition-none lg:block`}
               >
                 {t(photo.day)}
               </span>
@@ -1011,10 +1011,10 @@ export default function NaruHome() {
                         영문 줄의 양 끝을 한글 줄의 양 끝에 맞춥니다(2026-10-08 그대로). */}
                     {/* DECIDED 2026-10-20 (사용자, 스크린숏: "아래에 있는 CROSSING SEOUL 이 너무 작네"): 영문 줄은 META에서 BODY로
                         (폰 15.75px, 데스크톱 18px). 새 크기를 만들지 않으려고 이미 있는 BODY를 씁니다. 한 화면의 크기는 그대로 셋입니다. */}
-                    <span lang="en" className={`mt-1 flex justify-between ${BODY} font-bold uppercase leading-none text-[#FFA97A] sm:mt-2`}>
-                      <span className="sr-only">{DECEMBER_EVENT_NAME.en}</span>
-                      {[...DECEMBER_EVENT_NAME.en].map((ch, i) => (<span key={i} aria-hidden>{ch === " " ? "\u00a0" : ch}</span>))}
-                    </span>
+                    {/* DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A1, D4): 글자 13개로 쪼개 양 끝을 맞추던 넓은 자간을 걷고
+                        보통 자간 한 줄 META로 남깁니다(인스타 핸들과 같은 표기). 위 10/08, 10/20의 양 끝 맞춤과 BODY 크기를 대신합니다. */}
+                    {/* tracking-normal: h1의 tracking-tight를 물려받으면 META 크기에서 두 낱말이 붙어 보입니다. */}
+                    <span lang="en" className={`mt-1 block ${META} font-bold leading-none tracking-normal text-[#FFA97A] sm:mt-2`}>{DECEMBER_EVENT_NAME.en}</span>
                   </span>
                 </>
               ) : (
@@ -1329,7 +1329,7 @@ export default function NaruHome() {
                 {naru.december.approach.map((a, i) => (
                   <li key={i} className="flex flex-col items-start gap-[12px] rounded-2xl card-base p-4 sm:p-5">
                     {/* 2026-10-22: 칸마다 길이가 다른 진행 막대를 넣었다가 같은 날 뺐습니다(사용자: "늘리고 줄이는 그거 이상함"). */}
-                    <span className={`${META} font-bold tabular-nums text-accent`}>{String(i + 1).padStart(2, "0")}</span>
+                    {/* DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A3): "01~04" 번호를 뺍니다. 제목만. */}
                     <span className={`break-keep ${BODY} font-bold text-white`}>{t(a.title)}</span>
                     {/* 2026-10-24 (사용자: "폰트 키워줘, 다른 part와 동일하게"): 칸 설명은 META에서 사이트 본문 BODY로. 아래 세 칸 표와 같습니다. */}
                     <span className={`break-keep ${BODY} leading-[1.65] text-naru-muted`}>{t(a.body)}</span>
@@ -1491,15 +1491,15 @@ export default function NaruHome() {
                     className={`border-t border-white/[0.08] py-[20px] text-left sm:grid sm:items-start sm:py-[24px] lg:py-[28px] ${GAIN_COLS}`}
                   >
                     <div className="min-w-0 sm:pr-6" style={{ gridColumn: 1, gridRow: 1 }}>
-                      <div className="flex items-center gap-2.5">
-                        <span aria-hidden className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-accent/15 ${META} font-black tabular-nums text-accent`}>{item.num}</span>
+                      {/* DECIDED 2026-11-04 (site-tells A3): "01~05" 번호 배지를 뺍니다. 줄 높이(min-h-7, 28px)는 남겨 날 막대가 제목 줄 가운데에 그대로 섭니다. */}
+                      <div className="flex min-h-7 items-center">
                         <h3 className={ROW_HEADING}>{t(item.title)}</h3>
                       </div>
                       <span className="sr-only">{item.days.map((d) => `Day ${d}`).join(", ")}</span>
                     </div>
                     {/* DECIDED 2026-10-25 (사용자: "그렇다고 이런식으로 침범이 되면 안됨"): 본문은 왼쪽 글 칸(1열) 안에만 둡니다. 날 칸 아래로 넘어가지 않습니다.
                         줄 수는 문장 길이로 맞춥니다(data/naru.ts gains.items). */}
-                    <p className={`mt-[8px] break-keep pl-[38px] ${BODY} leading-[1.65] text-naru-muted sm:mt-[10px] sm:pr-8`} style={{ gridColumn: 1, gridRow: 2 }}>{t(item.body)}</p>
+                    <p className={`mt-[8px] break-keep ${BODY} leading-[1.65] text-naru-muted sm:mt-[10px] sm:pr-8`} style={{ gridColumn: 1, gridRow: 2 }}>{t(item.body)}</p>
                     <GainBars days={item.days} split={item.split} />
                   </li>
                 ))}

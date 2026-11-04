@@ -258,7 +258,7 @@ export default function JourneyNav({ anchors = DEFAULT_ANCHORS, page }: { anchor
           </div>
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             {links.openChat && (
-              <a href={links.openChat} target="_blank" rel="noopener noreferrer" aria-label={t({ ko: "오픈채팅, 카카오톡 새 창", en: "Open chat, KakaoTalk, new window" })} onClick={() => trackOpenChat("nav")} className="cta-shimmer inline-flex h-9 min-w-[36px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-accent-gradient px-3 text-xs font-semibold text-[#fff] transition-[filter] duration-150 hover:brightness-110 max-[419px]:w-9 max-[419px]:px-0 xl:text-sm">
+              <a href={links.openChat} target="_blank" rel="noopener noreferrer" aria-label={t({ ko: "오픈채팅, 카카오톡 새 창", en: "Open chat, KakaoTalk, new window" })} onClick={() => trackOpenChat("nav")} className="inline-flex h-9 min-w-[36px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-cta px-3 text-xs font-semibold text-[#fff] transition-[filter] duration-150 hover:brightness-110 max-[419px]:w-9 max-[419px]:px-0 xl:text-sm">
                 <ChatGlyph className="block h-4 w-4" />
                 <span className="max-[419px]:sr-only">{t(dict.nav.openChat)}</span>
               </a>

@@ -124,7 +124,7 @@ export default function PartnerModal({
           <div
             aria-hidden
             onClick={onClose}
-            className="absolute inset-0 cursor-default touch-none bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 cursor-default touch-none bg-black/70"
           />
 
           {/* Dialog - dark glass, matching EventModal */}
@@ -144,7 +144,7 @@ export default function PartnerModal({
           >
             <span
               aria-hidden
-              className="h-[2px] w-full shrink-0 bg-gradient-to-r from-accent to-accent-strong"
+              className="h-[2px] w-full shrink-0 bg-accent"
             />
 
             <button

@@ -202,7 +202,8 @@ function LogoTile({
         className="w-auto max-w-full object-contain"
       />
       {badge && (
-        <span className="absolute right-1.5 top-1.5 rounded-full border border-white/15 bg-white/10 px-1.5 py-0.5 text-xs font-bold text-white/75">
+        // DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A5): 로고 칸 모서리의 라벨 알약을 걷고 글자만.
+        <span className="absolute right-2 top-1.5 text-xs font-bold text-white/75">
           {badge}
         </span>
       )}
@@ -409,7 +410,7 @@ function MobileStickyBar({ t }: { t: Tfn }) {
             rel="noopener noreferrer"
             aria-label={t(dict.nav.openChatAria)}
             onClick={() => trackOpenChat("sticky")}
-            className={`inline-flex h-12 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-[#0b0817]/95 px-6 text-sm font-bold text-white  backdrop-blur-md ${
+            className={`inline-flex h-12 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-[#0b0817]/95 px-6 text-sm font-bold text-white  ${
               shown ? "pointer-events-auto" : "pointer-events-none"
             }`}
           >
@@ -662,7 +663,7 @@ function RouteMap({ t, onOpen }: { t: Tfn; onOpen: (n: number) => void }) {
               줄 높이를 건드리면 이 값도 같이 고쳐야 합니다. */}
           <span
             aria-hidden
-            className={`pointer-events-none absolute top-[1.625rem] h-px bg-gradient-to-r from-accent/40 via-white/15 to-accent/40 ${
+            className={`pointer-events-none absolute top-[1.625rem] h-px bg-white/20 ${
               rowIdx === 0
                 ? "left-[12.5%] right-[12.5%] sm:right-0"
                 : "left-[12.5%] right-[12.5%] sm:left-0"
@@ -962,7 +963,7 @@ function BenefitCard({
               i > 1 && !open ? "hidden sm:flex" : "flex"
             }`}
           >
-            <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-white/50" />
+            {/* 2026-11-04 (site-tells A5): 줄 앞의 장식 점을 뺐습니다. */}
             {t(p)}
           </li>
         ))}
@@ -1475,7 +1476,7 @@ function DayModal({
           transition={{ duration: reduce ? 0 : 0.2 }}
         >
           {/* Backdrop - `touch-none` backs up the scroll lock (see EventModal). */}
-          <div aria-hidden onClick={onClose} className="absolute inset-0 cursor-default touch-none bg-black/70 backdrop-blur-sm" />
+          <div aria-hidden onClick={onClose} className="absolute inset-0 cursor-default touch-none bg-black/70" />
           <motion.div
             ref={dialogRef}
             role="dialog"
@@ -1490,7 +1491,7 @@ function DayModal({
             // 바텀시트 네 개가 같은 이유로 dvh입니다(RegisterModal 주석 참고).
             className="relative z-10 flex max-h-[88dvh] w-full max-w-[720px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-[#0c0a18] shadow-2xl sm:rounded-3xl"
           >
-            <span aria-hidden className="h-[2px] w-full shrink-0 bg-gradient-to-r from-accent to-accent-strong" />
+            <span aria-hidden className="h-[2px] w-full shrink-0 bg-accent" />
             <button
               ref={closeRef}
               type="button"
@@ -2018,7 +2019,7 @@ function ScrollToTop() {
           // DECIDED 2026-10-23 (모바일 점검): 폰(sm 아래)에서는 두지 않습니다. 카드 본문, FAQ의 펼침 단추와 거의 모든 화면에서 겹쳤고, 홈과 /naru에는 없는 단추입니다.
           className={`${chromeHidden ? "max-lg:pointer-events-none max-lg:!opacity-0" : ""} group fixed bottom-[calc(env(safe-area-inset-bottom,0px)+5.25rem)] right-6 z-50 hidden h-11 w-11 items-center justify-center transition-opacity duration-200 sm:right-8 sm:flex lg:bottom-8 lg:h-12 lg:w-12`}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] text-white/65 backdrop-blur-sm transition group-hover:border-white/35 group-hover:text-white lg:h-12 lg:w-12 lg:border-white/15 lg:bg-naru-purple/85 lg:text-white lg:group-hover:border-accent/60 lg:group-hover:bg-naru-plum lg:group-hover:text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] text-white/65 transition group-hover:border-white/35 group-hover:text-white lg:h-12 lg:w-12 lg:border-white/15 lg:bg-naru-purple/85 lg:text-white lg:group-hover:border-accent/60 lg:group-hover:bg-naru-plum lg:group-hover:text-white">
             {/* upward chevron */}
             <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 lg:h-5 lg:w-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 15l6-6 6 6" />
@@ -2389,7 +2390,7 @@ export default function Journey() {
           <ul className="mt-4 space-y-3">
             {dict.whoWhat.who.map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-sm leading-[1.65] text-white/75">
-                <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                {/* 2026-11-04 (site-tells A5): 줄 앞의 장식 점을 뺐습니다. */}
                 {t(item)}
               </li>
             ))}
@@ -2514,7 +2515,8 @@ export default function Journey() {
                 render={(st, i) => (
                   <div className="flex h-full w-full flex-col rounded-xl card-raised p-4">
                     <div className="flex items-center gap-2">
-                      <span aria-hidden className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-xs font-black text-accent">
+                      {/* 2026-11-04 (site-tells A5): 번호의 원 테두리와 면을 걷고 글자만. 순서라 번호는 남깁니다. */}
+                      <span aria-hidden className="shrink-0 text-xs font-black tabular-nums text-accent">
                         {i + 1}
                       </span>
                       <p className="text-sm font-bold leading-snug text-white">{t(st.title)}</p>

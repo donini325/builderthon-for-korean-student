@@ -30,7 +30,7 @@
   /* DECIDED 2026-10-26 (사용자: "그레이랑 네이비가 따로 논다", "배경 그레이는 차분해져서 좋아, 액센트 블루를 얼마나 현명하게 쓸지가 관건"):
      바탕 회색은 그대로 두고, 강조색 하나를 로고 남색의 밝은 틴트(#9AA8EE, 로고 그라데이션의 첫 색)로 모읍니다. 보라는 로고 그라데이션에만.
      강조 블루를 쓰는 자리는 넷뿐: 현위치(목차 밑줄, 메뉴), 본문 안 링크, 소제목, 작은 라벨(DAY n, 번호). 면과 버튼은 칠하지 않습니다. 대비 8.1:1. */
-  /* 같은 날 뒤(사용자: "액센트 블루 더 쨍해도 좋아"): #9AA8EE → #7C95FF. 바탕 대비 6.7:1. 더 쨍한 짝 #5470FF는 7:3 그라데이션의 끝(아래 .bg-accent-gradient). */
+  /* 같은 날 뒤(사용자: "액센트 블루 더 쨍해도 좋아"): #9AA8EE → #7C95FF. 바탕 대비 6.7:1. 더 쨍한 짝 #5470FF는 card-tint의 섞는 색(2026-11-04, 그 전 7:3 그라데이션의 끝). */
   --ui-link:         124 149 255; /* #7C95FF */
   --ui-link-strong:  84 112 255;  /* #5470FF */
   /* 캡션(날짜, 단위, 분류 이름, 안내 한 줄). 본문 보조색보다 한 단 낮게, 바탕 대비 5.4:1(사용자: "캡션은 명도 더 낮춰서 덜 보이게"). */
@@ -282,8 +282,6 @@ body {
 /* DECIDED 2026-10-26: 매니페스토 뷰어(/naru)의 점 줄 진행 막대. 끝나면 다음 쪽으로 넘깁니다(ManifestoViewer onAnimationEnd). */
 @keyframes manifestoProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-@keyframes ctaShimmer { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
-
 /* ── Cards ─────────────────────────────────────────────────────────────────── */
 /* DECIDED 2026-10-26 (사용자: "카드 에셋에 보더 최소화하고 그림자 효과를 적절히, 절제된 그라디언트, fill 명도 구분을 좀 더 다양하게"):
    테두리 대신 면의 명도 넷과 그림자로 층을 나눕니다. 위쪽 1px 안쪽 빛(inset)이 테두리 대신 가장자리를 잡습니다.
@@ -293,21 +291,16 @@ body {
      card-tint    보라가 한 겹 스민 면. 핵심 문장, 기업 쪽 칸.
    @layer components라 sm: 같은 변형과 패딩 유틸리티를 같이 씁니다. */
 @layer components {
-  /* DECIDED 2026-10-26 (사용자: "쨍한 액센트-더 쨍한 액센트 7:3 비율로 일부 주요 에셋에 그라디언트 허용"): 70%까지 #7C95FF, 마지막 30%에서 #5470FF로.
-     쓰는 곳은 주요 버튼(Button primary naru)과 남는 것의 날 막대 둘뿐입니다. 글자는 잉크(대비 6.7:1 → 4.5:1). */
-  .bg-accent-gradient { background-image: linear-gradient(90deg, rgb(var(--ui-cta)) 0%, rgb(var(--ui-cta)) 70%, rgb(var(--ui-cta-strong)) 100%); }
-  /* DECIDED 2026-10-26 (사용자: "주요 cta 호버시 shimmer 이펙트"): 마우스를 올리면 빛 한 줄이 왼쪽에서 오른쪽으로 한 번 지나갑니다(0.9초). 모션 줄이기에서는 없음. */
-  .cta-shimmer { position: relative; overflow: hidden; isolation: isolate; }
-  .cta-shimmer::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.32) 50%, transparent 70%); transform: translateX(-120%); }
-  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-    .cta-shimmer:hover::after { animation: ctaShimmer 900ms ease-out; }
-  }
+  /* DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A4): 그라데이션 면은 크로싱 서울 워드마크 하나만 남깁니다.
+     주요 버튼과 날 막대의 7:3 블루 그라데이션(2026-10-26)은 #4F68F5 단색으로, 호버 shimmer(같은 날)는 뺐습니다. */
+  .bg-cta { background-color: rgb(var(--ui-cta)); }
   .text-caption { color: rgb(var(--ui-caption)); }
   /* 2026-10-26 (anti-slop heavy-box-shadow): 그림자는 한 겹, 투명도 0.3 이하. 가장자리는 아주 옅은 선(0.05) 하나. */
   .card-sunken { background: rgb(var(--ui-ink) / 0.55); border: 1px solid rgb(255 255 255 / 0.04); box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.3); }
-  .card-base { background: linear-gradient(180deg, rgb(var(--ui-surface)) 0%, rgb(var(--ui-surface) / 0.86) 100%); border: 1px solid rgb(255 255 255 / 0.05); box-shadow: 0 10px 28px -16px rgb(0 0 0 / 0.3); }
-  .card-raised { background: linear-gradient(180deg, rgb(var(--ui-raised)) 0%, rgb(var(--ui-surface)) 100%); border: 1px solid rgb(255 255 255 / 0.06); box-shadow: 0 12px 32px -16px rgb(0 0 0 / 0.3); }
-  .card-tint { background: linear-gradient(135deg, rgb(var(--ui-raised)) 0%, rgb(84 112 255 / 0.16) 100%); border: 1px solid rgb(124 149 255 / 0.12); box-shadow: 0 12px 32px -16px rgb(0 0 0 / 0.3); }
+  /* DECIDED 2026-11-04 (site-tells A4): 카드 셋의 그라데이션을 단색으로. 층은 명도와 그림자로만 나눕니다. card-tint는 그 전 그라데이션의 가운데 값. */
+  .card-base { background: rgb(var(--ui-surface)); border: 1px solid rgb(255 255 255 / 0.05); box-shadow: 0 10px 28px -16px rgb(0 0 0 / 0.3); }
+  .card-raised { background: rgb(var(--ui-raised)); border: 1px solid rgb(255 255 255 / 0.06); box-shadow: 0 12px 32px -16px rgb(0 0 0 / 0.3); }
+  .card-tint { background: color-mix(in srgb, rgb(var(--ui-raised)) 92%, rgb(var(--ui-link-strong))); border: 1px solid rgb(124 149 255 / 0.12); box-shadow: 0 12px 32px -16px rgb(0 0 0 / 0.3); }
 }
 
 /* ── Marquee ───────────────────────────────────────────────────────────────── */
@@ -512,9 +505,8 @@ html:not([data-locale="en"]) [data-l="ko"] { display: inline; }
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background: var(--home-reading-ground, rgb(var(--ui-ink) / 0.52));
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  /* DECIDED 2026-11-04 (주간 회의 피드백, site-tells A6): 흐림을 뺍니다. 그 전 약한 기기(data-plate="lite")에만 쓰던 0.8 단색이 기본입니다. */
+  background: rgb(var(--ui-ink) / 0.8);
   -webkit-mask-image:
     linear-gradient(to bottom, transparent, #000 64px, #000 calc(100% - 64px), transparent),
     linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent);
@@ -534,9 +526,6 @@ html:not([data-locale="en"]) [data-l="ko"] { display: inline; }
     right: -1.5rem;
     width: auto;
     transform: none;
-    background: var(--home-reading-ground, rgb(var(--ui-ink) / 0.47));
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
     -webkit-mask-image: linear-gradient(to bottom, transparent, #000 64px, #000 calc(100% - 64px), transparent);
     mask-image: linear-gradient(to bottom, transparent, #000 64px, #000 calc(100% - 64px), transparent);
   }
@@ -590,8 +579,7 @@ html:not([data-locale="en"]) [data-l="ko"] { display: inline; }
 .naru-home-v2 .naru-content-chapter { margin-top: 0; min-height: auto; }
 /* 2026-10-26: 같은 날 lg 144px로 늘렸던 챕터 위아래는 압축안(루트 16px)에서 Chapter 기본 lg:py-24(96px)로 돌아갑니다. */
 
-/* DECIDED 2026-10-21 (2차): 홈의 정보 구간만 대비를 고정하고 장식 발광을 낮춥니다. */
-.naru-home-v2 #december { --home-reading-ground: rgb(var(--ui-ink) / 0.68); }
+/* DECIDED 2026-10-21 (2차): 홈의 정보 구간만 대비를 고정하고 장식 발광을 낮춥니다. 2026-11-04: 판이 모두 0.8 단색이 되어 #december의 0.68은 뺐습니다. */
 /* 2026-10-22: 히어로(#top)는 kwan 전으로 되돌려 발광을 남깁니다. */
 .naru-home-v2 #register .bg-gradient-to-r { box-shadow: none; }
 

@@ -2196,7 +2196,8 @@ export const naru = {
     },
     // 일정표 행의 마일스톤 줄 끝에 붙는 말(2026-10-10). 누가 받는지를 날마다 한 번씩 말합니다.
     milestoneNote: { ko: "해낸 팀 모두 지원", en: "Support for every team that completes it" },
-    dayLabel: { ko: "DAY", en: "DAY" },
+    // DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A2): 대문자 "DAY"를 "Day"로. brand 7장의 표기와 같습니다.
+    dayLabel: { ko: "Day", en: "Day" },
     beforeLabel: { ko: "BEFORE", en: "BEFORE" },
     flowLabel: { ko: "참여 플로우", en: "How it flows" },
     flow: [

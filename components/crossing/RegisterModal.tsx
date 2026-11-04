@@ -369,7 +369,7 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
     <AnimatePresence>
       {open && (
         <motion.div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : 0.2 }}>
-          <div aria-hidden onClick={onClose} className="absolute inset-0 cursor-default touch-none bg-black/70 backdrop-blur-sm" />
+          <div aria-hidden onClick={onClose} className="absolute inset-0 cursor-default touch-none bg-black/70" />
           <motion.div
             ref={dialogRef}
             role="dialog" aria-modal="true" aria-labelledby="crossing-register-title"
@@ -379,7 +379,7 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
             transition={{ duration: reduce ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-10 flex max-h-[88dvh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-3xl border border-white/10 bg-naru-surface shadow-2xl sm:rounded-3xl"
           >
-            <span aria-hidden className="h-[2px] w-full shrink-0 bg-gradient-to-r from-accent to-accent-strong" />
+            <span aria-hidden className="h-[2px] w-full shrink-0 bg-accent" />
             {/* 제목 줄. 스크롤 영역 밖이라 늘 보이고, 닫기 버튼이 입력칸 위에 오지 않습니다(2026-10-12, 리뷰 S14).
                 완료 화면에서는 제목이 본문 안에 있어 이 줄에는 닫기 버튼만 남습니다. */}
             <div className="flex shrink-0 items-center justify-between gap-3 px-[27px] pb-[13.5px] pt-[18px] sm:px-[40.5px] sm:pt-[27px]">

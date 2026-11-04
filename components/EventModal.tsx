@@ -140,7 +140,7 @@ export default function EventModal({
           <div
             aria-hidden
             onClick={onClose}
-            className="absolute inset-0 cursor-default touch-none bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 cursor-default touch-none bg-black/70"
           />
 
           {/* Dialog - dark glass */}
@@ -161,7 +161,7 @@ export default function EventModal({
             {/* Neon header strip */}
             <span
               aria-hidden
-              className="h-[2px] w-full shrink-0 bg-gradient-to-r from-accent to-accent-strong"
+              className="h-[2px] w-full shrink-0 bg-accent"
             />
 
             {/* Close button */}

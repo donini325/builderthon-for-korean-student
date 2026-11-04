@@ -33,7 +33,7 @@ export function warmPhoto(src: string) {
 }
 
 const FOCUSABLE = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])';
-const ROUND = "flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-naru-surface/90 text-white/80 backdrop-blur-sm transition hover:bg-white/10 hover:text-white active:scale-95";
+const ROUND = "flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-naru-surface/90 text-white/80 transition hover:bg-white/10 hover:text-white active:scale-95";
 
 export default function PhotoLightbox({ photos, index, onIndex, onClose, labels }: {
   photos: LightboxPhoto[];
