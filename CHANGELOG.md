@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-04 노선도 Day 1에 Fastfive, Day 4에 MARU180, 장소 줄에 Fastfive](#2026-11-04-fastfive)
 - [2026-11-03 함께하는 곳에 Readray, 시상 크레딧 줄을 따로](#2026-11-03-readray)
 - [2026-11-03 멘토링 10:00~16:00 점심 없이, 오후 반나절은 13:00~16:00](#2026-11-03-hours-13-16)
 - [2026-11-03 시간표, 멘토, 팀 매칭, 투표 링크도 영어로 공유하면 영문 카드](#2026-11-03-en-share-tools)
@@ -462,6 +463,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-04-fastfive"></a>
+## 2026-11-04 노선도 Day 1에 Fastfive, Day 4에 MARU180, 장소 줄에 Fastfive
+- 범위: data/naru.ts(december.stages Day 1, Day 4의 logo, decemberPartners 장소), scripts/process-partner-logos.py, public/partners/logos/white/(trimmed/)fastfive.png(새)
+- 한 것: 사용자 요청("1일차에 Fastfive 로고 넣어주고, 4일차에는 MARU 넣어줘", 함께하는 곳에도 Fastfive). 10/26에 뺀 정거장 로고 자리를 다시 씁니다. Fastfive는 원본 CI/Fastfive.png(흰 바탕 검은 글자, 얇은 테두리 잘라냄)를 흰색 단색으로. 링크 fastfive.co.kr.
+- 근거: brand 10장 시각(어두운 바탕에 흰색 단색, 밝은 판 없이). 판단 질문 1: 이틀의 장소가 보여 안전하게 도전할 자리가 실제로 있다는 사실을 말합니다.
+- 검증: /crossing 1440에서 노선도 Day 1 FASTFIVE, Day 4 MARU180, 장소 줄 셋 로드. tsc 통과.
+- 커밋: 이 항목과 같은 커밋
 
 ---
 

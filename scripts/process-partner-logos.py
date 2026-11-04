@@ -151,6 +151,9 @@ JOBS = [
     # AXMOS는 원본이 이미 투명 바탕이라 "alpha". Lovable, Bloom, 크라이치즈버거는 원래 색이라 scripts/colorize-partner-logos.py에 있습니다.
     ("아산나눔재단.png", "asan-nanum.png", "dark", {"ci": "dec"}),
     ("AXMOS.png", "axmos.png", "alpha", {"ci": "dec"}),
+    # 2026-11-04 (사용자: 노선도 Day 1과 함께하는 곳 장소 줄에 Fastfive). 흰 바탕 검은 워드마크라 "dark".
+    # 원본 가장자리에 얇은 회색 테두리가 있어 안쪽만 잘라 씁니다.
+    ("Fastfive.png", "fastfive.png", "dark", {"ci": "dec", "crop": (8, 8, 559, 344)}),
 ]
 
 

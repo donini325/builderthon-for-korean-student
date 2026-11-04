@@ -2619,6 +2619,8 @@ export const naru = {
         dayOffset: 1,
         // DECIDED 2026-10-26 (사용자: "GSC 를 1일차에 빼줘"): Day 1 정거장 위의 GSC 로고를 뺐습니다. 홈 "함께하는 곳"의 장소 줄은 그대로.
         // 그 전(2026-10-19): Day 1 GSC, Day 4 MARU180 로고. Day 4 로고는 남습니다.
+        // DECIDED 2026-11-04 (사용자: "1일차에 Fastfive 로고 넣어주고, 4일차에는 MARU 넣어줘"): Day 1 장소 Fastfive. 흰색 단색(scripts/process-partner-logos.py).
+        logo: { src: "/partners/logos/white/trimmed/fastfive.png", name: "FASTFIVE", w: 457, h: 78, url: "https://fastfive.co.kr/" },
         body: {
           // DECIDED 2026-10-08 (사용자: "팀 - 전원 현장 편성"): 미리 짠 팀을 확인하는 날이 아니라 이 날 팀을 맺습니다.
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C5, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
@@ -2822,6 +2824,8 @@ export const naru = {
         // DECIDED 2026-10-26 (사용자: "4일차에 maru180 도 빼줘, 저기 하루만 있으니까 이상하네"): Day 4 정거장 위의 MARU180 로고를 뺐습니다.
         // 같은 날 Day 1 GSC를 뺀 뒤 로고가 한 정거장에만 남았습니다. 노선도에 로고가 하나도 없으면 RouteMap이 로고 줄을 그리지 않습니다.
         // 홈 "함께하는 곳"의 장소 줄의 MARU180은 그대로. 그 전(2026-10-19): Day 1 GSC, Day 4 MARU180 로고.
+        // DECIDED 2026-11-04 (사용자: "4일차에는 MARU 넣어줘"): Day 1 Fastfive와 함께 Day 4 MARU180 로고를 되돌립니다.
+        logo: { src: "/partners/logos/white/trimmed/maru180.png", name: "MARU180", w: 385, h: 91, url: "https://maru.org/" },
         // 2026-09-30 (사용자, 문장 감사): "완성도가 아니라 과정을 봅니다"였습니다. "결과보다 과정"은 #naru의
         // 코어 01과 measure가 이미 세 번 말합니다. 여기서는 그 말이 이 무대에서 무슨 뜻인지만.
         body: {
@@ -3382,6 +3386,8 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
         // 2026-10-22 (UX 점검): 영문 화면의 링크 이름과 alt에 한글만 남아 있었습니다. 로고는 한글이라 두 표기를 같이 둡니다.
         { name: "아산나눔재단 Asan Nanum Foundation", src: "/partners/logos/white/trimmed/asan-nanum.png", w: 772, h: 154, url: "https://www.asan-nanum.org/" },
         { name: "MARU180", src: "/partners/logos/white/trimmed/maru180.png", w: 385, h: 91, url: "https://maru.org/" },
+        // DECIDED 2026-11-04 (사용자: 노선도 Day 1과 같이 함께하는 곳에도 Fastfive). 원본은 CI/Fastfive.png.
+        { name: "FASTFIVE", src: "/partners/logos/white/trimmed/fastfive.png", w: 457, h: 78, url: "https://fastfive.co.kr/" },
       ],
     },
     {
