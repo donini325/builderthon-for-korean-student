@@ -3096,7 +3096,7 @@ export default function Journey() {
                 className="group flex w-full flex-col items-start gap-1.5 border-b border-white/10 bg-white/[0.04] px-5 py-4 text-left transition hover:bg-white/[0.07] sm:flex-row sm:items-center sm:gap-4"
               >
                 <Image
-                  src="/partners/logos/axmos-wordmark-white.png"
+                  src="/partners/logos/paper/axmos-wordmark.png"
                   alt="AXMOS"
                   width={750}
                   height={200}

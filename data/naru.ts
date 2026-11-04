@@ -3432,7 +3432,7 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
     },
     {
       label: { ko: "기술, 크레딧", en: "Tech and credits" },
-      logos: [{ name: "Lovable", src: "/partners/logos/color/lovable.png", w: 644, h: 110, url: "https://lovable.dev/" }],
+      logos: [{ name: "Lovable", src: "/partners/logos/paper/lovable.png", w: 644, h: 110, url: "https://lovable.dev/" }],
       // DECIDED 2026-10-27 (사용자: "'Day 1에 Lovable 현장 워크숍을 진행합니다.' 이거 빼줘"): 로고 띠 아래 한 줄을 뺐습니다. 일정 카드 Day 1의 세션은 그대로입니다.
     },
     // DECIDED 2026-11-03 (사용자: "Readray 와도 확정", "lovable 과 같이 묶이면 안되서, 수상 상품으로 크레딧 지원임. 따로 빼야함"): 시상에 쓰는 크레딧이라
@@ -3440,7 +3440,7 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
     // 어두운 바탕에서 읽히게 워드마크(#1C1E15)만 흰색으로 바꿨습니다. 라임 원과 눈은 원래 색입니다(밝은 판 없이). 옛 이름은 LilysAI(lilys.ai가 readray.ai로 넘어감).
     {
       label: { ko: "시상 크레딧", en: "Award credits" },
-      logos: [{ name: "Readray", src: "/partners/logos/color/readray.png", w: 1983, h: 377, url: "https://readray.ai" }],
+      logos: [{ name: "Readray", src: "/partners/logos/paper/readray.png", w: 1983, h: 377, url: "https://readray.ai" }],
     },
     // DECIDED 2026-10-31 (사용자: 10/29 워크숍 인트로 미팅과 10/30 회신 메일, "이분이 있는 business를 넣어줘야함"): Day 1 Lovable 워크숍을 맡은 회사.
     // 회신 메일에서 법인 명칭을 함께 표기해 달라고 했습니다. 정식 이름은 Carraway & Gatsby Corporation이고, 회사 사이트(cgcorp.io)의 제목이
@@ -3448,17 +3448,17 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
     // 원본은 CI/CGC (러버블 워크샵).jpeg(흰 바탕 남색). 바탕을 걷고 남색은 흰색으로, 파란 점은 밝은 파랑으로 올렸습니다(밝은 판 없이).
     {
       label: { ko: "Lovable 워크숍", en: "Lovable workshop" },
-      logos: [{ name: "Carraway & Gatsby Corporation", src: "/partners/logos/color/cgc.png", w: 833, h: 232, url: "https://cgcorp.io" }],
+      logos: [{ name: "Carraway & Gatsby Corporation", src: "/partners/logos/paper/cgc.png", w: 833, h: 232, url: "https://cgcorp.io" }],
     },
     {
       label: { ko: "커뮤니티, 홍보", en: "Community and PR" },
       logos: [
         // DECIDED 2026-10-23 (사용자: "블룸 다른 로고 쓰면 좋을거 같은데"): 꽃 캐릭터 + 세리프 워드마크(color/bloom.png)에서 블록 글자 마크로.
         // 원본은 CI/bloom.jpg(검정 바탕 공유 이미지)이고, 마크만 잘라 검정 바탕을 투명하게 걷었습니다. 흰 글자와 분홍 칸은 원래 색입니다.
-        { name: "Bloom", src: "/partners/logos/color/bloom-block.png", w: 575, h: 286, url: "https://bloomworld.ai/" },
+        { name: "Bloom", src: "/partners/logos/paper/bloom-block.png", w: 575, h: 286, url: "https://bloomworld.ai/" },
         // DECIDED 2026-10-21 (사용자: "노란색 살려줘"): 이 로고만 흰색 단색이 아니라 원래 색입니다. 바깥 흰 바탕만 투명하게 지웠습니다
         // (public/partners/logos/color/, 모서리에서 flood fill). 노란 면이라 어두운 바탕 위에서도 밝은 판 없이 보입니다.
-        { name: "크라이치즈버거 Cry Cheese Burger", src: "/partners/logos/color/crycheeseburger.png", w: 459, h: 378, square: true, url: "https://www.crycheeseburger.com/" },
+        { name: "크라이치즈버거 Cry Cheese Burger", src: "/partners/logos/paper/crycheeseburger.png", w: 459, h: 378, square: true, url: "https://www.crycheeseburger.com/" },
       ],
     },
   ],
