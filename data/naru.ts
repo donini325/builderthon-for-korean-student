@@ -356,7 +356,7 @@ export const naruNav: { id: string; label: Phrase; railLines?: Phrase; ariaLabel
   { id: "december", label: { ko: "프로그램", en: "Programme" } },
   // DECIDED 2026-11-04 (사용자, site-tells 목업): "진행 방식"(#curation)과 "이슈"(#mentoring)를 뺐습니다. 닷새 장이 한 판으로 줄었습니다.
   // #mentoring id는 닷새 장의 미션 한 문장에 남아 밖의 링크가 같은 장에 착지합니다.
-  { id: "register", label: { ko: "등록", en: "Register" } },
+  // DECIDED 2026-11-05 (사용자: 등록 블록을 뺌): "등록" 칸을 뺍니다. 등록 버튼은 히어로(id="register")에 있어 목차의 순서와 현위치가 어긋났습니다.
   // DECIDED 2026-10-22 (UX 점검, 사용자: "모든 것을 반영"): 영문 "Gains"는 "What you leave with"의 라벨로 어색했습니다. ariaLabel은 뺐습니다.
   // 보이는 글자("남는 것")와 읽히는 이름("오면 무엇이 남는가")이 달라 Lighthouse label-content-name-mismatch에 걸렸습니다.
   { id: "gains", label: { ko: "남는 것", en: "Takeaways" } },

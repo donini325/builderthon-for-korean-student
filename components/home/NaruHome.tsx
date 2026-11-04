@@ -1056,7 +1056,7 @@ export default function NaruHome() {
             {/* DECIDED 2026-10-11 (사용자, 스크린숏: "여기에 있으면 좋겠음. 2x2, 버튼 별 사이즈는 똑같이"): AI 유형 테스트 버튼이 일정표의
                 Day 1에서 여기로 왔습니다. 버튼 넷이 두 칸 두 줄로 서고, 격자가 칸을 늘려 넷의 크기가 같습니다(글은 가운데).
                 폰은 한 칸이고 "프로그램 보기"는 전처럼 폰에서 숨깁니다. */}
-            <div className={`mx-auto mt-10 grid w-fit max-w-full lg:mx-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
+            <div id="register" className={`mx-auto mt-10 grid w-fit max-w-full scroll-mt-40 lg:mx-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
               {regState === "open" ? (
                 // DECIDED 2026-11-02 (docs/register-ux-brief.md O1, D4): 이 기기에서 등록했으면 "등록했습니다"(유령 필). 누르면 완료 화면이 다시 열립니다.
                 <button type="button" onClick={() => { track("naru_cta", { src: "hero", to: reg?.registered ? "registered" : "register" }); reg?.openRegister(); }} className={`group ${reg?.registered ? `${buttonClass("secondary")} ${HERO_BUTTON_GROUND}` : buttonClass("primary", "naru")}`}>
@@ -1155,64 +1155,21 @@ export default function NaruHome() {
             목업의 Day 카드 다섯 칸 모양에 main 일정 판의 내용을 담습니다. 칸마다 stageCard(폰 패널과 같은 왼쪽 정렬 카드): 그날 한 줄, 세션,
             Day 1의 "Day 2에 들고 갈 것"과 AI 유형 테스트 링크, Day 2, 3 미션 띠(누르면 인증 방법)와 시간표 버튼, Day 4 인기투표. 위에 제목과 리드.
             노선도와 폰의 날짜 넘기기는 그리지 않습니다(부품은 남김). 2026-11-04의 한 줄 카드와 main 판 복원은 이 결정이 대신합니다. */}
-        <div id="schedule" className={`${WIDE} text-left`}>
-          {/* 시간표 버튼은 Day 2, 3 칸 안에 있어 위에 따로 두지 않습니다. */}
-          <h2 id="december-title" className={`${H2} max-sm:text-[28px] !mx-0 text-balance`}>{t(naru.december.programHeading)}</h2>
-          <p id="mentoring" className={`mt-4 max-w-[40rem] break-keep ${BODY} leading-[1.65] text-naru-muted`}>{t(naru.december.scheduleLead)}</p>
-          <div data-schedule className="mt-8 grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:mt-10 lg:grid-cols-5">
+        {/* DECIDED 2026-11-05 (사용자, 스크린숏 둘: "여기가 왼쪽에, 여기가 오른쪽에"): 제목과 리드는 왼쪽 단, Day 카드 다섯은 오른쪽 단(lg부터). 목업의 배치.
+            카드 다섯이 들어갈 폭을 위해 이 판만 챕터 좌우 여백 안쪽까지 넓힙니다(lg -40px, xl -64px). 카드 안 버튼은 모서리 둥근 사각형(globals.css [data-schedule]).
+            lg 아래는 제목 아래 카드(sm 두 칸, 폰 한 칸). */}
+        <div id="schedule" className="mx-auto grid w-full gap-8 text-left lg:-mx-10 lg:w-[calc(100%+5rem)] lg:grid-cols-[minmax(0,13rem)_minmax(0,1fr)] lg:gap-8 xl:-mx-16 xl:w-[calc(100%+8rem)]">
+          <div>
+            <h2 id="december-title" className={`${H2} max-sm:text-[28px] !mx-0 text-balance`}>{t(naru.december.programHeading)}</h2>
+            <p id="mentoring" className={`mt-4 break-keep ${BODY} leading-[1.65] text-naru-muted`}>{t(naru.december.scheduleLead)}</p>
+          </div>
+          <div data-schedule className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:gap-2.5">
             {naru.december.stages.map((stage, i) => stageCard(stage, i, true))}
           </div>
         </div>
-        <div id="register" aria-labelledby="december-register-note" className={`${READ} mt-[56px] max-sm:mt-[40px] border-t border-white/10 pt-[32px] max-sm:pt-[28px] text-balance text-center lg:mt-[64px] lg:pt-[48px]`}>
-        {/* 2026-10-11 (리뷰 A5): 등록 블록의 제목. 화면에는 그리지 않고 제목 목록에서 찾을 수 있게 합니다. */}
-        <h3 className="sr-only">{t({ ko: "등록", en: "Registration" })}</h3>
-        {/* DECIDED 2026-10-13 (사용자, 스크린숏: "너무 길어, 있는 말 반복이니까"): 여기 서던 registerNote 줄들을 뺐습니다. 언제 여는지와
-            혼자 등록하는지는 히어로 한 줄이, 장소와 진행 언어는 모달의 안내 상자가 말합니다. 스크리닝 문장(december.ctaNote)
-            한 줄만 남습니다. 홈에서 그 낱말은 이 한 자리입니다(docs/brand.md 9장). */}
-        <p id="december-register-note" className={`break-keep text-center ${BODY} text-naru-muted`}>
-          {t(regState === "closed" ? registerCopy.closed : naru.december.ctaNote)}
-        </p>
-        {/* DECIDED 2026-10-22 (UX 점검): 메뉴 "등록"으로 들어온 사람에게 언제 여는지 한 문장. 열리면 사라집니다. */}
-        {regState === "not_open" && (
-          <p className={`mt-[8px] break-keep text-center ${META} text-caption`}>{t(naru.december.opensLine)}</p>
-        )}
-        {/* DECIDED 2026-11-02 (브리프 R5): 버튼 줄도 히어로처럼 격자입니다. 두 버튼이 같은 폭(그 전 242px과 181px). */}
-        <div className={`mx-auto mt-[24px] grid w-fit max-w-full grid-cols-1 gap-[13.5px] max-sm:w-full sm:mt-[32px] sm:gap-[18px] [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal ${regState === "not_open" ? "sm:grid-cols-2" : ""}`}>
-          {regState === "open" ? (
-            <button type="button" onClick={() => { track("naru_cta", { src: "december", to: reg?.registered ? "registered" : "register" }); reg?.openRegister(); }} className={`group ${reg?.registered ? buttonClass("secondary") : buttonClass("primary", "naru")}`}>
-              {t(reg?.registered ? registerCopy.registered : registerCopy.cta)}
-              <span aria-hidden className={ARROW_CLASS}>→</span>
-            </button>
-          ) : regState === "not_open" ? (
-            <>
-              {/* DECIDED 2026-10-12 (등록 브리프 1.3, 리뷰 S8): 알림 버튼은 히어로와 같은 그라데이션 필입니다. 그 전에는 미리 보기,
-                  알림, 후원 문의 셋이 같은 윤곽선이라 무엇을 눌러야 하는지 보이지 않았습니다. "페이지의 그라데이션 필은 히어로
-                  하나"(2026-09-17)는 이 결정이 대신합니다. 같은 문(오픈채팅)이 두 자리에서 같은 모양입니다. */}
-              <OpenChatLink t={t} src="naru-december" label={openChatLabels.december} variant="hero" describedBy="december-chat-note" />
-              {/* 2026-10-20에 내렸던 미리 보기 버튼을 2026-11-02(사용자)에 다시 세웁니다. 히어로와 같은 순서(주 필 다음 유령 필)입니다. */}
-              <PreparingButton t={t} noteId="december-register-note" onOpen={() => reg?.openRegister()} />
-            </>
-          ) : null}
-        </div>
-        {regState === "not_open" && links.openChat && (
-          // DECIDED 2026-11-02 (브리프 O5, D6 뒤집음): 카카오톡 설치 안내가 뜨는 쪽은 데스크톱이라 이 줄은 lg부터만 그립니다.
-          // 그 전 2026-10-26: 휴대폰 안내라 lg부터는 그리지 않았습니다(PC 글 양 줄이기).
-          <p id="december-chat-note" className={`mt-[13.5px] hidden break-keep ${META} leading-snug text-caption lg:block`}>{t(openChatLabels.phoneHint)}</p>
-        )}
-        {/* DECIDED 2026-10-12 (등록 브리프 1.3, 리뷰 S8): 출제사와 후원 문의는 버튼에서 텍스트 링크로 내려갑니다. 학생이 누를 문이
-            아니라서 버튼 줄 밖, 한 단 아래에 섭니다. mailto는 그대로입니다. 2026-09-19(모바일 감사 16)에 유령 필로 올렸던 것은
-            오픈채팅이 막혀 있어 이 링크가 그 줄의 유일하게 살아 있는 문이던 때의 결정입니다. 누르는 자리는 44px을 지킵니다. */}
-        <p className="mt-[12px] sm:mt-[16px]">
-          <a
-            href={naruLinks.sponsor}
-            onClick={() => track("naru_mail", { src: "december" })}
-            className={`inline-flex min-h-[44px] items-center gap-1.5 ${META} font-medium text-white/85 underline underline-offset-4 transition hover:text-white`}
-          >
-            {t(naru.december.ctaMail)}
-            <span aria-hidden>→</span>
-          </a>
-        </p>
-        </div>
+        {/* DECIDED 2026-11-05 (사용자, 스크린숏: "이 부분 빼줘"): 닷새 장 아래의 등록 블록(스크리닝 한 줄, 여는 날, 버튼 둘, 휴대폰 안내, 기업 출제/후원 문의)을 뺍니다.
+            같은 버튼 둘과 여는 날, 조건 없음은 히어로가 말합니다. 헤더 "등록"과 밖의 #register 링크는 히어로의 버튼 줄(id="register")에 착지합니다.
+            기업 문의 메일은 푸터와 나루 홈에 있습니다. 그 전 코드는 git 3905a76. */}
         </PlateSegment>
         {/* DECIDED 2026-10-10 (사용자: "객관적으로 너무 내용이 많다", 중복 브리프 B3): #december의 둘째 판 조각을 홈에서
             내렸습니다. "8월이 남기지 못한 두 가지, 그리고 12월의 답"(카드 둘)과 "그 밖에 바꾼 것"은 8월 페이지 맨 아래의
