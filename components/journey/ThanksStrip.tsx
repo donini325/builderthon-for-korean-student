@@ -27,8 +27,8 @@ const ROLE: Record<RoleKey, { label: Phrase; href: string }> = {
   mentor: { label: { ko: "멘토", en: "Mentor" }, href: "#mentoring" },
 };
 const ORDER: RoleKey[] = ["speaker", "panel", "mentor"];
-// 히어로 조각 그림의 밝은 면 위에서도 읽히게. HeroPartnerStrip 라벨과 같은 그림자입니다.
-const SHADOW = "drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)]";
+// 2026-11-04 (종이): 영상 위에서 읽히게 하던 어두운 그림자를 뺐습니다. 크림 바탕에서는 회색 번짐으로 보였습니다.
+const SHADOW = "";
 const HEADING: Phrase = { ko: "함께해 주신 분들", en: "With thanks to" };
 
 // 멘토 카드에는 사진이 비어 있지만 같은 분의 사진이 다른 자리(schedule.ts)에 이미 있는 경우.

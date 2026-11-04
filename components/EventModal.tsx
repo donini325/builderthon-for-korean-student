@@ -156,7 +156,7 @@ export default function EventModal({
             // dvh, NOT vh - iOS Safari에서 주소창이 펼쳐진 상태의 vh는 실제 보이는
             // 높이보다 커서 시트 위쪽(=닫기 버튼)이 화면 밖으로 밀려납니다.
             // 바텀시트 네 개가 같은 이유로 dvh입니다(RegisterModal 주석 참고).
-            className="relative z-10 flex max-h-[88dvh] w-full max-w-[760px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-[#0c0a18] shadow-2xl sm:rounded-3xl"
+            className="relative z-10 flex max-h-[88dvh] w-full max-w-[760px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-naru-surface shadow-2xl sm:rounded-3xl"
           >
             {/* Neon header strip */}
             <span

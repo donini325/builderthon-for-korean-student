@@ -360,7 +360,7 @@ function StripLogoImg({ src, alt, w, h, mass, keepColor, box }: StripLogoSpec & 
       // they looked muddy exactly where they matter most (at rest, first view).
       // The scrim added behind the strip is what makes 80 safe on the bright
       // part of the video; the drop-shadow still carries the thin wordmarks.
-      className={`h-[var(--sl-h)] w-auto max-w-[var(--sl-w)] shrink-0 object-contain opacity-80 ${keepColor ? "" : "grayscale"} drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition duration-300 group-hover:opacity-100 sm:h-[var(--sl-h-sm)] sm:max-w-[var(--sl-w-sm)]`}
+      className={`h-[var(--sl-h)] w-auto max-w-[var(--sl-w)] shrink-0 object-contain opacity-80 ${keepColor ? "" : "grayscale"} transition duration-300 group-hover:opacity-100 sm:h-[var(--sl-h-sm)] sm:max-w-[var(--sl-w-sm)]`}
     />
   );
 }
@@ -384,7 +384,7 @@ function StripLogo(props: StripLogoSpec & { box: StripBox }) {
 // DECIDED 2026-10-13 (폰 점검): 360px 아래에서도 12.6px로 둡니다. 영문 줄이 넘치지 않게 그 폭에서는 자간만 0.08em으로 줄입니다.
 function StripTierLabel({ children, sizeClass = "text-[0.7rem]" }: { children: React.ReactNode; sizeClass?: string }) {
   return (
-    <span className={`shrink-0 whitespace-nowrap ${sizeClass} font-bold text-accent drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)]`}>
+    <span className={`shrink-0 whitespace-nowrap ${sizeClass} font-bold text-accent`}>
       {children}
     </span>
   );
@@ -404,7 +404,8 @@ export default function HeroPartnerStrip({
   label = dict.hero.partnersLabel,
   sizeClass = "text-[0.7rem]",
   className = "mt-11 sm:mt-5",
-  scrim = true,
+  // DECIDED 2026-11-04 (사용자, 종이 미리 보기 스크린숏: "너무 이상한데"): 크림 바탕에서는 어두운 덮개가 회색 얼룩으로 보여 기본값을 끔으로.
+  scrim = false,
 }: { t: Tfn; tiers?: StripTier[]; label?: Phrase; sizeClass?: string; className?: string; scrim?: boolean }) {
   // 이웃한 같은 row의 줄을 한 묶음으로. row가 없으면 그 줄 혼자(8월은 전부 혼자라 그 전과 같은 세 줄).
   const rows: StripTier[][] = [];
@@ -476,7 +477,7 @@ export default function HeroPartnerStrip({
             "radial-gradient(75% 130% at 50% 50%, rgba(6,4,15,0.7) 0%, rgba(6,4,15,0.5) 42%, rgba(6,4,15,0.22) 68%, transparent 88%)",
         }}
       />}
-      <p className={`text-center ${sizeClass} font-semibold text-white/75 drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)] transition group-hover:text-white/90`}>
+      <p className={`text-center ${sizeClass} font-semibold text-white/75 transition group-hover:text-white/90`}>
         {t(label)}
       </p>
       {/* ≥sm - one row per tier, caption centred above its own marks. The tiers

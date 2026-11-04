@@ -410,7 +410,7 @@ function MobileStickyBar({ t }: { t: Tfn }) {
             rel="noopener noreferrer"
             aria-label={t(dict.nav.openChatAria)}
             onClick={() => trackOpenChat("sticky")}
-            className={`inline-flex h-12 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-[#0b0817]/95 px-6 text-sm font-bold text-white  ${
+            className={`inline-flex h-12 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-naru-surface/95 px-6 text-sm font-bold text-white  ${
               shown ? "pointer-events-auto" : "pointer-events-none"
             }`}
           >
@@ -815,16 +815,16 @@ function RouteMap({ t, onOpen }: { t: Tfn; onOpen: (n: number) => void }) {
                       />
                     )}
                     {anchor ? (
-                      <span className={`relative flex h-7 w-7 items-center justify-center rounded-full border border-accent/50 bg-accent/25 text-xs text-white shadow-[0_0_0_4px_rgba(10,6,20,0.85)] transition group-hover:bg-accent/40`}>
+                      <span className={`relative flex h-7 w-7 items-center justify-center rounded-full border border-accent/50 bg-accent/25 text-xs text-white shadow-[0_0_0_4px_rgb(var(--ui-ink)/0.9)] transition group-hover:bg-accent/40`}>
                         <span aria-hidden>★</span>
                       </span>
                     ) : spot ? (
                       // 필참보다 한 치수 작고 점보다 두 치수 큽니다. ★를 쓰지 않고
                       // 색도 rose가 아닌 violet인 것은 의도적입니다 - ★와 rose는
                       // 노선도에서 오직 "필참"만 뜻해야 하고, 이 날은 선택일입니다.
-                      <span aria-hidden className="relative h-4 w-4 rounded-full bg-accent shadow-[0_0_0_4px_rgba(10,6,20,0.85)]" />
+                      <span aria-hidden className="relative h-4 w-4 rounded-full bg-accent shadow-[0_0_0_4px_rgb(var(--ui-ink)/0.9)]" />
                     ) : (
-                      <span className="relative h-3 w-3 rounded-full border border-white/35 bg-[#0a0614] shadow-[0_0_0_4px_rgba(10,6,20,0.85)] transition group-hover:border-accent/70 group-hover:bg-white/[0.06]" />
+                      <span className="relative h-3 w-3 rounded-full border border-white/35 bg-naru-surface shadow-[0_0_0_4px_rgb(var(--ui-ink)/0.9)] transition group-hover:border-accent/70 group-hover:bg-white/[0.06]" />
                     )}
                   </span>
                   {/* 시간의 층이 정거장의 층을 이기는 유일한 자리입니다. 지나온
@@ -1489,7 +1489,7 @@ function DayModal({
             // dvh, NOT vh - iOS Safari에서 주소창이 펼쳐진 상태의 vh는 실제 보이는
             // 높이보다 커서 시트 위쪽(=닫기 버튼)이 화면 밖으로 밀려납니다.
             // 바텀시트 네 개가 같은 이유로 dvh입니다(RegisterModal 주석 참고).
-            className="relative z-10 flex max-h-[88dvh] w-full max-w-[720px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-[#0c0a18] shadow-2xl sm:rounded-3xl"
+            className="relative z-10 flex max-h-[88dvh] w-full max-w-[720px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-naru-surface shadow-2xl sm:rounded-3xl"
           >
             <span aria-hidden className="h-[2px] w-full shrink-0 bg-accent" />
             <button
