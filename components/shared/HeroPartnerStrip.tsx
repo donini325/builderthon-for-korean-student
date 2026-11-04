@@ -2,6 +2,7 @@
 
 import { partnerUrl } from "@/data/partnerLinks";
 import { dict, type Phrase } from "@/data/dictionary";
+import { decemberPartners, type PartnerLogo } from "@/data/naru";
 
 type Tfn = (p: Phrase) => string;
 
@@ -11,9 +12,9 @@ type Tfn = (p: Phrase) => string;
 // 이 파일이 내보내는 것: HeroPartnerStrip(기본), sortLikeHeroStrip, sponsorMass.
 // 뒤의 둘은 Journey.tsx의 파트너 벽(CompanionMarquee, LogoTile 목록)이 씁니다.
 //
-// TODO: confirm. 나루 홈은 이 스트립을 렌더하지 않습니다. 12월 출제사와 후원사가
-// 확정되면 홈 히어로의 두 단 아래에 이 컴포넌트를 tiers prop으로 일반화해 씁니다.
-// 지금의 confirmedPartnerTiers는 8월 회차의 것이라 홈에 그대로 걸면 안 됩니다.
+// DECIDED 2026-11-04 (사용자, 스크린숏: "12월달도 8월달처럼 이 공간에 회사들 로고들을"): 그 전 TODO대로 tiers prop으로 일반화해
+// 크로싱 서울(/crossing) 카운트다운 아래에도 겁니다. 12월 줄은 아래 decemberStripTiers가 data/naru.ts의 decemberPartners에서 만듭니다
+// (함께하는 곳과 같은 원본, 같은 분류 이름). 8월 페이지는 인자 없이 부르므로 그 전과 같습니다.
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HERO CONFIRMED-PARTNER STRIP - the deck cover's "CONFIRMED PARTNERS" band.
@@ -89,7 +90,15 @@ type StripLogoSpec = {
   src: string; alt: string; w: number; h: number;
   // sqrt(ink × silhouette) coverage of the trimmed box - see the script above.
   mass: number;
+  // 12월(2026-11-04): 링크를 데이터에서 직접(partnerLinks에 없는 곳). 원래 색 로고(public/partners/logos/color/)는 회색으로 바꾸지 않습니다
+  // (크라이치즈버거 노란색, Readray 라임처럼 사용자가 살린 색, 2026-10-21, 11-03).
+  url?: string;
+  keepColor?: boolean;
 };
+// row: 같은 값의 이웃한 줄은 한 줄에 나란히 섭니다(12월은 분류가 여섯이라 위아래로 쌓으면 히어로가 길어집니다).
+// lead(12월, 2026-11-04 사용자: "이러면 이 회사들이 AXMOS 맴버사라는 느낌이 안나는데"): 묶음의 머리 로고. 위에 홀로 서고, 짧은 선 아래
+// 테두리 상자 안에 items가 섭니다. 함께하는 곳(#partners)의 AXMOS 줄(2026-10-22)과 같은 그림입니다. leadNote는 그 사이 한 줄.
+export type StripTier = { label: Phrase; box: StripBox; items: StripLogoSpec[]; rowMax?: string; rowGap?: string; row?: string; lead?: StripLogoSpec; leadNote?: Phrase };
 
 // The mark that renders at exactly the tier's base height: aspect × mass ≈ 1.45,
 // i.e. a ~4:1 wordmark painting ~36% of its box. That is the middle of this set,
@@ -125,6 +134,8 @@ const STRIP_MIN_SCALE = 0.6;
 const STRIP_MAX_SCALE = 1.45;
 const LEAD_BOX: StripBox = { h: 30, maxW: 160, mH: 24, mMaxW: 128 };
 // 후원 sits one step below 주최·주관 - a ~23% smaller base height, same rule.
+// 묶음의 머리 로고(12월 AXMOS)는 회원사보다 한 단 큽니다.
+const LEAD_HEAD_BOX: StripBox = { h: 38, maxW: 200, mH: 28, mMaxW: 150 };
 const SPONSOR_BOX: StripBox = { h: 23, maxW: 122, mH: 18, mMaxW: 98 };
 
 // Rendered height for one mark inside one tier box, at one breakpoint.
@@ -148,7 +159,7 @@ function stripHeight(spec: StripLogoSpec, base: number, maxW: number) {
 // 티어별로만 겁니다 - 주최(5)와 주관(3)은 한 줄이 자연스러운 길이라 손대지
 // 않습니다. 후원이 열둘, 열셋으로 늘면 이 값을 다시 보세요(줄당 대여섯 개가
 // 기준입니다). 모바일에는 걸지 않습니다: 거기서는 이미 폭이 좁아 알아서 접힙니다.
-const confirmedPartnerTiers: { label: Phrase; box: StripBox; items: StripLogoSpec[]; rowMax?: string; rowGap?: string }[] = [
+const confirmedPartnerTiers: StripTier[] = [
   {
     // 주최 - the AXMOS collective.
     label: dict.hero.partnersHost,
@@ -234,6 +245,47 @@ const confirmedPartnerTiers: { label: Phrase; box: StripBox; items: StripLogoSpe
 // source of truth for sponsor sequence (AWS and Hashed lead it - the two marks
 // a visitor recognises without being told); anything the strip doesn't list
 // keeps its relative position at the end rather than being dropped.
+// 12월 로고의 광학 질량(scripts/measure-logo-mass.py, 2026-11-04 측정. color/ 로고는 같은 measure()를 그 폴더에).
+// 코어 5개사는 8월 값 그대로입니다. 로고를 더하면 여기에 값을 더합니다. 없으면 decemberStripTiers가 멈춥니다.
+const DECEMBER_MASS: Record<string, number> = {
+  "/partners/logos/white/trimmed/axmos.png": 0.42,
+  "/partners/logos/white/trimmed/translink.png": 0.421,
+  "/partners/logos/white/trimmed/wilt.png": 0.513,
+  "/partners/logos/white/trimmed/codepresso.png": 0.28,
+  "/partners/logos/white/trimmed/popup-studio.png": 0.525,
+  "/partners/logos/white/trimmed/drimaes.png": 0.507,
+  "/partners/logos/white/trimmed/asan-nanum.png": 0.256,
+  "/partners/logos/white/trimmed/maru180.png": 0.386,
+  "/partners/logos/white/trimmed/fastfive.png": 0.45,
+  "/partners/logos/color/lovable.png": 0.529,
+  "/partners/logos/color/readray.png": 0.393,
+  "/partners/logos/color/cgc.png": 0.279,
+  "/partners/logos/color/bloom-block.png": 0.923,
+  "/partners/logos/color/crycheeseburger.png": 0.482,
+};
+
+function decemberSpec(l: PartnerLogo): StripLogoSpec {
+  const mass = DECEMBER_MASS[l.src];
+  if (mass === undefined) throw new Error(`decemberStripTiers: no measured mass for ${l.src}. Run scripts/measure-logo-mass.py and add it to DECEMBER_MASS.`);
+  return { src: l.src, alt: l.name, w: l.w, h: l.h, mass, url: l.url };
+}
+
+// 8월과 같은 세 줄(2026-11-04, 사용자: "8월의 디자인을 참고해줘"): 메인 후원(AXMOS + 코어 5개사) / 장소 / 나머지 넷.
+// 8월의 주최 / 주관 / 후원처럼 줄마다 분류 이름이 가운데 위에 섭니다. 나머지 넷은 로고가 한둘이라 한 줄에 나란히 두고 각자 이름을 위에 둡니다.
+// 로고는 8월처럼 전부 흰 단색(grayscale)입니다. 원래 색은 아래 함께하는 곳에 그대로 있습니다.
+export const decemberStripTiers: StripTier[] = decemberPartners.groups.map((g) => {
+  const big = Boolean(g.lead) || g.logos.length >= 3;
+  return {
+    label: g.label,
+    box: big ? LEAD_BOX : SPONSOR_BOX,
+    items: g.logos.map(decemberSpec),
+    lead: g.lead ? decemberSpec(g.lead) : undefined,
+    leadNote: g.lead?.note,
+    row: big ? undefined : "rest",
+    rowGap: "sm:gap-x-6",
+  };
+});
+
 export function sortLikeHeroStrip<T extends { src: string }>(rows: T[]): T[] {
   const order = confirmedPartnerTiers
     .find((tier) => tier.label === dict.hero.partnersSponsors)!
@@ -263,7 +315,7 @@ export function sponsorMass(src: string): number {
 
 // One logo, drawn at the height that gives it the same optical mass as the rest
 // of its tier (see stripHeight above).
-function StripLogoImg({ src, alt, w, h, mass, box }: StripLogoSpec & { box: StripBox }) {
+function StripLogoImg({ src, alt, w, h, mass, keepColor, box }: StripLogoSpec & { box: StripBox }) {
   // One <img>, two heights. A CSS variable per breakpoint is what lets the phone
   // size be genuinely its own instead of a scaled-down desktop one, without
   // a second element in the DOM (these are 18 above-fold images - duplicating
@@ -308,7 +360,7 @@ function StripLogoImg({ src, alt, w, h, mass, box }: StripLogoSpec & { box: Stri
       // they looked muddy exactly where they matter most (at rest, first view).
       // The scrim added behind the strip is what makes 80 safe on the bright
       // part of the video; the drop-shadow still carries the thin wordmarks.
-      className="h-[var(--sl-h)] w-auto max-w-[var(--sl-w)] shrink-0 object-contain opacity-80 grayscale drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition duration-300 group-hover:opacity-100 sm:h-[var(--sl-h-sm)] sm:max-w-[var(--sl-w-sm)]"
+      className={`h-[var(--sl-h)] w-auto max-w-[var(--sl-w)] shrink-0 object-contain opacity-80 ${keepColor ? "" : "grayscale"} drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition duration-300 group-hover:opacity-100 sm:h-[var(--sl-h-sm)] sm:max-w-[var(--sl-w-sm)]`}
     />
   );
 }
@@ -316,7 +368,7 @@ function StripLogoImg({ src, alt, w, h, mass, box }: StripLogoSpec & { box: Stri
 // DECIDED 2026-10-20 (사용자: 모든 로고를 링크로, hwang 브리프 3.9): 주소가 있는 로고는 새 창 링크입니다(data/partnerLinks.ts).
 // 이름은 링크가 읽습니다. 주소가 없는 학교 학생회 셋은 그림 그대로입니다.
 function StripLogo(props: StripLogoSpec & { box: StripBox }) {
-  const url = partnerUrl(props.alt);
+  const url = props.url ?? partnerUrl(props.alt);
   if (!url) return <StripLogoImg {...props} />;
   return (
     <a href={url} target="_blank" rel="noopener noreferrer" aria-label={props.alt} className="tap-44 inline-flex rounded">
@@ -330,9 +382,9 @@ function StripLogo(props: StripLogoSpec & { box: StripBox }) {
 // 이 캡션은 whitespace-nowrap이라 줄이 접힐 위험이 없고, 폰의 마퀴 행에서도
 // 여백이 남습니다(320px에서 "주최 AXMOS"가 66px, 칸이 266px).
 // DECIDED 2026-10-13 (폰 점검): 360px 아래에서도 12.6px로 둡니다. 영문 줄이 넘치지 않게 그 폭에서는 자간만 0.08em으로 줄입니다.
-function StripTierLabel({ children }: { children: React.ReactNode }) {
+function StripTierLabel({ children, sizeClass = "text-[0.7rem]" }: { children: React.ReactNode; sizeClass?: string }) {
   return (
-    <span className="shrink-0 whitespace-nowrap text-[0.7rem] font-bold text-accent drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)]">
+    <span className={`shrink-0 whitespace-nowrap ${sizeClass} font-bold text-accent drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)]`}>
       {children}
     </span>
   );
@@ -344,7 +396,23 @@ function StripTierLabel({ children }: { children: React.ReactNode }) {
 // animation as a slow auto-scroll (17 marks can't fit a phone width) with the
 // tier captions riding inline in the same track. Tapping anywhere jumps to the
 // full partner section - individual intro modals stay there, not here.
-export default function HeroPartnerStrip({ t }: { t: Tfn }) {
+// tiers, label, sizeClass, className: 12월(2026-11-04)용. 기본값이 8월 그대로입니다.
+// sizeClass: 크로싱 서울 화면은 글자 크기 넷(CLAUDE.md)이라 캡션을 META로 받습니다. 8월은 그 전 0.7rem.
+export default function HeroPartnerStrip({
+  t,
+  tiers = confirmedPartnerTiers,
+  label = dict.hero.partnersLabel,
+  sizeClass = "text-[0.7rem]",
+  className = "mt-11 sm:mt-5",
+  scrim = true,
+}: { t: Tfn; tiers?: StripTier[]; label?: Phrase; sizeClass?: string; className?: string; scrim?: boolean }) {
+  // 이웃한 같은 row의 줄을 한 묶음으로. row가 없으면 그 줄 혼자(8월은 전부 혼자라 그 전과 같은 세 줄).
+  const rows: StripTier[][] = [];
+  for (const tier of tiers) {
+    const last = rows[rows.length - 1];
+    if (tier.row && last && last[0].row === tier.row) last.push(tier);
+    else rows.push([tier]);
+  }
   // ONE STATIC LAYOUT AT EVERY WIDTH (2026-08-03).
   //
   // Mobile used to render this as a single-line auto-scroll marquee, on the
@@ -381,8 +449,9 @@ export default function HeroPartnerStrip({ t }: { t: Tfn }) {
     // 밑동을 애매하게 물고 있었습니다. 버튼이 글로 안에 반쯤 잠긴 것처럼 보여서
     // 둘 사이를 벌립니다. sm 이상은 종전 값 그대로입니다 - 그 폭에서는 위에
     // 칩이 없습니다.
-    <div className="group relative mt-11 block w-full rounded-2xl py-1.5 sm:mt-5">
-      <div
+    <div className={`group relative block w-full rounded-2xl py-1.5 ${className}`}>
+      {/* scrim(2026-11-04): 12월 페이지는 영상이 아니라 뉴트럴 바탕이라 이 그림자가 상자로 보여 끕니다. */}
+      {scrim && <div
         aria-hidden
         // No rounding and a long falloff that runs PAST the container on every
         // side: with a tight radius this read as a dark card floating over the
@@ -406,9 +475,9 @@ export default function HeroPartnerStrip({ t }: { t: Tfn }) {
           background:
             "radial-gradient(75% 130% at 50% 50%, rgba(6,4,15,0.7) 0%, rgba(6,4,15,0.5) 42%, rgba(6,4,15,0.22) 68%, transparent 88%)",
         }}
-      />
-      <p className="text-center text-[0.7rem] font-semibold text-white/75 drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)] transition group-hover:text-white/90">
-        {t(dict.hero.partnersLabel)}
+      />}
+      <p className={`text-center ${sizeClass} font-semibold text-white/75 drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)] transition group-hover:text-white/90`}>
+        {t(label)}
       </p>
       {/* ≥sm - one row per tier, caption centred above its own marks. The tiers
           used to run inline (caption, then marks, then the next caption) which
@@ -422,18 +491,36 @@ export default function HeroPartnerStrip({ t }: { t: Tfn }) {
           hero that is already stacked will run long otherwise. gap-x-3 + the
           phone box widths (mMaxW) is what lands ~3–4 marks per row at 375px. */}
       <div className="mt-2.5 flex flex-col items-center gap-2">
-        {confirmedPartnerTiers.map((tier) => (
+        {rows.map((row) => (
+          <div key={row[0].label.en} className="flex flex-wrap items-start justify-center gap-x-8 gap-y-2 sm:gap-x-10">
+          {row.map((tier) => (
           <div key={tier.label.en} className="flex flex-col items-center gap-1">
-            <StripTierLabel>{t(tier.label)}</StripTierLabel>
+            <StripTierLabel sizeClass={sizeClass}>{t(tier.label)}</StripTierLabel>
             {/* flex-wrap with one gap for the whole tier. Every mark is capped
                 at the same width wall, so no single logo can claim a row to
                 itself the way the widest wordmarks used to (DRIMAES had a line
                 of its own under bounding-box area sizing). */}
+            {tier.lead ? (
+              // 머리 로고 → 한 줄 설명 → 짧은 선 → 선만 있는 상자 안의 회원사. 상자는 바탕을 칠하지 않습니다(어두운 바탕에 밝은 판 금지).
+              <div className="mt-1 mb-3 flex flex-col items-center">
+                <StripLogo {...tier.lead} box={LEAD_HEAD_BOX} />
+                {tier.leadNote && <p className={`mt-2 ${sizeClass} text-white/60`}>{t(tier.leadNote)}</p>}
+                <span aria-hidden className="h-4 w-px bg-white/25 sm:h-5" />
+                <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-2xl border border-white/15 px-4 py-3 sm:px-6 sm:py-4 ${tier.rowGap ?? "sm:gap-x-6"} ${tier.rowMax ?? ""}`}>
+                  {tier.items.map((p) => (
+                    <StripLogo key={p.alt} {...p} box={tier.box} />
+                  ))}
+                </div>
+              </div>
+            ) : (
             <div className={`flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 ${tier.rowGap ?? "sm:gap-x-6"} ${tier.rowMax ?? ""}`}>
               {tier.items.map((p) => (
                 <StripLogo key={p.alt} {...p} box={tier.box} />
               ))}
             </div>
+            )}
+          </div>
+          ))}
           </div>
         ))}
       </div>

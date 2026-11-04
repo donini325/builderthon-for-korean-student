@@ -33,6 +33,7 @@ import OpenChatLink from "@/components/ui/OpenChatLink";
 import { TITLE, BODY, META, H2, H3, LABEL_HEADING, ROW_HEADING, GRADIENT_TEXT } from "@/components/ui/typography";
 import CityShape, { type City } from "@/components/ui/CityShape";
 import SeoulCampuses from "@/components/home/SeoulCampuses";
+import HeroPartnerStrip, { decemberStripTiers } from "@/components/shared/HeroPartnerStrip";
 import {
   SUBHEADING, READ, WIDE, HERO_BUTTON_GROUND,
   latinTrack, eyebrowTrack, PlateSegment, SiteFooter, usePlateLite, PreparingButton,
@@ -927,8 +928,7 @@ export default function NaruHome() {
       {/* DECIDED 2026-09-17 (8월 문법 브리프): 두 단입니다. 8월 히어로의 그리드와
           같은 클래스이고 패럴랙스도 같은 훅(useHeroSplit)입니다. 왼쪽이 아이브로,
           두 줄 제목(1행 흰색, 2행 그라데이션), 굵은 기간 줄, 포지션, 서술, CTA 둘.
-          오른쪽(lg부터)이 카운트다운 패널. 파트너 로고 띠는 12월 출제사·후원사가
-          확정될 때까지 두지 않습니다(components/shared/HeroPartnerStrip.tsx의 TODO).
+          오른쪽(lg부터)이 카운트다운 패널. 파트너 로고 띠는 2026-11-04부터 카운트다운 아래에 있습니다(사용자 요청, 8월처럼).
 
           2026-09-18: 그라데이션 끝·12월 아이브로 글자색·기간 줄 틴트의 주황도 뺐습니다.
           위의 주황 원장이 정본입니다. */}
@@ -1112,6 +1112,12 @@ export default function NaruHome() {
         <div className="px-6 sm:px-10 lg:hidden">
           <CountdownPanel t={t} locale={locale} className="mt-12" />
           <HeroPhotos photos={naru.eventHero.photos} t={t} className="mt-6" />
+        </div>
+        {/* DECIDED 2026-11-04 (사용자, 스크린숏: "12월달도 8월달처럼 이 공간에 회사들 로고들을"): 8월 히어로의 로고 띠(HeroPartnerStrip)를
+            카운트다운 아래 빈자리에. 로고와 분류 이름은 아래 #partners(함께하는 곳)와 같은 decemberPartners에서 옵니다. 캡션은 META(글자 크기 넷).
+            근거: brand 5장 "무대가 진짜라는 사실로 부른다", 코어 02(기업의 이슈로 만든다). */}
+        <div className="px-6 sm:px-10 lg:px-10 xl:px-16">
+          <HeroPartnerStrip t={t} tiers={decemberStripTiers} label={decemberPartners.heading} sizeClass={META} scrim={false} className="mx-auto mt-16 max-w-[1100px] xl:mt-20" />
         </div>
       </Chapter>
 
