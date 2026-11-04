@@ -380,10 +380,26 @@ function HeroPhotos({ photos, t, className = "", desktopOnly = false, single = f
   const [openPhoto, setOpenPhoto] = useState<number | null>(null);
   // 2026-10-19: 칸에 이미 받아 둔 작은 판의 주소. 큰 사진이 오는 동안 상자에 늘려 보여 줍니다(PhotoLightbox의 thumb).
   const [thumbs, setThumbs] = useState<Record<string, string>>({});
+  // DECIDED 2026-11-04 (사용자, 미리 보기 스크린숏: "main에 있는 사진 여러 장, 한 장씩 넘길 수 있게"): single이면 사진 칸 하나에 넷을 가로로 붙여
+  // 한 장씩 넘깁니다. 화살표 버튼, 손가락 밀기(스크롤 스냅), 캡션 옆의 "1 / 4". 페이지 스와이프는 이 칸에서 듣지 않습니다(data-no-page-swipe).
+  const photoTrack = useRef<HTMLDivElement | null>(null);
+  const [cur, setCur] = useState(0);
+  const go = (i: number) => {
+    const el = photoTrack.current;
+    if (!el) return;
+    const next = Math.max(0, Math.min(shown.length - 1, i));
+    el.scrollTo({ left: next * el.clientWidth, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  };
   if (shown.length === 0) return null;
   return (
     <figure className={className}>
-      <div className={single ? "grid grid-cols-1" : "grid grid-cols-2 gap-3 sm:gap-4"}>
+      <div className={single ? "relative" : ""}>
+      <div
+        ref={single ? photoTrack : undefined}
+        {...(single ? { "data-no-page-swipe": "" } : {})}
+        onScroll={single ? (e) => { const el = e.currentTarget; setCur(Math.round(el.scrollLeft / Math.max(1, el.clientWidth))); } : undefined}
+        className={single ? "flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain rounded-2xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" : "grid grid-cols-2 gap-3 sm:gap-4"}
+      >
         {shown.map((photo, i) => (
           <button
             key={photo.src}
@@ -400,9 +416,10 @@ function HeroPhotos({ photos, t, className = "", desktopOnly = false, single = f
               setThumbs(next);
               setOpenPhoto(i);
             }}
-            className={`group relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-2xl ring-1 ring-white/5 transition-shadow hover:ring-white/20`}
+            aria-label={single ? `${t(photo.alt)} (${i + 1} / ${shown.length})` : undefined}
+            className={`group relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden ${single ? "shrink-0 snap-center" : "rounded-2xl ring-1 ring-white/5 transition-shadow hover:ring-white/20"}`}
           >
-            <Image src={photo.src} alt={t(photo.alt)} fill sizes={single ? "(max-width: 1023px) 100vw, 560px" : "(max-width: 1023px) 45vw, 280px"} priority={!desktopOnly && i < 2} className="object-cover object-center" />
+            <Image src={photo.src} alt={t(photo.alt)} fill sizes={single ? "(max-width: 1023px) 100vw, 560px" : "(max-width: 1023px) 45vw, 280px"} priority={!desktopOnly && i < (single ? 1 : 2)} className="object-cover object-center" />
             {photo.day && (
               <span
                 aria-hidden
@@ -414,13 +431,34 @@ function HeroPhotos({ photos, t, className = "", desktopOnly = false, single = f
           </button>
         ))}
       </div>
+      {single && shown.length > 1 && (
+        <>
+          {(["prev", "next"] as const).map((dir) => {
+            const off = dir === "prev" ? cur === 0 : cur === shown.length - 1;
+            return (
+              <button
+                key={dir}
+                type="button"
+                onClick={() => go(cur + (dir === "prev" ? -1 : 1))}
+                disabled={off}
+                aria-label={t(dir === "prev" ? naru.eventHero.photoPrev : naru.eventHero.photoNext)}
+                className={`absolute top-1/2 ${dir === "prev" ? "left-3" : "right-3"} flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#E3E0D8] bg-[#FCFBF8]/90 text-naru-navy transition hover:bg-[#FCFBF8] disabled:pointer-events-none disabled:opacity-0`}
+              >
+                <svg aria-hidden viewBox="0 0 12 12" className={`h-3 w-3 ${dir === "prev" ? "rotate-180" : ""}`}><path d="M4.5 2l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+            );
+          })}
+        </>
+      )}
+      </div>
       {/* lg에서는 홀수 칸이 36px 내려가 있어 그만큼 더 띄웁니다. */}
       {/* DECIDED 2026-10-12 (등록 브리프 1.5, 리뷰 S10): 캡션이 8월 기록으로 갑니다. 밑줄은 본문 인라인 링크의 문법입니다.
           같이 붙였던 8월 숫자 문장은 2026-10-13에 뺐습니다(사용자: "이렇게 디테일한 설명은 필요 없음"). */}
-      <figcaption className={`mt-3 text-left max-sm:text-center ${META} text-white/85`}>
+      <figcaption className={`mt-3 flex items-center justify-between gap-3 text-left ${META} text-white/85`}>
         <Link href={naruLinks.archive} onClick={() => track("naru_cta", { src: "hero-caption", to: "archive" })} className="-my-3.5 inline-flex min-h-[44px] items-center break-keep underline underline-offset-4 transition hover:text-white">
           {t(naru.eventHero.photosCaption)}
         </Link>
+        {single && shown.length > 1 && <span aria-live="polite" className="shrink-0 tabular-nums text-naru-muted">{`${cur + 1} / ${shown.length}`}</span>}
       </figcaption>
       <PhotoLightbox
         photos={shown.map((p) => ({ src: p.src, alt: t(p.alt), width: p.width, height: p.height, caption: p.day && `${t(naru.eventHero.photosCaption)} · ${t(p.day)}`, thumb: thumbs[p.src] }))}
@@ -1065,7 +1103,7 @@ export default function NaruHome() {
               priority가 걸려 있어 폰이 보지도 않을 이미지 둘을 preload 했습니다
               (2026-09-19, 접근성 감사 22). 느린 회선에서 히어로가 늦게 뜨면
               접근성 체감에도 영향이 있습니다. 아래 폰용 묶음이 priority를 맡습니다. */}
-          <HeroPhotos photos={[naru.eventHero.photo]} t={t} single />
+          <HeroPhotos photos={naru.eventHero.photos} t={t} single />
         </div>
         {/* DECIDED 2026-11-04 (사용자, site-tells 목업 "종이"): 히어로 아래는 숫자 넷 띠 하나. 위아래 가는 선, 숫자는 남색 TITLE, 설명은 META.
             그 전의 카운트다운 띠와 로고 띠(같은 날 오전)는 걷었습니다. 로고는 아래 #partners(함께하는 곳)가 같은 목록으로 보여 줍니다.

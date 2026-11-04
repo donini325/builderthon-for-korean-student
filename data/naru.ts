@@ -652,7 +652,7 @@ export const naru = {
       seoul: { ko: "SEOUL", en: "SEOUL" },
     },
     // DECIDED 2026-11-04 (사용자, site-tells 목업 "종이"): 히어로 오른쪽은 사진 한 장(8월 마지막 날, 세 명이 자기 슬라이드 앞에 선 장면).
-    // 아래 photos 넷은 이제 그리지 않고 키만 둡니다. 같은 파일이 /2026-08 기록 벽에도 있습니다(목업대로, 같은 사진 두 번 규칙의 예외).
+    // 같은 날 뒤(사용자): 이 한 장 대신 아래 photos 넷을 한 장씩 넘겨 보여 줍니다(NaruHome HeroPhotos single). 이 키는 그리지 않고 둡니다.
     photo: {
       src: "/record/day8-prove.webp",
       width: 1600,
