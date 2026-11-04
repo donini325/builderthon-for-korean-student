@@ -948,8 +948,9 @@ export const naru = {
         // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C24, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
         // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O1, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
         // DECIDED 2026-11-04 (docs/catchphrase-brief.md C2, 사용자: 이슈는 아직 손으로 하는 일이 있다는 것 자체, 빌더는 만들기 전에 왜부터 묻는다): 그 전 문장은 git e1bed3f.
-        ko: "학생은 왜 아직 손으로 하는지부터 묻는 법을 익혀 빌더로 건너가고, 기업은 그 일에 가져다 쓸 수 있는 툴을 받습니다. 거기까지 간 과정을 그 기업 앞에서 증명해 봅니다.",
-        en: "Students learn to ask first why a task is still done by hand and cross over to being builders; the company gets a tool it could use on that task. Then you show that company how you got there.",
+        // DECIDED 2026-11-04 (docs/thinking-position-brief.md T1, 사용자: 이벤트 설명에 빌더를 쓰지 않고, 생각하는 힘을 기르는 이벤트로): 그 전 문장은 git adac661.
+        ko: "학생은 왜 아직 손으로 하는지부터 생각하는 힘을 기르고, 기업은 그 일에 가져다 쓸 수 있는 툴을 받습니다. 거기까지 간 과정을 그 기업 앞에서 증명해 봅니다.",
+        en: "Students learn to think first about why a task is still done by hand; the company gets a tool it could use on that task. Then you show that company how you got there.",
       },
       // DECIDED 2026-10-20 (hwang 브리프 1.2, 2.6, 감사 W3, W4): ✓칩 셋(알약)을 상자 없이 한 문장으로 그립니다(tangiblesLine). tangibles 키는 그대로 둡니다.
       // DECIDED 2026-10-26 (사용자, 스크린숏: "좀 더 visually 강조"): heading 안에서 크로싱 서울 워드마크 그라데이션으로 칠할 구절.
@@ -957,7 +958,8 @@ export const naru = {
       marks: [
         // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C11 marks, humanize-korean 우선): 그 전 문장은 git 9c77437.
         // DECIDED 2026-11-04 (docs/catchphrase-brief.md C3, 사용자: 이슈는 아직 손으로 하는 일이 있다는 것 자체, 빌더는 만들기 전에 왜부터 묻는다): 그 전 문장은 git e1bed3f.
-        { ko: "왜 아직 손으로 하는지부터 묻는 법", en: "ask first why a task is still done by hand" },
+        // DECIDED 2026-11-04 (docs/thinking-position-brief.md T2, 사용자: 이벤트 설명에 빌더를 쓰지 않고, 생각하는 힘을 기르는 이벤트로): 그 전 문장은 git adac661.
+        { ko: "왜 아직 손으로 하는지부터 생각하는 힘", en: "think first about why a task is still done by hand" },
         { ko: "가져다 쓸 수 있는 툴", en: "a tool it could use" },
         { ko: "그 기업 앞에서 증명해 봅니다", en: "show that company how you got there" },
       ] as Phrase[],
@@ -1457,7 +1459,8 @@ export const naru = {
         awardsLabel: { ko: "부문 넷", en: "Four categories" },
         awardsNote: {
           ko: "등수가 없습니다. 네 부문이 각각 다른 것을 보고, 보는 사람도 출제사와 VC, 참가자, 운영진으로 다 다릅니다.",
-          en: "No placings. Four categories, four things to look for, four sets of eyes: the problem owner, VCs, fellow builders, organisers.",
+          // DECIDED 2026-11-04 (docs/thinking-position-brief.md T4, 사용자: 이벤트 설명에 빌더를 쓰지 않고, 생각하는 힘을 기르는 이벤트로): 그 전 문장은 git adac661. KO에는 빌더가 없어 EN만.
+          en: "No placings. Four categories, four things to look for, four sets of eyes: the problem owner, VCs, fellow participants, organisers.",
         },
       },
       mentors: {
@@ -2348,12 +2351,13 @@ export const naru = {
     // 챕터가 가장 큰 글씨로 "언제"를 말하는데, 이 이벤트에서 설명이 필요한 것은
     // 언제가 아니라 무엇입니다. 날짜는 아래 한 줄로 내려갔습니다.
     heading: {
-      ko: "국경과 상관없이, 한인 학생 빌더가 만나는 자리.",
+      // DECIDED 2026-11-04 (docs/thinking-position-brief.md T3, 사용자: 이벤트 설명에 빌더를 쓰지 않고, 생각하는 힘을 기르는 이벤트로): 그 전 문장은 git adac661. /crossing 히어로는 캐치프레이즈를 그리고, 이 키는 /naru "여는 자리" 표 1행이 그립니다.
+      ko: "국경과 상관없이, 한인 학생이 생각하는 힘을 기르는 자리.",
       // 브리프의 초안은 "Where Korean student builders meet, whichever country
       // they study in."이었는데 375px에서 다섯 줄이 됐습니다(실측). 뜻을 유지한
       // 채 줄였습니다. "Korean"은 빼지 않습니다. 국경을 여는 것이지 한인이라는
       // 범위를 여는 것이 아닙니다.
-      en: "Korean student builders meet here, wherever they study.",
+      en: "Where Korean students sharpen how they think, wherever they study.",
     },
     // 8월을 아는 사람은 이 자리에서 "2회차인가"를 묻습니다. 그 답을 **부정 없이**
     // 합니다(DECIDED 2026-09-19, 사용자). 전에는 "제로백 빌더톤의 속편은 아니고"로
