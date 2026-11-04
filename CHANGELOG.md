@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-04 캐치프레이즈 "왜 아직, 손으로?"와 남는 것 리드](#2026-11-04-catchphrase)
 - [2026-11-04 Day 2 오전 멘토 한 분은 9:00~12:00](#2026-11-04-mentor-9-12)
 - [2026-11-04 크로싱 서울 카운트다운 아래 로고 띠, 8월처럼](#2026-11-04-hero-strip)
 - [2026-11-04 노선도 Day 1에 Fastfive, Day 4에 MARU180, 장소 줄에 Fastfive](#2026-11-04-fastfive)
@@ -465,6 +466,17 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-04-catchphrase"></a>
+## 2026-11-04 캐치프레이즈 "왜 아직, 손으로?"와 남는 것 리드
+- 범위: data/naru.ts(eventHero.catch 새 키, gains.spine.heading, marks, items[0].body), components/home/NaruHome.tsx 히어로 한 줄, components/ui/typography.ts 주석, docs/brand.md 5, 6, 7장
+- 한 것: 사용자 요청(2026-11-04). 이슈는 아직 손으로 하는 일이 있다는 것 자체이고, 빌더는 만들기 전에 왜부터 묻는다. /crossing 히어로의 굵은 한 줄을 "국경과 상관없이..."에서 "왜 아직, 손으로?"(EN "Why still by hand?")로, lg부터 SUBTITLE(D1~D4 기본값). 남는 것 리드의 학생 절을 "왜 아직 손으로 하는지부터 묻는 법"으로, 01 본문에 "왜". december.heading 키는 /naru 표가 그대로 씀. 선택 O1~O3은 하지 않음.
+- 근거: brand 2장 판단 질문 둘(왜부터 묻는 자리는 답을 몰라도 설 수 있는 자리, 과정을 그 기업 앞에서 증명은 코어 02), 5장 같은 사실 두 번까지(히어로와 리드), 7장 이슈와 남는 것.
+- 검증: /crossing KO 1440 innerText "왜 아직" 3, "일을 해 본 사람의 감각" 2, "국경과 상관없이" 0, 금지어 0. 리드 강조 구절 3개 칠해짐, 남는 것 다섯 칸 그대로. /naru 표 1행 그대로. 폰 캐치프레이즈 한 줄, 리드 KO 4줄. build 통과.
+- 브리프: docs/catchphrase-brief.md
+- 커밋: 3d5b921
 
 ---
 
