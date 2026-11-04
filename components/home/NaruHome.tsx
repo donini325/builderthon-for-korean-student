@@ -1037,8 +1037,10 @@ export default function NaruHome() {
             {/* DECIDED 2026-11-04 (docs/catchphrase-brief.md C1, D2, 사용자: 이슈는 아직 손으로 하는 일이 있다는 것 자체, 빌더는 만들기 전에 왜부터 묻는다):
                 이 굵은 한 줄이 december.heading 대신 캐치프레이즈를 그립니다. 그 전 문장은 git e1bed3f. 크기는 lg부터 SUBTITLE(22px), 그 아래는 BODY와 같습니다.
                 굵기, 색, 그림자, 간격은 그대로입니다. */}
+            {/* DECIDED 2026-11-04 (docs/catch-answer-brief.md K2, D1): 캐치프레이즈는 질문과 답 두 줄. 같은 크기, 같은 흰색. 그 전은 한 줄(git 206f1a2). */}
             <p className={`mx-auto mt-4 max-w-xl break-keep ${SUBTITLE} font-bold leading-snug lg:mx-0 text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]`}>
-              {t(naru.eventHero.catch)}
+              <span className="block">{t(naru.eventHero.catch)}</span>{" "}
+              <span className="block">{t(naru.eventHero.catchAnswer)}</span>
             </p>
             <p className={`mx-auto mt-3 max-w-xl text-balance break-keep ${BODY} leading-[1.65] lg:mx-0 text-white/85 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]`}>
               {/* 나루 한 문장이 서술 첫 줄(감사 반영 브리프 1.2). TODO: confirm(문구는 사용자가). */}
