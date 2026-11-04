@@ -603,8 +603,9 @@ export const naru = {
       // DECIDED 2026-10-26 (사용자: 이슈와 문제, 병목 하나를 푸는 툴을 문장 수를 늘리지 않고 기존 문장에. 근거 12월 빌더톤/이벤트 기획/크로싱서울_이슈와_문제_정의_2026-10-26.md). 그 전: "...그 아래의 문제를 찾아 들어가고..."
       // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C1, humanize-korean 우선): 그 전 문장은 git 9c77437.
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C1, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-      ko: "기업이 아직 손으로 하는 일 하나를 받아, 닷새 동안 그 안의 병목 하나를 작은 툴로 풀고, 마지막 날 그 기업 앞에 섭니다.",
-      en: "Each team takes one task a company still does by hand, spends five days solving one bottleneck inside it with a small tool, and stands in front of that company on the last day.",
+      // DECIDED 2026-11-05 (사용자: "AI로 만드는 비용이 0에 가까워진 지금, 기업에 아직 손으로 하는 일이 남아 있다는 것 자체가 이슈. 왜 아직 손으로 하는지 찾고, 무엇을 왜 만들지 정하고, 실제로 써 보게 해서 확인하는 과정을 익히는 자리"가 반영되게, 기존 글의 길이는 바꾸지 않고 수정만): 앞의 naruLine과 한 문단이고, 문단 줄 수는 늘지 않습니다(KO 2/2/3줄, EN 3/3/5줄이 2/2/3, 3/3/5 이하, 1440/1024/390). 닷새는 캐치프레이즈 둘째 줄, 병목과 작은 툴은 Day 카드와 남는 것, 그 기업 앞에 선다는 말은 남는 것 리드가 받습니다. 그 전 문장은 git 046f2e2.
+      ko: "AI로 만드는 비용이 0에 가까운 지금, 기업이 아직 손으로 하는 일이 왜 남았는지 찾고, 만들 것을 정해 실제로 써 보게 합니다.",
+      en: "Building with AI costs almost nothing now. Find out why a company still does a task by hand, decide what to build, and have people actually try it.",
     },
     ctaProgram: { ko: "프로그램 보기", en: "See the programme" },
     // DECIDED 2026-10-11 (사용자): AI 유형 테스트(/match)로 가는 버튼이 일정표의 Day 1에서 히어로의 버튼 줄로 왔습니다.
