@@ -652,3 +652,9 @@ html[data-naru-hero-open] .reading-plate[data-plate="naru"] {
    잉크 색으로 칠합니다(brightness 0 = 모양은 그대로, 색만 검정). 원래 색이 있는 로고는 다른 폴더라 걸리지 않습니다.
    next/image는 src를 /_next/image?url=%2Fpartners%2Flogos%2Fwhite...로 바꾸므로 두 모양을 다 잡습니다. */
 img[src*="/logos/white/"], img[src*="%2Flogos%2Fwhite%2F"] { filter: brightness(0) opacity(0.78); }
+
+/* DECIDED 2026-11-04 (사용자, 종이 미리 보기: "background만 바뀌니까 다 안 보임"): 배경 형상을 보여 주려고 비워 둔 틈(.naru-shape-gap 96/216px)과
+   장 사이 바깥 여백(120px)을 걷습니다. 배경을 끈 크림 바탕에서는 빈 화면 한 장으로만 보였습니다. 장 사이는 Chapter의 위아래 여백이 정합니다. */
+.naru-shape-gap { margin-top: 0 !important; }
+.naru-content-chapter + .naru-content-chapter { margin-top: 0 !important; }
+.naru-content-chapter { min-height: auto !important; }
