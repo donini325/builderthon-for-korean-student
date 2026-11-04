@@ -1156,9 +1156,9 @@ export default function NaruHome() {
             Day 1의 "Day 2에 들고 갈 것"과 AI 유형 테스트 링크, Day 2, 3 미션 띠(누르면 인증 방법)와 시간표 버튼, Day 4 인기투표. 위에 제목과 리드.
             노선도와 폰의 날짜 넘기기는 그리지 않습니다(부품은 남김). 2026-11-04의 한 줄 카드와 main 판 복원은 이 결정이 대신합니다. */}
         {/* DECIDED 2026-11-05 (사용자, 스크린숏 둘: "여기가 왼쪽에, 여기가 오른쪽에"): 제목과 리드는 왼쪽 단, Day 카드 다섯은 오른쪽 단(lg부터). 목업의 배치.
-            카드 다섯이 들어갈 폭을 위해 이 판만 챕터 좌우 여백 안쪽까지 넓힙니다(lg -40px, xl -64px). 카드 안 버튼은 모서리 둥근 사각형(globals.css [data-schedule]).
+            폭은 히어로, 숫자 띠와 같은 양 끝선(max-w-6xl 안 좌우 40px). 같은 날 앞서 챕터 여백까지 넓혔다가 "너무 넓음"으로 되돌림. 카드 안 버튼은 모서리 둥근 사각형(globals.css [data-schedule]).
             lg 아래는 제목 아래 카드(sm 두 칸, 폰 한 칸). */}
-        <div id="schedule" className="mx-auto grid w-full gap-8 text-left lg:-mx-10 lg:w-[calc(100%+5rem)] lg:grid-cols-[minmax(0,13rem)_minmax(0,1fr)] lg:gap-8 xl:-mx-16 xl:w-[calc(100%+8rem)]">
+        <div id="schedule" className="mx-auto grid w-full max-w-6xl gap-8 text-left lg:grid-cols-[minmax(0,12rem)_minmax(0,1fr)] lg:gap-8 lg:px-10">
           <div>
             <h2 id="december-title" className={`${H2} max-sm:text-[28px] !mx-0 text-balance`}>{t(naru.december.programHeading)}</h2>
             <p id="mentoring" className={`mt-4 break-keep ${BODY} leading-[1.65] text-naru-muted`}>{t(naru.december.scheduleLead)}</p>
