@@ -610,6 +610,8 @@ export default function NaruHome() {
       <MilestoneStrip id={`carry-day-${stage.dayOffset}-card`} tone="plain" label={t(naru.december.carryLabel)} title={t(stage.submit)} center={false} expanded={false} compact
         detail={[
           { label: t(naru.december.carryDetail.todoLabel), items: naru.december.carryDetail.todo.map(t) },
+          // 2026-11-05 (사용자, 스크린숏: 첫 띠의 "내용이 너무 없다"): 10/17에 정한 올려 두기(선택) 세 줄을 함께 그려 Day 2, 3 띠와 같은 두 묶음으로.
+          { label: t(naru.december.carrySubmitLabel), items: naru.december.carryDetail.submit.map(t) },
         ]} open={stripsOpen} onToggle={() => setStripsOpen((v) => !v)} fill />
     ) : stage.milestone ? (
       <MilestoneStrip id={`milestone-day-${stage.dayOffset}-card`} label={t(naru.december.milestoneLabel)} title={t(stage.milestone)} detail={stage.milestoneDetail && [
