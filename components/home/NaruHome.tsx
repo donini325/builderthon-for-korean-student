@@ -383,6 +383,42 @@ const LOCK_ICON = (
   </svg>
 );
 type MilestoneDetail = { label: string; items: string[] }[];
+// DECIDED 2026-11-05 (docs/day-flow-brief.md 1장 안 A, 사용자): Day 카드의 "하루의 흐름" 띠. 접힌 모양은 compact 미션 띠와 같은 부품, 같은 높이
+// (라벨 한 줄 + 제목 한 줄). 펼치면 줄마다 시각(있을 때), 무엇, 어디(캡션)를 위에서 아래로 쌓습니다. Day 1~3 칸이 좁아 시각 칸을 옆에 두면
+// 빈 시각 칸이 글 폭을 반으로 줄였습니다(1440 실측). 폰도 같은 목록. 필참은 ★. 시각이 정해지지 않은 줄은 시각을 그리지 않습니다(D2, "미정" 글자 없음). 모달은 만들지 않습니다.
+type FlowRow = { time?: string; what: string; where?: string; must?: boolean };
+function FlowStrip({ id, label, title, mustLabel, rows }: { id: string; label: string; title: string; mustLabel: string; rows: FlowRow[] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="flex w-full flex-col rounded-xl card-sunken">
+      <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)} className="flex w-full flex-col items-start gap-1 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-white/[0.06]">
+        <span className="flex w-full items-center justify-between gap-2">
+          <span className={`inline-flex items-center gap-1 ${META} font-bold text-caption`}>{label}</span>
+          <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 text-naru-muted transition-transform ${open ? "rotate-180" : ""}`}><path d="m6 9 6 6 6-6" /></svg>
+        </span>
+        <span className={`break-keep ${META} font-bold leading-snug text-white`}>{title}</span>
+      </button>
+      <div id={id} hidden={!open} className="break-keep border-t border-white/10 px-3 py-3 text-left">
+        <ol className="flex flex-col gap-2.5">
+          {rows.map((r, j) => (
+            <li key={j} className={`${META} leading-[1.6]`}>
+              {r.time && <span className="block font-semibold tabular-nums text-accent">{r.time}</span>}
+              <span className="block min-w-0">
+                <span className="text-white/85">
+                  {r.must && <span aria-hidden className="mr-1 font-bold">★</span>}
+                  {r.must && <span className="sr-only">{mustLabel} </span>}
+                  {r.what}
+                </span>
+                {r.where && <span className="block text-caption">{r.where}</span>}
+              </span>
+            </li>
+          ))}
+        </ol>
+        {rows.some((r) => r.must) && <p className={`mt-3 ${META} text-caption`}>{mustLabel}</p>}
+      </div>
+    </div>
+  );
+}
 // open, onToggle(2026-10-17): 데스크톱 Day 1~3 판의 세 띠는 함께 열리고 닫힙니다. 한 칸만 열리면 그 줄의 높이가 크게 어긋났습니다.
 function MilestoneStrip({ id, label, title, detail, center = false, expanded = false, tone = "amber", open: openProp, onToggle, fill = false, narrow = false, compact = false }: { compact?: boolean; id: string; label: string; title: string; detail?: MilestoneDetail; center?: boolean; expanded?: boolean; tone?: "amber" | "plain"; open?: boolean; onToggle?: () => void; fill?: boolean; narrow?: boolean }) {
   const [openSelf, setOpenSelf] = useState(false);
@@ -652,8 +688,12 @@ export default function NaruHome() {
         <span lang="en" className={`${BODY} font-semibold text-white/85`}>{t(stage.session.title)}</span>
       </p>
     ) : null;
+    const flow = stage.flow && stage.flow.length > 0 ? (
+      <FlowStrip id={`flow-day-${stage.dayOffset}-card`} label={t(naru.december.dayFlowLabel)} title={t(naru.december.dayFlowTitle)} mustLabel={t(naru.december.dayFlowMustLabel)}
+        rows={stage.flow.map((r) => ({ time: r.time, what: t(r.what), where: r.where && t(r.where), must: r.must }))} />
+    ) : null;
     void i;
-    return { head, line, session, chips, strip, vote };
+    return { head, line, session, chips, strip, vote, flow };
   };
   // DECIDED 2026-10-10 (구조 브리프 3.2): 옛 주소. 홈에 있던 #join, #how, #why, #record, #join-ways는 /naru로 갔습니다.
   // 해시는 서버에 오지 않아 redirects로 잡을 수 없으므로, 마운트 때 한 번 보고 /naru의 같은 자리로 바꿉니다.
@@ -893,6 +933,7 @@ export default function NaruHome() {
                 {P[k].head(false)}
                 <div className="max-w-2xl">{P[k].line}</div>
                 {P[k].chips}
+                {P[k].flow && <div className="w-full max-w-2xl">{P[k].flow}</div>}
                 {P[k].vote && <div className="mt-1 w-full max-w-sm">{P[k].vote}</div>}
               </div>
             );
@@ -906,7 +947,7 @@ export default function NaruHome() {
                         {P[k].head(false)}
                         {P[k].line}
                         {P[k].session ?? <span aria-hidden className="hidden md:block" />}
-                        <div className="min-w-0 self-start w-full">{P[k].strip}</div>
+                        <div className="flex min-w-0 w-full flex-col gap-2 self-start">{P[k].strip}{P[k].flow}</div>
                         {P[k].chips ?? <span aria-hidden className="hidden md:block" />}
                       </div>
                     ))}
