@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-05 도구 페이지를 종이에 맞춤(합치기 전)](#2026-11-05-merge-tools)
 - [2026-11-05 사이트 점검 반영(design/site-tells)](#2026-11-05-audit-fixes)
 - [2026-11-05 히어로 한 줄에 AI로 만드는 비용과 찾고, 정하고, 써 보게 하는 과정](#2026-11-05-position-line)
 - [2026-11-04 종이 팔레트와 목업 레이아웃](#2026-11-04-paper)
@@ -472,6 +473,17 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-05-merge-tools"></a>
+## 2026-11-05 도구 페이지를 종이에 맞춤(합치기 전)
+- 범위: components/crossing/TurnstileWidget.tsx, MentorTool.tsx, data/crossingTeam.ts (가지 design/site-tells)
+- 한 것: docs/merge-paper-brief.md 3장 T1~T4. Turnstile 밝은 테마, 시간표 범례를 "남색 테두리는 우리 팀"으로, 멘토 페이지 내 칸 열 남색 2px(D2). T3 투표 버튼 꺼짐 상태는 이미 opacity-40 남색이라 그대로. T5~T7과 D1, D3, D4는 하지 않음.
+- 근거: brand 10장 종이 팔레트(남색 하나로 현위치와 선택).
+- 검증: 가짜 데이터로 /crossing/team?day=2, 멘토 페이지, /crossing/vote 1440과 390. 우리 팀 칸과 내 칸 열이 남색 테두리. tsc, build 통과.
+- 브리프: docs/merge-paper-brief.md
+- 커밋: 651e963
 
 ---
 
