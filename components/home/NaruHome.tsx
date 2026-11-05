@@ -775,6 +775,69 @@ export default function NaruHome() {
   // DECIDED 2026-10-21: 글 행 24px, 미션 앞 24+16px, 공통 버튼 앞 48px로 서로 다른 묶음을 구분합니다.
   // sub: 데스크톱 Day 1~3 줄의 카드(2026-10-19). 카드가 부모 격자의 행을 나눠 써서(subgrid) 한 줄, 세션, 칩, 미션이 세 카드에서 같은 높이에 섭니다.
   // lgSub (2026-10-24, 밀도 브리프 1.2): 데스크톱 Day 0. md까지는 전폭 카드(전과 같음), lg부터 Day 1~3과 같은 subgrid 네 칸 중 첫 칸.
+  // DECIDED 2026-11-05 (사용자, 스크린숏: "내용이 너무 삐뚤빼뚤함"): /crossing 닷새 장의 다섯 칸 카드. 칸마다 일곱 자리(머리, 날짜, 그날 한 줄, 세션,
+  // 팀 구성과 링크, 띠, 버튼)를 두고 lg부터 다섯 칸이 같은 행 격자(subgrid)를 나눠 써 같은 종류가 같은 높이에 섭니다. 없는 자리는 lg에서만 빈칸.
+  // 글과 띠, 버튼은 stageCard의 폰 패널과 같은 데이터와 부품입니다. Day 0의 둘째 문단(panelBody)은 칸 높이를 맞추려 그리지 않습니다.
+  const dayCard = (stage: (typeof naru.december.stages)[number], i: number) => {
+    const slot = (key: string, node: ReactNode, extra = "") =>
+      node ? <div key={key} className={`min-w-0 ${extra}`}>{node}</div> : <div key={key} aria-hidden className="hidden lg:block" />;
+    const strip = !stage.milestone && stage.submit ? (
+      <MilestoneStrip id={`carry-day-${stage.dayOffset}-card`} tone="plain" label={t(naru.december.carryLabel)} title={t(stage.submit)} center={false} expanded={false} fill
+        detail={[
+          { label: t(naru.december.carryDetail.todoLabel), items: naru.december.carryDetail.todo.map(t) },
+          ...(stage.session ? [{ label: t(naru.december.sessionLabel), items: [`${t(stage.session.title)}: ${t(stage.session.body)}`] }] : []),
+        ]} />
+    ) : stage.milestone ? (
+      <MilestoneStrip id={`milestone-day-${stage.dayOffset}-card`} label={t(naru.december.milestoneLabel)} title={t(stage.milestone)} detail={stage.milestoneDetail && [
+        { label: t(naru.december.milestoneConditionsLabel), items: stage.milestoneDetail.conditions.map(t) },
+        ...(stage.session ? [{ label: t(naru.december.sessionLabel), items: [`${t(stage.session.title)}: ${t(stage.session.body)}`] }] : []),
+      ]} center={false} expanded={false} fill />
+    ) : null;
+    const action = (i === 2 || i === 3) && timetableButton ? timetableButton : stage.voteCta ? (
+      VOTE_BUTTON_OPEN ? (
+        <Link href={stage.voteCta.href} className={`group w-full justify-center ${buttonClass("secondary")}`}>
+          {t(stage.voteCta.label)}<span aria-hidden className={ARROW_CLASS}>→</span>
+        </Link>
+      ) : (
+        <>
+          <span role="link" aria-disabled="true" className={LOCKED_CLASS}>{LOCK_ICON}{t(stage.voteCta.label)}</span>
+          {stage.voteCta.lockedNote && <p className={`mt-[8px] ${META} text-caption`}>{t(stage.voteCta.lockedNote)}</p>}
+        </>
+      )
+    ) : null;
+    const chips = stage.chips.length > 0 || stage.matchCta ? (
+      <p className={`flex flex-wrap gap-x-3 gap-y-1 ${META} text-caption`}>
+        {stage.chips.map((c, j) => <span key={j}>{t(c)}</span>)}
+        {stage.matchCta && (
+          <Link href={stage.matchCta.href} onClick={() => track("naru_cta", { src: "day1", to: "match" })}
+            className="tap-44 font-semibold text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:text-white">
+            {t(stage.matchCta.label)} <span aria-hidden>→</span>
+          </Link>
+        )}
+      </p>
+    ) : null;
+    return (
+      <div key={stage.name.en} className="flex flex-col gap-3 rounded-2xl card-base p-4 text-left lg:row-span-7 lg:grid lg:grid-rows-subgrid lg:gap-y-3">
+        {slot("head", (
+          <p className="flex flex-wrap items-baseline gap-x-2">
+            <span lang="en" className={`${META} font-bold text-accent`}>{`${t(naru.december.dayLabel)} ${stage.dayOffset}`}</span>
+            <span className={ROW_HEADING}>{t(stage.title)}</span>
+          </p>
+        ))}
+        {slot("date", <span className={`${META} text-caption`}>{formatDecemberDayWithWeekday(locale, stage.dayOffset)}</span>)}
+        {slot("line", <p className={`break-keep ${META} leading-[1.6] text-white/85`}>{t(stage.line)}</p>)}
+        {slot("session", stage.session && (
+          <p className={`break-keep ${META} text-naru-muted`}>
+            <span className="mr-1.5">{t(naru.december.sessionLabel)}</span>
+            <span lang="en" className="font-semibold text-white/85">{t(stage.session.title)}</span>
+          </p>
+        ))}
+        {slot("chips", chips)}
+        {slot("strip", strip, "flex flex-col [&>*]:flex-1")}
+        {slot("action", action)}
+      </div>
+    );
+  };
   const stageCard = (stage: (typeof naru.december.stages)[number], i: number, inPanel = false, sub = false, lgSub = false) => {
     const StageHeading = "h4";
     // 데스크톱의 Day 1~3 띠는 함께 열립니다. 폰 패널과 Day 4는 각자.
@@ -1163,8 +1226,8 @@ export default function NaruHome() {
             <h2 id="december-title" className={`${H2} max-sm:text-[28px] !mx-0 text-balance`}>{t(naru.december.programHeading)}</h2>
             <p id="mentoring" className={`mt-4 break-keep ${BODY} leading-[1.65] text-naru-muted`}>{t(naru.december.scheduleLead)}</p>
           </div>
-          <div data-schedule className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:gap-2.5">
-            {naru.december.stages.map((stage, i) => stageCard(stage, i, true))}
+          <div data-schedule className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-2.5 lg:gap-y-0">
+            {naru.december.stages.map((stage, i) => dayCard(stage, i))}
           </div>
         </div>
         {/* DECIDED 2026-11-05 (사용자, 스크린숏: "이 부분 빼줘"): 닷새 장 아래의 등록 블록(스크리닝 한 줄, 여는 날, 버튼 둘, 휴대폰 안내, 기업 출제/후원 문의)을 뺍니다.
