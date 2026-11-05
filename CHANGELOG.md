@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-05 미디어 파트너 아이디어파트너스](#2026-11-05-idea-partners)
 - [2026-11-05 연결어미 뒤 쉼표 여섯](#2026-11-05-humanize-commas)
 - [2026-11-05 폰 점검 반영](#2026-11-05-mobile-fixes)
 - [2026-11-05 로고 띠가 멈추지 않게](#2026-11-05-marquee-always)
@@ -477,6 +478,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-05-idea-partners"></a>
+## 2026-11-05 미디어 파트너 아이디어파트너스
+- 범위: data/naru.ts(decemberPartners), components/shared/HeroPartnerStrip.tsx(DECEMBER_MASS), public/partners/logos/paper/idea-partners.png
+- 한 것: 사용자 요청으로 함께하는 곳에 "미디어 파트너" 칸을 더하고 아이디어파트너스 로고와 링크를 넣음. 원본은 12월 빌더톤/CI/아이디어파트너스_영문.png(잉크 글자, 파란 심볼)라 크림 바탕에 그대로 씀.
+- 근거: brand 10장 사이트 UI(종이 바탕, 밝은 판 없이).
+- 검증: build 통과. /crossing 로고 띠와 홈에 로고, "미디어 파트너" 칸 확인(스크린숏). ideapartners.co.kr 200.
+- 커밋: 2f8646b
 
 ---
 
