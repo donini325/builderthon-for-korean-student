@@ -2632,11 +2632,7 @@ export const naru = {
         title: { ko: "컨텍스트 열기", en: "Context Open" },
         when: { ko: "Day 0", en: "Day 0" },
         dayOffset: 0,
-        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
-        flow: [
-          { what: { ko: "이슈 공개. 어느 회사가 어떤 문제의식을 설명할지, 그 회사가 어떤 곳인지 알립니다", en: "The issue opens: which company will explain what problem, and what kind of company it is" }, where: { ko: "참가자 카카오톡 방", en: "Participants' KakaoTalk room" } },
-          { what: { ko: "자세한 정리는 멘토에게만. 멘토에게는 이슈를 정리한 자료가 먼저 가고, 참가자는 Day 1에 출제사에게 직접 듣습니다", en: "The details go to mentors only: they get a write-up of the issue first, and participants hear it from the company on Day 1" } },
-        ],
+        // DECIDED 2026-11-05 (사용자: "day 0에는 하루의 흐름 필요 없음"): Day 0 카드에는 하루의 흐름 링크와 줄을 두지 않습니다. 그 전 두 줄은 git c6408fa.
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
         // DECIDED 2026-11-05 (사용자: 출제사 미팅 전사록 11/05에 맞춤): Day 0에 학생이 아는 것은 어느 회사가 어떤 문제의식을 설명할지와 그 회사가 어떤 곳인지까지. 학생용 PDF는 없고, 자세한 정리는 멘토에게만 먼저 가며, 학생은 Day 1에 출제사의 말로 듣는다. 칩 "이슈 공개"(10/07)는 그대로.
         short: { ko: "어느 회사가 어떤 문제의식으로 오는지 알립니다.", en: "We share which company is coming, and with what problem in mind." },
