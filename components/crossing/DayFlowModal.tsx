@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useBodyScrollLock } from "@/lib/useBodyScrollLock";
-import { META, BODY, ROW_HEADING } from "@/components/ui/typography";
+import { META, BODY, SUBTITLE } from "@/components/ui/typography";
 
 export type DayFlowRow = { time?: string; what: string; where?: string; must?: boolean };
 export type DayFlowContent = { dayLabel: string; date: string; title: string; lead: string; rows: DayFlowRow[] };
@@ -95,7 +95,7 @@ export default function DayFlowModal({
             animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.985 }}
             transition={{ duration: reduce ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 flex max-h-[88dvh] w-full max-w-[640px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-naru-surface shadow-2xl sm:rounded-3xl"
+            className="relative z-10 flex max-h-[88dvh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-naru-surface shadow-2xl sm:rounded-3xl"
           >
             <button
               ref={closeRef}
@@ -109,37 +109,46 @@ export default function DayFlowModal({
               </svg>
             </button>
             <div className="overflow-y-auto overscroll-contain px-6 pt-7 pb-[max(1.75rem,env(safe-area-inset-bottom))] text-left sm:px-8 sm:py-8">
-              <p className={`flex flex-wrap items-baseline gap-x-2.5 pr-12 ${META}`}>
+              {/* 2026-11-05 (사용자, 스크린숏: "디자인이 진짜 별루임"): 상자 속 상자, 빈 시각 칸, 같은 굵기의 긴 줄, 줄마다 되풀이되는 "현장"을 걷고
+                  노선도와 같은 문법의 세로 선 하나에 날마다의 정거장을 찍습니다. 필참은 남색 꽉 찬 점과 ★, 나머지는 빈 점.
+                  줄의 첫 마디(마침표나 쌍점 앞)가 이름이고 나머지는 작은 글자. 장소는 "현장"이 아닐 때만 작은 꼬리표로 붙습니다. */}
+              <p className={`flex flex-wrap items-baseline gap-x-2 pr-12 ${META}`}>
                 <span lang="en" className="font-bold text-accent">{day.dayLabel}</span>
                 <span className="text-caption">{day.date}</span>
               </p>
-              <h3 id="day-flow-title" className={`mt-2 ${ROW_HEADING}`}>{day.title}</h3>
-              <p className={`mt-2 break-keep ${BODY} leading-[1.65] text-white/85`}>{day.lead}</p>
-              <div className="mt-6 rounded-2xl card-base p-4 sm:p-5">
-                <p className={`flex items-baseline justify-between gap-3 ${META} font-bold text-accent`}>
-                  <span>{heading}</span>
-                  {hasMust && <span className="font-semibold text-caption">{mustLabel}</span>}
-                </p>
-                <ol className="mt-3">
-                  {day.rows.map((r, j) => (
-                    <li key={j} className="flex flex-col gap-1 border-t border-white/10 px-1.5 py-2.5 first:border-t-0 sm:flex-row sm:gap-3">
-                      {r.time ? (
-                        <span className={`shrink-0 pt-[1px] ${META} font-semibold tabular-nums text-white/85 sm:w-[6.5rem]`}>{r.time}</span>
-                      ) : (
-                        <span aria-hidden className="hidden shrink-0 sm:block sm:w-[6.5rem]" />
-                      )}
-                      <span className="min-w-0 flex-1">
-                        <span className={`block break-keep ${META} font-semibold leading-snug text-white/85`}>
-                          {r.must && <span aria-hidden className="mr-1">★</span>}
-                          {r.must && <span className="sr-only">{mustLabel}: </span>}
-                          {r.what}
-                        </span>
-                        {r.where && <span className={`mt-1 block break-keep ${META} leading-[1.6] text-caption`}>{r.where}</span>}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
+              <h3 id="day-flow-title" className={`mt-1.5 pr-12 ${SUBTITLE} font-bold tracking-[-0.01em] text-naru-navy`}>{day.title}</h3>
+              <p className={`mt-2 break-keep ${META} leading-[1.65] text-naru-muted`}>{day.lead}</p>
+              <div className="mt-6 flex items-center justify-between gap-3 border-t border-white/10 pt-5">
+                <p className={`${META} font-bold text-white/85`}>{heading}</p>
+                {hasMust && <p className={`${META} text-caption`}><span aria-hidden className="text-accent">★</span> {mustLabel.replace(/^★\s*/, "")}</p>}
               </div>
+              <ol className="relative mt-4">
+                {/* 세로 선: 첫 점 가운데에서 마지막 점 가운데까지. */}
+                <span aria-hidden className="absolute bottom-3 left-[5px] top-2 w-px bg-white/15" />
+                {day.rows.map((r, j) => {
+                  const cut = r.what.search(/[.:] /);
+                  const name = cut > 0 ? r.what.slice(0, cut) : r.what;
+                  const detail = cut > 0 ? r.what.slice(cut + 2) : "";
+                  const onSite = !r.where || r.where === "현장" || r.where === "On site";
+                  return (
+                    <li key={j} className="relative pb-5 pl-7 last:pb-0">
+                      <span aria-hidden className={`absolute left-0 top-[5px] h-[11px] w-[11px] rounded-full border-2 ${r.must ? "border-accent bg-accent" : "border-white/30 bg-naru-surface"}`} />
+                      {r.time && <p className={`${META} font-semibold tabular-nums text-accent`}>{r.time}</p>}
+                      <p className={`break-keep ${BODY} font-semibold leading-snug text-white`}>
+                        {name}
+                        {r.must && <><span aria-hidden className="ml-1.5 text-accent">★</span><span className="sr-only"> ({mustLabel.replace(/^★\s*/, "")})</span></>}
+                      </p>
+                      {detail && <p className={`mt-1 break-keep ${META} leading-[1.6] text-naru-muted`}>{detail}</p>}
+                      {!onSite && (
+                        <p className={`mt-1.5 inline-flex items-center gap-1 ${META} text-caption`}>
+                          <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+                          {r.where}
+                        </p>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
           </motion.div>
         </motion.div>
