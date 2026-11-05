@@ -646,6 +646,15 @@ export default function NaruHome() {
         <span lang="en" className={`${META} font-bold text-accent`}>{`${t(naru.december.dayLabel)} ${stage.dayOffset}`}</span>
         <span className={ROW_HEADING}>{t(stage.title)}</span>
         <span className={`${META} text-caption`}>{formatDecemberDayWithWeekday(locale, stage.dayOffset)}</span>
+        {/* DECIDED 2026-11-05 (사용자: "각 날마다 어디서 하는지를 보여주면 좋을거 같은데, 1일차는 페스트파이브, 그리고 4일차는 마루180. 로고들이 보였으면"):
+            날짜 옆에 그날 장소의 로고(stage.logo, 노선도와 같은 데이터). 흰 실루엣은 globals.css가 크림 위에서 잉크로 바꿉니다. 장소가 정해지지 않은 날은 그리지 않습니다. */}
+        {stage.logo && (
+          <a href={stage.logo.url} target="_blank" rel="noopener noreferrer" aria-label={stage.logo.name}
+            className="tap-44 inline-flex items-center gap-1.5 self-center opacity-90 transition-opacity hover:opacity-100">
+            <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-caption"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+            <Image src={stage.logo.src} alt="" width={stage.logo.w} height={stage.logo.h} className="h-[14px] w-auto" />
+          </a>
+        )}
       </h3>
     );
     const line = <p className={`break-keep ${BODY} leading-[1.65] text-white/85`}>{t(stage.line)}</p>;
@@ -944,6 +953,7 @@ export default function NaruHome() {
                   date: formatDecemberDayWithWeekday(locale, st.dayOffset),
                   title: t(st.title),
                   lead: t(st.line),
+                  venue: st.logo,
                   rows: st.flow.map((r) => ({ time: r.time, what: t(r.what), where: r.where && t(r.where) })),
                 } : null} />
             );

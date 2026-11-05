@@ -9,11 +9,12 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { useBodyScrollLock } from "@/lib/useBodyScrollLock";
 import { META, BODY, SUBTITLE } from "@/components/ui/typography";
 
 export type DayFlowRow = { time?: string; what: string; where?: string };
-export type DayFlowContent = { dayLabel: string; date: string; title: string; lead: string; rows: DayFlowRow[] };
+export type DayFlowContent = { dayLabel: string; date: string; title: string; lead: string; rows: DayFlowRow[]; venue?: { src: string; name: string; w: number; h: number } };
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
 
@@ -112,6 +113,13 @@ export default function DayFlowModal({
               <p className={`flex flex-wrap items-baseline gap-x-2 pr-12 ${META}`}>
                 <span lang="en" className="font-bold text-accent">{day.dayLabel}</span>
                 <span className="text-caption">{day.date}</span>
+                {/* 2026-11-05 (사용자): 그날 장소의 로고. 카드 머리와 같습니다. */}
+                {day.venue && (
+                  <span className="inline-flex items-center gap-1.5 self-center">
+                    <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-caption"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+                    <Image src={day.venue.src} alt={day.venue.name} width={day.venue.w} height={day.venue.h} className="h-[14px] w-auto" />
+                  </span>
+                )}
               </p>
               <h3 id="day-flow-title" className={`mt-1.5 pr-12 ${SUBTITLE} font-bold tracking-[-0.01em] text-naru-navy`}>{day.title}</h3>
               <p className={`mt-2 break-keep ${META} leading-[1.65] text-naru-muted`}>{day.lead}</p>
