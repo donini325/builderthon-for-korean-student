@@ -494,7 +494,7 @@ const LOCK_ICON = (
 );
 type MilestoneDetail = { label: string; items: string[] }[];
 // open, onToggle(2026-10-17): 데스크톱 Day 1~3 판의 세 띠는 함께 열리고 닫힙니다. 한 칸만 열리면 그 줄의 높이가 크게 어긋났습니다.
-function MilestoneStrip({ id, label, title, detail, center = false, expanded = false, tone = "amber", open: openProp, onToggle, fill = false, narrow = false }: { id: string; label: string; title: string; detail?: MilestoneDetail; center?: boolean; expanded?: boolean; tone?: "amber" | "plain"; open?: boolean; onToggle?: () => void; fill?: boolean; narrow?: boolean }) {
+function MilestoneStrip({ id, label, title, detail, center = false, expanded = false, tone = "amber", open: openProp, onToggle, fill = false, narrow = false, compact = false }: { compact?: boolean; id: string; label: string; title: string; detail?: MilestoneDetail; center?: boolean; expanded?: boolean; tone?: "amber" | "plain"; open?: boolean; onToggle?: () => void; fill?: boolean; narrow?: boolean }) {
   const [openSelf, setOpenSelf] = useState(false);
   const open = openProp ?? openSelf;
   const setOpen = (f: (v: boolean) => boolean) => (onToggle ? onToggle() : setOpenSelf(f));
@@ -508,9 +508,44 @@ function MilestoneStrip({ id, label, title, detail, center = false, expanded = f
       <span className={`inline-flex shrink-0 items-center gap-1 ${META} font-bold text-caption`}>
         {amber && <span aria-hidden>★</span>}{label}
       </span>
-      <span className={`${BODY} font-bold leading-snug text-white`}>{title}</span>
+      <span className={`${compact ? META : BODY} font-bold leading-snug text-white`}>{title}</span>
     </>
   );
+  // DECIDED 2026-11-05 (사용자: "상자의 vertical length를 줄여줘"): /crossing Day 카드 안(compact)에서는 제목을 META 굵게, 라벨과 화살표를 한 줄에,
+  // 안쪽 여백을 줄여 띠 높이를 약 절반으로. 다른 자리(폰 패널, 데스크톱 판)는 그대로입니다.
+  if (compact) {
+    return (
+      <div className="flex w-full flex-col rounded-xl card-sunken">
+        {detail ? (
+          <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)} className="flex w-full flex-col items-start gap-1 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-white/[0.06]">
+            <span className="flex w-full items-center justify-between gap-2">
+              <span className={`inline-flex items-center gap-1 ${META} font-bold text-caption`}>{amber && <span aria-hidden>★</span>}{label}</span>
+              <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 text-naru-muted transition-transform ${open ? "rotate-180" : ""}`}><path d="m6 9 6 6 6-6" /></svg>
+            </span>
+            <span className={`break-keep ${META} font-bold leading-snug text-white`}>{title}</span>
+          </button>
+        ) : (
+          <p className="flex flex-col gap-1 px-3 py-2.5 text-left">{head}</p>
+        )}
+        {detail && (
+          <div id={id} hidden={!open} className="break-keep border-t border-white/10 px-3 py-3">
+            <div className="flex flex-col gap-2.5 text-left">
+              {detail.map((g) => (
+                <div key={g.label}>
+                  <p className={`${META} font-bold text-white/85`}>{g.label}</p>
+                  <ul className={`mt-1 ${META} leading-[1.6] text-white/85`}>
+                    {g.items.map((it) => (
+                      <li key={it} className="flex gap-2"><span aria-hidden className="text-white/50">•</span><span>{it}</span></li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
   // 2026-10-19 (시각 감사 5): 가운데 띠는 늘 쌓습니다(★ 미션 / 제목 / 화살표). 제목 길이와 카드 폭에 따라 한 줄로 서던 띠(Day 1, 넓은 Day 4)가 있었습니다.
   const row = `flex w-full items-center gap-x-2.5 gap-y-1 break-keep px-3 py-2 ${center ? "flex-col justify-center" : "flex-wrap text-left"}`;
   return (
@@ -782,7 +817,7 @@ export default function NaruHome() {
     const slot = (key: string, node: ReactNode, extra = "") =>
       node ? <div key={key} className={`min-w-0 ${extra}`}>{node}</div> : <div key={key} aria-hidden className="hidden lg:block" />;
     const strip = !stage.milestone && stage.submit ? (
-      <MilestoneStrip id={`carry-day-${stage.dayOffset}-card`} tone="plain" label={t(naru.december.carryLabel)} title={t(stage.submit)} center={false} expanded={false} fill
+      <MilestoneStrip id={`carry-day-${stage.dayOffset}-card`} tone="plain" label={t(naru.december.carryLabel)} title={t(stage.submit)} center={false} expanded={false} compact
         detail={[
           { label: t(naru.december.carryDetail.todoLabel), items: naru.december.carryDetail.todo.map(t) },
           ...(stage.session ? [{ label: t(naru.december.sessionLabel), items: [`${t(stage.session.title)}: ${t(stage.session.body)}`] }] : []),
@@ -791,7 +826,7 @@ export default function NaruHome() {
       <MilestoneStrip id={`milestone-day-${stage.dayOffset}-card`} label={t(naru.december.milestoneLabel)} title={t(stage.milestone)} detail={stage.milestoneDetail && [
         { label: t(naru.december.milestoneConditionsLabel), items: stage.milestoneDetail.conditions.map(t) },
         ...(stage.session ? [{ label: t(naru.december.sessionLabel), items: [`${t(stage.session.title)}: ${t(stage.session.body)}`] }] : []),
-      ]} center={false} expanded={false} fill />
+      ]} center={false} expanded={false} compact />
     ) : null;
     const action = (i === 2 || i === 3) && timetableButton ? timetableButton : stage.voteCta ? (
       VOTE_BUTTON_OPEN ? (
@@ -817,7 +852,7 @@ export default function NaruHome() {
       </p>
     ) : null;
     return (
-      <div key={stage.name.en} className="flex flex-col gap-3 rounded-2xl card-base p-4 text-left lg:row-span-7 lg:grid lg:grid-rows-subgrid lg:gap-y-3">
+      <div key={stage.name.en} className="flex flex-col gap-2.5 rounded-2xl card-base p-4 text-left lg:row-span-7 lg:grid lg:grid-rows-subgrid lg:gap-y-2.5">
         {slot("head", (
           <p className="flex flex-wrap items-baseline gap-x-2">
             <span lang="en" className={`${META} font-bold text-accent`}>{`${t(naru.december.dayLabel)} ${stage.dayOffset}`}</span>
@@ -834,7 +869,8 @@ export default function NaruHome() {
           </p>
         ))}
         {slot("chips", chips)}
-        {slot("strip", strip, "flex flex-col [&>*]:flex-1")}
+        {/* 띠는 같은 최소 높이로 닫혀 있고, 하나를 펼쳐도 옆 칸의 띠는 늘어나지 않습니다(self-start). */}
+        {slot("strip", strip, "self-start w-full [&>*]:min-h-[6.25rem]")}
         {slot("action", action)}
       </div>
     );
