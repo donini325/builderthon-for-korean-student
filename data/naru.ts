@@ -2228,11 +2228,13 @@ export const naru = {
     },
     mentors: [
       { name: { ko: "허수진 님", en: "Heo Su-jin" }, org: { ko: "C&R Research", en: "C&R Research" }, role: { ko: "Project Leader", en: "Project Leader" }, confirmed: true },
-      { name: { ko: "김규리 님", en: "Kim Gyu-ri" }, org: { ko: "Aside", en: "Aside" }, role: { ko: "Chief of Staff", en: "Chief of Staff" }, confirmed: false },
+      { name: { ko: "김규리 님", en: "Kim Gyu-ri" }, org: { ko: "Aside", en: "Aside" }, role: { ko: "Chief of Staff", en: "Chief of Staff" }, confirmed: true },
       { name: { ko: "조동현 님", en: "Cho Dong-hyun" }, org: { ko: "KAIST AI 대학원, 인클리즈랩", en: "KAIST Graduate School of AI, Inclease Lab" }, role: { ko: "박사과정, Co-founder&CTO", en: "PhD student, Co-founder & CTO" }, confirmed: true },
-      { name: { ko: "최우현 님", en: "Choi Woo-hyun" }, org: { ko: "DanaMed", en: "DanaMed" }, role: { ko: "CEO", en: "CEO" }, confirmed: false },
+      { name: { ko: "최우현 님", en: "Choi Woo-hyun" }, org: { ko: "DanaMed", en: "DanaMed" }, role: { ko: "CEO", en: "CEO" }, confirmed: true },
       { name: { ko: "강정민 님", en: "Kang Jeong-min" }, org: { ko: "Independent AI Researcher", en: "Independent AI Researcher" }, role: { ko: "NeurIPS 2026 TAE 워크숍 포스터 저자 (AX 인재전쟁 본선, Upstage MABC 결선)", en: "Author of a NeurIPS 2026 TAE workshop poster (AX Talent War finals, Upstage MABC finals)" }, confirmed: true },
-      { name: { ko: "이민재 님", en: "Lee Min-jae" }, org: { ko: "BIGPIE C&T", en: "BIGPIE C&T" }, role: { ko: "K-뷰티 해외영업 팀장", en: "K-beauty overseas sales team lead" }, confirmed: false },
+      { name: { ko: "이민재 님", en: "Lee Min-jae" }, org: { ko: "BIGPIE C&T", en: "BIGPIE C&T" }, role: { ko: "K-뷰티 해외영업 팀장", en: "K-beauty overseas sales team lead" }, confirmed: true },
+      // 2026-11-06 (사용자: "다 켜줘 그리고 유재민도 넣어줘"): 확인 대기 셋도 켜고, 유재민 님을 더함. 표기는 LinkedIn(소속 Kia Worldwide, Bloom 가드너)에서 온 임시값.
+      { name: { ko: "유재민 님", en: "You Jae-min" }, org: { ko: "Kia, Bloom", en: "Kia, Bloom" }, role: { ko: "Bloom Gardener", en: "Bloom Gardener" }, confirmed: true },
     ] as { name: Phrase; org: Phrase; role: Phrase; confirmed: boolean }[],
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:
