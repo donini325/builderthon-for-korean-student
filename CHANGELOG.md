@@ -484,13 +484,13 @@
 
 <a id="2026-11-05-day-flow"></a>
 ## 2026-11-05 Day 카드마다 하루의 흐름
-- 범위: data/naru.ts(december.stages[n].flow, dayFlowLabel/Title/MustLabel), components/home/NaruHome.tsx(FlowStrip, /crossing 일정 판)
-- 한 것: 사용자 요청(브리프 안 A). Day 카드 다섯에 접는 "하루의 흐름" 띠를 미션 띠와 같은 부품, 같은 높이로 더함. 펼치면 줄마다 시각, 무엇, 어디, 필참 ★. 폰도 같은 목록, 모달 없음.
+- 범위: data/naru.ts(december.stages[n].flow, dayFlowLabel/MustLabel/Close), components/crossing/DayFlowModal.tsx(새 파일), components/home/NaruHome.tsx(/crossing 일정 판)
+- 한 것: 사용자 요청. 처음에는 브리프 안 A(카드 안 접는 띠)로 넣었다가, 사용자 "이런식으로 싫음. 클릭하면 보이는 식으로 like 8월 처럼"으로 안 B. Day 카드 다섯에 글자 링크 "하루의 흐름 →", 누르면 8월 DayModal과 같은 껍데기의 모달에 줄마다 시각, 무엇, 어디, 필참 ★. 폰은 아래에서 올라오는 시트.
 - 결정: D2 시각 미정 줄은 시각을 그리지 않음, D3 출제사의 30분, D4 출제사가 고른 팀은 한 번 더 만남, D5 PO session 시각 비움, D6 투자사 앞에서, D7 ★만.
 - 근거: brand 7장 이벤트 어휘(닷새, 미션, 멘토링 10:00~16:00), 8장 12월 숫자를 약속하지 않음.
-- 검증: 줄 수 2, 7, 3, 4, 5(★ 0, 4, 2, 2, 2). 접은 카드 높이 +71~75px(띠 63px + 간격). 1440, 390 접음/펼침 스크린숏. 금지 문자열 0(크레딧 8은 기존 파트너 칸 라벨). build 통과.
+- 검증: 모달의 줄 수 2, 7, 3, 4, 5(★ 0, 4, 2, 2, 2), 1440과 390 모두 다섯 날 열고 Escape로 닫힘. 카드 높이 +23~33px(링크 한 줄). 금지 문자열 0(크레딧 8은 기존 파트너 칸 라벨). build 통과.
 - 브리프: docs/day-flow-brief.md
-- 커밋: 5bd98cb
+- 커밋: 5bd98cb, f51505b
 
 ---
 
