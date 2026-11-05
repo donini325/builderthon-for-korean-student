@@ -2213,6 +2213,27 @@ export const naru = {
     // DECIDED 2026-11-05 (docs/day-flow-brief.md 안 B, 사용자: "클릭하면 보이는 식으로 like 8월 처럼"): Day 카드의 "하루의 흐름 →" 링크와 그 모달.
     dayFlowLabel: { ko: "하루의 흐름", en: "How the day runs" },
     dayFlowClose: { ko: "닫기", en: "Close" },
+    // DECIDED 2026-11-05 (docs/mentors-section-brief.md, 사용자): /crossing 닷새 장 아래 "멘토" 블록. 사진과 링크 없이 글 세 줄(D4).
+    // 여섯을 다 적고 confirmed가 true인 사람만 그립니다(D2). 확인 대기 셋의 표기는 LinkedIn 헤드라인에서 온 임시값이라, 답이 오면 고치고 true로.
+    // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 강상우, 안대선은 넣지 않습니다(사용자).
+    // 순서는 Day 2 멘토부터(DB crossing_mentors sort). 영문 이름은 8월 표기(성 먼저, 하이픈)로 옮긴 것이라 본인 확인 전입니다.
+    mentorsHeading: { ko: "멘토", en: "Mentors" },
+    mentorsLead: {
+      ko: "멘토는 답을 주러 오지 않습니다. 일을 해 본 사람이면 누구나 아는 감각으로, 팀이 들고 간 한 장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말해 줍니다.",
+      en: "Mentors do not come with answers. With the sense anyone who has done the work has, they tell the team, to its one page and draft, \"that is not how it works in practice.\"",
+    },
+    mentorsNote: {
+      ko: "도메인 전문가가 아니어도 됩니다. 학생에게 빠진 것이 그 감각이라서요.",
+      en: "They need not be domain experts. That sense is what students are missing.",
+    },
+    mentors: [
+      { name: { ko: "허수진 님", en: "Heo Su-jin" }, org: { ko: "C&R Research", en: "C&R Research" }, role: { ko: "Project Leader", en: "Project Leader" }, confirmed: true },
+      { name: { ko: "김규리 님", en: "Kim Gyu-ri" }, org: { ko: "Aside", en: "Aside" }, role: { ko: "Chief of Staff", en: "Chief of Staff" }, confirmed: false },
+      { name: { ko: "조동현 님", en: "Cho Dong-hyun" }, org: { ko: "KAIST AI 대학원, 인클리즈랩", en: "KAIST Graduate School of AI, Inclease Lab" }, role: { ko: "박사과정, Co-founder&CTO", en: "PhD student, Co-founder & CTO" }, confirmed: true },
+      { name: { ko: "최우현 님", en: "Choi Woo-hyun" }, org: { ko: "DanaMed", en: "DanaMed" }, role: { ko: "CEO", en: "CEO" }, confirmed: false },
+      { name: { ko: "강정민 님", en: "Kang Jeong-min" }, org: { ko: "Independent AI Researcher", en: "Independent AI Researcher" }, role: { ko: "NeurIPS 2026 TAE 워크숍 포스터 저자 (AX 인재전쟁 본선, Upstage MABC 결선)", en: "Author of a NeurIPS 2026 TAE workshop poster (AX Talent War finals, Upstage MABC finals)" }, confirmed: true },
+      { name: { ko: "이민재 님", en: "Lee Min-jae" }, org: { ko: "BIGPIE C&T", en: "BIGPIE C&T" }, role: { ko: "K-뷰티 해외영업 팀장", en: "K-beauty overseas sales team lead" }, confirmed: false },
+    ] as { name: Phrase; org: Phrase; role: Phrase; confirmed: boolean }[],
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:
     // 그 1장을 Day 2에 멘토에게 들고 가고, Day 1에 PDF로 올립니다(시간표 페이지의 Day 1 칸).

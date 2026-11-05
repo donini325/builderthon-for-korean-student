@@ -962,6 +962,40 @@ export default function NaruHome() {
             );
           })()}
         </div>
+        {/* DECIDED 2026-11-05 (docs/mentors-section-brief.md D1, D2, D4, D5): 닷새 장 아래, 남는 것 장 앞의 "멘토" 블록. 새 장이 아니라 블록이라 목차 칩은 늘리지 않습니다.
+            8월 멘토 카드에서 사진, 역할 칩, LinkedIn을 뺀 꼴: 이름 님(BODY 굵게) / 소속 / 직책(META). 본인이 확인한 사람(confirmed)만, 0명이면 블록째 없음.
+            줄 수는 늘 둘 이하: lg부터 한 줄(칸 수 = 사람 수), 그 아래는 두 줄(칸 수 = 절반 올림). */}
+        {(() => {
+          const ms = naru.december.mentors.filter((m) => m.confirmed);
+          if (ms.length === 0) return null;
+          return (
+            <section id="mentors" aria-labelledby="mentors-title" className="mx-auto mt-14 w-full max-w-6xl text-left lg:mt-16 lg:px-10">
+              <h3 id="mentors-title" className={`${SUBTITLE} font-bold tracking-[-0.01em] text-naru-navy`}>{t(naru.december.mentorsHeading)}</h3>
+              <p className={`mt-3 max-w-3xl break-keep ${BODY} leading-[1.65] text-naru-muted`}>{t(naru.december.mentorsLead)}</p>
+              <p className={`mt-2 max-w-3xl break-keep ${META} leading-[1.6] text-caption`}>{t(naru.december.mentorsNote)}</p>
+              <ul
+                className="mt-6 grid grid-cols-[repeat(var(--cols-sm),minmax(0,1fr))] gap-2.5 sm:gap-3 lg:grid-cols-[repeat(var(--cols-lg),minmax(0,1fr))]"
+                style={{ "--cols-sm": Math.ceil(ms.length / 2), "--cols-lg": ms.length } as React.CSSProperties}
+              >
+                {ms.map((m) => {
+                  // 하이픈에서 줄이 꺾이지 않게(폰에서 "Co-" / "founder"). D6: 직책의 괄호는 폰(sm 아래)에서만 접습니다.
+                  const nb = (s: string) => s.replace(/-/g, "‑");
+                  const role = nb(t(m.role));
+                  const cut = role.indexOf(" (");
+                  return (
+                    <li key={m.name.ko} className="flex min-w-0 flex-col gap-1 rounded-xl card-base px-3 py-3.5 sm:px-4 sm:py-4">
+                      <p className={`break-keep ${BODY} font-bold leading-snug text-white`}>{nb(t(m.name))}</p>
+                      <p className={`break-keep ${META} leading-[1.5] text-white/80`}>{nb(t(m.org))}</p>
+                      <p className={`break-keep ${META} leading-[1.5] text-caption`}>
+                        {cut > 0 ? <>{role.slice(0, cut)}<span className="max-sm:hidden">{role.slice(cut)}</span></> : role}
+                      </p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          );
+        })()}
         {/* DECIDED 2026-11-05 (사용자, 스크린숏: "이 부분 빼줘"): 닷새 장 아래의 등록 블록(스크리닝 한 줄, 여는 날, 버튼 둘, 휴대폰 안내, 기업 출제/후원 문의)을 뺍니다.
             같은 버튼 둘과 여는 날, 조건 없음은 히어로가 말합니다. 헤더 "등록"과 밖의 #register 링크는 페이지 맨 끝 등록 줄(id="register")에 착지합니다.
             기업 문의 메일은 푸터와 나루 홈에 있습니다. 그 전 코드는 git 3905a76. */}
