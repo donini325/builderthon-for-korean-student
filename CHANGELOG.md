@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-05 사이트 점검 반영(design/site-tells)](#2026-11-05-audit-fixes)
 - [2026-11-05 히어로 한 줄에 AI로 만드는 비용과 찾고, 정하고, 써 보게 하는 과정](#2026-11-05-position-line)
 - [2026-11-04 종이 팔레트와 목업 레이아웃](#2026-11-04-paper)
 - [2026-11-04 바이브 코딩 티 걷기(A1~A8)](#2026-11-04-site-tells)
@@ -471,6 +472,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-05-audit-fixes"></a>
+## 2026-11-05 사이트 점검 반영(design/site-tells)
+- 범위: 브랜치 design/site-tells만. 종이 색 잔재(/quiz, 시간표, 멘토 보드, 아이콘, 오류 색), 서체, 접근성, 모바일 누름 영역, /crossing UX 공백, API 보안 일부, NaruHome 죽은 코드
+- 한 것: 사용자 요청으로 에이전트 일곱(brand-guardian, ui-designer, ux-researcher, mobile-ux-optimizer, accessibility-expert, web-dev, security-auditor + data-privacy-engineer)의 점검 제안을 이 브랜치에만 반영, main은 그대로. Pretendard가 실제로 적용되지 않던 것(웹 서체 0개)을 고침. 팀 열쇠, 개인정보 보유 기간과 국외 이전 안내, 공개 레포의 개인 메일, 8월 기록의 옛 표현은 사용자 결정이 필요해 남김.
+- 근거: brand 10장 종이 팔레트와 사이트 규칙(글자 크기 넷), 5장 같은 사실 두 번까지, 7장 멘토링(찾아감, 예약 시점), 9장 금지어.
+- 검증: build 통과, 대비 3:1 미만 글자는 장식(주황 점, 화살표)과 비활성 칸만. /quiz, /match, /crossing, /, /crossing/team 1440 스크린숏.
+- 커밋: ece74fa
 
 ---
 
