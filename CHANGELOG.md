@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-05 Day 카드에 그날 장소 로고](#2026-11-05-day-venue)
 - [2026-11-05 Day 0을 출제사 미팅에 맞춤, PO session은 Day 1, Lovable은 Day 2](#2026-11-05-day0-sessions)
 - [2026-11-05 Day 카드마다 하루의 흐름](#2026-11-05-day-flow)
 - [2026-11-05 미디어 파트너 아이디어파트너스](#2026-11-05-idea-partners)
@@ -480,6 +481,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-05-day-venue"></a>
+## 2026-11-05 Day 카드에 그날 장소 로고
+- 범위: components/home/NaruHome.tsx(Day 머리), components/crossing/DayFlowModal.tsx(모달 머리)
+- 한 것: 사용자 요청. /crossing Day 카드와 하루의 흐름 모달의 날짜 옆에 그날 장소 로고(Day 1 FASTFIVE, Day 4 MARU180, 누르면 장소 사이트). 데이터는 노선도가 쓰던 stage.logo 그대로. Day 0, 2, 3은 장소가 정해지지 않아 그리지 않음.
+- 근거: brand 10장 사이트 UI(흰 실루엣 로고는 크림 위에서 잉크로, globals.css).
+- 검증: build 통과. 1440, 390 스크린숏.
+- 커밋: 343204a
 
 ---
 
