@@ -136,7 +136,7 @@ export const matchSavedSig = (resultId: string, p: MatchProfile): string =>
 // 포커스는 전역 :focus-visible 링이 맡고, 테두리는 나루의 accent로 바뀝니다. 글자는 text-base(머리말).
 // DECIDED 2026-10-26 (사용자: "12월 이벤트의 모든 부분을 새 UI/UX로"): 입력칸은 등록 창과 같은 44px, 옅은 테두리, naru-surface-2, 블루 포커스.
 // 저장 상태는 초록과 호박 면 대신 블루 틴트(저장됨)와 가라앉은 면(그 밖). 그 전: 52px, 흰 45% 테두리.
-const INPUT = "min-h-[44px] w-full rounded-lg border border-white/10 bg-naru-surface-2 px-[14px] py-[10px] text-base text-white placeholder:text-naru-muted/70 outline-none transition-colors focus:border-accent/60";
+const INPUT = "min-h-[44px] w-full rounded-lg border border-white/10 bg-naru-surface-2 px-[14px] py-[10px] text-base text-white placeholder:text-naru-muted outline-none transition-colors focus:border-accent/60";
 
 export function MatchStartFields({ t, profile, onChange, error }: {
   t: T; profile: MatchProfile; onChange: (p: MatchProfile) => void; error: MatchProfileError | null;

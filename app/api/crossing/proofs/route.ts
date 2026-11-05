@@ -11,6 +11,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { NextResponse } from "next/server";
+import { tooMany } from "@/lib/memThrottle";
+import { clientIp } from "@/lib/register/shared";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { PROOF_BUCKET, findTeam, teamFolder } from "@/lib/crossingOpsServer";
 import { PROOF_MAX_BYTES, PROOF_TYPES, isProofDay, proofKindsFor, type ProofKind } from "@/lib/crossingOps";
@@ -60,6 +62,8 @@ export async function POST(req: Request) {
   const { db, team } = a;
 
   if (body?.action === "sign") {
+    // 2026-11-05 (사이트 점검): 한 IP가 10분에 서명 30번까지.
+    if (tooMany("proof-sign", clientIp(req), 30, 10 * 60_000)) return NextResponse.json({ error: "rate" }, { status: 429 });
     const day = Number(body.day);
     const kind = body.kind as ProofKind;
     const type = typeof body.contentType === "string" ? body.contentType : "";
@@ -89,6 +93,11 @@ export async function POST(req: Request) {
     const obj = list?.find((o) => o.name === name);
     if (!obj) return NextResponse.json({ error: "not_uploaded" }, { status: 400 });
     const meta = (obj.metadata ?? {}) as { mimetype?: string; size?: number };
+    // 2026-11-05 (사이트 점검, 보안): 올라간 파일의 실제 형식이 그 종류(사진/PDF)의 허용 형식인지 한 번 더 봅니다. 아니면 지웁니다.
+    if (!PROOF_TYPES[m[3] as ProofKind].includes(String(meta.mimetype ?? ""))) {
+      await db.storage.from(PROOF_BUCKET).remove([path]);
+      return NextResponse.json({ error: "bad_type" }, { status: 400 });
+    }
     // DECIDED 2026-10-26 (사용자: "이거 이상의 파일을 올릴려고 하면 막히게 해줘"): sign 단계의 크기는 브라우저가 알려 준 값이라,
     // 올라간 파일의 실제 크기를 한 번 더 봅니다. 종류 한도(사진 10MB, PDF 20MB)를 넘으면 파일을 지우고 행을 남기지 않습니다.
     if (Number(meta.size ?? 0) > PROOF_MAX_BYTES[m[3] as ProofKind]) {

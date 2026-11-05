@@ -202,7 +202,8 @@ function LogoTile({
         className="w-auto max-w-full object-contain"
       />
       {badge && (
-        <span className="absolute right-1.5 top-1.5 rounded-full border border-white/15 bg-white/10 px-1.5 py-0.5 text-xs font-bold text-white/75">
+        // DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A5): 로고 칸 모서리의 라벨 알약을 걷고 글자만.
+        <span className="absolute right-2 top-1.5 text-xs font-bold text-white/75">
           {badge}
         </span>
       )}
@@ -409,7 +410,7 @@ function MobileStickyBar({ t }: { t: Tfn }) {
             rel="noopener noreferrer"
             aria-label={t(dict.nav.openChatAria)}
             onClick={() => trackOpenChat("sticky")}
-            className={`inline-flex h-12 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-[#0b0817]/95 px-6 text-sm font-bold text-white  backdrop-blur-md ${
+            className={`inline-flex h-12 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-naru-surface/95 px-6 text-sm font-bold text-white  ${
               shown ? "pointer-events-auto" : "pointer-events-none"
             }`}
           >
@@ -662,7 +663,7 @@ function RouteMap({ t, onOpen }: { t: Tfn; onOpen: (n: number) => void }) {
               줄 높이를 건드리면 이 값도 같이 고쳐야 합니다. */}
           <span
             aria-hidden
-            className={`pointer-events-none absolute top-[1.625rem] h-px bg-gradient-to-r from-accent/40 via-white/15 to-accent/40 ${
+            className={`pointer-events-none absolute top-[1.625rem] h-px bg-white/20 ${
               rowIdx === 0
                 ? "left-[12.5%] right-[12.5%] sm:right-0"
                 : "left-[12.5%] right-[12.5%] sm:left-0"
@@ -814,16 +815,16 @@ function RouteMap({ t, onOpen }: { t: Tfn; onOpen: (n: number) => void }) {
                       />
                     )}
                     {anchor ? (
-                      <span className={`relative flex h-7 w-7 items-center justify-center rounded-full border border-accent/50 bg-accent/25 text-xs text-white shadow-[0_0_0_4px_rgba(10,6,20,0.85)] transition group-hover:bg-accent/40`}>
+                      <span className={`relative flex h-7 w-7 items-center justify-center rounded-full border border-accent/50 bg-accent/25 text-xs text-white shadow-[0_0_0_4px_rgb(var(--ui-ink)/0.9)] transition group-hover:bg-accent/40`}>
                         <span aria-hidden>★</span>
                       </span>
                     ) : spot ? (
                       // 필참보다 한 치수 작고 점보다 두 치수 큽니다. ★를 쓰지 않고
                       // 색도 rose가 아닌 violet인 것은 의도적입니다 - ★와 rose는
                       // 노선도에서 오직 "필참"만 뜻해야 하고, 이 날은 선택일입니다.
-                      <span aria-hidden className="relative h-4 w-4 rounded-full bg-accent shadow-[0_0_0_4px_rgba(10,6,20,0.85)]" />
+                      <span aria-hidden className="relative h-4 w-4 rounded-full bg-accent shadow-[0_0_0_4px_rgb(var(--ui-ink)/0.9)]" />
                     ) : (
-                      <span className="relative h-3 w-3 rounded-full border border-white/35 bg-[#0a0614] shadow-[0_0_0_4px_rgba(10,6,20,0.85)] transition group-hover:border-accent/70 group-hover:bg-white/[0.06]" />
+                      <span className="relative h-3 w-3 rounded-full border border-white/35 bg-naru-surface shadow-[0_0_0_4px_rgb(var(--ui-ink)/0.9)] transition group-hover:border-accent/70 group-hover:bg-white/[0.06]" />
                     )}
                   </span>
                   {/* 시간의 층이 정거장의 층을 이기는 유일한 자리입니다. 지나온
@@ -962,7 +963,7 @@ function BenefitCard({
               i > 1 && !open ? "hidden sm:flex" : "flex"
             }`}
           >
-            <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-white/50" />
+            {/* 2026-11-04 (site-tells A5): 줄 앞의 장식 점을 뺐습니다. */}
             {t(p)}
           </li>
         ))}
@@ -1475,7 +1476,7 @@ function DayModal({
           transition={{ duration: reduce ? 0 : 0.2 }}
         >
           {/* Backdrop - `touch-none` backs up the scroll lock (see EventModal). */}
-          <div aria-hidden onClick={onClose} className="absolute inset-0 cursor-default touch-none bg-black/70 backdrop-blur-sm" />
+          <div aria-hidden onClick={onClose} className="absolute inset-0 cursor-default touch-none bg-black/70" />
           <motion.div
             ref={dialogRef}
             role="dialog"
@@ -1488,9 +1489,9 @@ function DayModal({
             // dvh, NOT vh - iOS Safari에서 주소창이 펼쳐진 상태의 vh는 실제 보이는
             // 높이보다 커서 시트 위쪽(=닫기 버튼)이 화면 밖으로 밀려납니다.
             // 바텀시트 네 개가 같은 이유로 dvh입니다(RegisterModal 주석 참고).
-            className="relative z-10 flex max-h-[88dvh] w-full max-w-[720px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-[#0c0a18] shadow-2xl sm:rounded-3xl"
+            className="relative z-10 flex max-h-[88dvh] w-full max-w-[720px] flex-col overflow-hidden rounded-t-3xl border border-white/15 bg-naru-surface shadow-2xl sm:rounded-3xl"
           >
-            <span aria-hidden className="h-[2px] w-full shrink-0 bg-gradient-to-r from-accent to-accent-strong" />
+            <span aria-hidden className="h-[2px] w-full shrink-0 bg-accent" />
             <button
               ref={closeRef}
               type="button"
@@ -1880,8 +1881,9 @@ function AwardsBox({ t }: { t: Tfn }) {
 // mount client-side to pick a source, and a <video> mounted after hydration would
 // not start loading in Chrome at all (readyState stuck at 0) - which is the second
 // reason this is back to the plain server-rendered element.
+// DECIDED 2026-11-04 (사용자, site-tells 2장 안 1 "종이"): 크림 바탕에서는 어두운 히어로 영상(과 그 위 덮개)을 그리지 않습니다.
 const HERO_VIDEO = {
-  enabled: true,
+  enabled: false,
   webm: "",
   mp4: "/hero/metal-human.mp4",
   // DECIDED 2026-10-22 (Speed Insights: /2026-08 LCP p75 2.4초, LCP 요소가 이 포스터): JPG 111KB → WebP 66KB. 페이지가 미리 받습니다(app/2026-08/page.tsx).
@@ -2018,7 +2020,7 @@ function ScrollToTop() {
           // DECIDED 2026-10-23 (모바일 점검): 폰(sm 아래)에서는 두지 않습니다. 카드 본문, FAQ의 펼침 단추와 거의 모든 화면에서 겹쳤고, 홈과 /naru에는 없는 단추입니다.
           className={`${chromeHidden ? "max-lg:pointer-events-none max-lg:!opacity-0" : ""} group fixed bottom-[calc(env(safe-area-inset-bottom,0px)+5.25rem)] right-6 z-50 hidden h-11 w-11 items-center justify-center transition-opacity duration-200 sm:right-8 sm:flex lg:bottom-8 lg:h-12 lg:w-12`}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] text-white/65 backdrop-blur-sm transition group-hover:border-white/35 group-hover:text-white lg:h-12 lg:w-12 lg:border-white/15 lg:bg-naru-purple/85 lg:text-white lg:group-hover:border-accent/60 lg:group-hover:bg-naru-plum lg:group-hover:text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/[0.07] text-white/65 transition group-hover:border-white/35 group-hover:text-white lg:h-12 lg:w-12 lg:border-white/15 lg:bg-naru-surface lg:text-white lg:group-hover:border-accent/60 lg:group-hover:bg-naru-surface-2 lg:group-hover:text-white">
             {/* upward chevron */}
             <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 lg:h-5 lg:w-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 15l6-6 6 6" />
@@ -2172,7 +2174,8 @@ export default function Journey() {
                   box; with the tight leading the box cut off g/p descenders, so they
                   rendered transparent ("Singapore." looked clipped). The padding
                   extends the paint box below the baseline. */}
-              <span className="gradient-text gradient-text--zero100 block bg-gradient-to-r from-violet-300 via-fuchsia-300 to-cyan-300 bg-clip-text pb-[0.15em] text-transparent">
+              {/* DECIDED 2026-11-04 (site-tells 종이): "빌드의 무대"의 밝은 보라-시안 그라데이션은 크림 위에서 흐려 남색 단색으로. */}
+              <span className="block pb-[0.15em] text-naru-navy">
                 {t(dict.hero.titleLine2)}
               </span>
             </h1>
@@ -2389,7 +2392,7 @@ export default function Journey() {
           <ul className="mt-4 space-y-3">
             {dict.whoWhat.who.map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-sm leading-[1.65] text-white/75">
-                <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                {/* 2026-11-04 (site-tells A5): 줄 앞의 장식 점을 뺐습니다. */}
                 {t(item)}
               </li>
             ))}
@@ -2514,7 +2517,8 @@ export default function Journey() {
                 render={(st, i) => (
                   <div className="flex h-full w-full flex-col rounded-xl card-raised p-4">
                     <div className="flex items-center gap-2">
-                      <span aria-hidden className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-xs font-black text-accent">
+                      {/* 2026-11-04 (site-tells A5): 번호의 원 테두리와 면을 걷고 글자만. 순서라 번호는 남깁니다. */}
+                      <span aria-hidden className="shrink-0 text-xs font-black tabular-nums text-accent">
                         {i + 1}
                       </span>
                       <p className="text-sm font-bold leading-snug text-white">{t(st.title)}</p>
@@ -3092,7 +3096,7 @@ export default function Journey() {
                 className="group flex w-full flex-col items-start gap-1.5 border-b border-white/10 bg-white/[0.04] px-5 py-4 text-left transition hover:bg-white/[0.07] sm:flex-row sm:items-center sm:gap-4"
               >
                 <Image
-                  src="/partners/logos/axmos-wordmark-white.png"
+                  src="/partners/logos/paper/axmos-wordmark.png"
                   alt="AXMOS"
                   width={750}
                   height={200}
@@ -3275,15 +3279,7 @@ export default function Journey() {
 
       {/* ── CH 6 · FOOTER ──────────────────────────────────────────── */}
       <section id="closing" className="relative flex w-full flex-col px-6 pb-10 pt-0 sm:px-10">
-        {/* soft dark scrim so the closing CTA + credits stay readable over the field */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-[1]"
-          style={{
-            background:
-              "radial-gradient(60% 55% at 50% 45%, rgb(var(--ui-ink) / 0.82) 0%, rgb(var(--ui-ink) / 0.5) 42%, rgb(var(--ui-ink) / 0) 78%)",
-          }}
-        />
+        {/* 2026-11-05 (docs/merge-paper-brief.md 검증 5): 캔버스 위 글을 읽히게 하던 방사형 덮개를 뺐습니다. 종이 바탕에서는 크림 위 크림이라 보이지 않았습니다. */}
         {/* DECIDED 2026-10-25 (사용자: "저 버튼 두개 더 지워줘. 더 줄여줘"): 오픈채팅, 파트너십 문의 버튼과 그 아래 메일 주소 줄을 뺐습니다.
             오픈채팅은 헤더와 푸터에 있습니다. 이 화면에는 8월 크레딧만 남습니다. PartnerEmailFallback은 쓰지 않습니다. */}
         {/* 감사 문단은 2026-10-02부터 위 제목 자리에 있습니다(그 전에는 여기, CTA 아래 크레딧 위). */}

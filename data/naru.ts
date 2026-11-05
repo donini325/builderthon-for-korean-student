@@ -354,15 +354,15 @@ export const naruNav: { id: string; label: Phrase; railLines?: Phrase; ariaLabel
   // 4.6 남는 것, 6.1 함께하는 곳)대로 여섯. "일정"(#schedule, 1.4)은 "프로그램"(#december, 1.1)과 0.3화면 차이라 하나로 합쳤고(#schedule id는 둠),
   // 칸이 없던 "과정 지향적인 이벤트를 큐레이션합니다"(#curation)와 "함께하는 곳"(#partners)을 더했습니다.
   { id: "december", label: { ko: "프로그램", en: "Programme" } },
-  { id: "curation", label: { ko: "진행 방식", en: "Format" } },
-  // DECIDED 2026-10-24 (companies-block-brief 1.6, 같은 날 사용자 "너무 직접적임"으로 "기업에게"는 안 씀): 라벨만 "이슈".
-  // id는 그대로라 밖의 #mentoring 링크는 같은 자리에 착지합니다.
-  { id: "mentoring", label: { ko: "이슈", en: "Issues" } },
-  { id: "register", label: { ko: "등록", en: "Register" } },
+  // DECIDED 2026-11-04 (사용자, site-tells 목업): "진행 방식"(#curation)과 "이슈"(#mentoring)를 뺐습니다. 닷새 장이 한 판으로 줄었습니다.
+  // #mentoring id는 닷새 장의 미션 한 문장에 남아 밖의 링크가 같은 장에 착지합니다.
+  // DECIDED 2026-11-05 (사용자: 등록 블록을 뺌): "등록" 칸을 뺍니다. 등록 버튼은 히어로(id="register")에 있어 목차의 순서와 현위치가 어긋났습니다.
   // DECIDED 2026-10-22 (UX 점검, 사용자: "모든 것을 반영"): 영문 "Gains"는 "What you leave with"의 라벨로 어색했습니다. ariaLabel은 뺐습니다.
   // 보이는 글자("남는 것")와 읽히는 이름("오면 무엇이 남는가")이 달라 Lighthouse label-content-name-mismatch에 걸렸습니다.
   { id: "gains", label: { ko: "남는 것", en: "Takeaways" } },
   { id: "partners", label: { ko: "함께하는 곳", en: "Partners" } },
+  // DECIDED 2026-11-05 (사용자: "TOC를 다시 for 12월 page"): 페이지 순서대로 넷. 등록은 맨 끝 등록 줄(id="register")로 갑니다.
+  { id: "register", label: { ko: "등록", en: "Register" } },
 ];
 
 // DECIDED 2026-10-10 (구조 브리프 3.2): /naru의 목차 넷. id는 그 페이지의 섹션 id와 같아야 합니다
@@ -656,6 +656,25 @@ export const naru = {
       singapore: { ko: "SINGAPORE", en: "SINGAPORE" },
       seoul: { ko: "SEOUL", en: "SEOUL" },
     },
+    // DECIDED 2026-11-04 (사용자, site-tells 목업 "종이"): 히어로 오른쪽은 사진 한 장(8월 마지막 날, 세 명이 자기 슬라이드 앞에 선 장면).
+    // 같은 날 뒤(사용자): 이 한 장 대신 아래 photos 넷을 한 장씩 넘겨 보여 줍니다(NaruHome HeroPhotos single). 이 키는 그리지 않고 둡니다.
+    photo: {
+      src: "/record/day8-prove.webp",
+      width: 1600,
+      height: 1200,
+      day: { ko: "Day 8", en: "Day 8" },
+      alt: {
+        ko: "8월 마지막 날, 세 명으로 이루어진 팀이 자기 슬라이드 앞에 서서 발표하는 모습",
+        en: "The last day in August: a team of three presenting in front of their slide",
+      },
+    },
+    // DECIDED 2026-11-04 (site-tells 목업): 히어로 아래 숫자 넷 띠. 숫자는 brand 8장의 8월 실측만, 12월은 기간 하나.
+    facts: [
+      { v: { ko: "닷새", en: "5 days" }, l: { ko: "12월 17일부터 21일까지", en: "December 17 to 21" } },
+      { v: { ko: "74명", en: "74" }, l: { ko: "8월에 신청한 학생", en: "Students who applied in August" } },
+      { v: { ko: "21팀", en: "21 teams" }, l: { ko: "8월에 발표까지 간 팀", en: "Teams that presented on the last day in August" } },
+      { v: { ko: "14명", en: "14" }, l: { ko: "8월의 멘토", en: "Mentors in August" } },
+    ],
     // ── 히어로 사진 넷 (DECIDED 2026-09-17, 사용자) ─────────────────────────
     // "한국이랑 싱가폴 이미지 말고, 행사 이미지나 많이 보여주는 식으로." 오른쪽
     // 단의 형상 무대가 8월 행사 사진 넷으로 바뀌었습니다. 사람이 많이 나온 장면만.
@@ -1009,8 +1028,9 @@ export const naru = {
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C12, humanize-korean 우선): 그 전 문장은 git 9c77437.
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C25, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
           // DECIDED 2026-11-04 (docs/catchphrase-brief.md C4, 사용자: 이슈는 아직 손으로 하는 일이 있다는 것 자체, 빌더는 만들기 전에 왜부터 묻는다): 그 전 문장은 git e1bed3f.
-          ko: "어느 회사가 어떤 일을 왜 아직 손으로 하는지, 회사 이름과 함께 받습니다.",
-          en: "You get which task which company still does by hand, and why, with the company's name on it.",
+          // DECIDED 2026-11-05 (사이트 점검, brand 5장 같은 사실 두 번까지): "왜 아직 손으로"가 /crossing에 네 번이라 이 항목에서 뺍니다. 그 전 문장은 git 69c46b6.
+          ko: "어느 회사의 어떤 일인지, 회사 이름과 함께 받습니다.",
+          en: "You get which company's task it is, with the company's name on it.",
         },
         evidence: { ko: "8월 코드프레소 출제", en: "August: Codepresso set the problem" },
       },
@@ -1790,14 +1810,11 @@ export const naru = {
           // DECIDED 2026-10-26 (사용자, 스크린숏: "이거 어색해"): brand 4장 대상별 한 문장에 맞춤. 그 전: "한인 학생과 만나는 자리가 생기고, 회차의 기록에 이름이 남습니다."
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md H4, humanize-korean 우선): 그 전 문장은 git 9c77437.
           // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T1, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
-          ko: "한국과 싱가포르 두 곳의 학교에서 온 학생들이 한 이슈에 내는 서로 다른 시도 여럿을 닷새 안에 보고, 회차의 기록에 회사 이름이 적힙니다.",
-          en: "You watch students from schools in Korea and Singapore make several different attempts at one issue within five days, and the company's name is written into the record of that edition.",
+          // DECIDED 2026-11-05 (사용자, 스크린숏: "다른 상자들에 비해서 너무 큼. 내용을 줄여주고, 상자의 크기를 맞추어줘"): brand 4장 기업 한 문장의 앞 절만. 그 전 문장은 git 119a485.
+          ko: "두 곳의 학교에서 온 학생들이 한 이슈에 내는 서로 다른 시도를 닷새 안에 봅니다.",
+          en: "You see students from two places try different takes on one issue within five days.",
         },
-        // DECIDED 2026-10-24 (사용자, 같은 문서 N1): "이름이 남는다"의 증거는 8월 파트너 표입니다. 후원 상자에서만 가리킵니다.
-        proof: {
-          label: { ko: "8월에 함께한 곳은 역할과 함께 기록에 남아 있습니다", en: "August's partners are on the record with their roles" },
-          href: "/2026-08#builders",
-        },
+        // 2026-11-05 (같은 사용자 요청): 상자 크기를 맞추려 증거 링크(8월 파트너 표, 2026-10-24 N1)를 뺐습니다. "이름이 남는다" 절도 같이 빠졌습니다.
         join: { id: "join-company", label: { ko: "기업으로 문의하기", en: "As a company" }, mail: naruLinks.sponsor },
       },
     ] as Layer[],
@@ -2123,6 +2140,11 @@ export const naru = {
       },
     ] as { k: Phrase; v: Phrase }[],
     scheduleLabel: { ko: "일정", en: "Schedule" },
+    // DECIDED 2026-11-04 (site-tells 3장 C1): 닷새 장의 미션과 멘토링을 한 문장으로. 규칙 전부는 /crossing/team(data/crossingTeam.ts rulesLine).
+    rulesShort: {
+      ko: "Day 2와 Day 3에는 팀이 함께 멘토를 찾아가고 그날의 진척을 공유합니다. 멘토링 예약과 규칙은 시간표에 있습니다.",
+      en: "On Day 2 and Day 3, each team visits a mentor together and shares the day's progress. Booking and the rules are on the timetable.",
+    },
     // TODO: confirm (프로그램 브리프 2.6, D4 보류): 한 팀에 문제를 정의하는 사람과 실행하는 사람을 섞는 편성을 검토 중입니다.
     // 편성 기준이 정해지기 전에는 화면에 약속하지 않습니다. /match의 역할 결과(roleKey)가 그 재료입니다.
     scheduleLead: {
@@ -2179,6 +2201,10 @@ export const naru = {
     // DECIDED 2026-10-17 (사용자): 미션 띠를 펼치면 서는 두 목록의 라벨.
     milestoneConditionsLabel: { ko: "인정 조건 (전부 충족)", en: "To complete it (all of these)" },
     milestoneSubmitLabel: { ko: "제출 방법", en: "How to submit" },
+    // DECIDED 2026-11-05 (사이트 점검, UX): /crossing Day 카드에서 빠진 멘토링 정보 둘. 문장은 brand 7장과 data/crossingTeam.ts에서 가져옵니다.
+    visitLabel: { ko: "멘토 찾아가기", en: "Visiting a mentor" },
+    visitItem: { ko: "멘토가 계신 곳(오피스, 카페, 온라인)으로 팀이 함께 찾아갑니다.", en: "The team goes together to where the mentor is (an office, a café, or online)." },
+    timetableNote: { ko: "Day 1(12.18) 12:00에 열립니다. 칸은 노트북에서 넣습니다.", en: "Opens Day 1 (Dec 18) at 12:00. Book slots from a laptop." },
     // DECIDED 2026-10-13 (사용자: "1일차 박스가 너무 비어있음"): 미션이 없는 Day 1 카드의 바닥 띠 라벨. 띠의 제목은 그날의 submit입니다.
     carryLabel: { ko: "Day 2에 들고 갈 것", en: "To bring on Day 2" },
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
@@ -2202,7 +2228,8 @@ export const naru = {
     },
     // 일정표 행의 마일스톤 줄 끝에 붙는 말(2026-10-10). 누가 받는지를 날마다 한 번씩 말합니다.
     milestoneNote: { ko: "해낸 팀 모두 지원", en: "Support for every team that completes it" },
-    dayLabel: { ko: "DAY", en: "DAY" },
+    // DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A2): 대문자 "DAY"를 "Day"로. brand 7장의 표기와 같습니다.
+    dayLabel: { ko: "Day", en: "Day" },
     beforeLabel: { ko: "BEFORE", en: "BEFORE" },
     flowLabel: { ko: "참여 플로우", en: "How it flows" },
     flow: [
@@ -2599,6 +2626,8 @@ export const naru = {
         title: { ko: "컨텍스트 열기", en: "Context Open" },
         when: { ko: "Day 0", en: "Day 0" },
         dayOffset: 0,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "기업이 아직 손으로 하는 일 하나를 들려줍니다.", en: "A company shares one task it still does by hand." },
         body: {
           // 2026-10-08 (사용자 승인, 문장 감사 A1): 10월 7일의 "이슈에서 출발" 결정이 이 본문에 닿지 않았습니다. 바로 아래 칩은 "이슈 공개"였습니다.
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C3, humanize-korean 우선): 그 전 문장은 git 9c77437.
@@ -2630,6 +2659,8 @@ export const naru = {
         title: { ko: "찾기", en: "Find" },
         when: { ko: "Day 1", en: "Day 1" },
         dayOffset: 1,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "팀을 맺고 그 일 안의 병목 하나를 고릅니다.", en: "Teams form and pick one bottleneck inside that task." },
         // DECIDED 2026-10-26 (사용자: "GSC 를 1일차에 빼줘"): Day 1 정거장 위의 GSC 로고를 뺐습니다. 홈 "함께하는 곳"의 장소 줄은 그대로.
         // 그 전(2026-10-19): Day 1 GSC, Day 4 MARU180 로고. Day 4 로고는 남습니다.
         // DECIDED 2026-11-04 (사용자: "1일차에 Fastfive 로고 넣어주고, 4일차에는 MARU 넣어줘"): Day 1 장소 Fastfive. 흰색 단색(scripts/process-partner-logos.py).
@@ -2694,6 +2725,8 @@ export const naru = {
         title: { ko: "확인받기", en: "Check" },
         when: { ko: "Day 2", en: "Day 2" },
         dayOffset: 2,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "일을 해 본 사람의 감각으로 멘토에게 확인받습니다.", en: "Mentors check it with the sense of people who have done the work." },
         body: {
           // 2026-10-17: 위 line과 같은 이유로 첫 문장을 바꿨습니다(이 body는 지금 홈에 그려지지 않습니다).
           // DECIDED 2026-10-20 (hwang 브리프 1.2): 세 문장을 두 문장으로.
@@ -2759,6 +2792,8 @@ export const naru = {
         title: { ko: "만들기", en: "Build" },
         when: { ko: "Day 3", en: "Day 3" },
         dayOffset: 3,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        short: { ko: "그 병목만 푸는 작은 툴을 만들어 멘토에게 여쭙니다.", en: "Teams build a small tool for that bottleneck and ask a mentor." },
         body: {
           // DECIDED 2026-10-23 (사용자): 둘째 문장 "리허설을 팀끼리 서로 보여 주고 의견을 주고받습니다."를 뺐습니다. 아래 세션(Open tables)이
           // 같은 말을 하고, 그 미션은 2026-10-17에 멘토 찾아가기와 진척 공유로 바뀌었습니다.
@@ -2834,6 +2869,9 @@ export const naru = {
         title: { ko: "공유하기", en: "Share" },
         when: { ko: "Day 4", en: "Day 4" },
         dayOffset: 4,
+        // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
+        // 2026-11-05 (사이트 점검, brand 5장): "그 기업 앞에서"가 /crossing에 세 번이라 이 칸은 성과 공유회로 씁니다.
+        short: { ko: "성과 공유회에서 발표하고 질문을 받습니다.", en: "Teams present at the showcase and take questions." },
         // DECIDED 2026-10-26 (사용자: "4일차에 maru180 도 빼줘, 저기 하루만 있으니까 이상하네"): Day 4 정거장 위의 MARU180 로고를 뺐습니다.
         // 같은 날 Day 1 GSC를 뺀 뒤 로고가 한 정거장에만 남았습니다. 노선도에 로고가 하나도 없으면 RouteMap이 로고 줄을 그리지 않습니다.
         // 홈 "함께하는 곳"의 장소 줄의 MARU180은 그대로. 그 전(2026-10-19): Day 1 GSC, Day 4 MARU180 로고.
@@ -2882,6 +2920,7 @@ export const naru = {
     ] as {
       name: Phrase;
       title: Phrase;
+      short: Phrase;
       when: Phrase;
       dayOffset: number;
       /** 노선도 정거장 위의 로고(2026-10-19). 흰색 단색 PNG. name은 스크린리더가 읽습니다. */
@@ -3405,7 +3444,7 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
     },
     {
       label: { ko: "기술, 크레딧", en: "Tech and credits" },
-      logos: [{ name: "Lovable", src: "/partners/logos/color/lovable.png", w: 644, h: 110, url: "https://lovable.dev/" }],
+      logos: [{ name: "Lovable", src: "/partners/logos/paper/lovable.png", w: 644, h: 110, url: "https://lovable.dev/" }],
       // DECIDED 2026-10-27 (사용자: "'Day 1에 Lovable 현장 워크숍을 진행합니다.' 이거 빼줘"): 로고 띠 아래 한 줄을 뺐습니다. 일정 카드 Day 1의 세션은 그대로입니다.
     },
     // DECIDED 2026-11-03 (사용자: "Readray 와도 확정", "lovable 과 같이 묶이면 안되서, 수상 상품으로 크레딧 지원임. 따로 빼야함"): 시상에 쓰는 크레딧이라
@@ -3413,7 +3452,7 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
     // 어두운 바탕에서 읽히게 워드마크(#1C1E15)만 흰색으로 바꿨습니다. 라임 원과 눈은 원래 색입니다(밝은 판 없이). 옛 이름은 LilysAI(lilys.ai가 readray.ai로 넘어감).
     {
       label: { ko: "시상 크레딧", en: "Award credits" },
-      logos: [{ name: "Readray", src: "/partners/logos/color/readray.png", w: 1983, h: 377, url: "https://readray.ai" }],
+      logos: [{ name: "Readray", src: "/partners/logos/paper/readray.png", w: 1983, h: 377, url: "https://readray.ai" }],
     },
     // DECIDED 2026-10-31 (사용자: 10/29 워크숍 인트로 미팅과 10/30 회신 메일, "이분이 있는 business를 넣어줘야함"): Day 1 Lovable 워크숍을 맡은 회사.
     // 회신 메일에서 법인 명칭을 함께 표기해 달라고 했습니다. 정식 이름은 Carraway & Gatsby Corporation이고, 회사 사이트(cgcorp.io)의 제목이
@@ -3421,16 +3460,17 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
     // 원본은 CI/CGC (러버블 워크샵).jpeg(흰 바탕 남색). 바탕을 걷고 남색은 흰색으로, 파란 점은 밝은 파랑으로 올렸습니다(밝은 판 없이).
     {
       label: { ko: "Lovable 워크숍", en: "Lovable workshop" },
-      logos: [{ name: "Carraway & Gatsby Corporation", src: "/partners/logos/color/cgc.png", w: 833, h: 232, url: "https://cgcorp.io" }],
+      logos: [{ name: "Carraway & Gatsby Corporation", src: "/partners/logos/paper/cgc.png", w: 833, h: 232, url: "https://cgcorp.io" }],
     },
     {
       label: { ko: "커뮤니티, 홍보", en: "Community and PR" },
       logos: [
         // DECIDED 2026-10-23 (사용자: "블룸 다른 로고 쓰면 좋을거 같은데"): 꽃 캐릭터 + 세리프 워드마크(color/bloom.png)에서 블록 글자 마크로.
         // 원본은 CI/bloom.jpg(검정 바탕 공유 이미지)이고, 마크만 잘라 검정 바탕을 투명하게 걷었습니다. 흰 글자와 분홍 칸은 원래 색입니다.
-        { name: "Bloom", src: "/partners/logos/color/bloom-block.png", w: 575, h: 286, url: "https://bloomworld.ai/" },
+        { name: "Bloom", src: "/partners/logos/paper/bloom-block.png", w: 575, h: 286, url: "https://bloomworld.ai/" },
         // DECIDED 2026-10-21 (사용자: "노란색 살려줘"): 이 로고만 흰색 단색이 아니라 원래 색입니다. 바깥 흰 바탕만 투명하게 지웠습니다
         // (public/partners/logos/color/, 모서리에서 flood fill). 노란 면이라 어두운 바탕 위에서도 밝은 판 없이 보입니다.
+        // 2026-11-05 (사용자: "크라이치즈버거 로고 너무 이상함"): 종이용 사본(눈과 테두리까지 잉크)을 걷고 원본. 노란 얼굴과 검은 선이라 크림 위에서도 그대로 읽힙니다.
         { name: "크라이치즈버거 Cry Cheese Burger", src: "/partners/logos/color/crycheeseburger.png", w: 459, h: 378, square: true, url: "https://www.crycheeseburger.com/" },
       ],
     },

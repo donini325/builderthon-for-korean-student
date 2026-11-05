@@ -21,8 +21,8 @@ export const teamCopy = {
   carry: { ko: "우리 팀이 올린 파일은 칸을 넣은 멘토가 각자의 멘토 링크에서 열어 볼 수 있습니다.", en: "The mentors you book can open the files your team uploaded from their own mentor link." },
   notYet: { ko: "아직 열리지 않았습니다. Day 1(12.18) 12:00부터 넣을 수 있습니다.", en: "Not open yet. You can add slots from Day 1 (Dec 18) at 12:00." },
   day1BookHint: { ko: "Day 2, 3 멘토 칸은 Day 1(12.18) 12:00부터 Day 2, Day 3 탭에서 넣습니다.", en: "From Day 1 (Dec 18) at 12:00, add your Day 2 and 3 mentor slots in the Day 2 and Day 3 tabs." },
-  // 2026-10-18 (사용자: "트랙에 따라서 슬롯 색깔이 달라졌으면"). 우리 팀 칸은 흰 테두리로 가립니다.
-  trackLegend: { ko: "칸의 색은 그 팀의 트랙입니다. 흰 테두리는 우리 팀입니다.", en: "Each slot takes its team's track colour. A white outline marks your team." },
+  // 2026-10-18 (사용자: "트랙에 따라서 슬롯 색깔이 달라졌으면"). 2026-11-05 (docs/merge-paper-brief.md T2): 종이에서 우리 팀 칸은 남색 테두리.
+  trackLegend: { ko: "칸의 색은 그 팀의 트랙입니다. 남색 테두리는 우리 팀입니다.", en: "Each slot takes its team's track colour. A navy outline marks your team." },
   time: { ko: "시간", en: "Time" },
   gap: { ko: "쉬는 10분", en: "10-minute gap" },
   past: { ko: "지남", en: "Past" },
@@ -76,6 +76,7 @@ export const teamCopy = {
   // 같은 날 이어서(사용자: "잘못 업로드 하면 운영진에게 알려달라"): 운영진이 crossing_mission_proofs의 그 행을 지우면 다시 올릴 수 있습니다.
   proofOnce: { ko: "사진과 PDF는 날마다 한 번씩만 올릴 수 있고, 올린 뒤에는 바꿀 수 없습니다. 그날이 끝나기 전에 확인하고 올려 주세요. 잘못 올렸다면 운영진에게 알려 주세요.", en: "You can upload each photo and PDF once a day, and it cannot be changed afterwards. Check it carefully before the day ends. If you uploaded the wrong file, tell the organisers." },
   proofConfirm: { ko: "이 파일로 올리기", en: "Upload this file" },
+  proofTeamCheck: { ko: "{team} 팀으로 올립니다. 올린 뒤에는 바꿀 수 없습니다.", en: "Uploading as team {team}. You cannot change it afterwards." },
   proofCancel: { ko: "다시 고르기", en: "Choose again" },
   proofLocked: { ko: "제출한 파일은 이 페이지에서 보이지 않고 바꿀 수 없습니다. 칸을 넣은 멘토만 열어 봅니다. 잘못 올렸다면 운영진에게 알려 주세요.", en: "A submitted file is not shown here and cannot be changed. Only the mentors you book can open it. If it was the wrong file, tell the organisers." },
   proofAlready: { ko: "이 날은 이미 제출했습니다. 바꿔야 하면 운영진에게 알려 주세요.", en: "Already submitted for this day. Tell the organisers if it needs to change." },

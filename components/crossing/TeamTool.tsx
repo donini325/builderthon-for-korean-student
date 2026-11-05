@@ -25,7 +25,8 @@ import {
 const TEAM_KEY = "crossing-team";
 // 2026-10-26 (사용자: "색깔이 좀 더 다채로우면 좋을거 같기는 함 for the teams"): 팀 칸의 트랙 색을 더 진하게.
 // 그 전 22%(38) 한 겹. 이제 왼쪽 위 45%에서 오른쪽 아래 25%로(brand 10장 그라데이션 방향), 왼쪽 띠 4px. 색은 그대로 트랙 네 색입니다.
-const SLOT_ALPHA = "73", SLOT_ALPHA_END = "40";
+// 2026-11-05 (종이): 칸은 그라데이션 대신 트랙 색 12% 단색, 왼쪽 띠 4px. "우리 팀"은 남색 2px 테두리.
+const SLOT_ALPHA = "1F", SLOT_ALPHA_END = "1F";
 const MIN = 60_000;
 type Bk = { id: string; team: string; track: string; startsAt: string; endsAt: string };
 type Mentor = { id: string; name: string; field: string | null; windows: Window[]; bookings: Bk[] };
@@ -119,7 +120,7 @@ export default function TeamTool() {
             // 띠와 흰 테두리를 한 그림자에 둡니다(Tailwind ring도 그림자라 따로 쓰면 하나가 지워짐).
             // DECIDED 2026-10-21 (시각 통일): 예약 높이는 걸친 45px 시간표 줄 수입니다.
             className="rounded-md"
-            style={{ minHeight: `${span.length * 45}px`, background: `linear-gradient(135deg, ${tint}${SLOT_ALPHA}, ${tint}${SLOT_ALPHA_END})`, boxShadow: `inset 4px 0 0 ${tint}${ours ? ", inset 0 0 0 2px rgba(255,255,255,0.9)" : ""}` }}>
+            style={{ minHeight: `${span.length * 45}px`, background: `${tint}${SLOT_ALPHA}`, boxShadow: `inset 4px 0 0 ${tint}${ours ? ", inset 0 0 0 2px #12246B" : ""}` }}>
             {/* 한 번 넣은 칸은 바꾸지 못합니다(2026-10-17). 우리 팀 칸도 이름만 보입니다. */}
             <span className={`block truncate py-1.5 pl-2.5 pr-1 ${META} font-bold ${ours ? "text-white" : "text-white/85"}`}>{b.team}</span>
             <span className={`block pb-1.5 pl-2.5 ${META} tabular-nums text-white/70`}>{fmtKst(s)}~{fmtKst(e)}</span>
@@ -131,10 +132,10 @@ export default function TeamTool() {
       const s = Date.parse(x.startsAt), e = Date.parse(x.endsAt);
       return (r >= s - BUFFER_MINUTES * MIN && r < s) || (r >= e && r < e + BUFFER_MINUTES * MIN);
     });
-    if (gap) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.06)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/70`}>{t(c.gap)}</td>;
+    if (gap) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(20,20,24,0.07)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/70`}>{t(c.gap)}</td>;
     // 2026-10-26 (사용자: 지난 칸이 막힌 것이 보이게, 넣은 팀의 칸은 그대로 남게): 시작 시각이 지난 빈칸은 빗금과 "지남"입니다.
     // 쉬는 10분과 같은 빗금이되 더 흐립니다. 팀이 넣은 칸은 위에서 먼저 그려져 시간이 지나도 그대로 남습니다.
-    if (r < Date.now()) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.035)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/40`}>{t(c.past)}</td>;
+    if (r < Date.now()) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(20,20,24,0.045)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/55`}>{t(c.past)}</td>;
     const free = fitsWindow(r, m.windows) && slotState(r, m.bookings, []) === "open";
     const full = teamPending; // 2026-11-03: 넣은 칸이 끝나기 전에는 다음 칸을 열지 않습니다(이틀 통틀어)
     // 2026-10-26: Day 1 12:00 전에는 닫혀 있습니다(bookingGate). 닫힌 칸도 흐린 "+"로 보입니다.
@@ -187,7 +188,7 @@ export default function TeamTool() {
             <div role="tablist" aria-label="Day" className="card-sunken inline-flex w-full rounded-full p-1 sm:w-auto">
               {PROOF_DAYS.map((d) => (
                 <button key={d} role="tab" aria-selected={day === d} type="button" onClick={() => setDay(d)}
-                  className={`min-h-[40px] flex-1 rounded-full px-4 ${BODY} font-semibold transition-colors duration-150 sm:flex-none ${day === d ? "bg-naru-surface-2 text-white shadow-[0_1px_2px_rgb(0_0_0/0.4)]" : "text-naru-muted hover:text-white"}`}>
+                  className={`min-h-[44px] flex-1 rounded-full px-4 ${BODY} font-semibold transition-colors duration-150 sm:flex-none ${day === d ? "bg-naru-surface-2 text-white shadow-[0_1px_2px_rgb(0_0_0/0.4)]" : "text-naru-muted hover:text-white"}`}>
                   <span className={day === d ? "text-accent" : ""}>{t(c.dayTab)} {d}</span> <span className={`${META} font-normal text-naru-muted`}>{dayLabel(d)}</span>
                 </button>
               ))}
@@ -421,6 +422,8 @@ function Proofs({ team, day, phone }: { team: string; day: ProofDay; phone: bool
                 <span className={`block ${META} tabular-nums text-naru-muted`}>{mb(f.blob.size)}</span>
               </span>
             </div>
+            {/* 2026-11-05 (사이트 점검, UX): 올린 뒤에는 바꿀 수 없어, 어느 팀으로 올리는지 버튼 바로 위에 한 줄. */}
+            <p className={`${META} font-semibold text-white`}>{t(c.proofTeamCheck).replace("{team}", team)}</p>
             <div className="flex flex-wrap gap-[8px]">
               <button type="button" disabled={off} onClick={() => void upload(kind)} className={`${buttonClass("primary", "naru")} justify-center ${off ? "opacity-50" : ""}`}>
                 {up ? t(c.proofUploading) : t(c.proofConfirm)}
@@ -440,9 +443,10 @@ function Proofs({ team, day, phone }: { team: string; day: ProofDay; phone: bool
           </label>
         ) : (
           // 노트북: 상자 전체가 끌어다 놓는 자리. 안의 버튼으로 고를 수도 있습니다.
-          <div {...drop} className={`flex flex-1 flex-col items-center justify-center gap-[8px] rounded-xl border border-dashed px-[16px] py-[22px] text-center transition-colors duration-150 ${dragOver === kind ? "border-accent bg-accent/10" : "card-sunken border-white/15"} ${off ? "opacity-50" : ""}`}>
-            <span aria-hidden className={dragOver === kind ? "text-accent" : "text-naru-muted"}><RuleIcon name="upload" size={24} /></span>
-            <span className={`flex flex-wrap items-center justify-center gap-[8px] ${META} text-naru-text`}>
+          <div {...drop} className={`flex flex-1 flex-col items-center justify-center gap-[8px] rounded-xl border border-dashed px-[16px] py-[22px] text-center transition-colors duration-150 ${dragOver === kind ? "border-accent bg-accent/10" : "card-sunken border-white/15"}`}>
+            {/* 2026-11-05 (사이트 점검, 접근성 1.4.3): 팀을 고르기 전에는 고르기 줄만 흐리고, 형식과 용량 안내(아래 limit)는 그대로 읽히게 둡니다. */}
+            <span aria-hidden className={`${dragOver === kind ? "text-accent" : "text-naru-muted"} ${off ? "opacity-50" : ""}`}><RuleIcon name="upload" size={24} /></span>
+            <span className={`flex flex-wrap items-center justify-center gap-[8px] ${META} text-naru-text ${off ? "opacity-50" : ""}`}>
               {dragOver === kind ? t(c.proofDropActive) : (
                 <>
                   {t(c.proofDrop)}

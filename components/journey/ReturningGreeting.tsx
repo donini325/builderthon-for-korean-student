@@ -96,7 +96,7 @@ export default function ReturningGreeting({ compact = false }: { compact?: boole
     >
       <a
         href={`/quiz?r=${own.resultId}`}
-        className="group inline-flex items-center gap-2.5 rounded-full border border-violet-400/30 bg-violet-400/10 py-2 pl-2.5 pr-4 text-left backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-violet-400/50 hover:bg-violet-400/15"
+        className="group inline-flex items-center gap-2.5 rounded-full border border-violet-400/30 bg-violet-400/10 py-2 pl-2.5 pr-4 text-left transition hover:-translate-y-0.5 hover:border-violet-400/50 hover:bg-violet-400/15"
       >
         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06]">
           <GreetingGlyph logo={data.logo} emoji={data.emoji} model={data.model} />

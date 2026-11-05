@@ -18,9 +18,10 @@ const PRIMARY: Record<ButtonTone, string> = {
   // 8월 페이지의 크기와 들림 동작은 유지합니다.
   zero100:
     "group inline-flex items-center gap-2 rounded-full bg-action hover:bg-action-hover px-5 py-2 text-sm font-bold text-naru-ink transition hover:-translate-y-0.5 sm:px-6 sm:py-2.5 sm:text-base",
-  // 2026-10-26: 나루 주요 버튼은 7:3 블루 그라데이션(globals.css .bg-accent-gradient, #4F68F5 → #3550DC)에 흰 글자, 호버 shimmer. 8월 버튼(zero100)은 뉴트럴 밝은 면.
+  // 2026-10-26: 나루 주요 버튼은 블루 면에 흰 글자. 8월 버튼(zero100)은 뉴트럴 밝은 면.
+  // DECIDED 2026-11-04 (site-tells A4): 7:3 그라데이션과 호버 shimmer를 걷고 #4F68F5 단색(globals.css .bg-cta).
   naru:
-    "group inline-flex min-h-[44px] items-center justify-center gap-2 cta-shimmer rounded-full bg-accent-gradient hover:brightness-110 px-5 py-2 sm:min-h-10 text-center text-sm font-bold leading-snug text-[#fff] transition-[background-color,transform] duration-150 active:scale-[0.98] max-sm:w-full sm:px-6 sm:text-base",
+    "group inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-cta hover:brightness-110 px-5 py-2 sm:min-h-10 text-center text-sm font-bold leading-snug text-[#fff] transition-[background-color,transform] duration-150 active:scale-[0.98] max-sm:w-full sm:px-6 sm:text-base",
 };
 
 // Journey.tsx 히어로 보조 CTA의 문자열 그대로. 톤이 없습니다(무채색).

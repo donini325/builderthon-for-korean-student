@@ -56,6 +56,8 @@ export default function Chapter({
     : align === "right" ? "lg:ml-auto lg:max-w-[58%]"
     : "mx-auto";
 
+  // DECIDED 2026-11-04 (사용자, 종이 미리 보기: "background만 바뀌니까 다 안 보임"): 장이 화면 높이를 채우던 md:min-h-screen을 뺍니다.
+  // 그 높이는 뒤의 WebGL 배경이 지나가는 무대였고, 배경을 끈 크림 바탕에서는 빈 공간으로만 남았습니다. 높이는 내용이 정합니다.
   return (
     <section
       id={id}
@@ -66,7 +68,7 @@ export default function Chapter({
       // full height at every breakpoint when a footer exists (min-h-screen →
       // 100dvh via globals.css, correct on iOS). Otherwise keep the collaborator's
       // mobile auto-height (content-sized on phones, full-height from md up).
-      className={`relative flex w-full flex-col justify-center py-14 sm:py-20 lg:py-24 ${contentSized ? "naru-content-chapter" : ""} ${footer ? "min-h-screen" : "min-h-[auto] md:min-h-screen"} ${wide ? "" : "px-6 sm:px-12 lg:px-16"} ${background ? "isolate" : ""} ${className}`}
+      className={`relative flex w-full flex-col justify-center py-14 sm:py-20 lg:py-24 ${contentSized ? "naru-content-chapter" : ""} ${footer ? "min-h-screen" : "min-h-[auto]"} ${wide ? "" : "px-6 sm:px-12 lg:px-16"} ${background ? "isolate" : ""} ${className}`}
     >
       {background}
       {/* centered content rail - the real boundary (z-10 keeps it above any

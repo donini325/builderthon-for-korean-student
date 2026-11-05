@@ -42,6 +42,7 @@ function Both({ phrase }: { phrase: { ko: string; en: string } }) {
   );
 }
 
+// 2026-11-05 (사이트 점검, 종이): 시작 화면 껍데기의 보라-시안 그라데이션과 보라 알약을 종이 값으로. Quiz 본체와 같은 나루 스킨.
 export default function QuizIntroShell() {
   return (
     <main id="main" tabIndex={-1} className="relative min-h-screen overflow-hidden bg-naru-ink text-white focus:outline-none">
@@ -49,11 +50,11 @@ export default function QuizIntroShell() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-2xl flex-col px-6 pb-12">
         <div className="h-20 shrink-0" />
         <div className="flex flex-1 flex-col items-center justify-center text-center">
-          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-violet-200">
+          <span className="mb-5 inline-flex items-center gap-2 text-[0.8125rem] font-semibold text-accent">
             ✦ <Both phrase={quizUI.eyebrow} />
           </span>
           <h1 className="text-[2.6rem] font-black leading-[1.05] tracking-tight sm:text-[3rem]">
-            <span className="gradient-text gradient-text--zero100 bg-gradient-to-r from-violet-300 via-fuchsia-300 to-cyan-300 bg-clip-text pb-[0.12em] text-transparent">
+            <span className="pb-[0.12em] text-naru-navy">
               <Both phrase={quizUI.title} />
             </span>
           </h1>
@@ -76,7 +77,7 @@ export default function QuizIntroShell() {
               isn't is worse than one that reads as still loading. */}
           <div
             aria-hidden
-            className="mt-10 flex min-h-[56px] w-full max-w-sm items-center justify-center rounded-full bg-gradient-to-r from-violet-600/60 to-indigo-600/60 px-9 py-4 text-base font-bold text-white/70 shadow-[0_8px_40px_rgba(124,58,237,0.35)] sm:w-auto"
+            className="mt-10 flex min-h-[56px] w-full max-w-sm items-center justify-center rounded-full bg-cta/70 px-9 py-4 text-base font-bold text-[#fff] sm:w-auto"
           >
             <Both phrase={quizUI.start} />
           </div>

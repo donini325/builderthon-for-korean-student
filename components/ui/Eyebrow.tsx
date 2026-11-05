@@ -17,6 +17,7 @@
 // 통과하지만(2026-09-15 재측정, 이전 주석의 5.9:1은 틀린 값이었습니다)
 // 여유가 크고 주황을 점으로 아끼는 규칙과도 맞아 틴트를 씁니다.
 // ─────────────────────────────────────────────────────────────────────────────
+// 2026-11-05 (사이트 점검: 루트 16px에서 text-xs는 12px로 META 하한 13px 아래, 한 화면 다섯째 크기): text-xs → META(0.8125rem).
 export function AugustEyebrow({ children, color = "violet", className = "" }: { children: React.ReactNode; color?: "violet" | "cyan" | "emerald" | "purple" | "plum" | "orange"; className?: string }) {
   const map = {
     // ── 8월 회차 전용. Journey.tsx만 부릅니다 ────────────────────────────
@@ -46,7 +47,7 @@ export function AugustEyebrow({ children, color = "violet", className = "" }: { 
   return (
     // DECIDED 2026-10-22 (사용자: 10/19 피드백을 8월 페이지에도): 홈의 Eyebrow와 같은 모양입니다. 알약, 대문자, 넓은 자간, 면을 걷고
     // 글자색 하나만 남깁니다(hwang 감사 W1, W4). 8월의 cyan, emerald는 무채색으로, violet은 accent로 모았습니다.
-    <span className={`mb-4 inline-flex items-center gap-2 text-xs font-bold ${AUG_TEXT[color]} ${className}`}>
+    <span className={`mb-4 inline-flex items-center gap-2 text-[0.8125rem] font-bold ${AUG_TEXT[color]} ${className}`}>
       {children}
     </span>
   );
@@ -64,5 +65,5 @@ const EYEBROW_TEXT = {
   orange: "text-[#F2B183]",
 } as const;
 export default function Eyebrow({ children, color = "purple", className = "" }: { children: React.ReactNode; color?: keyof typeof EYEBROW_TEXT; className?: string }) {
-  return <span className={`mb-4 inline-flex items-center gap-2 text-xs font-bold ${EYEBROW_TEXT[color]} ${className}`}>{children}</span>;
+  return <span className={`mb-4 inline-flex items-center gap-2 text-[0.8125rem] font-bold ${EYEBROW_TEXT[color]} ${className}`}>{children}</span>;
 }

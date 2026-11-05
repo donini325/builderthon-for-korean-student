@@ -173,7 +173,8 @@ export default function Quiz({ edition = "2026-08", matchMode = false }: { editi
   // 판마다 질문의 글이 다를 수 있습니다(12월판). 극과 가중치와 순서는 QUESTIONS와 같아서 채점은 그대로입니다.
   const questions = ed.questions ?? QUESTIONS;
   // 판의 옷(data/quizEditions.ts의 tone). c(8월 클래스, 나루 클래스)로 고릅니다. 8월판의 문자열은 한 글자도 바뀌지 않습니다.
-  const naru = ed.tone === "naru";
+  // DECIDED 2026-11-05 (사이트 점검, 종이): 8월판(zero100)의 어두운 스킨이 크림 위에서 읽히지 않아 두 판 모두 나루 스킨을 씁니다. 글과 문항은 판마다 그대로.
+  const naru = true || ed.tone === "naru";
   const c = (z: string, n: string) => (naru ? n : z);
   const { t } = useLocale();
   const reduce = useReducedMotion();
@@ -576,7 +577,8 @@ function Landing({
   /** 결과가 이미 있으면 시작 버튼이 테스트를 다시 하지 않고 결과로 돌아갑니다. */
   onResume?: () => void;
 }) {
-  const naru = ed.tone === "naru";
+  // DECIDED 2026-11-05 (사이트 점검, 종이): 8월판(zero100)의 어두운 스킨이 크림 위에서 읽히지 않아 두 판 모두 나루 스킨을 씁니다. 글과 문항은 판마다 그대로.
+  const naru = true || ed.tone === "naru";
   const c = (z: string, n: string) => (naru ? n : z);
   // A returning taker gets a subtle "지난 결과: {variantName} · 다시 보기 →" line
   // under the start button - an extra path to their result, never blocking a
@@ -766,7 +768,8 @@ function ResultView({
   onFixProfile: (problem: MatchProfileError) => void;
   returnToRegister: boolean;
 }) {
-  const naru = ed.tone === "naru";
+  // DECIDED 2026-11-05 (사이트 점검, 종이): 8월판(zero100)의 어두운 스킨이 크림 위에서 읽히지 않아 두 판 모두 나루 스킨을 씁니다. 글과 문항은 판마다 그대로.
+  const naru = true || ed.tone === "naru";
   const c = (z: string, n: string) => (naru ? n : z);
   // 12월판의 블록 버튼. 페이지의 CTA와 같은 알약 모양입니다(브랜드 감사 10). 8월판은 rounded-2xl 그대로.
   const NARU_PRIMARY = `${buttonClass("primary", "naru")} w-full justify-center`;
@@ -1183,7 +1186,7 @@ function ResultView({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: reduce ? 0 : 0.2 }}
-            className="fixed inset-0 z-[70] flex flex-col items-center justify-center gap-4 bg-black/90 px-6 py-8"
+            className="ink-scope fixed inset-0 z-[70] flex flex-col items-center justify-center gap-4 bg-black/90 px-6 py-8"
           >
             <p className={`text-center ${c("text-sm", BODY)} font-semibold text-white/90`}>
               {t(ed.ui.saveImageHold)}
@@ -1217,7 +1220,7 @@ function ResultView({
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
-            className={`fixed bottom-8 left-1/2 z-50 -translate-x-1/2 rounded-full border border-white/15 bg-[#111A3A] px-5 py-3 ${c("text-sm", BODY)} font-semibold text-white shadow-xl`}
+            className={`fixed bottom-8 left-1/2 z-50 -translate-x-1/2 rounded-full border border-white/15 bg-naru-surface px-5 py-3 ${c("text-sm", BODY)} font-semibold text-white shadow-xl`}
           >
             {toast}
           </motion.div>
@@ -1304,6 +1307,8 @@ const StoryCard = forwardRef<
   return (
     <div
       ref={ref}
+      // 2026-11-05 (종이): 저장 이미지는 brand 10장대로 잉크 #070B1F 위. ink-scope가 안의 white/NN을 다시 흰색으로 돌립니다.
+      className="ink-scope"
       style={{
         width: 1080,
         height: 1920,
@@ -1311,7 +1316,7 @@ const StoryCard = forwardRef<
         overflow: "hidden",
         background: "#070B1F",
         color: "#fff",
-        fontFamily: '"Pretendard Variable", Pretendard, -apple-system, sans-serif',
+        fontFamily: 'var(--font-pretendard), "Pretendard Variable", Pretendard, -apple-system, sans-serif',
       }}
     >
       {/* orbs - same palette as the live page */}
@@ -1437,7 +1442,8 @@ function DreamTeammates({
   reduce: boolean;
 }) {
   const data = ed.results[result.mbti];
-  const naru = ed.tone === "naru";
+  // DECIDED 2026-11-05 (사이트 점검, 종이): 8월판(zero100)의 어두운 스킨이 크림 위에서 읽히지 않아 두 판 모두 나루 스킨을 씁니다. 글과 문항은 판마다 그대로.
+  const naru = true || ed.tone === "naru";
   const c = (z: string, n: string) => (naru ? n : z);
   return (
     <motion.section
@@ -1547,7 +1553,8 @@ function AxisGaugeRow({
   onToggle: () => void;
 }) {
   const explanation = explainFor(ed, axis.axis, axis.pattern, axis.pct);
-  const naru = ed.tone === "naru";
+  // DECIDED 2026-11-05 (사이트 점검, 종이): 8월판(zero100)의 어두운 스킨이 크림 위에서 읽히지 않아 두 판 모두 나루 스킨을 씁니다. 글과 문항은 판마다 그대로.
+  const naru = true || ed.tone === "naru";
   const bar = (
     <>
       <span className="w-11 shrink-0 text-right text-xs font-bold text-white/85">{t(axisMeta[axis.winner])}</span>

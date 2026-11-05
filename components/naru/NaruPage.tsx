@@ -27,14 +27,13 @@ import { naru, naruLinks, partnerContact, singaporeCampuses, openChatLabels, reg
 import OpenChatLink from "@/components/ui/OpenChatLink";
 import { decemberEventLabel, formatDecemberRange, DECEMBER_CITY } from "@/lib/naruDates";
 import type { Phrase } from "@/data/dictionaryCore";
-import Chip from "@/components/ui/Chip";
 import { buttonClass, ARROW_CLASS } from "@/components/ui/Button";
 import MobileChatBar from "@/components/shared/MobileChatBar";
 import ManifestoViewer from "@/components/naru/ManifestoViewer";
 import Chapter from "@/components/journey/Chapter";
 import Reveal from "@/components/shared/Reveal";
 import Eyebrow from "@/components/ui/Eyebrow";
-import { TITLE, BODY, META, H2, H3, STATEMENT, GRADIENT_TEXT } from "@/components/ui/typography";
+import { TITLE, BODY, META, H2, H3, STATEMENT } from "@/components/ui/typography";
 import {
   PhoneFold, Card, SUBHEADING, READ, WIDE, READ_MEASURE_C, MEASURE_C,
   latinTrack, eyebrowTrack, PlateSegment, SiteFooter, usePlateLite,
@@ -79,7 +78,7 @@ export default function NaruPage() {
         <Image
           // 2026-09-29: v2 파일명. 같은 이름으로 덮으면 1년짜리 immutable 캐시에 옛 링이 남습니다(public/naru/README.md).
           // 2026-09-30: v3(링 COLLECTIVE, 아랫줄 of 뺌).
-          src={locale === "en" ? "/naru/naru-master-en-v3-rev.svg" : "/naru/naru-master-v3-rev.png"}
+          src={locale === "en" ? "/naru/naru-master-en-v3-paper.svg" : "/naru/naru-master-v3-paper.png"}
           alt={t(naru.hero.logoAlt)}
           width={900}
           height={900}
@@ -107,7 +106,8 @@ export default function NaruPage() {
             <span className="block break-keep">{t(naru.hero.titleLine1)}</span>{" "}
             {/* {" "}: block span 둘 사이에 텍스트 노드가 없으면 이름 계산에서
                 "…한다.자리는…"처럼 붙어 읽힙니다 (2026-09-19, 접근성 감사 17). */}
-            <span className={`${GRADIENT_TEXT} block break-keep`}>{t(naru.hero.titleLine2)}</span>
+            {/* DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A4): 그라데이션 글자를 단색으로. 색은 그 전 그라데이션의 끝 색이자 단색 폴백. */}
+            <span className="block break-keep text-naru-plum-tint">{t(naru.hero.titleLine2)}</span>
           </span>
         </h1>
         {/* 이름의 뜻 (2026-09-21, 사용자: 영문판에 나루가 무슨 뜻인지 설명이 필요). 태그라인
@@ -357,8 +357,9 @@ export default function NaruPage() {
               // 곧장 갑니다. 이 세 링크가 학생회·기업·운영진의 유일한 문입니다.
               href={layer.join.mail}
               onClick={() => track("naru_mail", { src: `how_${layer.join.id}` })}
-              className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-white/15 bg-naru-surface/80 px-5 py-2.5 ${BODY} font-medium text-accent backdrop-blur-sm transition hover:border-white/30 hover:text-white`}
+              className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-white/15 bg-naru-surface/80 px-5 py-2.5 ${BODY} font-medium text-accent transition hover:border-white/30 hover:text-white`}
             >
+              {/* 2026-11-04 (site-tells A6): 흐림(backdrop-blur)을 뺐습니다. 바탕은 80% 면 그대로. */}
               {t(layer.join.label)}
               <span aria-hidden>→</span>
             </a>
@@ -426,7 +427,7 @@ export default function NaruPage() {
             // 항목의 점이 위로 올라가 어긋났습니다. 줄 사이 간격은 부모의 gap이 아니라 문단의 위 여백입니다.
             <li
               key={need.place.en}
-              className="border-b border-white/10 py-[20px] last:border-b-0 sm:rounded-2xl sm:border-b-0 sm:card-base sm:p-5 lg:grid lg:grid-rows-subgrid lg:row-span-2 lg:gap-y-0 lg:p-6"
+              className="border-b border-white/10 py-[20px] last:border-b-0 sm:rounded-2xl sm:!border sm:card-base sm:p-5 lg:grid lg:grid-rows-subgrid lg:row-span-2 lg:gap-y-0 lg:p-6"
             >
               <h3 className={H3}>{t(need.place)}</h3>
               {/* DECIDED 2026-10-21 (사용자: 문장이 너무 많다, 더 과감하게): 칸마다 없는 것 한 줄만. opens는 그리지 않습니다. */}
@@ -747,7 +748,9 @@ function LayerDiagram({ t }: { t: (p: { ko: string; en: string }) => string }) {
         {/* DECIDED 2026-10-02 (사용자: "주관, 주최, 후원 bubble이 at the centre"): md부터 역할 칩만 상자의
             가로 가운데에 둡니다. 이름과 본문은 왼쪽 정렬 그대로입니다(2026-09-25). 폰은 칩과 이름이 한 줄이라 그대로. */}
         <p>
-          <Chip tone="outline" size="meta" className={center ? "!border-accent/40 !text-accent" : ""}><RoleLabel text={t(layer.role)} /></Chip>
+          {/* DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A5, A7): 역할 칩의 알약 테두리를 걷고 글자만(META, 색 하나).
+              영어 소라벨(organiser, host, sponsor)은 뺍니다. 한글 제목이 같은 말을 합니다. */}
+          <span className={`${META} font-semibold ${center ? "text-accent" : "text-naru-muted"}`}><RoleLabel text={t(layer.role)} /></span>
         </p>
         {/* DECIDED 2026-10-01 (사용자: "나루 대신, 나루의 로고를 넣어줘. 나루라는 이름 대신"): 가운데 상자는
             이름 글자 대신 헤더, 푸터와 같은 락업입니다. 한글 PNG는 위 26px이 여백이라(헤더 주석 참고)
@@ -755,7 +758,7 @@ function LayerDiagram({ t }: { t: (p: { ko: string; en: string }) => string }) {
         {center ? (
           <p className="mt-[9px] lg:mt-[12px]">
             <Image
-              src={locale === "en" ? "/naru/naru-name-en-rev.svg" : "/naru/naru-name-rev.png"}
+              src={locale === "en" ? "/naru/naru-name-en-paper.svg" : "/naru/naru-name-paper.png"}
               alt={t(layer.who)}
               width={locale === "en" ? 857 : 604}
               height={locale === "en" ? 142 : 168}
@@ -862,18 +865,11 @@ function KeepsPanel({ id, label, body }: { id: string; label: string; body: stri
 }
 
 // 역할 라벨 "주최 HOST" → 주최 + host(작게, 소문자). en "HOST" → Host. (감사 반영 브리프 8)
+// DECIDED 2026-11-04 (site-tells A7): 한국어 라벨의 영어 꼬리(host)를 그리지 않습니다. 영어 화면은 그 전 그대로 "Host".
 function RoleLabel({ text }: { text: string }) {
   const parts = text.trim().split(/\s+/);
   if (parts.length < 2) return <>{parts[0].charAt(0) + parts[0].slice(1).toLowerCase()}</>;
-  return (
-    <>
-      {parts.slice(0, -1).join(" ")}
-      {/* lang="en" (2026-09-19, 접근성 감사 7): "주최 host"의 host 쪽. 한국어
-          TTS가 한글 음가로 읽습니다. 영어 로케일에서는 앞뒤가 다 영어라 이
-          속성이 아무 일도 하지 않습니다. */}
-      <span lang="en" className="ml-1 font-semibold text-naru-muted">{parts[parts.length - 1].toLowerCase()}</span>
-    </>
-  );
+  return <>{parts.slice(0, -1).join(" ")}</>;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

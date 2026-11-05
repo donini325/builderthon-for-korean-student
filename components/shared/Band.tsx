@@ -32,8 +32,8 @@
 // A single vertical gradient has no step at all: transparent at the boundary,
 // full tint 10rem in, held flat through the body, back to transparent. Both band
 // sections (#program, #companions) share it, so no edge can drift from another.
-export const BAND_TINT =
-  "bg-[linear-gradient(to_bottom,transparent,rgba(10,8,20,0.5)_10rem,rgba(10,8,20,0.5)_calc(100%_-_10rem),transparent)]";
+// DECIDED 2026-11-04 (사용자, site-tells 2장 안 1 "종이"): 어두운 띠를 걷습니다. 크림 바탕에서는 섹션을 띠가 아니라 여백이 나눕니다.
+export const BAND_TINT = "";
 /**
  * Kept as a no-op so every band section keeps one obvious place to opt into edge
  * treatment, and so the two call sites don't have to change shape. The fading now

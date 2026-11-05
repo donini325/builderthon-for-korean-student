@@ -140,7 +140,8 @@ export default function RouteMap({
         {/* 레일. 높이는 위 railTop. */}
         <span
           aria-hidden
-          className="pointer-events-none absolute h-px bg-gradient-to-r from-naru-plum-tint/40 via-white/15 to-naru-plum-tint/40"
+          // DECIDED 2026-11-04 (주간 회의 피드백, docs/site-tells-brief.md A4): 레일의 보라-흰 그라데이션을 단색 한 줄로.
+          className="pointer-events-none absolute h-px bg-white/20"
           style={{ left: inset, right: inset, top: railTop }}
         />
         {dotLeft && (
@@ -212,8 +213,8 @@ export default function RouteMap({
                   {s.label}
                 </span>
                 {s.milestone && (
+                  // DECIDED 2026-11-04 (site-tells A5): 마일스톤 줄 앞의 장식 점을 뺍니다. 글은 그대로.
                   <span className={`hidden break-keep ${META} leading-tight sm:block ${here ? "text-white/85" : "text-caption"}`}>
-                    <span aria-hidden className={`mr-1.5 inline-block h-[6px] w-[6px] -translate-y-[2px] rounded-full ${here ? "bg-accent" : "bg-white/25"}`} />
                     {s.milestone}
                   </span>
                 )}
@@ -225,7 +226,8 @@ export default function RouteMap({
                     같은 뜻은 폰의 Day 카드 안 칩이 이미 말하고, 바로 아래 범례도
                     같은 이유로 sm부터입니다(규칙이 일관됩니다). 노드의 ★는 남습니다. */}
                 {anchor && s.badge && (
-                  <span className={`absolute left-1/2 top-full mt-0.5 hidden -translate-x-1/2 whitespace-nowrap rounded-full border border-[#9A5A82]/50 bg-[#9A5A82]/[0.12] px-1.5 py-0.5 ${META} font-bold leading-none text-naru-plum-tint sm:inline-flex`}>
+                  // DECIDED 2026-11-04 (site-tells A5): 배지는 알약 테두리와 면 없이 글자만.
+                  <span className={`absolute left-1/2 top-full mt-0.5 hidden -translate-x-1/2 whitespace-nowrap ${META} font-bold leading-none text-naru-plum-tint sm:inline-flex`}>
                     {s.badge}
                   </span>
                 )}
@@ -247,8 +249,8 @@ export default function RouteMap({
           {pills.map((p, i) => (
             // 2026-09-18 (감사 반영 브리프 8): 초록은 General Mentoring 상자의 기간 배지 하나에만 남깁니다. 필은 보라 외곽선.
             // whitespace-nowrap은 sm부터 (2026-09-19, 모바일 감사 11). 폰에서는 접히게 두고 가운데 정렬합니다.
-            <span key={i} className={`flex max-w-full items-center gap-1.5 rounded-full border border-accent/40 bg-transparent px-2.5 py-1 text-center ${META} font-semibold leading-tight text-accent sm:whitespace-nowrap sm:leading-none`}>
-              <span aria-hidden data-pill-dot className={`h-[7px] w-[7px] shrink-0 rounded-full ${i === 0 ? "bg-accent/80" : "bg-naru-orange"}`} />
+            // DECIDED 2026-11-04 (site-tells A5): 알약 테두리와 앞의 점을 걷고 글자만(META, 색 하나).
+            <span key={i} className={`max-w-full text-center ${META} font-semibold leading-tight text-accent sm:whitespace-nowrap sm:leading-none`}>
               {p}
             </span>
           ))}
@@ -267,9 +269,9 @@ export default function RouteMap({
               {legend.plain}
             </span>
           )}
+          {/* 2026-11-04 (site-tells A5): 마일스톤 점이 없어져 범례의 점도 뺍니다. */}
           {legend.milestone && (
             <span className={`flex items-center gap-1.5 ${META} text-white/75`}>
-              <span aria-hidden className="h-[6px] w-[6px] rounded-full bg-naru-orange" />
               {legend.milestone}
             </span>
           )}

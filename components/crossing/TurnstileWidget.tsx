@@ -65,7 +65,8 @@ export default function TurnstileWidget({
         idRef.current = window.turnstile.render(boxRef.current, {
           sitekey: siteKey,
           action,
-          theme: "dark",
+          // 2026-11-05 (docs/merge-paper-brief.md T1): 크림 바탕이라 밝은 테마.
+          theme: "light",
           size: "flexible",
           language: locale,
           callback: (t: string) => { onErrorRef.current?.(false); onTokenRef.current(t); },

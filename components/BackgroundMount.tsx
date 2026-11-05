@@ -20,6 +20,10 @@ const Background = dynamic(() => import("@/components/Background"), { ssr: false
 export type { BackgroundVariant } from "@/lib/background/scene/BackgroundScene";
 
 // still (2026-10-10, 구조 브리프 4): /naru의 정지 장면. water 변형에서만 뜻이 있습니다(BackgroundScene의 still 주석).
+// DECIDED 2026-11-04 (사용자, site-tells 2장 안 1 종이, 목업대로): 크림 바탕에서는 WebGL 배경을 그리지 않습니다.
+// 장면은 어두운 하늘용이라 밝은 바탕에 맞지 않습니다. 다시 켜려면 PAPER를 false로.
+const PAPER = true;
 export default function BackgroundMount({ variant, still }: { variant?: "field" | "water" | "crossing"; still?: boolean }) {
+  if (PAPER) return null;
   return <Background variant={variant} still={still} />;
 }

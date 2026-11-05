@@ -63,7 +63,7 @@ function Arrow({ dir, onClick, disabled, label, className = "" }: { dir: "prev" 
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-naru-surface/80 text-white/85 backdrop-blur-sm transition hover:border-white/30 hover:text-white disabled:pointer-events-none disabled:opacity-30 ${className}`}
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-naru-surface/80 text-white/85 transition hover:border-white/30 hover:text-white disabled:pointer-events-none disabled:opacity-30 ${className}`}
     >
       <svg aria-hidden viewBox="0 0 12 12" className={`h-3 w-3 ${dir === "prev" ? "rotate-180" : ""}`}><path d="M4.5 2l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
     </button>
@@ -158,7 +158,7 @@ export default function ManifestoViewer({ locale, t }: Props) {
           if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
           if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
         }}
-        className="-mx-[22.5px] flex snap-x snap-mandatory gap-[12px] overflow-x-auto overscroll-x-contain pb-[4px] [scrollbar-width:none] focus-visible:outline-none sm:mx-0 sm:gap-[16px] sm:[mask-image:linear-gradient(to_right,rgba(0,0,0,0.35),black_8%,black_92%,rgba(0,0,0,0.35))] [&::-webkit-scrollbar]:hidden"
+        className="-mx-[22.5px] flex snap-x snap-mandatory gap-[12px] overflow-x-auto overscroll-x-contain pb-[4px] [scrollbar-width:none] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:mx-0 sm:gap-[16px] sm:[mask-image:linear-gradient(to_right,rgba(0,0,0,0.35),black_8%,black_92%,rgba(0,0,0,0.35))] [&::-webkit-scrollbar]:hidden"
       >
         {/* 첫 쪽과 끝 쪽도 가운데에 서도록 양끝에 빈 칸. 폭 % 는 패딩 없는 트랙 폭 기준입니다. */}
         <span aria-hidden className="w-[calc((100%-min(78vw,420px))/2-12px)] shrink-0 sm:w-[calc((100%-420px)/2-16px)]" />
@@ -223,12 +223,12 @@ export default function ManifestoViewer({ locale, t }: Props) {
         </button>
         <span className="sr-only" aria-live={running ? "off" : "polite"}>{counter(a.index)}</span>
       </div>
-      <p className={`mt-[8px] ${META} text-white/50`}>{t({ ko: "쪽을 누르면 크게 봅니다", en: "Tap a page to read it full screen" })}</p>
+      <p className={`mt-[8px] ${META} text-white/70`}>{t({ ko: "쪽을 누르면 크게 봅니다", en: "Tap a page to read it full screen" })}</p>
 
       {/* 전체 화면. 폰은 폭에 맞춰 세로로 스크롤하며 읽고, 데스크톱은 높이에 맞춥니다. 손가락으로 확대할 수 있습니다. */}
       {/* 포털: 이 블록을 감싼 Reveal의 transform 안에서는 fixed가 화면이 아니라 그 상자를 기준으로 잡힙니다. */}
       {open && createPortal(
-        <div role="dialog" aria-modal="true" aria-label={t({ ko: "매니페스토", en: "Manifesto" })} className="fixed inset-0 z-[1000] flex flex-col bg-naru-ink/95 backdrop-blur-sm">
+        <div role="dialog" aria-modal="true" aria-label={t({ ko: "매니페스토", en: "Manifesto" })} className="fixed inset-0 z-[1000] flex flex-col bg-naru-ink/95">
           <div className="flex shrink-0 items-center justify-between px-[16px] py-[10px]">
             <span aria-live="polite" className={`${META} tabular-nums text-white/70`}>{counter(b.index)}</span>
             <button type="button" onClick={close} className={`inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-4 ${BODY} text-white/85 transition hover:border-white/30 hover:text-white`}>

@@ -8,7 +8,11 @@
 
 ### 2026-11
 
+- [2026-11-05 도구 페이지를 종이에 맞춤(합치기 전)](#2026-11-05-merge-tools)
+- [2026-11-05 사이트 점검 반영(design/site-tells)](#2026-11-05-audit-fixes)
 - [2026-11-05 히어로 한 줄에 AI로 만드는 비용과 찾고, 정하고, 써 보게 하는 과정](#2026-11-05-position-line)
+- [2026-11-04 종이 팔레트와 목업 레이아웃](#2026-11-04-paper)
+- [2026-11-04 바이브 코딩 티 걷기(A1~A8)](#2026-11-04-site-tells)
 - [2026-11-04 캐치프레이즈 둘째 줄 "생각하는 힘을 기르는 닷새"](#2026-11-04-catch-answer)
 - [2026-11-04 크로싱 서울은 생각하는 힘을 기르는 이벤트, 이벤트 설명에서 빌더를 뺌](#2026-11-04-thinking-position)
 - [2026-11-04 캐치프레이즈 "왜 아직, 손으로?"와 남는 것 리드](#2026-11-04-catchphrase)
@@ -472,6 +476,27 @@
 
 ---
 
+<a id="2026-11-05-merge-tools"></a>
+## 2026-11-05 도구 페이지를 종이에 맞춤(합치기 전)
+- 범위: components/crossing/TurnstileWidget.tsx, MentorTool.tsx, data/crossingTeam.ts (가지 design/site-tells)
+- 한 것: docs/merge-paper-brief.md 3장 T1~T4. Turnstile 밝은 테마, 시간표 범례를 "남색 테두리는 우리 팀"으로, 멘토 페이지 내 칸 열 남색 2px(D2). T3 투표 버튼 꺼짐 상태는 이미 opacity-40 남색이라 그대로. T5~T7과 D1, D3, D4는 하지 않음.
+- 근거: brand 10장 종이 팔레트(남색 하나로 현위치와 선택).
+- 검증: 가짜 데이터로 /crossing/team?day=2, 멘토 페이지, /crossing/vote 1440과 390. 우리 팀 칸과 내 칸 열이 남색 테두리. tsc, build 통과.
+- 브리프: docs/merge-paper-brief.md
+- 커밋: 651e963
+
+---
+
+<a id="2026-11-05-audit-fixes"></a>
+## 2026-11-05 사이트 점검 반영(design/site-tells)
+- 범위: 브랜치 design/site-tells만. 종이 색 잔재(/quiz, 시간표, 멘토 보드, 아이콘, 오류 색), 서체, 접근성, 모바일 누름 영역, /crossing UX 공백, API 보안 일부, NaruHome 죽은 코드
+- 한 것: 사용자 요청으로 에이전트 일곱(brand-guardian, ui-designer, ux-researcher, mobile-ux-optimizer, accessibility-expert, web-dev, security-auditor + data-privacy-engineer)의 점검 제안을 이 브랜치에만 반영, main은 그대로. Pretendard가 실제로 적용되지 않던 것(웹 서체 0개)을 고침. 팀 열쇠, 개인정보 보유 기간과 국외 이전 안내, 공개 레포의 개인 메일, 8월 기록의 옛 표현은 사용자 결정이 필요해 남김.
+- 근거: brand 10장 종이 팔레트와 사이트 규칙(글자 크기 넷), 5장 같은 사실 두 번까지, 7장 멘토링(찾아감, 예약 시점), 9장 금지어.
+- 검증: build 통과, 대비 3:1 미만 글자는 장식(주황 점, 화살표)과 비활성 칸만. /quiz, /match, /crossing, /, /crossing/team 1440 스크린숏.
+- 커밋: ece74fa
+
+---
+
 <a id="2026-11-05-position-line"></a>
 ## 2026-11-05 히어로 한 줄에 AI로 만드는 비용과 찾고, 정하고, 써 보게 하는 과정
 - 범위: data/naru.ts(eventHero.sub), docs/brand.md(6장 크로싱 서울의 포지션, 5장 두 번까지 괄호, 마지막 손질)
@@ -479,6 +504,28 @@
 - 한 것: 히어로 이름 아래 한 줄을 "AI로 만드는 비용이 0에 가까운 지금, 기업이 아직 손으로 하는 일이 왜 남았는지 찾고, 만들 것을 정해 실제로 써 보게 합니다."로 바꿈. 빠진 닷새, 병목과 작은 툴, 그 기업 앞은 캐치프레이즈 둘째 줄, Day 카드, 남는 것이 받음. 근거 brand 6장 포지션(같은 커밋에서 고침), 5장 두 번까지.
 - 검증: 문단 줄 수 KO 2/2/3, EN 3/3/5(1440/1024/390), 전과 같음. 금지어 0. 빌드 통과.
 - 커밋: 53a0fcd
+
+<a id="2026-11-04-paper"></a>
+## 2026-11-04 종이 팔레트와 목업 레이아웃
+- 범위: app/globals.css, tailwind.config.ts, components/home/NaruHome.tsx, components/journey/(Journey, JourneyNav), components/naru/NaruPage.tsx, components/shared/(Band, SiteChrome), BackgroundMount, typography, data/naru.ts, public/naru/*-paper, docs/brand.md 10장
+- 한 것: 사용자 요청으로 site-tells 목업(docs/screens/site-tells-mock-paper.png)을 이 브랜치에 모두 적용. 결정: 워드마크는 남색에 주황 점, 세 페이지 모두 종이, 배경 캔버스는 끔. 토큰을 크림 바탕, 잉크 글자, 남색 강조로 바꾸고 white/NN을 잉크로 돌림. /crossing 히어로는 사진 한 장과 숫자 넷 띠, 닷새 장은 Day 카드 다섯(한 줄씩)과 미션 한 문장(규칙은 /crossing/team). 카운트다운, 히어로 로고 띠, 노선도, 네 질문, 기업의 닷새 상자는 그리지 않음. / 의 양 줄이기(C3, 매니페스토 뷰어를 PDF로)는 하지 않음(10/25 사용자 결정으로 PDF를 지운 자리).
+- 근거: brand 10장 종이 팔레트(같은 커밋에서 사이트 UI 줄을 바꿈), 5장 숫자 하나가 문장을 대신, 8장 8월 숫자만.
+- 검증: build 통과. 1440, 390 KO 스크린숏으로 /crossing, /, /2026-08, /crossing/team 확인.
+- 브리프: docs/site-tells-brief.md
+- 커밋: 515f955
+
+---
+
+<a id="2026-11-04-site-tells"></a>
+## 2026-11-04 바이브 코딩 티 걷기(A1~A8)
+- 범위: app/globals.css(카드 셋, .bg-cta, 판 흐림), components/home/NaruHome.tsx, components/naru/NaruPage.tsx, components/shared/RouteMap.tsx, components/journey/Journey.tsx, 모달 셋, Button, JourneyNav, ManifestoViewer, PhotoLightbox, ReturningGreeting, data/naru.ts(dayLabel)
+- 한 것: 2026-11-04 주간 회의 피드백(다른 학교에 보내기 전에 AI 티를 걷는다). 사용자 요청으로 브리프 1장 A1~A8만, 2장 색과 3장 양은 하지 않음. 쪼갠 영어 자간을 한 줄 META로(D4), DAY를 Day로, /crossing 번호 01~05 삭제, 그라데이션 면은 크로싱 서울 워드마크 하나만, 라벨 알약은 글자만, 장식 점과 흐림 삭제, / 역할 라벨의 영어 소라벨 삭제. 노선도의 정거장과 범례는 그림이라 남김(피드백: 그래픽은 괜찮다). 리빌은 10/20에 이미 걷혀 있었고 배경 캔버스는 그대로(D3).
+- 근거: brand 10장 사이트 규칙(글자 크기 넷, 버튼은 단색, 발광 없음), 2장 판단 질문(무대가 진짜라는 사실로 부른다, 꾸밈은 둘 다 돕지 않음).
+- 검증: /crossing 한 글자 span 13→0, DAY 10→0, 번호 9→0, 그라데이션 27→1(워드마크). / 그라데이션 10→0, 흐림 6→0, 라벨 알약 3→0. /2026-08 그라데이션 72→5(워드마크 1, 영상과 마감 덮개 등 가독성 페이드 4), 점 46→19(노선도). 글 변화는 위 넷뿐, 코어 둘과 질문 그대로. 1440, 390 KO/EN 가로 넘침 0. build 통과.
+- 브리프: docs/site-tells-brief.md
+- 커밋: 3fcfba0
+
+---
 
 <a id="2026-11-04-catch-answer"></a>
 ## 2026-11-04 캐치프레이즈 둘째 줄 "생각하는 힘을 기르는 닷새"

@@ -26,11 +26,11 @@ export type ChipTone = "neutral" | "amber" | "amberSoft" | "pending" | "outline"
 
 export const CHIP: Record<ChipTone, string> = {
   // DECIDED 2026-10-22 (사용자: 10/19 피드백을 8월 페이지에도): 8월만 쓰는 네 모양은 알약과 amber를 걷은 글자입니다. outline(/naru)은 그대로.
-  neutral: "text-[0.68rem] font-semibold text-white/60",
-  amber: "inline-flex items-center gap-1 text-[0.68rem] font-bold text-white/85",
-  amberSoft: "inline-flex items-center gap-1 text-[0.68rem] font-semibold text-white/70",
-  pending: "inline-flex items-center gap-1 text-[0.68rem] font-bold text-white/70",
-  outline: "inline-flex items-center gap-1 rounded-full border border-white/[0.12] bg-transparent px-2 py-0.5 text-[0.68rem] font-semibold text-white/80",
+  neutral: "text-[0.8125rem] font-semibold text-white/60",
+  amber: "inline-flex items-center gap-1 text-[0.8125rem] font-bold text-white/85",
+  amberSoft: "inline-flex items-center gap-1 text-[0.8125rem] font-semibold text-white/70",
+  pending: "inline-flex items-center gap-1 text-[0.8125rem] font-bold text-white/70",
+  outline: "inline-flex items-center gap-1 rounded-full border border-white/[0.12] bg-transparent px-2 py-0.5 text-[0.8125rem] font-semibold text-white/80",
 };
 
 // 2026-10-20 (hwang 브리프 2.8): ChipDot(7px 장식 점)을 지웠습니다. 쓰던 곳은 홈 멘토링 상자 셋뿐이었습니다.
@@ -53,6 +53,6 @@ export default function Chip({
   className?: string;
 }) {
   const resolved = size ?? (tone === "outline" ? "meta" : "legacy");
-  const base = resolved === "meta" ? CHIP[tone].replace("text-[0.68rem]", "text-xs") : CHIP[tone];
+  const base = resolved === "meta" ? CHIP[tone] : CHIP[tone];
   return <span className={`${base} ${className}`.trim()}>{children}</span>;
 }

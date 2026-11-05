@@ -56,7 +56,7 @@ const LARGE = "text-base";
 // DECIDED 2026-10-21: 신청 폼은 라벨-입력, 도움말-오류 8px, 필드 사이는 24px로 맞춥니다.
 // DECIDED 2026-10-26 (사용자: "12월 이벤트의 모든 부분을 새 UI/UX로"): kwan-design 문법. 입력칸은 44px, 옅은 테두리, 올라온 면(naru-surface-2),
 // 포커스는 블루 테두리. 그 전: 52px, 흰 45% 테두리, 흰 4% 면. 미리 보기 안내는 호박색 대신 블루 틴트 면(card-tint).
-const FIELD = `min-h-[44px] w-full rounded-lg border border-white/10 bg-naru-surface-2 px-[14px] py-[10px] ${LARGE} text-white placeholder:text-naru-muted/70 transition-colors focus:border-accent/60 focus:outline-none`;
+const FIELD = `min-h-[44px] w-full rounded-lg border border-white/10 bg-naru-surface-2 px-[14px] py-[10px] ${LARGE} text-white placeholder:text-naru-muted transition-colors focus:border-accent/60 focus:outline-none`;
 const PRIMARY = `${buttonClass("primary", "naru")} justify-center disabled:opacity-60 disabled:hover:translate-y-0`;
 // DECIDED 2026-11-02 (docs/register-ux-brief.md R2): 선택 칸(공부하는 나라)이 appearance-none이라 글 칸과 같은 모양이었고, 나라를 자판으로
 // 적으려는 사람이 있었습니다. 오른쪽에 ∨ 하나. 색은 naru-muted(#A3A3B0, docs/brand.md 10장 보조 글자)와 같습니다.
@@ -369,7 +369,7 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
     <AnimatePresence>
       {open && (
         <motion.div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : 0.2 }}>
-          <div aria-hidden onClick={onClose} className="absolute inset-0 cursor-default touch-none bg-black/70 backdrop-blur-sm" />
+          <div aria-hidden onClick={onClose} className="absolute inset-0 cursor-default touch-none bg-black/70" />
           <motion.div
             ref={dialogRef}
             role="dialog" aria-modal="true" aria-labelledby="crossing-register-title"
@@ -379,7 +379,7 @@ export default function RegisterModal({ open, onClose, onRegistered, refSource, 
             transition={{ duration: reduce ? 0 : 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-10 flex max-h-[88dvh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-3xl border border-white/10 bg-naru-surface shadow-2xl sm:rounded-3xl"
           >
-            <span aria-hidden className="h-[2px] w-full shrink-0 bg-gradient-to-r from-accent to-accent-strong" />
+            <span aria-hidden className="h-[2px] w-full shrink-0 bg-accent" />
             {/* 제목 줄. 스크롤 영역 밖이라 늘 보이고, 닫기 버튼이 입력칸 위에 오지 않습니다(2026-10-12, 리뷰 S14).
                 완료 화면에서는 제목이 본문 안에 있어 이 줄에는 닫기 버튼만 남습니다. */}
             <div className="flex shrink-0 items-center justify-between gap-3 px-[27px] pb-[13.5px] pt-[18px] sm:px-[40.5px] sm:pt-[27px]">
