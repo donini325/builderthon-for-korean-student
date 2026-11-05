@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-05 Day 0을 출제사 미팅에 맞춤, PO session은 Day 1, Lovable은 Day 2](#2026-11-05-day0-sessions)
 - [2026-11-05 Day 카드마다 하루의 흐름](#2026-11-05-day-flow)
 - [2026-11-05 미디어 파트너 아이디어파트너스](#2026-11-05-idea-partners)
 - [2026-11-05 연결어미 뒤 쉼표 여섯](#2026-11-05-humanize-commas)
@@ -479,6 +480,17 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-05-day0-sessions"></a>
+## 2026-11-05 Day 0을 출제사 미팅에 맞춤, PO session은 Day 1, Lovable은 Day 2
+- 범위: data/naru.ts(december.stages[0] line, short, body, flow / stages[1], [2] session과 flow)
+- 한 것: 사용자 요청. 11/05 출제사 미팅에서 정한 진행에 맞춰 Day 0은 어느 회사가 어떤 문제의식으로 오는지까지만 알리고, 정리 자료는 멘토에게만 가며 자세한 설명은 Day 1에 출제사가 말로 한다고 씀(그 전: 손으로 하는 일, 기대한 효과, 업무 흐름, 공개 자료 링크를 공개). 칩 "이슈 공개"(10/07 결정)는 그대로.
+- 세션: 사용자 "PO Session 을 1일차로, Lovable 을 2일차로". 미팅에서도 첫날 출제 설명 다음이 PO 세션. Day 1 흐름은 출제사의 30분 다음에 PO session.
+- 근거: brand 7장 이슈(30분 통화로 듣고 운영팀이 한 장으로 정리), 멘토링.
+- 검증: build 통과. /crossing Day 카드와 모달 스크린숏.
+- 커밋: 60811d0
 
 ---
 
