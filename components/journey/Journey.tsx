@@ -3279,15 +3279,7 @@ export default function Journey() {
 
       {/* ── CH 6 · FOOTER ──────────────────────────────────────────── */}
       <section id="closing" className="relative flex w-full flex-col px-6 pb-10 pt-0 sm:px-10">
-        {/* soft dark scrim so the closing CTA + credits stay readable over the field */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-[1]"
-          style={{
-            background:
-              "radial-gradient(60% 55% at 50% 45%, rgb(var(--ui-ink) / 0.82) 0%, rgb(var(--ui-ink) / 0.5) 42%, rgb(var(--ui-ink) / 0) 78%)",
-          }}
-        />
+        {/* 2026-11-05 (docs/merge-paper-brief.md 검증 5): 캔버스 위 글을 읽히게 하던 방사형 덮개를 뺐습니다. 종이 바탕에서는 크림 위 크림이라 보이지 않았습니다. */}
         {/* DECIDED 2026-10-25 (사용자: "저 버튼 두개 더 지워줘. 더 줄여줘"): 오픈채팅, 파트너십 문의 버튼과 그 아래 메일 주소 줄을 뺐습니다.
             오픈채팅은 헤더와 푸터에 있습니다. 이 화면에는 8월 크레딧만 남습니다. PartnerEmailFallback은 쓰지 않습니다. */}
         {/* 감사 문단은 2026-10-02부터 위 제목 자리에 있습니다(그 전에는 여기, CTA 아래 크레딧 위). */}
