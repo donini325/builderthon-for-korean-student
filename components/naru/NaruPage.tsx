@@ -427,7 +427,7 @@ export default function NaruPage() {
             // 항목의 점이 위로 올라가 어긋났습니다. 줄 사이 간격은 부모의 gap이 아니라 문단의 위 여백입니다.
             <li
               key={need.place.en}
-              className="border-b border-white/10 py-[20px] last:border-b-0 sm:rounded-2xl sm:border-b-0 sm:card-base sm:p-5 lg:grid lg:grid-rows-subgrid lg:row-span-2 lg:gap-y-0 lg:p-6"
+              className="border-b border-white/10 py-[20px] last:border-b-0 sm:rounded-2xl sm:!border sm:card-base sm:p-5 lg:grid lg:grid-rows-subgrid lg:row-span-2 lg:gap-y-0 lg:p-6"
             >
               <h3 className={H3}>{t(need.place)}</h3>
               {/* DECIDED 2026-10-21 (사용자: 문장이 너무 많다, 더 과감하게): 칸마다 없는 것 한 줄만. opens는 그리지 않습니다. */}

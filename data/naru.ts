@@ -1810,14 +1810,11 @@ export const naru = {
           // DECIDED 2026-10-26 (사용자, 스크린숏: "이거 어색해"): brand 4장 대상별 한 문장에 맞춤. 그 전: "한인 학생과 만나는 자리가 생기고, 회차의 기록에 이름이 남습니다."
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md H4, humanize-korean 우선): 그 전 문장은 git 9c77437.
           // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T1, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
-          ko: "한국과 싱가포르 두 곳의 학교에서 온 학생들이 한 이슈에 내는 서로 다른 시도 여럿을 닷새 안에 보고, 회차의 기록에 회사 이름이 적힙니다.",
-          en: "You watch students from schools in Korea and Singapore make several different attempts at one issue within five days, and the company's name is written into the record of that edition.",
+          // DECIDED 2026-11-05 (사용자, 스크린숏: "다른 상자들에 비해서 너무 큼. 내용을 줄여주고, 상자의 크기를 맞추어줘"): brand 4장 기업 한 문장의 앞 절만. 그 전 문장은 git 119a485.
+          ko: "두 곳의 학교에서 온 학생들이 한 이슈에 내는 서로 다른 시도를 닷새 안에 봅니다.",
+          en: "You see students from two places try different takes on one issue within five days.",
         },
-        // DECIDED 2026-10-24 (사용자, 같은 문서 N1): "이름이 남는다"의 증거는 8월 파트너 표입니다. 후원 상자에서만 가리킵니다.
-        proof: {
-          label: { ko: "8월에 함께한 곳은 역할과 함께 기록에 남아 있습니다", en: "August's partners are on the record with their roles" },
-          href: "/2026-08#builders",
-        },
+        // 2026-11-05 (같은 사용자 요청): 상자 크기를 맞추려 증거 링크(8월 파트너 표, 2026-10-24 N1)를 뺐습니다. "이름이 남는다" 절도 같이 빠졌습니다.
         join: { id: "join-company", label: { ko: "기업으로 문의하기", en: "As a company" }, mail: naruLinks.sponsor },
       },
     ] as Layer[],
