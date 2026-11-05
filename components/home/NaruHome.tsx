@@ -916,7 +916,8 @@ export default function NaruHome() {
                 <div className="max-w-2xl">{P[k].line}</div>
                 {P[k].chips}
                 {P[k].flow}
-                {P[k].vote && <div className="mt-1 w-full max-w-sm">{P[k].vote}</div>}
+                {/* 2026-11-05 (사용자, 스크린숏: "인기투표 버튼 길이랑 맨토 시간표 버튼 길이가 너무 안 맞음"): 시간표 버튼과 같은 전폭, 안내 글은 가운데. 그 전 max-w-sm. */}
+                {P[k].vote && <div className="mt-1 w-full text-center">{P[k].vote}</div>}
               </div>
             );
             return (
