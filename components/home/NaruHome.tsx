@@ -406,7 +406,7 @@ function MilestoneStrip({ id, label, title, detail, center = false, expanded = f
   // 안쪽 여백을 줄여 띠 높이를 약 절반으로. 다른 자리(폰 패널, 데스크톱 판)는 그대로입니다.
   if (compact) {
     return (
-      <div className="flex w-full flex-col rounded-xl card-sunken">
+      <div className={`flex w-full flex-col rounded-xl card-sunken ${fill ? "flex-1" : ""}`}>
         {detail ? (
           <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)} className="flex w-full flex-col items-start gap-1 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-white/[0.06]">
             <span className="flex w-full items-center justify-between gap-2">
@@ -579,6 +579,9 @@ export default function NaruHome() {
   // Day 1~3이 함께 쓰는 버튼 하나(2026-10-17). 페이지 안에서 날을 고릅니다. 열기 전에는 잠겨 있습니다(TIMETABLE_OPEN).
   // 하루의 흐름 모달에 열린 날(stages 인덱스). null이면 닫힘.
   const [flowDay, setFlowDay] = useState<number | null>(null);
+  // DECIDED 2026-11-05 (사용자, 스크린숏: "너무 길이의 차이가 남"): Day 1~3 띠 셋은 함께 열리고 닫히며(10/17 데스크톱 판과 같은 이유), 같은 행 높이를 채웁니다.
+  // 띠 안의 "세션"과 "멘토 찾아가기" 묶음은 뺐습니다. 세션 이름은 띠 바로 위에, 세션 설명과 멘토를 찾아가는 곳은 하루의 흐름 모달에 있습니다.
+  const [stripsOpen, setStripsOpen] = useState(false);
   const sharedCta = naru.december.stages[1].timetableCta;
   const timetableButton = sharedCta && (
     <div>
@@ -607,16 +610,13 @@ export default function NaruHome() {
       <MilestoneStrip id={`carry-day-${stage.dayOffset}-card`} tone="plain" label={t(naru.december.carryLabel)} title={t(stage.submit)} center={false} expanded={false} compact
         detail={[
           { label: t(naru.december.carryDetail.todoLabel), items: naru.december.carryDetail.todo.map(t) },
-          ...(stage.session ? [{ label: t(naru.december.sessionLabel), items: [`${t(stage.session.title)}: ${t(stage.session.body)}`] }] : []),
-        ]} />
+        ]} open={stripsOpen} onToggle={() => setStripsOpen((v) => !v)} fill />
     ) : stage.milestone ? (
       <MilestoneStrip id={`milestone-day-${stage.dayOffset}-card`} label={t(naru.december.milestoneLabel)} title={t(stage.milestone)} detail={stage.milestoneDetail && [
         { label: t(naru.december.milestoneConditionsLabel), items: stage.milestoneDetail.conditions.map(t) },
         // 2026-11-05 (사이트 점검, UX): 올리는 것(Day 3는 발표 자료 PDF)과 멘토를 찾아간다는 것을 함께 보입니다.
         ...(stage.milestoneDetail.submit ? [{ label: t(naru.december.milestoneSubmitLabel), items: stage.milestoneDetail.submit.map(t) }] : []),
-        { label: t(naru.december.visitLabel), items: [t(naru.december.visitItem)] },
-        ...(stage.session ? [{ label: t(naru.december.sessionLabel), items: [`${t(stage.session.title)}: ${t(stage.session.body)}`] }] : []),
-      ]} center={false} expanded={false} compact />
+      ]} center={false} expanded={false} compact open={stripsOpen} onToggle={() => setStripsOpen((v) => !v)} fill />
     ) : null;
     const vote = stage.voteCta ? (
       VOTE_BUTTON_OPEN ? (
@@ -927,7 +927,7 @@ export default function NaruHome() {
                         {P[k].head(false)}
                         {P[k].line}
                         {P[k].session ?? <span aria-hidden className="hidden md:block" />}
-                        <div className="flex min-w-0 w-full flex-col gap-1 self-start">{P[k].strip}{P[k].flow}</div>
+                        <div className="flex min-w-0 w-full flex-col gap-1 self-stretch">{P[k].strip}{P[k].flow}</div>
                         {P[k].chips ?? <span aria-hidden className="hidden md:block" />}
                       </div>
                     ))}
