@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-05 멘토 페이지에 출제사 이슈 정리 PDF(멘토 전용)](#2026-11-05-mentor-briefs)
 - [2026-11-05 Day 카드에 그날 장소 로고](#2026-11-05-day-venue)
 - [2026-11-05 Day 0을 출제사 미팅에 맞춤, PO session은 Day 1, Lovable은 Day 2](#2026-11-05-day0-sessions)
 - [2026-11-05 Day 카드마다 하루의 흐름](#2026-11-05-day-flow)
@@ -481,6 +482,18 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-05-mentor-briefs"></a>
+## 2026-11-05 멘토 페이지에 출제사 이슈 정리 PDF(멘토 전용)
+- 범위: lib/crossingOpsServer.ts(BRIEF_BUCKET), app/api/crossing/mentor/route.ts(briefs), components/crossing/MentorTool.tsx, data/crossingTeam.ts(mentorCopy), scripts/issue-briefs.mjs(새 파일), .gitignore
+- 한 것: 사용자 요청. 출제사와 정리한 PDF를 멘토는 자기 페이지 맨 위에서 보고, 참가자는 접근하지 못하게. 11/05 출제사 미팅에서 정한 대로 자세한 정리는 멘토에게만 가고 학생은 Day 1에 출제사의 말로 들음.
+- 막는 방법: 팀 증빙과 다른 비공개 버킷. 보기 URL(30분)은 멘토 열쇠를 확인한 /api/crossing/mentor에서만 만듦. 참가자 API는 이 버킷을 모름. PDF는 레포에 두지 않음.
+- 올리기: node scripts/issue-briefs.mjs upload <파일.pdf> <slug> "<제목>". 버킷이 없으면 비공개로 만들고, 공개면 멈춤.
+- 근거: brand 7장 이슈(운영팀이 한 장으로 정리), 멘토링.
+- 검증: build 통과. 멘토 링크로 briefs 빈 목록과 안내 묶음, 틀린 열쇠 404.
+- 커밋: fee6ce8
 
 ---
 
