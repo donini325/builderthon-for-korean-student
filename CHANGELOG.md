@@ -489,8 +489,9 @@
 - 범위: components/home/NaruHome.tsx(Day 머리), components/crossing/DayFlowModal.tsx(모달 머리)
 - 한 것: 사용자 요청. /crossing Day 카드와 하루의 흐름 모달의 날짜 옆에 그날 장소 로고(Day 1 FASTFIVE, Day 4 MARU180, 누르면 장소 사이트). 데이터는 노선도가 쓰던 stage.logo 그대로. Day 0, 2, 3은 장소가 정해지지 않아 그리지 않음.
 - 근거: brand 10장 사이트 UI(흰 실루엣 로고는 크림 위에서 잉크로, globals.css).
+- Day 3 한 줄: 사용자 "3일 문장 길이를 1,2일에 맞춰줘"로 앞의 "흐름 전체를 바꾸는 시스템 대신"을 뺌(1440에서 네 줄 → 세 줄). brand 7장 "그 병목만 푸는 작은 툴"은 그대로.
 - 검증: build 통과. 1440, 390 스크린숏.
-- 커밋: 343204a
+- 커밋: 343204a, 98fef43
 
 ---
 
