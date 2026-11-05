@@ -2847,8 +2847,9 @@ export const naru = {
           // DECIDED 2026-10-26 (사용자: 이슈와 문제, 병목 하나를 푸는 툴을 문장 수를 늘리지 않고 기존 문장에. 근거 12월 빌더톤/이벤트 기획/크로싱서울_이슈와_문제_정의_2026-10-26.md). 그 전: "정의한 문제를 풀 아이디어를 코드로 옮기는 시간입니다."
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C9, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
           // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O5, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
-          ko: "흐름 전체를 바꾸는 시스템 대신 그 병목만 푸는 작은 툴을 만들고, 기업이 가져다 쓸 수 있을지 멘토에게 여쭙습니다.",
-          en: "Instead of a system that changes the whole flow, you build a small tool for that one bottleneck and ask a mentor whether the company could use it.",
+          // DECIDED 2026-11-05 (사용자, 스크린숏: "3일 문장 길이를 1,2일에 맞춰줘"): 앞의 "흐름 전체를 바꾸는 시스템 대신"을 뺌. 네 줄에서 세 줄. 그 전 문장은 git 80e0e1f.
+          ko: "그 병목만 푸는 작은 툴을 만들고, 기업이 가져다 쓸 수 있을지 멘토에게 여쭙습니다.",
+          en: "You build a small tool for that one bottleneck and ask a mentor whether the company could use it.",
         },
         // DECIDED 2026-10-10 (중복 브리프 B1): 칩 "멘토링은 이 날까지"를 뺐습니다. General Mentoring 상자의
         // "Day 3은 피칭 준비, Day 4는 멘토링이 없습니다"가 같은 말을 합니다.
