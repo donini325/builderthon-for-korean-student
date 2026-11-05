@@ -22,9 +22,9 @@ import { readMotionChoice, setMotionAttr, writeMotionPaused } from "@/lib/motion
 // 그대로라 레이아웃이 움직이지 않습니다.
 // ─────────────────────────────────────────────────────────────────────────────
 const COPY = {
-  // 2026-11-05 (폰 점검): 배경 캔버스를 꺼 이 단추는 8월 기록의 로고 흐름만 멈춥니다. 문구를 그에 맞춥니다.
-  pause: { ko: "로고 움직임 끄기", en: "Stop the logo strip" },
-  play: { ko: "로고 움직임 켜기", en: "Start the logo strip" },
+  // 2026-11-05 (폰 점검): 배경 캔버스는 꺼졌고 로고 띠는 늘 흐릅니다(c210dd3). 이 단추는 8월 기록 히어로 영상만 멈춥니다.
+  pause: { ko: "영상 멈추기", en: "Pause the video" },
+  play: { ko: "영상 재생", en: "Play the video" },
 } as const;
 
 // compact: 아이콘만(44px), 라벨은 aria-label. 헤더용(2026-09-18, 감사 반영 브리프 2.4). 푸터 것은
