@@ -2634,17 +2634,19 @@ export const naru = {
         dayOffset: 0,
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
-          { what: { ko: "이슈 공개. 어느 회사가 아직 손으로 하는 어떤 일인지, 회사 이름과 함께 알립니다", en: "The issue opens: which company, and which task it still does by hand" }, where: { ko: "참가자 카카오톡 방", en: "Participants' KakaoTalk room" } },
-          { what: { ko: "멘토에게는 같은 이슈의 자세한 정리가 먼저 갑니다", en: "Mentors get a detailed write-up of the same issue first" } },
+          { what: { ko: "이슈 공개. 어느 회사가 어떤 문제의식을 설명할지, 그 회사가 어떤 곳인지 알립니다", en: "The issue opens: which company will explain what problem, and what kind of company it is" }, where: { ko: "참가자 카카오톡 방", en: "Participants' KakaoTalk room" } },
+          { what: { ko: "자세한 정리는 멘토에게만. 멘토에게는 이슈를 정리한 자료가 먼저 가고, 참가자는 Day 1에 출제사에게 직접 듣습니다", en: "The details go to mentors only: they get a write-up of the issue first, and participants hear it from the company on Day 1" } },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
-        short: { ko: "기업이 아직 손으로 하는 일 하나를 들려줍니다.", en: "A company shares one task it still does by hand." },
+        // DECIDED 2026-11-05 (사용자: 출제사 미팅 전사록 11/05에 맞춤): Day 0에 학생이 아는 것은 어느 회사가 어떤 문제의식을 설명할지와 그 회사가 어떤 곳인지까지. 학생용 PDF는 없고, 자세한 정리는 멘토에게만 먼저 가며, 학생은 Day 1에 출제사의 말로 듣는다. 칩 "이슈 공개"(10/07)는 그대로.
+        short: { ko: "어느 회사가 어떤 문제의식으로 오는지 알립니다.", en: "We share which company is coming, and with what problem in mind." },
         body: {
           // 2026-10-08 (사용자 승인, 문장 감사 A1): 10월 7일의 "이슈에서 출발" 결정이 이 본문에 닿지 않았습니다. 바로 아래 칩은 "이슈 공개"였습니다.
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C3, humanize-korean 우선): 그 전 문장은 git 9c77437.
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C4, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-          ko: "손으로 하는 일과 기대한 효과, 업무 흐름과 공개 자료 링크를 공개합니다. 자료는 정리해서 드리는 대신, 무엇이 어디에 있는지를 알려 드립니다.",
-          en: "The task, the hoped-for effect, the workflow and links to public material open. Instead of cleaning up the material for you, we tell you where things are.",
+          // 그 전(2026-10-31): "손으로 하는 일과 기대한 효과, 업무 흐름과 공개 자료 링크를 공개합니다. 자료는 정리해서 드리는 대신, 무엇이 어디에 있는지를 알려 드립니다."
+          ko: "어느 회사가 어떤 문제의식을 들고 오는지, 그 회사가 어떤 곳인지 알립니다. 정리한 자료는 드리지 않고, 자세한 설명은 Day 1에 출제사가 직접 말로 합니다.",
+          en: "We share which company is coming, the problem it has in mind, and what kind of company it is. There is no write-up to read; the company explains the details in person on Day 1.",
         },
         // 2026-09-30 (사용자, 문장 감사): "…장치이지, 별도의 스테이지가 아닙니다"였습니다. 부정 병치를 풀었습니다.
         // 뜻(스테이지가 아니다)은 그대로입니다. (2026-10-07부터 NaruHome은 이 행을 한 단 낮게 그리지 않습니다.)
@@ -2655,8 +2657,9 @@ export const naru = {
           // DECIDED 2026-10-25 (사용자: "각 파트마다 서로 줄 숫자가 똑같이"): Day 0~3 네 칸을 1440에서 두 줄로. 그 전 둘째 문장 "Day 1에 쓸 시간을 벌어 주는 날이라 스테이지로 세지 않습니다."
           // DECIDED 2026-10-26 (사용자: 이슈와 문제, 병목 하나를 푸는 툴을 문장 수를 늘리지 않고 기존 문장에. 근거 12월 빌더톤/이벤트 기획/크로싱서울_이슈와_문제_정의_2026-10-26.md). 그 전: "출제사가 AI를 붙이려 한 곳과 기대한 효과를 먼저 공개합니다." 이슈는 원인도 답도 아직 정해지지 않은 넓은 상황입니다.
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C3, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-          ko: "출제사가 아직 손으로 하는 일 하나와 기대한 효과를 공개합니다.",
-          en: "The company opens one task it still does by hand, and the effect it hopes for.",
+          // 그 전: "출제사가 아직 손으로 하는 일 하나와 기대한 효과를 공개합니다."
+          ko: "어느 회사가 어떤 문제의식으로 오는지 미리 알립니다. 자세한 설명은 Day 1에 출제사가 직접 합니다.",
+          en: "We announce which company is coming and the problem it has in mind. The company explains the details itself on Day 1.",
         },
         chips: [{ ko: "이슈 공개", en: "Issues open" }],
         // 2026-10-25: 이 칩을 라벨로 한 Day 0 상자(openStrip)를 세웠다가 같은 날 사용자 요청("상자 빼줘")으로 뺐습니다.
@@ -2674,9 +2677,9 @@ export const naru = {
         flow: [
           { what: { ko: "오프닝", en: "Opening" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "출제사의 30분. 아직 손으로 하는 일 하나와 그 일이 왜 있는지를 출제사가 직접 말로", en: "30 minutes with the issuing company: the task it still does by hand and why it exists, in its own words" }, where: { ko: "현장", en: "On site" } },
+          { what: { ko: "PO session. 현업 PO 셋이 각각 무엇을 왜 만들기로 했는지와 멈춘 지점, 그 뒤 대담", en: "PO session: three working POs on what they chose to build, why, and where they stopped, then a conversation" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "팀 맺기. AI 유형 테스트 결과로 현장에서. 모든 팀에 싱가포르 학생 1~2명과 한국 학교별 학생", en: "Forming teams on site from the AI type test. Every team has 1 to 2 students from Singapore and students from each school in Korea" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "트랙 고르기. 1~3순위를 적고 운영진이 고르게 섞음", en: "Choosing tracks: write your top three, and the organizers mix teams evenly" }, where: { ko: "현장", en: "On site" } },
-          { what: { ko: "Lovable workshop", en: "Lovable workshop" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "멘토 시간표 열림. Day 2, 3 칸을 노트북에서 넣음", en: "The mentor timetable opens. Book Day 2 and 3 slots from a laptop" }, where: { ko: "/crossing/team", en: "/crossing/team" } },
           { what: { ko: "팀의 생각 1장 쓰기. Day 1 PDF로 올려 두면 칸을 넣은 멘토가 미리 읽음", en: "Write the team's one page. Upload it as the Day 1 PDF and the mentor you booked reads it ahead" } },
         ],
@@ -2715,21 +2718,14 @@ export const naru = {
         // 2026-10-11: 화면에 그리지 않았습니다(버튼은 히어로로). DECIDED 2026-10-22 (사용자: Analytics 개선 "적용", 30일 /match 13명): 다시 그립니다.
         // 히어로 버튼이 아니라 Day 1 칩 줄 옆의 글자 링크입니다(NaruHome stageCard).
         matchCta: { label: { ko: "AI 유형 테스트로 팀 매칭", en: "Team matching with the AI type test" }, href: "/match" },
+        // DECIDED 2026-11-05 (사용자: "PO Session 을 1일차로, Lovable 을 2일차로", 전사록 11/05: 첫날 출제 설명 다음에 PO 세션): Day 1과 Day 2의 세션을 맞바꿈.
         session: {
-          // DECIDED 2026-10-24 (사용자: "day 1 session은 lovable workshop"): Sharing session의 내용은 위 line으로 올라갔습니다.
-          title: { ko: "Lovable workshop", en: "Lovable workshop" },
-          // DECIDED 2026-10-19 (사용자, 출제사 브리프 2장): 막힌 지점과 이미 해 본 것은 Day 1에 출제사가 직접 엽니다. 팀이 Day 0에 세운
-          // 첫 생각 뒤에 "그건 이미 해 봤어요"를 듣게 하려는 순서입니다. 그 전: "출제사가 직접. 회사와 의뢰 문제".
-          // 2026-10-19 (사용자: Day 1 카드가 길어짐): 이유 문장("첫 생각을 세운 뒤에 듣는…")은 화면에서 뺐습니다.
+          title: { ko: "PO session", en: "PO session" },
           body: {
-            // 2026-10-24 (사용자: "1일차에 lovable 현장 워크샵 진행"): 사용자가 준 말로.
-            // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C5, humanize-korean 우선): 그 전 문장은 git 9c77437.
-            // DECIDED 2026-10-31 (사용자: "이 사람들이 설명해줄거라는 내용 추가", 둘 중 "경험까지 적기"): 워크숍을 맡은 회사와 그 근거 하나.
-            // 사이트 넷은 10/29 미팅에서 진행자가 말한 숫자("러버블로 띄운 사이트가 4개 정도"). 그 전: "현장 워크숍입니다." / "An on-site workshop."
-            // 같은 날 (사용자, 스크린숏: "3줄인데, 2줄로 조정"): 옆 날의 세션(PO session, Open tables)처럼 두 줄로. 제목이 Lovable이라 "Lovable로"는 뺐습니다.
-            // 줄이기 전: "Lovable로 만든 사이트 넷을 운영하는 Carraway & Gatsby가 현장에서 알려 줍니다."
-            ko: "사이트 넷을 띄운 Carraway & Gatsby가 진행합니다.",
-            en: "Run by Carraway & Gatsby, who launched four sites with it.",
+            // DECIDED 2026-10-22 (사용자: "day 2의 문장을 좀 더 줄여줘"): 둘째 문장을 뺐습니다. 그 전: "...풀어 줍니다. 만드는 일은 AI가 빨라졌어도 무엇을 만들지는 사람이 고릅니다."
+            // DECIDED 2026-10-26 (사용자: "각 세션에 대한 설명의 length는 동일해야함"): 세 세션 설명을 같은 길이로. "3시간 동안"을 뺐습니다.
+            ko: "현업 PO가 무엇을 왜 만들기로 했는지 풀어 줍니다.",
+            en: "A working PO walks through what they chose to build and why.",
           },
         },
         // DECIDED 2026-10-10 (사용자, 마일스톤 브리프 2.1): 보상은 마지막 날 한 팀이 아니라, 그날의 마일스톤을 넘은 팀 모두에게.
@@ -2749,7 +2745,7 @@ export const naru = {
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
           { what: { ko: "멘토 찾아가기. 넣은 칸의 시각에 팀이 함께, 생각 1장을 들고", en: "Visiting a mentor: the team goes together at the booked time, with the one page" }, where: { ko: "멘토 계신 곳(오피스, 카페, 온라인)", en: "Where the mentor is (an office, a café, or online)" } },
-          { what: { ko: "PO session. 현업 PO 셋이 각각 무엇을 왜 만들기로 했는지와 멈춘 지점, 그 뒤 대담", en: "PO session: three working POs on what they chose to build, why, and where they stopped, then a conversation" }, where: { ko: "현장", en: "On site" } },
+          { what: { ko: "Lovable workshop", en: "Lovable workshop" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "미션 제출. 멘토와 찍은 사진, 고친 1장 PDF", en: "Mission submission: a photo with the mentor and the revised one-page PDF" }, where: { ko: "/crossing/team", en: "/crossing/team" } },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
@@ -2777,13 +2773,22 @@ export const naru = {
         // 길이는 Day 3 세션 설명과 비슷하게 맞춥니다.
         // DECIDED 2026-10-17 (사용자: "여기에 들어갈 수 있는 button은 day 2 and day 3 상자에 있는걸로"): 멘토 시간표와 미션 인증으로 가는 버튼.
         timetableCta: { label: { ko: "예약용 멘토 시간표와 인증", en: "Mentor timetable for booking, and check-in" }, href: "/crossing/team?day=2" },
+        // DECIDED 2026-11-05 (사용자: "PO Session 을 1일차로, Lovable 을 2일차로", 전사록 11/05: 첫날 출제 설명 다음에 PO 세션): Day 1과 Day 2의 세션을 맞바꿈.
         session: {
-          title: { ko: "PO session", en: "PO session" },
+          // DECIDED 2026-10-24 (사용자: "day 1 session은 lovable workshop"): Sharing session의 내용은 위 line으로 올라갔습니다.
+          title: { ko: "Lovable workshop", en: "Lovable workshop" },
+          // DECIDED 2026-10-19 (사용자, 출제사 브리프 2장): 막힌 지점과 이미 해 본 것은 Day 1에 출제사가 직접 엽니다. 팀이 Day 0에 세운
+          // 첫 생각 뒤에 "그건 이미 해 봤어요"를 듣게 하려는 순서입니다. 그 전: "출제사가 직접. 회사와 의뢰 문제".
+          // 2026-10-19 (사용자: Day 1 카드가 길어짐): 이유 문장("첫 생각을 세운 뒤에 듣는…")은 화면에서 뺐습니다.
           body: {
-            // DECIDED 2026-10-22 (사용자: "day 2의 문장을 좀 더 줄여줘"): 둘째 문장을 뺐습니다. 그 전: "...풀어 줍니다. 만드는 일은 AI가 빨라졌어도 무엇을 만들지는 사람이 고릅니다."
-            // DECIDED 2026-10-26 (사용자: "각 세션에 대한 설명의 length는 동일해야함"): 세 세션 설명을 같은 길이로. "3시간 동안"을 뺐습니다.
-            ko: "현업 PO가 무엇을 왜 만들기로 했는지 풀어 줍니다.",
-            en: "A working PO walks through what they chose to build and why.",
+            // 2026-10-24 (사용자: "1일차에 lovable 현장 워크샵 진행"): 사용자가 준 말로.
+            // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C5, humanize-korean 우선): 그 전 문장은 git 9c77437.
+            // DECIDED 2026-10-31 (사용자: "이 사람들이 설명해줄거라는 내용 추가", 둘 중 "경험까지 적기"): 워크숍을 맡은 회사와 그 근거 하나.
+            // 사이트 넷은 10/29 미팅에서 진행자가 말한 숫자("러버블로 띄운 사이트가 4개 정도"). 그 전: "현장 워크숍입니다." / "An on-site workshop."
+            // 같은 날 (사용자, 스크린숏: "3줄인데, 2줄로 조정"): 옆 날의 세션(PO session, Open tables)처럼 두 줄로. 제목이 Lovable이라 "Lovable로"는 뺐습니다.
+            // 줄이기 전: "Lovable로 만든 사이트 넷을 운영하는 Carraway & Gatsby가 현장에서 알려 줍니다."
+            ko: "사이트 넷을 띄운 Carraway & Gatsby가 진행합니다.",
+            en: "Run by Carraway & Gatsby, who launched four sites with it.",
           },
         },
         // DECIDED 2026-10-13 (사용자, 멘토링 브리프 2, D4): 미션은 Day 2부터이고, 무엇을 냈는가보다 함께 있었는가를 봅니다.
