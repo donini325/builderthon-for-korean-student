@@ -23,7 +23,7 @@ export default function LinkedInLink({ url, label, className = "" }: { url: stri
       rel="noopener noreferrer"
       onClick={(e) => e.stopPropagation()}
       aria-label={`${label} LinkedIn`}
-      className={`relative inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/60 transition after:absolute after:-inset-2 after:content-[''] hover:border-[#0a66c2]/60 hover:bg-[#0a66c2]/15 hover:text-[#7cb8f5] ${className}`}
+      className={`tap-44 relative inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white/60 transition after:absolute after:-inset-2 after:content-[''] hover:border-[#0a66c2]/60 hover:bg-[#0a66c2]/15 hover:text-[#7cb8f5] ${className}`}
     >
       <LinkedInIcon className="h-3.5 w-3.5" />
     </a>

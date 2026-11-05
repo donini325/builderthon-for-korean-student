@@ -678,3 +678,7 @@ img[src^="/logos/"]:not(.ink-scope img), img[src*="url=%2Flogos%2F"]:not(.ink-sc
    오류는 테라코타 #9A3324(brand 10장 종이), 보라 라벨은 남색으로 돌립니다. */
 .text-rose-200, .text-rose-300 { color: #9A3324; }
 .text-violet-200, .text-violet-200\/80, .text-violet-300 { color: rgb(var(--ui-link)); }
+
+/* DECIDED 2026-11-05 (폰 점검: /2026-08 등에 12px 글자 201개, 한 화면 크기 넷 초과): Tailwind text-xs(12px)를 META(13px)로 올립니다.
+   글자 크기 넷(TITLE/SUBTITLE/BODY/META) 안으로. 파일 끝이라 utilities를 이깁니다. */
+.text-xs { font-size: 0.8125rem; line-height: 1.25rem; }

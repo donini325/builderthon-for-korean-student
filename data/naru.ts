@@ -568,7 +568,8 @@ export const naru = {
     // 나왔어요. 이 줄이 혼자 말해야 하는 것은 나루가 어디서 시작했는가 하나입니다.
     naruLine: {
       ko: "학생이 직접 운영하는 그룹, 나루가 엽니다.",
-      en: "Hosted by NARU, a Korea-rooted, student-run group.",
+      // 2026-11-05 (폰 점검): EN 360에서 "student-/run"으로 끊겨 하이픈을 줄바꿈 없는 하이픈(U+2011)으로.
+      en: "Hosted by NARU, a Korea\u2011rooted, student\u2011run group.",
     },
     // DECIDED 2026-10-10 (구조 브리프 2.4): 위 문장 안의 이 낱말이 /naru로 가는 링크입니다(밑줄 없이 색만).
     // naruLine의 문자열에 그대로 들어 있어야 합니다. 없으면 링크 없이 문장만 그립니다.

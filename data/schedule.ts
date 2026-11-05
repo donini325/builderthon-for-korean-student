@@ -1265,7 +1265,7 @@ export const categoryMeta: Record<
   mentoring: {
     label: { ko: "멘토링", en: "Mentoring" },
     blurb: {
-      ko: "막히는 지점과 피칭 준비를 멘토와 1:1로 풀어내는 시간.",
+      ko: "막히는 지점과 공유 준비를 멘토와 1:1로 풀어내는 시간.",
       en: "1:1 time with mentors for blockers and pitch prep.",
     },
     dot: "#0F9D8F", // teal

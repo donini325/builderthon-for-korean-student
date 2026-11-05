@@ -52,7 +52,8 @@ export default function MobileChatBar({ afterId = "about", endId = "closing", ph
       const past = about
         ? about.getBoundingClientRect().top < 0
         : window.scrollY > window.innerHeight;
-      if (past) setVisible(true);
+      // 2026-11-05 (폰 점검: 한 번 나타나면 위로 돌아와도 남아 히어로 사진과 카드 글자를 가림): 위로 돌아오면 다시 숨깁니다.
+      setVisible(past);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });

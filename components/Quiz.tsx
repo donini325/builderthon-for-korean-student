@@ -678,7 +678,7 @@ function Landing({
       {matchMode ? (
         <MatchStartFields t={t} profile={profile} onChange={changeProfile} error={profileError} />
       ) : (
-      <div className="mt-9 flex flex-wrap items-center justify-center gap-2.5">
+      <div className="mx-auto mt-9 grid w-fit grid-cols-3 place-items-center gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
         {HERO_LOGOS.map((l) => (
           <span key={l.file} className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05]">
             <HeroLogo file={l.file} alt={l.alt} emoji={l.emoji} />

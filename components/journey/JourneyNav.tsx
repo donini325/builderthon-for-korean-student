@@ -218,7 +218,7 @@ export default function JourneyNav({ anchors = DEFAULT_ANCHORS, page }: { anchor
   };
 
   const sectionLinks = anchors.filter((anchor) => anchor.id !== "top").map((anchor) => (
-    <a key={anchor.id} href={`#${anchor.id}`} onClick={(event) => jump(event, anchor.id)} aria-label={anchor.ariaLabel ? t(anchor.ariaLabel) : undefined} aria-current={activeSection === anchor.id ? "location" : undefined} className={`inline-flex min-h-[44px] shrink-0 snap-start items-center whitespace-nowrap text-[0.8125rem] font-semibold underline-offset-4 ${activeSection === anchor.id ? "text-accent underline decoration-2" : "text-naru-muted hover:text-white"}`}>{t(anchor.label)}</a>
+    <a key={anchor.id} href={`#${anchor.id}`} onClick={(event) => jump(event, anchor.id)} aria-label={anchor.ariaLabel ? t(anchor.ariaLabel) : undefined} aria-current={activeSection === anchor.id ? "location" : undefined} className={`inline-flex min-h-[44px] min-w-[44px] shrink-0 snap-start items-center justify-center whitespace-nowrap px-1 text-[0.8125rem] font-semibold underline-offset-4 ${activeSection === anchor.id ? "text-accent underline decoration-2" : "text-naru-muted hover:text-white"}`}>{t(anchor.label)}</a>
   ));
   return (
     <>

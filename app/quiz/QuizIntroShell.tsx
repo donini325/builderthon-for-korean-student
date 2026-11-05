@@ -61,7 +61,7 @@ export default function QuizIntroShell() {
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-white/70">
             <Both phrase={quizUI.subtitle} />
           </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-2.5">
+          <div className="mx-auto mt-9 grid w-fit grid-cols-3 place-items-center gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
             {SHELL_LOGOS.map((e, i) => (
               <span
                 key={i}

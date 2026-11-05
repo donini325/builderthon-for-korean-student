@@ -1578,7 +1578,8 @@ export const dict = {
       },
       tangibles: [
         { ko: "돌아가는 데모", en: "A demo that runs" },
-        { ko: "무대 위 피칭", en: "A pitch on stage" },
+        // 2026-11-05 (폰 점검, brand 5장 "피칭"은 안 쓰는 말): 무대 위 공유로.
+        { ko: "무대 위 공유", en: "Sharing on stage" },
         { ko: "수료증", en: "A certificate" },
       ],
     },
@@ -1652,7 +1653,7 @@ export const dict = {
           { ko: "데모로 끝나지 않는 첫 성공 경험", en: "A first success that goes beyond a demo" },
           // The spine, said once more where the "성공" claim is actually made -
           // this card used to describe a feeling and stop there.
-          { ko: "문제를 낸 기업과 업계 전문가 앞에서 검증받고, 데모와 피칭, 수료증으로 남습니다", en: "Checked in front of the company that set the problem and industry experts, and it stays with you as a demo, a pitch and a certificate" },
+          { ko: "문제를 낸 기업과 업계 전문가 앞에서 검증받고, 데모와 무대 위 공유, 수료증으로 남습니다", en: "Checked in front of the company that set the problem and industry experts, and it stays with you as a demo, a pitch and a certificate" },
           // 두 절을 ·로 붙여 두었더니 나열로 읽혔습니다 (2026-08-11). 실제로는
           // 앞이 뒤의 이유라, 접속으로 이어야 뜻이 섭니다.
           { ko: "군 입대 전 첫 성공이자, 전역 후 재도전의 동력", en: "A first win before enlistment, and momentum to return after service" },

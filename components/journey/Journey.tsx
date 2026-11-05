@@ -984,7 +984,7 @@ function BenefitCard({
                넓힙니다. "지도"는 두 글자라 실측 23x16px이고, 폰에서 손가락으로
                정확히 짚기 어렵습니다. 멘토 카드의 LinkedIn 아이콘이 쓰는 것과
                같은 수법이에요(모양을 키우면 문장 속 링크가 버튼처럼 보입니다). */
-            className="relative font-semibold text-white/85 underline decoration-accent/40 underline-offset-2 transition after:absolute after:-inset-2 after:content-[''] hover:text-white"
+            className="tap-44 relative font-semibold text-white/85 underline decoration-accent/40 underline-offset-2 transition hover:text-white"
           >
             {t(item.footnote.linkLabel)}
           </a>
@@ -2272,7 +2272,7 @@ export default function Journey() {
       <Chapter id="about" align="center">
         <div className="text-center">
           <Eyebrow>{t(dict.about.tag)}</Eyebrow>
-          <h2 className="mx-auto max-w-3xl text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-white">
+          <h2 className="mx-auto max-w-3xl text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
             {t(dict.about.heading)}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl leading-[1.65]  text-sm sm:text-base text-naru-muted">
@@ -2376,7 +2376,7 @@ export default function Journey() {
       <Chapter id="join" align="center">
         <div className="text-center">
           <Eyebrow color="emerald">{t(dict.whoWhat.tag)}</Eyebrow>
-          <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-white">
+          <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
             {t(dict.whoWhat.heading)}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl leading-[1.65]  text-sm sm:text-base text-naru-muted">
@@ -2432,7 +2432,7 @@ export default function Journey() {
           360px 폭에서 500px 가까이 비어 덜 불러온 화면처럼 보였습니다. */}
       <Chapter id="benefits" align="center" className="!pb-6 sm:!pb-20 lg:!pb-24">
         <Eyebrow color="cyan">{t(dict.benefits.tag)}</Eyebrow>
-        <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-white">
+        <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.benefits.heading)}
         </h2>
         {/* ── Q1 spine ──────────────────────────────────────────────────────
@@ -2488,7 +2488,7 @@ export default function Journey() {
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Eyebrow className="!mb-0">{t(dict.program.tag)}</Eyebrow>
             </div>
-            <h2 className="mt-4 text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-white">
+            <h2 className="mt-4 text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
               {t(dict.program.heading)}
             </h2>
             {/* Three numbers before anything else: the first question this section
@@ -2632,7 +2632,7 @@ export default function Journey() {
           naming/likeness to be confirmed with the user (flagged in the handoff). */}
       <Chapter id="speakers" align="center">
         <Eyebrow>{t(dict.speakers.tag)}</Eyebrow>
-        <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-white">
+        <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.speakers.heading)}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl leading-[1.65]  text-sm sm:text-base text-naru-muted">{t(dict.speakers.intro)}</p>
@@ -2736,7 +2736,7 @@ export default function Journey() {
       {/* ── CH 3.3 · MENTORING PHILOSOPHY ──────────────────────────── */}
       <Chapter id="mentoring" align="center">
         <Eyebrow color="emerald">{t(dict.mentoring.tag)}</Eyebrow>
-        <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-white">
+        <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.mentoring.heading)}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl leading-[1.65]  text-sm sm:text-base text-naru-muted">{t(dict.mentoring.intro)}</p>
@@ -3066,7 +3066,7 @@ export default function Journey() {
             the bright background field. */}
         <div className="mx-auto w-full max-w-4xl ">
           <Eyebrow>{t(dict.partners.tag)}</Eyebrow>
-          <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-white">
+          <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
             {t(dict.partners.heading)}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-center leading-[1.65]  text-sm sm:text-base text-naru-muted">{t(dict.partners.note)}</p>

@@ -225,13 +225,10 @@ function GainBars({ days, split }: { days: number[]; split?: boolean }) {
           <div className={GAIN_BAR} />
         </div>
       ))}
-      <div aria-hidden className="mt-[14px] grid grid-cols-5 sm:hidden">
-        {spans.map(([a, b]) => (
-          <div key={a} className="px-1.5" style={{ gridColumn: `${a + 1} / span ${b - a + 1}` }}>
-            <div className={GAIN_BAR} />
-          </div>
-        ))}
-      </div>
+      {/* 2026-11-05 (폰 점검: 라벨 없는 막대가 진행 막대처럼 읽힘): 폰은 막대 대신 날을 글자로. */}
+      <p className={`mt-[10px] ${META} font-semibold text-accent sm:hidden`}>
+        {spans.map(([a, b]) => (a === b ? `Day ${a}` : `Day ${a}–${b}`)).join(", ")}
+      </p>
     </>
   );
 }
@@ -333,9 +330,9 @@ function HeroPhotos({ photos, t, className = "", desktopOnly = false, single = f
                 onClick={() => { if (!off) go(cur + (dir === "prev" ? -1 : 1)); }}
                 aria-disabled={off || undefined}
                 aria-label={t(dir === "prev" ? naru.eventHero.photoPrev : naru.eventHero.photoNext)}
-                className={`absolute top-1/2 ${dir === "prev" ? "left-3" : "right-3"} flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#E3E0D8] bg-[#FCFBF8]/90 text-naru-navy transition hover:bg-[#FCFBF8] aria-disabled:cursor-default aria-disabled:opacity-40`}
+                className={`absolute top-1/2 ${dir === "prev" ? "left-3" : "right-3"} flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-[#E3E0D8] bg-[#FFFFFF] text-naru-navy shadow-[0_1px_4px_rgba(20,20,24,0.18)] transition hover:bg-[#FCFBF8] aria-disabled:cursor-default aria-disabled:opacity-40`}
               >
-                <svg aria-hidden viewBox="0 0 12 12" className={`h-3 w-3 ${dir === "prev" ? "rotate-180" : ""}`}><path d="M4.5 2l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                <svg aria-hidden viewBox="0 0 12 12" className={`h-4 w-4 ${dir === "prev" ? "rotate-180" : ""}`}><path d="M4.5 2l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             );
           })}
@@ -378,7 +375,8 @@ function HeroPhotos({ photos, t, className = "", desktopOnly = false, single = f
 // "아직" 문법(점선 테두리)에 자물쇠를 붙입니다. 새 색과 새 글자 크기는 없습니다.
 // DECIDED 2026-10-24 (사용자: "이 button을 더 visually engaging하게"): 점선 투명 필이 고장 난 버튼처럼 보여, 실선 테두리와 옅은 면, 밝은 글자로.
 // 잠김은 자물쇠와 cursor-not-allowed가 말합니다. 그 전: !border-dashed !border-white/25 !bg-transparent text-white/70.
-const LOCKED_CLASS = `w-full cursor-not-allowed justify-center gap-2 !border-white/35 !bg-white/[0.06] font-semibold text-white/90 ${buttonClass("secondary")} hover:!translate-y-0`;
+// 2026-11-05 (폰 점검: 보조 버튼 모양이 셋): 잠긴 버튼도 다른 보조 버튼처럼 흰 면에 선 하나. 잠김은 자물쇠와 아래 캡션이 말합니다.
+const LOCKED_CLASS = `w-full cursor-not-allowed justify-center gap-2 !border-white/15 !bg-naru-surface font-semibold text-white/90 ${buttonClass("secondary")} hover:!translate-y-0`;
 const LOCK_ICON = (
   <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
     <rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" />
@@ -492,7 +490,7 @@ function partnerLogo(l: { name: string; src: string; w: number; h: number; url?:
     <Image src={l.src} alt={l.name} width={l.w} height={l.h} unoptimized className={`block w-auto ${h ?? partnerLogoHeight(l)} opacity-90`} />
   );
   return l.url ? (
-    <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer" aria-label={l.name} className="tap-44 rounded-sm transition-opacity hover:opacity-100 [&>img]:hover:opacity-100">
+    <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer" aria-label={l.name} className="inline-flex min-h-[44px] items-center rounded-sm transition-opacity hover:opacity-100 [&>img]:hover:opacity-100">
       {img}
     </a>
   ) : (
@@ -515,11 +513,11 @@ function PartnerTicker({ t }: { t: (p: Phrase) => string }) {
       <ul role="list" className="marquee-track marquee-left">
         {track.map(({ logo, role }, i) => {
           const dup = i >= items.length;
-          const img = <Image src={logo.src} alt={dup ? "" : logo.name} width={logo.w} height={logo.h} unoptimized className={`block w-auto ${partnerLogoHeight(logo)} opacity-80 lg:origin-center lg:scale-125`} />;
+          const img = <Image src={logo.src} alt={dup ? "" : logo.name} width={logo.w} height={logo.h} unoptimized className={`block w-auto ${partnerLogoHeight(logo)} lg:origin-center lg:scale-125`} />;
           return (
             <li key={i} aria-hidden={dup || undefined} className="flex shrink-0 flex-col items-center gap-3 px-[32px] py-[12px] sm:px-[48px] lg:gap-4 lg:px-[72px] lg:py-[20px]">
               <span className="flex h-14 items-center lg:h-20">
-                {logo.url && !dup ? <a href={logo.url} target="_blank" rel="noopener noreferrer" aria-label={logo.name} className="tap-44">{img}</a> : img}
+                {logo.url && !dup ? <a href={logo.url} target="_blank" rel="noopener noreferrer" aria-label={logo.name} className="inline-flex min-h-[44px] items-center">{img}</a> : img}
               </span>
               <span className={`${META} whitespace-nowrap text-caption`}>{role}</span>
             </li>
@@ -738,7 +736,7 @@ export default function NaruHome() {
             {/* DECIDED 2026-10-11 (사용자, 스크린숏: "좀 더 로고가 크면 좋겠어", 이어서 "둘다 사이즈가 동일해야함"): 히어로의 로고는 TITLE의 1.25배입니다
                 (폰 45px, 데스크톱 84px). 한국어 화면과 영문 화면이 같은 크기입니다. 영문은 글자가 길어 이 크기에서 두 줄로 접힙니다.
                 한 화면의 글자 크기는 셋이라는 규칙(2026-10-07)에서 이 로고 하나만 예외입니다. 글이 아니라 표식입니다. 다른 자리에 이 크기를 쓰지 마세요. */}
-            <h1 id="hero-title" className="text-[clamp(2.5rem,6.875vw,4.6875rem)] max-sm:text-[28px] font-black leading-[1.05] tracking-tight">
+            <h1 id="hero-title" className="text-[clamp(2.5rem,6.875vw,4.6875rem)] max-sm:text-[40px] font-black leading-[1.05] tracking-tight">
               {/* DECIDED 2026-10-08 (사용자: "영문 화면에도 같은 로고로", 이어서 "영어 crossing seoul 로고로 바꿨으면"):
                   영문 화면의 로고는 영문입니다. 큰 글자가 "CROSSING SEOUL"이고 같은 그라데이션을 씁니다. 한글 줄은
                   영문 화면에 보이지 않습니다(나루 락업의 규칙과 같아졌습니다). 영문 로고 파일이 따로 없어서 한국어
@@ -758,7 +756,8 @@ export default function NaruHome() {
             {/* DECIDED 2026-10-26 (사용자: "핸드폰으로 들어갈 때 interaction들이 너무 반응이 느릴 때가 있음"): 히어로 문단 셋의 그림자는
                 drop-shadow 필터가 아니라 text-shadow입니다(같은 값). 필터는 움직이는 WebGL 배경 위에서 아이폰 사파리가 매 프레임 다시 그려,
                 Speed Insights의 느린 탭(0.4~1.7초)이 바로 이 문단들을 가리켰습니다. */}
-            <p className={`mt-6 ${BODY} font-bold text-white lg:mt-8`}>
+            {/* 2026-11-05 (폰 점검: 히어로에 중심이 없음): 날짜 줄은 META 보통 굵기, 캡션 색. 굵은 문단은 캐치프레이즈 하나. 폰 워드마크는 40px(표식 예외). */}
+            <p className={`mt-6 ${META} text-caption lg:mt-8`}>
               {formatDecemberDateLine(locale)}
             </p>
             {/* DECIDED 2026-11-04 (docs/catchphrase-brief.md C1, D2, 사용자: 이슈는 아직 손으로 하는 일이 있다는 것 자체, 빌더는 만들기 전에 왜부터 묻는다):
@@ -779,7 +778,7 @@ export default function NaruHome() {
             {/* DECIDED 2026-10-11 (사용자, 스크린숏: "여기에 있으면 좋겠음. 2x2, 버튼 별 사이즈는 똑같이"): AI 유형 테스트 버튼이 일정표의
                 Day 1에서 여기로 왔습니다. 버튼 넷이 두 칸 두 줄로 서고, 격자가 칸을 늘려 넷의 크기가 같습니다(글은 가운데).
                 폰은 한 칸이고 "프로그램 보기"는 전처럼 폰에서 숨깁니다. */}
-            <div className={`mx-auto mt-10 grid w-fit max-w-full lg:mx-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
+            <div className={`mx-auto mt-10 grid w-fit max-w-full max-sm:w-full lg:mx-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
               {regState === "open" ? (
                 // DECIDED 2026-11-02 (docs/register-ux-brief.md O1, D4): 이 기기에서 등록했으면 "등록했습니다"(유령 필). 누르면 완료 화면이 다시 열립니다.
                 <button type="button" onClick={() => { track("naru_cta", { src: "hero", to: reg?.registered ? "registered" : "register" }); reg?.openRegister(); }} className={`group ${reg?.registered ? `${buttonClass("secondary")} ${HERO_BUTTON_GROUND}` : buttonClass("primary", "naru")}`}>
@@ -889,8 +888,9 @@ export default function NaruHome() {
           {(() => {
             const P = naru.december.stages.map((st, i) => dayParts(st, i));
             const wide = (k: number, last = false) => (
-              <div className={`flex flex-col items-center gap-3 px-4 py-6 text-center sm:px-6 ${last ? "border-t border-white/10" : "border-b border-white/10"}`}>
-                {P[k].head(true)}
+              // 2026-11-05 (폰 점검: 판 안에서 가운데와 왼쪽이 섞임): Day 0, 4도 Day 1~3처럼 왼쪽.
+              <div className={`flex flex-col items-start gap-3 px-4 py-6 text-left sm:px-6 ${last ? "border-t border-white/10" : "border-b border-white/10"}`}>
+                {P[k].head(false)}
                 <div className="max-w-2xl">{P[k].line}</div>
                 {P[k].chips}
                 {P[k].vote && <div className="mt-1 w-full max-w-sm">{P[k].vote}</div>}
@@ -900,9 +900,9 @@ export default function NaruHome() {
               <div data-schedule className="overflow-hidden rounded-2xl card-base text-left">
                 {wide(0)}
                 <div className="px-4 py-6 sm:px-6">
-                  <div className="grid grid-cols-1 gap-y-10 md:grid-cols-3 md:gap-x-6 md:gap-y-3">
+                  <div className="grid grid-cols-1 gap-y-8 md:grid-cols-3 md:gap-x-6 md:gap-y-3">
                     {[1, 2, 3].map((k) => (
-                      <div key={k} className={`flex min-w-0 flex-col gap-3 md:row-span-5 md:grid md:grid-rows-subgrid ${k > 1 ? "md:border-l md:border-white/10 md:pl-6" : ""}`}>
+                      <div key={k} className={`flex min-w-0 flex-col gap-3 md:row-span-5 md:grid md:grid-rows-subgrid ${k > 1 ? "max-md:border-t max-md:border-white/10 max-md:pt-8 md:border-l md:border-white/10 md:pl-6" : ""}`}>
                         {P[k].head(false)}
                         {P[k].line}
                         {P[k].session ?? <span aria-hidden className="hidden md:block" />}
@@ -991,8 +991,8 @@ export default function NaruHome() {
         <Reveal className={WIDE}>
           {/* DECIDED 2026-10-26: 핵심 문장은 모든 화면에서 보라색 채움 카드로 본문과 구분합니다. */}
           <div className="mt-[32px] rounded-2xl card-tint px-5 py-5 text-center sm:mt-[40px] sm:px-6 sm:py-6">
-            <p className={`${META} font-bold uppercase ${latinTrack(locale)} text-accent`}>{t(naru.gains.spine.tag)}</p>
-            <p className={`mx-auto mt-[12px] max-w-[34rem] text-balance break-keep ${BODY} font-bold leading-[1.65] text-white`}>{markPhrases(t(naru.gains.spine.heading), naru.gains.spine.marks.map((m) => t(m)))}</p>
+            {/* 2026-11-05 (폰 점검: "남는 것"이 세 겹, 강조 색 둘): 상자 안 태그("이 닷새에 남는 것")를 빼고 문장은 잉크 한 색. 키(spine.tag, marks)는 남깁니다. */}
+            <p className={`mx-auto max-w-[34rem] text-balance break-keep ${BODY} font-bold leading-[1.65] text-white`}>{t(naru.gains.spine.heading)}</p>
             {/* DECIDED 2026-10-20 (hwang 브리프 1.2, 2.6, 감사 W3, W4): ✓칩 셋(알약)을 걷고 한 문장으로. tangibles 키는 남깁니다. */}
             {/* DECIDED 2026-10-23 (사용자: 남는 것 다섯 칸 개편): tangiblesLine(팀의 생각 한 장, 코드로 옮긴 결과물)은 그리지 않습니다.
                 바로 아래 02와 04가 같은 말을 합니다. 키는 data/naru.ts에 남깁니다. */}
@@ -1013,14 +1013,14 @@ export default function NaruHome() {
               {/* DECIDED 2026-10-25 (사용자, 폰 스크린숏: "스크롤할때 몇일인지가 모를거 같은데"): 폰에서는 Day 머리가 접힌 헤더(탭 줄 48px)
                   바로 아래에 붙어 01~05를 내리는 동안 남습니다. 판이 끝나면 같이 올라갑니다. 뒤로 막대가 비치지 않게 불투명 바탕을
                   판 가장자리까지(-mx) 깝니다. sm부터는 머리와 행이 한 화면에 들어 그대로입니다. */}
-              <div aria-hidden className="relative pb-4 pt-[12px] max-sm:-mx-[20px] max-sm:px-[20px] sm:pt-0">
+              <div aria-hidden className="relative pb-4 pt-[12px] max-sm:hidden sm:pt-0">
                 <GainRouteHead label={t({ ko: "닷새", en: "Five days" })} names={naru.december.stages.map((st) => t(st.title))} />
               </div>
               <ol role="list" className="relative">
                 {naru.gains.items.map((item, i) => (
                   <li
                     key={item.num}
-                    className={`border-t border-white/[0.08] py-[20px] text-left sm:grid sm:items-start sm:py-[24px] lg:py-[28px] ${GAIN_COLS}`}
+                    className={`border-t border-white/[0.08] py-[20px] text-left max-sm:first:border-t-0 max-sm:first:pt-0 sm:grid sm:items-start sm:py-[24px] lg:py-[28px] ${GAIN_COLS}`}
                   >
                     <div className="min-w-0 sm:pr-6" style={{ gridColumn: 1, gridRow: 1 }}>
                       {/* DECIDED 2026-11-04 (site-tells A3): "01~05" 번호 배지를 뺍니다. 줄 높이(min-h-7, 28px)는 남겨 날 막대가 제목 줄 가운데에 그대로 섭니다. */}

@@ -70,7 +70,7 @@ export default function ThanksStrip({ t }: { t: Tfn }) {
             <p className={`${META} font-semibold text-accent ${SHADOW}`}>{t(ROLE[role].label)}</p>
             <ul className="flex max-w-5xl flex-wrap justify-center gap-x-[2px] gap-y-[12px] sm:gap-x-[8px] sm:gap-y-[14px]">
               {row.map((p) => (
-                <li key={p.key} className="w-[5.25rem] sm:w-[7.5rem]">
+                <li key={p.key} className="w-[6.75rem] sm:w-[7.5rem]">
                   <a
                     href={p.linkedin || ROLE[role].href}
                     {...(p.linkedin ? { target: "_blank", rel: "noopener noreferrer", title: "LinkedIn" } : {})}

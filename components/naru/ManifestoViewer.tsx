@@ -193,7 +193,7 @@ export default function ManifestoViewer({ locale, t }: Props) {
                 onClick={() => a.go(i)}
                 aria-label={`${alt(i)}${here ? `, ${t({ ko: "지금 쪽", en: "current" })}` : ""}`}
                 aria-current={here ? "true" : undefined}
-                className="group/dot flex h-11 items-center px-[4px]"
+                className="group/dot flex h-11 min-w-[44px] items-center justify-center px-[4px]"
               >
                 <span className={`relative block h-[8px] overflow-hidden rounded-full transition-colors duration-300 motion-reduce:transition-none ${here ? "w-[36px] bg-white/20" : "w-[8px] bg-white/30 group-hover/dot:bg-white/60"}`}>
                   {here && (

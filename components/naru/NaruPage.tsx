@@ -181,7 +181,7 @@ export default function NaruPage() {
               </div>
               <div className="flex flex-col items-start gap-[10px]">
                 <p className={`break-keep ${BODY} leading-relaxed text-naru-text`}>{t(naru.record.lead2)}</p>
-                <Link href={naruLinks.archive} onClick={() => track("naru_cta", { src: "record", to: "archive" })} className={`${buttonClass("text")} !min-h-[36px] text-accent`}>
+                <Link href={naruLinks.archive} onClick={() => track("naru_cta", { src: "record", to: "archive" })} className={`${buttonClass("text")} !min-h-[44px] text-accent`}>
                   {t(naru.record.cta)} <span aria-hidden>→</span>
                 </Link>
               </div>
@@ -215,7 +215,7 @@ export default function NaruPage() {
         {/* 2026-10-19 (/naru 감사 8): 윗선(border-t)을 뺐습니다. 바로 위 판 사이 틈의 배경 형상 한가운데를 가로질렀습니다. 틈이 이미 둘을 나눕니다. */}
         <section id="core" aria-labelledby="core-title" className={`${READ} mt-[36px] pt-[36px] lg:mt-[54px] lg:pt-[54px] text-balance text-center`}>
           <Eyebrow color="purple" className={`${eyebrowTrack(locale)} !mb-0`}>{t(naru.why.eyebrow)}</Eyebrow>
-          <h2 id="core-title" className={`${TITLE} mt-[18px] font-bold tracking-tight text-white`}>{t(naru.why.heading)}</h2>
+          <h2 id="core-title" className={`${TITLE} mt-[18px] font-bold tracking-tight text-naru-navy`}>{t(naru.why.heading)}</h2>
         </section>
         {/* 코어 둘. 판 두 장.
             ol인 이유: 순서가 뜻입니다. 01이 문턱이고 02가 증명이며, 바로 아래
@@ -294,7 +294,7 @@ export default function NaruPage() {
           {/* "세 층"은 챕터 라벨이 아니라 챕터 안 소제목입니다(가독성 브리프 4.2의 표). 알약을 벗습니다. */}
           {/* DECIDED 2026-10-06 (사용자, 스크린숏: "세 층 빼주고"): 소제목 "세 층"(how.eyebrow)은 그리지 않습니다.
               제목 하나만 섭니다. 키는 data/naru.ts에 그대로. */}
-          <h2 id="how-title" className={`${TITLE} font-bold tracking-tight text-white`}>{t(naru.how.heading)}</h2>
+          <h2 id="how-title" className={`${TITLE} font-bold tracking-tight text-naru-navy`}>{t(naru.how.heading)}</h2>
         {/* 2026-09-25 (가독성 브리프 5 표의 4행, 사용자 승인): 폰에서도 리드를 보입니다. 새 줄을
             붙이는 대신 "누가 무엇을 내는가"를 이미 말하는 이 문장을 폰에서 접지 않습니다.
             그 전에는 폰에서 접었습니다(다이어그램과 아래 한 줄이 같은 말을 한다는 이유). */}
@@ -408,7 +408,7 @@ export default function NaruPage() {
             같은 날 (사용자: "알약은 빼줘"): 알약을 제목과 같은 말로 바꿨더니 위아래로 겹쳐서 그리지 않습니다.
             join.eyebrow 키는 data/naru.ts에 그대로 있습니다. */}
         {/* DECIDED 2026-10-21 (brand 2장): 챕터 제목을 세워 안전한 도전과 가치 증명의 두 축을 분명히 합니다. */}
-        <h2 id="join-title" className={`${READ} ${TITLE} font-bold tracking-tight text-white text-balance text-center`}>{t(naru.join.heading)}</h2>
+        <h2 id="join-title" className={`${READ} ${TITLE} font-bold tracking-tight text-naru-navy text-balance text-center`}>{t(naru.join.heading)}</h2>
         <p className={`${READ} ${READ_MEASURE_C} mt-[27px] break-keep text-center ${BODY} leading-[1.65] text-white/85`}>
           {t(naru.join.lead)}
         </p>
@@ -524,7 +524,7 @@ export default function NaruPage() {
       {naru.people.stories.length > 0 && (
         <Chapter id="people" labelledBy="people-title" align="center" contentSized>
           <div className={`${READ} text-center`}><Eyebrow color="purple" className={`${eyebrowTrack(locale)} !mb-0`}>{t(naru.people.eyebrow)}</Eyebrow></div>
-          <h2 id="people-title" className={`${READ} ${TITLE} mt-[18px] font-bold tracking-tight text-white text-center`}>{t(naru.people.heading)}</h2>
+          <h2 id="people-title" className={`${READ} ${TITLE} mt-[18px] font-bold tracking-tight text-naru-navy text-center`}>{t(naru.people.heading)}</h2>
           <p className={`${READ} ${READ_MEASURE_C} mt-[27px] break-keep text-center ${BODY} leading-[1.65] text-naru-muted`}>
             {t(naru.people.lead)}
           </p>
