@@ -276,7 +276,7 @@ export const register = {
   draftNote: { ko: "입력한 내용은 보내기 전까지 이 기기에만 임시로 저장됩니다.", en: "What you type is kept on this device only until you send it." },
   // DECIDED 2026-11-02 (docs/register-ux-brief.md R1, D1 둠): 미리 보기에서도 적은 내용이 이 기기에 남습니다. 열린 뒤 draftNote가 서는 그 한 줄 자리에 섭니다.
   // 2026-10-15에 뺀 것은 안내 상자 세 줄이고 이것은 그 상자가 아닙니다.
-  previewNote: { ko: "적은 내용은 보내기 전까지 이 기기에만 남고, 열리면 그대로 보낼 수 있습니다.", en: "What you type stays on this device only until you send it, and you can send it as it is when registration opens." },
+  previewNote: { ko: "적은 내용은 보내기 전까지 이 기기에만 남고 열리면 그대로 보낼 수 있습니다.", en: "What you type stays on this device only until you send it, and you can send it as it is when registration opens." },
   optional: { ko: "(선택)", en: "(optional)" },
   selectPlaceholder: { ko: "선택", en: "Select" },
   submit: { ko: "등록 보내기", en: "Send registration" },
@@ -607,7 +607,7 @@ export const naru = {
       // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C1, humanize-korean 우선): 그 전 문장은 git 9c77437.
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C1, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
       // DECIDED 2026-11-05 (사용자: "AI로 만드는 비용이 0에 가까워진 지금, 기업에 아직 손으로 하는 일이 남아 있다는 것 자체가 이슈. 왜 아직 손으로 하는지 찾고, 무엇을 왜 만들지 정하고, 실제로 써 보게 해서 확인하는 과정을 익히는 자리"가 반영되게, 기존 글의 길이는 바꾸지 않고 수정만): 앞의 naruLine과 한 문단이고, 문단 줄 수는 늘지 않습니다(KO 2/2/3줄, EN 3/3/5줄이 2/2/3, 3/3/5 이하, 1440/1024/390). 닷새는 캐치프레이즈 둘째 줄, 병목과 작은 툴은 Day 카드와 남는 것, 그 기업 앞에 선다는 말은 남는 것 리드가 받습니다. 그 전 문장은 git 046f2e2.
-      ko: "AI로 만드는 비용이 0에 가까운 지금, 기업이 아직 손으로 하는 일이 왜 남았는지 찾고, 만들 것을 정해 실제로 써 보게 합니다.",
+      ko: "AI로 만드는 비용이 0에 가까운 지금, 기업이 아직 손으로 하는 일이 왜 남았는지 찾고 만들 것을 정해 실제로 써 보게 합니다.",
       en: "Building with AI costs almost nothing now. Find out why a company still does a task by hand, decide what to build, and have people actually try it.",
     },
     ctaProgram: { ko: "프로그램 보기", en: "See the programme" },
@@ -811,7 +811,7 @@ export const naru = {
           // DECIDED 2026-10-10 (중복 브리프 C5): "스크리닝 없이"와 "순위 대신"을 뺐습니다. 바로 위 본문이 둘 다 말합니다.
           // DECIDED 2026-10-30 (사용자): 두 코어의 지키는 것이 엇갈려 있어 바꿨습니다. 스크리닝 없음(학점, 이력서)은 코어 01, 전원에게 이슈는 코어 02.
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md H1', humanize-korean 우선): 그 전 문장은 git 9c77437.
-          ko: "학점도 이력서도 보지 않습니다. 부문별로 시상하고, 결과물보다 과정을 봅니다.",
+          ko: "학점도 이력서도 보지 않습니다. 부문별로 시상하고 결과물보다 과정을 봅니다.",
           en: "No grades, no CV. Awards by category, and we look at the process over the output.",
         },
       },
@@ -1071,7 +1071,7 @@ export const naru = {
         days: [4],
         body: {
           // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O4, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
-          ko: "마지막 날 그 기업 앞에서 툴과 거기까지 간 과정을 발표하고, 가져다 쓸 수 있을지 질문을 받습니다.",
+          ko: "마지막 날 그 기업 앞에서 툴과 거기까지 간 과정을 발표하고 가져다 쓸 수 있을지 질문을 받습니다.",
           en: "On the last day you present the tool and how you got there in front of that company, and take their questions on whether they could use it.",
         },
         evidence: { ko: "8월 21팀 발표", en: "August: 21 teams presented" },
@@ -2905,7 +2905,7 @@ export const naru = {
           // 2026-10-23 (사용자: "정확히 몇 분 발표 질의 하는지는 빼줘"): 5분, 5분을 뺐습니다.
           // DECIDED 2026-10-26 (사용자: 이슈와 문제, 병목 하나를 푸는 툴을 문장 수를 늘리지 않고 기존 문장에. 근거 12월 빌더톤/이벤트 기획/크로싱서울_이슈와_문제_정의_2026-10-26.md). 그 전: "...팀이 찾은 문제와 어디까지 갔는지를..."
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C11, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-          ko: "이슈를 낸 기업 앞에서 팀이 고른 병목과 만든 툴, 숫자 하나로 본 효과를 발표하고, 질의를 받습니다. 끝난 뒤에는 멘토에게 무엇을 만들었는지 한 줄로 먼저 연락합니다.",
+          ko: "이슈를 낸 기업 앞에서 팀이 고른 병목과 만든 툴, 숫자 하나로 본 효과를 발표하고 질의를 받습니다. 끝난 뒤에는 멘토에게 무엇을 만들었는지 한 줄로 먼저 연락합니다.",
           en: "In front of the company behind the issue, your team presents the bottleneck it chose, the tool it built and the effect in one number, and takes questions. Afterwards, message your mentor first with one line on what you built.",
         },
         // DECIDED 2026-10-10 (중복 브리프 B1): 칩 "멘토링 없음"을 뺐습니다(위 Day 3과 같은 이유).
@@ -3139,7 +3139,7 @@ export const naru = {
       {
         // DECIDED 2026-10-21 (사용자: 제목 1번 "나루터 할 때 나루입니다"에 맞춰 /naru를 한 번에): 전사록의 "연습도 안 시켜 놓고 왜 못하냐고 하면 안 된다"를 이유로.
         // DECIDED 2026-10-23 (humanizer 리뷰): "~묻기보다" 대비 문형을 풀고 전사록의 말("연습도 안 시켜 놓고 왜 못하냐고")에 더 가깝게.
-        ko: "문을 두드리는 법은 대개 절박해진 다음에 배웁니다. 연습도 시키지 않고 왜 못하느냐고 물을 수는 없어서, 그 연습을 앞당겨 엽니다.",
+        ko: "문을 두드리는 법은 대개 절박해진 다음에 배웁니다. 연습도 시키지 않고 왜 못하느냐고 물을 수는 없어서 그 연습을 앞당겨 엽니다.",
         en: "Most people learn how to knock on a door only once they have to. Rather than ask why someone cannot do what they never got to practise, we open that practice earlier.",
       },
       // DECIDED 2026-10-21 (사용자: 문장이 너무 많다): 둘째 문단("끝까지 쓰지 않는 사람이 있어도 이 자리는 있어야 합니다...")을 뺐습니다.
