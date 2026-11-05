@@ -18,6 +18,7 @@ import { buttonClass, ARROW_CLASS } from "@/components/ui/Button";
 import { TIMETABLE_OPEN } from "@/lib/crossingOps";
 import { VOTE_BUTTON_OPEN } from "@/lib/crossingVote";
 import PhotoLightbox, { warmPhoto } from "@/components/shared/PhotoLightbox";
+import DayFlowModal from "@/components/crossing/DayFlowModal";
 import MobileChatBar from "@/components/shared/MobileChatBar";
 import Chapter from "@/components/journey/Chapter";
 import Reveal from "@/components/shared/Reveal";
@@ -383,42 +384,6 @@ const LOCK_ICON = (
   </svg>
 );
 type MilestoneDetail = { label: string; items: string[] }[];
-// DECIDED 2026-11-05 (docs/day-flow-brief.md 1장 안 A, 사용자): Day 카드의 "하루의 흐름" 띠. 접힌 모양은 compact 미션 띠와 같은 부품, 같은 높이
-// (라벨 한 줄 + 제목 한 줄). 펼치면 줄마다 시각(있을 때), 무엇, 어디(캡션)를 위에서 아래로 쌓습니다. Day 1~3 칸이 좁아 시각 칸을 옆에 두면
-// 빈 시각 칸이 글 폭을 반으로 줄였습니다(1440 실측). 폰도 같은 목록. 필참은 ★. 시각이 정해지지 않은 줄은 시각을 그리지 않습니다(D2, "미정" 글자 없음). 모달은 만들지 않습니다.
-type FlowRow = { time?: string; what: string; where?: string; must?: boolean };
-function FlowStrip({ id, label, title, mustLabel, rows }: { id: string; label: string; title: string; mustLabel: string; rows: FlowRow[] }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="flex w-full flex-col rounded-xl card-sunken">
-      <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)} className="flex w-full flex-col items-start gap-1 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-white/[0.06]">
-        <span className="flex w-full items-center justify-between gap-2">
-          <span className={`inline-flex items-center gap-1 ${META} font-bold text-caption`}>{label}</span>
-          <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 text-naru-muted transition-transform ${open ? "rotate-180" : ""}`}><path d="m6 9 6 6 6-6" /></svg>
-        </span>
-        <span className={`break-keep ${META} font-bold leading-snug text-white`}>{title}</span>
-      </button>
-      <div id={id} hidden={!open} className="break-keep border-t border-white/10 px-3 py-3 text-left">
-        <ol className="flex flex-col gap-2.5">
-          {rows.map((r, j) => (
-            <li key={j} className={`${META} leading-[1.6]`}>
-              {r.time && <span className="block font-semibold tabular-nums text-accent">{r.time}</span>}
-              <span className="block min-w-0">
-                <span className="text-white/85">
-                  {r.must && <span aria-hidden className="mr-1 font-bold">★</span>}
-                  {r.must && <span className="sr-only">{mustLabel} </span>}
-                  {r.what}
-                </span>
-                {r.where && <span className="block text-caption">{r.where}</span>}
-              </span>
-            </li>
-          ))}
-        </ol>
-        {rows.some((r) => r.must) && <p className={`mt-3 ${META} text-caption`}>{mustLabel}</p>}
-      </div>
-    </div>
-  );
-}
 // open, onToggle(2026-10-17): 데스크톱 Day 1~3 판의 세 띠는 함께 열리고 닫힙니다. 한 칸만 열리면 그 줄의 높이가 크게 어긋났습니다.
 function MilestoneStrip({ id, label, title, detail, center = false, expanded = false, tone = "amber", open: openProp, onToggle, fill = false, narrow = false, compact = false }: { compact?: boolean; id: string; label: string; title: string; detail?: MilestoneDetail; center?: boolean; expanded?: boolean; tone?: "amber" | "plain"; open?: boolean; onToggle?: () => void; fill?: boolean; narrow?: boolean }) {
   const [openSelf, setOpenSelf] = useState(false);
@@ -612,6 +577,8 @@ export default function NaruHome() {
   // 마일스톤 띠는 카드 바닥에 붙어(mt-auto) 옆 카드와 같은 높이에 섭니다. Day 1의 /match 버튼은 히어로로 갔습니다.
   // DECIDED 2026-10-21 (2차): 일정 h3 아래 날짜별 제목은 h4입니다. 폰 패널의 기존 펼침 동작은 유지합니다.
   // Day 1~3이 함께 쓰는 버튼 하나(2026-10-17). 페이지 안에서 날을 고릅니다. 열기 전에는 잠겨 있습니다(TIMETABLE_OPEN).
+  // 하루의 흐름 모달에 열린 날(stages 인덱스). null이면 닫힘.
+  const [flowDay, setFlowDay] = useState<number | null>(null);
   const sharedCta = naru.december.stages[1].timetableCta;
   const timetableButton = sharedCta && (
     <div>
@@ -688,9 +655,13 @@ export default function NaruHome() {
         <span lang="en" className={`${BODY} font-semibold text-white/85`}>{t(stage.session.title)}</span>
       </p>
     ) : null;
+    // DECIDED 2026-11-05 (사용자: "클릭하면 보이는 식으로 like 8월 처럼"): 하루의 흐름은 카드 안에서 펼치지 않고, 8월 카드의 "자세히 보기 →"처럼
+    // 글자 링크 하나를 눌러 모달(components/crossing/DayFlowModal)에서 봅니다. 같은 날 앞선 접는 띠(안 A)를 대신합니다.
     const flow = stage.flow && stage.flow.length > 0 ? (
-      <FlowStrip id={`flow-day-${stage.dayOffset}-card`} label={t(naru.december.dayFlowLabel)} title={t(naru.december.dayFlowTitle)} mustLabel={t(naru.december.dayFlowMustLabel)}
-        rows={stage.flow.map((r) => ({ time: r.time, what: t(r.what), where: r.where && t(r.where), must: r.must }))} />
+      <button type="button" onClick={() => setFlowDay(i)} aria-haspopup="dialog"
+        className={`tap-44 group inline-flex items-center gap-1 self-start ${META} font-semibold text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent`}>
+        {t(naru.december.dayFlowLabel)} <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+      </button>
     ) : null;
     void i;
     return { head, line, session, chips, strip, vote, flow };
@@ -933,7 +904,7 @@ export default function NaruHome() {
                 {P[k].head(false)}
                 <div className="max-w-2xl">{P[k].line}</div>
                 {P[k].chips}
-                {P[k].flow && <div className="w-full max-w-2xl">{P[k].flow}</div>}
+                {P[k].flow}
                 {P[k].vote && <div className="mt-1 w-full max-w-sm">{P[k].vote}</div>}
               </div>
             );
@@ -947,7 +918,7 @@ export default function NaruHome() {
                         {P[k].head(false)}
                         {P[k].line}
                         {P[k].session ?? <span aria-hidden className="hidden md:block" />}
-                        <div className="flex min-w-0 w-full flex-col gap-2 self-start">{P[k].strip}{P[k].flow}</div>
+                        <div className="flex min-w-0 w-full flex-col gap-1 self-start">{P[k].strip}{P[k].flow}</div>
                         {P[k].chips ?? <span aria-hidden className="hidden md:block" />}
                       </div>
                     ))}
@@ -962,6 +933,19 @@ export default function NaruHome() {
                 </div>
                 {wide(4, true)}
               </div>
+            );
+          })()}
+          {(() => {
+            const st = flowDay != null ? naru.december.stages[flowDay] : null;
+            return (
+              <DayFlowModal onClose={() => setFlowDay(null)} heading={t(naru.december.dayFlowLabel)} mustLabel={t(naru.december.dayFlowMustLabel)} closeLabel={t(naru.december.dayFlowClose)}
+                day={st && st.flow ? {
+                  dayLabel: `${t(naru.december.dayLabel)} ${st.dayOffset}`,
+                  date: formatDecemberDayWithWeekday(locale, st.dayOffset),
+                  title: t(st.title),
+                  lead: t(st.line),
+                  rows: st.flow.map((r) => ({ time: r.time, what: t(r.what), where: r.where && t(r.where), must: r.must })),
+                } : null} />
             );
           })()}
         </div>

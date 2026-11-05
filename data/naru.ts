@@ -2210,9 +2210,9 @@ export const naru = {
     timetableNote: { ko: "Day 1(12.18) 12:00에 열립니다. 칸은 노트북에서 넣습니다.", en: "Opens Day 1 (Dec 18) at 12:00. Book slots from a laptop." },
     // DECIDED 2026-10-13 (사용자: "1일차 박스가 너무 비어있음"): 미션이 없는 Day 1 카드의 바닥 띠 라벨. 띠의 제목은 그날의 submit입니다.
     carryLabel: { ko: "Day 2에 들고 갈 것", en: "To bring on Day 2" },
-    // DECIDED 2026-11-05 (docs/day-flow-brief.md 1장 안 A): Day 카드의 "하루의 흐름" 띠. 미션 띠와 같은 부품, 같은 높이.
+    // DECIDED 2026-11-05 (docs/day-flow-brief.md 안 B, 사용자: "클릭하면 보이는 식으로 like 8월 처럼"): Day 카드의 "하루의 흐름 →" 링크와 그 모달.
     dayFlowLabel: { ko: "하루의 흐름", en: "How the day runs" },
-    dayFlowTitle: { ko: "시각, 무엇, 어디", en: "When, what, where" },
+    dayFlowClose: { ko: "닫기", en: "Close" },
     dayFlowMustLabel: { ko: "★ 필참", en: "★ Required" },
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:
