@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-05 로고 띠가 멈추지 않게](#2026-11-05-marquee-always)
 - [2026-11-05 캐치프레이즈 답 줄을 닷새 순서로](#2026-11-05-catch-verbs)
 - [2026-11-05 도구 페이지를 종이에 맞춤(합치기 전)](#2026-11-05-merge-tools)
 - [2026-11-05 사이트 점검 반영(design/site-tells)](#2026-11-05-audit-fixes)
@@ -476,6 +477,14 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-05-marquee-always"></a>
+## 2026-11-05 로고 띠가 멈추지 않게
+- 범위: app/globals.css(.marquee-left), components/home/NaruHome.tsx, components/shared/PartnerMarquee.tsx 주석
+- 한 것: 사용자 요청("여기 왜 자꾸 멈춤? 안 멈추게 확실하게"). 같은 날 사이트 점검이 홈과 크로싱 서울의 배경 움직임 버튼을 뺀 뒤, 홈 함께하는 곳 띠와 /naru 푸터 띠는 OS 동작 줄이기와 8월 페이지에서 남은 끔 값(html[data-motion="off"])에 멈췄습니다. 두 규칙을 걷고, 띠는 어떤 설정에도 90초 한 바퀴로 흐릅니다. 그 전 결정(2026-10-26 모션 줄이기에서 멈춤, 10-27 버튼을 따름)을 대신합니다.
+- 근거: brand 2장 판단 질문 2(함께하는 곳을 끊김 없이 보여 무대가 진짜라는 사실로 부름), brand 5장 성격
+- 검증: 동작 줄이기 + data-motion=off에서 1.5초에 73px 이동, animation 90s running
+- 커밋: c210dd3
 
 <a id="2026-11-05-catch-verbs"></a>
 ## 2026-11-05 캐치프레이즈 답 줄을 닷새 순서로
