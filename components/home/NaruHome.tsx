@@ -503,7 +503,7 @@ function partnerLogo(l: { name: string; src: string; w: number; h: number; url?:
 /**
  * 함께하는 곳의 로고 띠(메인 후원을 뺀 줄들). DECIDED 2026-10-26 (사용자: "함께한 곳 로고 ticker slide효과", 이어서 "티커는 절제를 원했지 모두 삭제를
  * 지시하진 않았어", "pc에서 스폰서 로고 하나만 아래로 내려가서 불편"): 같은 날 정지 격자(4열에 다섯 개라 하나가 아래 줄로 떨어짐)로 바꾼 것을 되돌립니다.
- * 한 줄 띠, 90초 한 바퀴(globals.css .marquee-left), 호버해도 멈추지 않음(같은 날 사용자), 모션 줄이기에서는 멈춘 띠. 칸 이름은 로고 아래 캡션.
+ * 한 줄 띠, 90초 한 바퀴(globals.css .marquee-left), 호버해도 멈추지 않음(같은 날 사용자). 2026-11-05부터 모션 줄이기에서도 멈추지 않음(globals.css). 칸 이름은 로고 아래 캡션.
  * 네 벌을 이어 반(두 벌)만큼 흘러 이음매가 없습니다. 처음 한 벌만 링크와 읽기 대상이고 나머지는 aria-hidden입니다.
  */
 function PartnerTicker({ t }: { t: (p: Phrase) => string }) {

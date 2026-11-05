@@ -45,7 +45,7 @@ export const NARU_PARTNERS: Logo[] = [...december, ...august].filter(
 const opticalHeight = (w: number, h: number) => Math.round(Math.min(56, Math.max(28, Math.sqrt(3000 / (w / h)))));
 
 // DECIDED 2026-10-26 (사용자: "티커는 절제를 원했지 모두 삭제를 지시하진 않았어"): 같은 날 정지 격자로 바꾼 것을 되돌리고 절제한 띠로.
-// 그 전(2026-10-22)의 두 줄 반대 방향 카드 띠에서 한 줄, 카드 없이 로고만, 90초 한 바퀴(globals.css .marquee-left). 호버해도 멈추지 않고(같은 날 사용자), 모션 줄이기에서는 멈춥니다.
+// 그 전(2026-10-22)의 두 줄 반대 방향 카드 띠에서 한 줄, 카드 없이 로고만, 90초 한 바퀴(globals.css .marquee-left). 호버해도 멈추지 않고(같은 날 사용자), 2026-11-05부터 모션 줄이기에서도 멈추지 않습니다(globals.css).
 // 로고는 처음부터 src를 둡니다(eager). 2026-10-26 (anti-slop broken-image): 화면 근처에서만 src를 채우던 방식은 첫 HTML에 빈 img 44개를 남겼습니다.
 // 그 전 이유(2026-10-22: iOS Safari가 흐르는 띠의 lazy 이미지를 끝내 받지 않음)는 eager로 지켜집니다.
 export default function PartnerMarquee() {
