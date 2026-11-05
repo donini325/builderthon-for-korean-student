@@ -844,19 +844,8 @@ export default function NaruHome() {
               접근성 체감에도 영향이 있습니다. 아래 폰용 묶음이 priority를 맡습니다. */}
           <HeroPhotos photos={naru.eventHero.photos} t={t} single />
         </div>
-        {/* DECIDED 2026-11-04 (사용자, site-tells 목업 "종이"): 히어로 아래는 숫자 넷 띠 하나. 위아래 가는 선, 숫자는 남색 TITLE, 설명은 META.
-            그 전의 카운트다운 띠와 로고 띠(같은 날 오전)는 걷었습니다. 로고는 아래 #partners(함께하는 곳)가 같은 목록으로 보여 줍니다.
-            CountdownPanel과 HeroPartnerStrip 부품은 남겨 둡니다. */}
-        <div className="px-6 sm:px-10 lg:mx-auto lg:max-w-6xl lg:px-10">
-          <dl className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-y border-white/10 py-10 sm:grid-cols-4 lg:mt-20">
-            {naru.eventHero.facts.map((f) => (
-              <div key={f.l.en} className="flex flex-col gap-1.5 text-left">
-                <dt className={`order-2 break-keep ${META} text-naru-muted`}>{t(f.l)}</dt>
-                <dd className={`order-1 ${TITLE} max-sm:text-[28px] font-black leading-none tracking-tight text-naru-navy`}>{t(f.v)}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+        {/* DECIDED 2026-11-05 (사용자, 스크린숏: "이거는 빼도 될 거 같음"): 히어로 아래 숫자 넷 띠(닷새, 74명, 21팀, 14명)를 뺍니다.
+            같은 날 앞서 목업대로 넣었던 것입니다. 데이터 키 eventHero.facts는 남겨 둡니다. */}
       </Chapter>
 
       {/* ── CH1 · 닷새의 모양 (DECIDED 2026-09-17, 홈 흐름 재배치 브리프) ──
