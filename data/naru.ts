@@ -3477,5 +3477,11 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
         { name: "크라이치즈버거 Cry Cheese Burger", src: "/partners/logos/color/crycheeseburger.png", w: 459, h: 378, square: true, url: "https://www.crycheeseburger.com/" },
       ],
     },
+    // DECIDED 2026-11-05 (사용자: "아이디어파트너스 로고를 웹사이트에 반영해줘, 미디어파트너로"). 원본은 CI/아이디어파트너스_영문.png(잉크 글자, 파란 심볼)이고
+    // 크림 바탕에 그대로 읽혀 투명 여백만 잘랐습니다. 사이트(ideapartners.co.kr)를 curl로 열어 봤습니다.
+    {
+      label: { ko: "미디어 파트너", en: "Media partner" },
+      logos: [{ name: "아이디어파트너스 Idea Partners", src: "/partners/logos/paper/idea-partners.png", w: 345, h: 64, url: "https://www.ideapartners.co.kr" }],
+    },
   ],
 };

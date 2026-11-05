@@ -262,6 +262,7 @@ const DECEMBER_MASS: Record<string, number> = {
   "/partners/logos/paper/cgc.png": 0.279,
   "/partners/logos/paper/bloom-block.png": 0.923,
   "/partners/logos/color/crycheeseburger.png": 0.482,
+  "/partners/logos/paper/idea-partners.png": 0.243, // 2026-11-05 측정, 미디어 파트너
 };
 
 function decemberSpec(l: PartnerLogo): StripLogoSpec {
