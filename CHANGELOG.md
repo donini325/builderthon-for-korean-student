@@ -501,9 +501,10 @@
 - 범위: data/naru.ts(december.stages[0] line, short, body, flow / stages[1], [2] session과 flow)
 - 한 것: 사용자 요청. 11/05 출제사 미팅에서 정한 진행에 맞춰 Day 0은 어느 회사가 어떤 문제의식으로 오는지까지만 알리고, 정리 자료는 멘토에게만 가며 자세한 설명은 Day 1에 출제사가 말로 한다고 씀(그 전: 손으로 하는 일, 기대한 효과, 업무 흐름, 공개 자료 링크를 공개). 칩 "이슈 공개"(10/07 결정)는 그대로.
 - 세션: 사용자 "PO Session 을 1일차로, Lovable 을 2일차로". 미팅에서도 첫날 출제 설명 다음이 PO 세션. Day 1 흐름은 출제사의 30분 다음에 PO session.
+- 세션 되돌림: 같은 날 뒤 사용자 "lovable 과 PO session 을 다시 바꾸자, lovable workshop 이 1일차에 오도록". Day 1 Lovable workshop(흐름은 트랙 고르기 다음), Day 2 PO session(멘토 찾아가기 다음).
 - 근거: brand 7장 이슈(30분 통화로 듣고 운영팀이 한 장으로 정리), 멘토링.
 - 검증: build 통과. /crossing Day 카드와 모달 스크린숏.
-- 커밋: 60811d0
+- 커밋: 60811d0, aa1d1f9
 
 ---
 
