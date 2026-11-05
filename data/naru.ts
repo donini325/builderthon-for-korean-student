@@ -3471,7 +3471,8 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
         { name: "Bloom", src: "/partners/logos/paper/bloom-block.png", w: 575, h: 286, url: "https://bloomworld.ai/" },
         // DECIDED 2026-10-21 (사용자: "노란색 살려줘"): 이 로고만 흰색 단색이 아니라 원래 색입니다. 바깥 흰 바탕만 투명하게 지웠습니다
         // (public/partners/logos/color/, 모서리에서 flood fill). 노란 면이라 어두운 바탕 위에서도 밝은 판 없이 보입니다.
-        { name: "크라이치즈버거 Cry Cheese Burger", src: "/partners/logos/paper/crycheeseburger.png", w: 459, h: 378, square: true, url: "https://www.crycheeseburger.com/" },
+        // 2026-11-05 (사용자: "크라이치즈버거 로고 너무 이상함"): 종이용 사본(눈과 테두리까지 잉크)을 걷고 원본. 노란 얼굴과 검은 선이라 크림 위에서도 그대로 읽힙니다.
+        { name: "크라이치즈버거 Cry Cheese Burger", src: "/partners/logos/color/crycheeseburger.png", w: 459, h: 378, square: true, url: "https://www.crycheeseburger.com/" },
       ],
     },
   ],

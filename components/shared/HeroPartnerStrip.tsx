@@ -261,7 +261,7 @@ const DECEMBER_MASS: Record<string, number> = {
   "/partners/logos/paper/readray.png": 0.393,
   "/partners/logos/paper/cgc.png": 0.279,
   "/partners/logos/paper/bloom-block.png": 0.923,
-  "/partners/logos/paper/crycheeseburger.png": 0.482,
+  "/partners/logos/color/crycheeseburger.png": 0.482,
 };
 
 function decemberSpec(l: PartnerLogo): StripLogoSpec {
