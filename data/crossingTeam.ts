@@ -21,8 +21,8 @@ export const teamCopy = {
   carry: { ko: "우리 팀이 올린 파일은 칸을 넣은 멘토가 각자의 멘토 링크에서 열어 볼 수 있습니다.", en: "The mentors you book can open the files your team uploaded from their own mentor link." },
   notYet: { ko: "아직 열리지 않았습니다. Day 1(12.18) 12:00부터 넣을 수 있습니다.", en: "Not open yet. You can add slots from Day 1 (Dec 18) at 12:00." },
   day1BookHint: { ko: "Day 2, 3 멘토 칸은 Day 1(12.18) 12:00부터 Day 2, Day 3 탭에서 넣습니다.", en: "From Day 1 (Dec 18) at 12:00, add your Day 2 and 3 mentor slots in the Day 2 and Day 3 tabs." },
-  // 2026-10-18 (사용자: "트랙에 따라서 슬롯 색깔이 달라졌으면"). 우리 팀 칸은 흰 테두리로 가립니다.
-  trackLegend: { ko: "칸의 색은 그 팀의 트랙입니다. 흰 테두리는 우리 팀입니다.", en: "Each slot takes its team's track colour. A white outline marks your team." },
+  // 2026-10-18 (사용자: "트랙에 따라서 슬롯 색깔이 달라졌으면"). 2026-11-05 (docs/merge-paper-brief.md T2): 종이에서 우리 팀 칸은 남색 테두리.
+  trackLegend: { ko: "칸의 색은 그 팀의 트랙입니다. 남색 테두리는 우리 팀입니다.", en: "Each slot takes its team's track colour. A navy outline marks your team." },
   time: { ko: "시간", en: "Time" },
   gap: { ko: "쉬는 10분", en: "10-minute gap" },
   past: { ko: "지남", en: "Past" },

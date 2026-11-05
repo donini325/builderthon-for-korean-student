@@ -117,9 +117,10 @@ export default function MentorTool() {
                     if (!board.length) return null;
                     const times = [...new Set(board.flatMap((m) => m.slots))].sort();
                     // 내 열의 테두리: 양옆은 모든 칸, 위는 머리, 아래는 마지막 줄. 그림자 클래스는 칸마다 하나만 씁니다(겹치면 하나가 지워짐).
-                    const ME_SIDES = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(18,36,107,0.45),inset_-1px_0_0_rgba(18,36,107,0.45)]";
-                    const ME_TOP = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(18,36,107,0.45),inset_-1px_0_0_rgba(18,36,107,0.45),inset_0_1px_0_rgba(18,36,107,0.45)]";
-                    const ME_BOTTOM = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(18,36,107,0.45),inset_-1px_0_0_rgba(18,36,107,0.45),inset_0_-1px_0_rgba(18,36,107,0.45)]";
+                    // 2026-11-05 (docs/merge-paper-brief.md T4, D2): 내 칸 열은 남색 2px 테두리(운영진 문서의 "파란 테두리"와 맞춤).
+                    const ME_SIDES = "bg-accent/[0.06] shadow-[inset_2px_0_0_rgb(18,36,107),inset_-2px_0_0_rgb(18,36,107)]";
+                    const ME_TOP = "bg-accent/[0.06] shadow-[inset_2px_0_0_rgb(18,36,107),inset_-2px_0_0_rgb(18,36,107),inset_0_2px_0_rgb(18,36,107)]";
+                    const ME_BOTTOM = "bg-accent/[0.06] shadow-[inset_2px_0_0_rgb(18,36,107),inset_-2px_0_0_rgb(18,36,107),inset_0_-2px_0_rgb(18,36,107)]";
                     return (
                       <div className="card-base overflow-x-auto rounded-2xl max-sm:[mask-image:linear-gradient(to_right,#000_calc(100%_-_32px),transparent)]">
                         <table className="w-full min-w-max border-collapse">
