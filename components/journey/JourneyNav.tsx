@@ -213,7 +213,7 @@ export default function JourneyNav({ anchors = DEFAULT_ANCHORS, page }: { anchor
   };
 
   const sectionLinks = anchors.filter((anchor) => anchor.id !== "top").map((anchor) => (
-    <a key={anchor.id} href={`#${anchor.id}`} onClick={(event) => jump(event, anchor.id)} aria-label={anchor.ariaLabel ? t(anchor.ariaLabel) : undefined} aria-current={activeSection === anchor.id ? "location" : undefined} className={`inline-flex min-h-[44px] shrink-0 snap-start items-center whitespace-nowrap text-xs font-semibold underline-offset-4 xl:text-sm ${activeSection === anchor.id ? "text-accent underline decoration-2" : "text-naru-muted hover:text-white"}`}>{t(anchor.label)}</a>
+    <a key={anchor.id} href={`#${anchor.id}`} onClick={(event) => jump(event, anchor.id)} aria-label={anchor.ariaLabel ? t(anchor.ariaLabel) : undefined} aria-current={activeSection === anchor.id ? "location" : undefined} className={`inline-flex min-h-[44px] shrink-0 snap-start items-center whitespace-nowrap text-[0.8125rem] font-semibold underline-offset-4 ${activeSection === anchor.id ? "text-accent underline decoration-2" : "text-naru-muted hover:text-white"}`}>{t(anchor.label)}</a>
   ));
   return (
     <>
@@ -230,8 +230,8 @@ export default function JourneyNav({ anchors = DEFAULT_ANCHORS, page }: { anchor
             {page === "crossing" ? (
             <a href="#top" className="-my-1 flex min-h-[44px] shrink-0 items-center py-1 leading-none">
               <span lang={en ? "en" : undefined} className={`whitespace-nowrap pb-[0.08em] font-black tracking-[-0.02em] text-naru-navy ${en ? "text-sm sm:text-xl xl:text-2xl" : "text-xl sm:text-2xl xl:text-3xl"}`}>
-                {/* DECIDED 2026-11-04 (사용자, site-tells 목업 "종이"): 헤더 워드마크도 남색. */}
-                {decemberEventLabel(locale)}
+                {/* DECIDED 2026-11-04 (사용자, site-tells 목업 "종이"): 헤더 워드마크도 남색. 2026-11-05 (사이트 점검, brand 10장 "히어로와 헤더 모두"): 끝에 주황 점. */}
+                {decemberEventLabel(locale)}<span aria-hidden className="text-naru-orange">.</span>
               </span>
             </a>
             ) : (
@@ -259,14 +259,14 @@ export default function JourneyNav({ anchors = DEFAULT_ANCHORS, page }: { anchor
           </div>
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             {links.openChat && (
-              <a href={links.openChat} target="_blank" rel="noopener noreferrer" aria-label={t({ ko: "오픈채팅, 카카오톡 새 창", en: "Open chat, KakaoTalk, new window" })} onClick={() => trackOpenChat("nav")} className="inline-flex h-9 min-w-[36px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-cta px-3 text-xs font-semibold text-[#fff] transition-[filter] duration-150 hover:brightness-110 max-[419px]:w-9 max-[419px]:px-0 xl:text-sm">
+              <a href={links.openChat} target="_blank" rel="noopener noreferrer" aria-label={t({ ko: "오픈채팅, 카카오톡 새 창", en: "Open chat, KakaoTalk, new window" })} onClick={() => trackOpenChat("nav")} className="inline-flex tap-44 h-9 min-w-[36px] shrink-0 items-center justify-center gap-1.5 rounded-full bg-cta px-3 text-[0.8125rem] font-semibold text-[#fff] transition-[filter] duration-150 hover:brightness-110 max-[419px]:w-9 max-[419px]:px-0">
                 <ChatGlyph className="block h-4 w-4" />
                 <span className="max-[419px]:sr-only">{t(dict.nav.openChat)}</span>
               </a>
             )}
             {/* 2026-10-26 (사용자: "카카오 아이콘버튼도 옆 언어들과 안맞아", 이어서 "카카오를 줄이란 의미"): 오픈채팅을 언어 단추 크기로 줄이고 둘 다 36px 알약,
                 같은 글자(xs, xl부터 sm). 폰(420px 아래)의 오픈채팅은 36px 원. */}
-            <LocaleToggle className="h-9 !min-h-0 !py-0 xl:text-sm" />
+            <LocaleToggle className="tap-44 h-9 !min-h-0 !py-0 !text-[0.8125rem]" />
           </div>
         </div>
         {/* DECIDED 2026-10-26 (사용자: 올리기 전 모바일 손보기): 폰의 목차 줄은 [홈▾ | 목차]. 메뉴는 가로로 굴러가는 칸 밖에 있어 펼친 사이트맵이 잘리지 않습니다. */}

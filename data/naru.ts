@@ -1026,8 +1026,9 @@ export const naru = {
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C12, humanize-korean 우선): 그 전 문장은 git 9c77437.
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C25, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
           // DECIDED 2026-11-04 (docs/catchphrase-brief.md C4, 사용자: 이슈는 아직 손으로 하는 일이 있다는 것 자체, 빌더는 만들기 전에 왜부터 묻는다): 그 전 문장은 git e1bed3f.
-          ko: "어느 회사가 어떤 일을 왜 아직 손으로 하는지, 회사 이름과 함께 받습니다.",
-          en: "You get which task which company still does by hand, and why, with the company's name on it.",
+          // DECIDED 2026-11-05 (사이트 점검, brand 5장 같은 사실 두 번까지): "왜 아직 손으로"가 /crossing에 네 번이라 이 항목에서 뺍니다. 그 전 문장은 git 69c46b6.
+          ko: "어느 회사의 어떤 일인지, 회사 이름과 함께 받습니다.",
+          en: "You get which company's task it is, with the company's name on it.",
         },
         evidence: { ko: "8월 코드프레소 출제", en: "August: Codepresso set the problem" },
       },
@@ -2201,6 +2202,10 @@ export const naru = {
     // DECIDED 2026-10-17 (사용자): 미션 띠를 펼치면 서는 두 목록의 라벨.
     milestoneConditionsLabel: { ko: "인정 조건 (전부 충족)", en: "To complete it (all of these)" },
     milestoneSubmitLabel: { ko: "제출 방법", en: "How to submit" },
+    // DECIDED 2026-11-05 (사이트 점검, UX): /crossing Day 카드에서 빠진 멘토링 정보 둘. 문장은 brand 7장과 data/crossingTeam.ts에서 가져옵니다.
+    visitLabel: { ko: "멘토 찾아가기", en: "Visiting a mentor" },
+    visitItem: { ko: "멘토가 계신 곳(오피스, 카페, 온라인)으로 팀이 함께 찾아갑니다.", en: "The team goes together to where the mentor is (an office, a café, or online)." },
+    timetableNote: { ko: "Day 1(12.18) 12:00에 열립니다. 칸은 노트북에서 넣습니다.", en: "Opens Day 1 (Dec 18) at 12:00. Book slots from a laptop." },
     // DECIDED 2026-10-13 (사용자: "1일차 박스가 너무 비어있음"): 미션이 없는 Day 1 카드의 바닥 띠 라벨. 띠의 제목은 그날의 submit입니다.
     carryLabel: { ko: "Day 2에 들고 갈 것", en: "To bring on Day 2" },
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
@@ -2866,7 +2871,8 @@ export const naru = {
         when: { ko: "Day 4", en: "Day 4" },
         dayOffset: 4,
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
-        short: { ko: "그 기업 앞에서 발표하고 질문을 받습니다.", en: "Teams present to that company and take questions." },
+        // 2026-11-05 (사이트 점검, brand 5장): "그 기업 앞에서"가 /crossing에 세 번이라 이 칸은 성과 공유회로 씁니다.
+        short: { ko: "성과 공유회에서 발표하고 질문을 받습니다.", en: "Teams present at the showcase and take questions." },
         // DECIDED 2026-10-26 (사용자: "4일차에 maru180 도 빼줘, 저기 하루만 있으니까 이상하네"): Day 4 정거장 위의 MARU180 로고를 뺐습니다.
         // 같은 날 Day 1 GSC를 뺀 뒤 로고가 한 정거장에만 남았습니다. 노선도에 로고가 하나도 없으면 RouteMap이 로고 줄을 그리지 않습니다.
         // 홈 "함께하는 곳"의 장소 줄의 MARU180은 그대로. 그 전(2026-10-19): Day 1 GSC, Day 4 MARU180 로고.

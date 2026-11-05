@@ -38,7 +38,7 @@ export default function FlowStrip<T>({
         <Fragment key={i}>
           <div className="w-full sm:flex-1">{render(item, i)}</div>
           {i < items.length - 1 && (
-            <span aria-hidden className="shrink-0 self-center rotate-90 leading-none text-white/30 sm:rotate-0">
+            <span aria-hidden className="shrink-0 self-center rotate-90 leading-none text-white/55 sm:rotate-0">
               →
             </span>
           )}

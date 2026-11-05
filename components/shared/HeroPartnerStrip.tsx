@@ -382,7 +382,7 @@ function StripLogo(props: StripLogoSpec & { box: StripBox }) {
 // 이 캡션은 whitespace-nowrap이라 줄이 접힐 위험이 없고, 폰의 마퀴 행에서도
 // 여백이 남습니다(320px에서 "주최 AXMOS"가 66px, 칸이 266px).
 // DECIDED 2026-10-13 (폰 점검): 360px 아래에서도 12.6px로 둡니다. 영문 줄이 넘치지 않게 그 폭에서는 자간만 0.08em으로 줄입니다.
-function StripTierLabel({ children, sizeClass = "text-[0.7rem]" }: { children: React.ReactNode; sizeClass?: string }) {
+function StripTierLabel({ children, sizeClass = "text-[0.8125rem]" }: { children: React.ReactNode; sizeClass?: string }) {
   return (
     <span className={`shrink-0 whitespace-nowrap ${sizeClass} font-bold text-accent`}>
       {children}
@@ -402,7 +402,7 @@ export default function HeroPartnerStrip({
   t,
   tiers = confirmedPartnerTiers,
   label = dict.hero.partnersLabel,
-  sizeClass = "text-[0.7rem]",
+  sizeClass = "text-[0.8125rem]",
   className = "mt-11 sm:mt-5",
   // DECIDED 2026-11-04 (사용자, 종이 미리 보기 스크린숏: "너무 이상한데"): 크림 바탕에서는 어두운 덮개가 회색 얼룩으로 보여 기본값을 끔으로.
   scrim = false,

@@ -10,6 +10,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { NextResponse } from "next/server";
+import { tooMany } from "@/lib/memThrottle";
+import { clientIp } from "@/lib/register/shared";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { CURRENT_EVENT } from "@/lib/registrationWindow";
 import { findTeam, listTracks } from "@/lib/crossingOpsServer";
@@ -61,6 +63,8 @@ export async function POST(req: Request) {
   if (!db) return NextResponse.json({ error: "not_configured" }, { status: 503 });
   // 2026-10-26: 폰에서는 칸을 넣지 않습니다(lib/crossingOps.ts isPhoneUA). 화면이 막고, 여기서도 막습니다.
   if (isPhoneUA(req.headers.get("user-agent") ?? "")) return NextResponse.json({ error: "phone" }, { status: 403 });
+  // 2026-11-05 (사이트 점검): 한 IP가 10분에 예약 시도 30번까지.
+  if (tooMany("mentoring-post", clientIp(req), 30, 10 * 60_000)) return NextResponse.json({ error: "rate" }, { status: 429 });
   const body = await req.json().catch(() => null);
   const team = await findTeam(db, body?.team);
   const mentorId = typeof body?.mentorId === "string" ? body.mentorId : "";

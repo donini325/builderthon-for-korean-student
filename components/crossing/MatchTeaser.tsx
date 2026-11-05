@@ -15,14 +15,14 @@ import { MODELS_2026_12 } from "@/data/quiz-2026-12";
 import { BODY, META } from "@/components/ui/typography";
 import { buttonClass } from "@/components/ui/Button";
 
-const GRADIENT = "linear-gradient(90deg, #9AA8EE 0%, #A99AD6 35%, #C99ACB 68%, #E08A76 100%)";
 const SHOWN = 8;
 const LOGOS = Object.values(MODELS_2026_12).map((m) => m.logo).filter((v, i, a) => a.indexOf(v) === i).slice(0, SHOWN);
 
 export default function MatchTeaser() {
   const { t } = useLocale();
   return (
-    <div className="mx-auto mt-7 max-w-sm rounded-[1.1rem] p-px shadow-[0_12px_48px_rgba(169,154,214,0.28)]" style={{ background: GRADIENT }}>
+    // 2026-11-05 (사이트 점검, 종이): 네 색 그라데이션 테두리와 보라 발광을 걷고 흰 카드 하나. 제목은 남색 단색.
+    <div className="mx-auto mt-7 max-w-sm">
       <div className="card-base rounded-2xl p-[20px] text-center sm:p-[24px]">
         <div aria-hidden className="flex items-center justify-center">
           {LOGOS.map((file, i) => (
@@ -34,7 +34,7 @@ export default function MatchTeaser() {
           <span className={`-ml-2 flex h-9 items-center rounded-full border border-white/15 bg-naru-surface-2 px-2.5 ${META} font-semibold text-naru-muted`}>+{16 - SHOWN}</span>
         </div>
         <p className={`mt-4 ${META} font-semibold tracking-wide text-naru-muted`}>{t(copy.nextLabel)}</p>
-        <p className="mt-1 break-keep bg-clip-text text-base font-extrabold leading-snug text-transparent" style={{ backgroundImage: GRADIENT }}>{t(copy.nextTitle)}</p>
+        <p className="mt-1 break-keep text-base font-extrabold leading-snug text-naru-navy">{t(copy.nextTitle)}</p>
         <p className={`mt-2 break-keep ${META} leading-relaxed text-naru-muted`}>{t(copy.nextBody)}</p>
         <a href="/match" onClick={() => track("match_click", { src: "naru-register-success" })} className={`${buttonClass("primary", "naru")} mt-4 w-full justify-center`}>
           {t(copy.nextCta)}<span aria-hidden className="ml-1.5">→</span>

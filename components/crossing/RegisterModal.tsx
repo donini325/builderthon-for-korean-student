@@ -56,7 +56,7 @@ const LARGE = "text-base";
 // DECIDED 2026-10-21: 신청 폼은 라벨-입력, 도움말-오류 8px, 필드 사이는 24px로 맞춥니다.
 // DECIDED 2026-10-26 (사용자: "12월 이벤트의 모든 부분을 새 UI/UX로"): kwan-design 문법. 입력칸은 44px, 옅은 테두리, 올라온 면(naru-surface-2),
 // 포커스는 블루 테두리. 그 전: 52px, 흰 45% 테두리, 흰 4% 면. 미리 보기 안내는 호박색 대신 블루 틴트 면(card-tint).
-const FIELD = `min-h-[44px] w-full rounded-lg border border-white/10 bg-naru-surface-2 px-[14px] py-[10px] ${LARGE} text-white placeholder:text-naru-muted/70 transition-colors focus:border-accent/60 focus:outline-none`;
+const FIELD = `min-h-[44px] w-full rounded-lg border border-white/10 bg-naru-surface-2 px-[14px] py-[10px] ${LARGE} text-white placeholder:text-naru-muted transition-colors focus:border-accent/60 focus:outline-none`;
 const PRIMARY = `${buttonClass("primary", "naru")} justify-center disabled:opacity-60 disabled:hover:translate-y-0`;
 // DECIDED 2026-11-02 (docs/register-ux-brief.md R2): 선택 칸(공부하는 나라)이 appearance-none이라 글 칸과 같은 모양이었고, 나라를 자판으로
 // 적으려는 사람이 있었습니다. 오른쪽에 ∨ 하나. 색은 naru-muted(#A3A3B0, docs/brand.md 10장 보조 글자)와 같습니다.

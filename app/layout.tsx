@@ -118,7 +118,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#141418",
+  themeColor: "#FCFBF8", // 2026-11-05 종이
   width: "device-width",
   initialScale: 1,
   // Let content extend into the display cutouts so env(safe-area-inset-*) is
@@ -151,7 +151,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // script below, and kept in sync afterwards by the provider's effect, so a
     // visitor who has chosen English gets lang="en" - this is only the value the
     // markup ships with.
-    <html lang="ko" data-locale="ko" style={{ colorScheme: "dark" }} className={`dark ${pretendard.variable}`}>
+    <html lang="ko" data-locale="ko" style={{ colorScheme: "light" }} className={pretendard.variable}>
       <body className="font-sans antialiased bg-naru-ink text-naru-text">
         <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOTSTRAP }} />
         <LocaleProvider>

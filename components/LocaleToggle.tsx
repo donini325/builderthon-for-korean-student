@@ -28,7 +28,7 @@ export default function LocaleToggle({ className = "", variant = "zero100" }: { 
     return (
       <div role="group" aria-label={t(dict.toggle.groupAria)} className={`inline-flex min-h-[44px] shrink-0 items-center rounded-full border border-white/15 bg-white/5 px-1.5 text-xs ${className}`}>
         {item("en", "EN")}
-        <span aria-hidden className="text-white/20">/</span>
+        <span aria-hidden className="text-white/40">/</span>
         {item("ko", "KR")}
       </div>
     );
@@ -38,9 +38,9 @@ export default function LocaleToggle({ className = "", variant = "zero100" }: { 
       className={`inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold transition hover:border-white/30 ${className}`}>
       {/* 2026-10-08 (사용자 승인, 접근성 감사 9, 17): 현재 언어를 색만으로 구분하지 않습니다(WCAG 1.4.1). naru 변형과 같이
           밑줄과 굵기를 더합니다. 꺼진 쪽 KR은 white/30(2.61:1)이었고 EN과 같은 white/55(6.2:1)로 올립니다. */}
-      <span className={locale === "en" ? "font-bold text-accent underline decoration-2 underline-offset-4" : "text-white/55"}>EN</span>
-      <span aria-hidden className="text-white/20">/</span>
-      <span className={locale === "ko" ? "font-bold text-accent underline decoration-2 underline-offset-4" : "text-white/55"}>KR</span>
+      <span className={locale === "en" ? "font-bold text-accent underline decoration-2 underline-offset-4" : "text-white/70"}>EN</span>
+      <span aria-hidden className="text-white/40">/</span>
+      <span className={locale === "ko" ? "font-bold text-accent underline decoration-2 underline-offset-4" : "text-white/70"}>KR</span>
     </button>
   );
 }

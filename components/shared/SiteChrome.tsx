@@ -207,9 +207,12 @@ export function SiteFooter({ page, onMotionToggle }: { page: SitePage; onMotionT
       {/* 2026-10-22 (모바일 점검: 홈 맨 아래 빈 공간): 위 로고 띠가 없는 페이지에서는 위 여백 없이. */}
       <div className={`mx-auto flex max-w-3xl flex-col items-center gap-5 text-center ${page === "naru" ? "mt-8" : ""}`}>
         <p className={`${META} text-caption`}>{t(dict.siteFooter.rights)}</p>
-        <span className="inline-flex" onClick={onMotionToggle}>
-          <MotionToggle className="min-h-[44px] !text-white/70" />
-        </span>
+        {/* 2026-11-05 (사이트 점검): 배경 캔버스를 꺼 나루 홈과 크로싱 서울에는 멈출 움직임이 없습니다. 8월 기록(로고 흐름)에만 남깁니다. */}
+        {page === "aug" && (
+          <span className="inline-flex" onClick={onMotionToggle}>
+            <MotionToggle className="min-h-[44px] !text-white/70" />
+          </span>
+        )}
       </div>
     </footer>
   );

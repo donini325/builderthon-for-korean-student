@@ -44,6 +44,9 @@ function hashIp(ip: string, secret: string): string {
   return createHash("sha256").update(`${secret}::ip-salt::${ip}`).digest("hex");
 }
 function clientIp(req: Request): string {
+  // 2026-11-05 (사이트 점검): lib/register/shared.ts와 같은 순서. Vercel 헤더를 먼저 봅니다.
+  const vercel = req.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip")?.trim();
+  if (vercel) return vercel;
   const fwd = req.headers.get("x-forwarded-for");
   if (fwd) {
     const first = fwd.split(",")[0]?.trim();

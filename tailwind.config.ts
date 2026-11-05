@@ -12,7 +12,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Pretendard Variable", "Pretendard", "-apple-system", "sans-serif"],
+        // DECIDED 2026-11-05 (사이트 점검, 실측: 불러온 웹 서체 0개): next/font가 만든 --font-pretendard를 먼저 읽습니다.
+        // 그 전에는 "Pretendard Variable"이라는 이름만 있어, 설치하지 않은 기기는 시스템 서체로 그려졌습니다.
+        sans: ["var(--font-pretendard)", "Pretendard Variable", "Pretendard", "-apple-system", "sans-serif"],
       },
       // DECIDED 2026-10-26: UI 값은 globals.css가 소유하고 Tailwind는 같은 채널을 읽습니다.
       colors: {

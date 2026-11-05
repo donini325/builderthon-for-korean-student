@@ -16,6 +16,8 @@ const CSP_REPORT_ONLY = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 2026-11-05 (사이트 점검, 보안): X-Powered-By: Next.js 헤더를 내보내지 않습니다.
+  poweredByHeader: false,
   reactStrictMode: true,
   images: {
     // Prefer modern formats for the partner logos.

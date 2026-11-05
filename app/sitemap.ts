@@ -17,5 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 2026-10-10 (구조 브리프 3.1): 그룹 나루의 페이지.
     { url: `${SITE_URL}/2026-08`, lastModified, changeFrequency: "yearly", priority: 0.6 },
     { url: `${SITE_URL}/quiz`, lastModified, changeFrequency: "monthly", priority: 0.5 },
+    // 2026-11-05 (사이트 점검): 크로싱 서울 팀 매칭 테스트.
+    { url: `${SITE_URL}/match`, lastModified, changeFrequency: "monthly", priority: 0.5 },
   ];
 }

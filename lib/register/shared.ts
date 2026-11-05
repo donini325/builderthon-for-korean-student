@@ -50,6 +50,9 @@ export function hashIp(ip: string, secret: string): string {
  * shared "unknown" bucket. Failing open would make the limiter bypassable.
  */
 export function clientIp(req: Request): string {
+  // 2026-11-05 (사이트 점검, 보안): Vercel이 직접 넣는 헤더를 먼저 봅니다. x-forwarded-for의 첫 값은 앞단 프록시가 바뀌면 위조될 수 있습니다.
+  const vercel = req.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip")?.trim();
+  if (vercel) return vercel;
   const fwd = req.headers.get("x-forwarded-for");
   if (fwd) {
     const first = fwd.split(",")[0]?.trim();

@@ -31,6 +31,8 @@ export default function MentorTool() {
 
   const refresh = useCallback(async () => {
     const k = new URLSearchParams(window.location.search).get("k") ?? "";
+    // 2026-11-05 (사이트 점검): 링크 열쇠 없이 들어오면 빈 화면 대신 "링크가 맞지 않습니다" 안내.
+    if (!k) { setErr("bad"); return; }
     const r = await fetch(`/api/crossing/mentor?k=${encodeURIComponent(k)}`, { cache: "no-store" });
     if (r.status === 404) { setErr("bad"); return; }
     if (!r.ok) { setErr("generic"); return; }
@@ -115,9 +117,9 @@ export default function MentorTool() {
                     if (!board.length) return null;
                     const times = [...new Set(board.flatMap((m) => m.slots))].sort();
                     // 내 열의 테두리: 양옆은 모든 칸, 위는 머리, 아래는 마지막 줄. 그림자 클래스는 칸마다 하나만 씁니다(겹치면 하나가 지워짐).
-                    const ME_SIDES = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(154,168,238,0.45),inset_-1px_0_0_rgba(154,168,238,0.45)]";
-                    const ME_TOP = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(154,168,238,0.45),inset_-1px_0_0_rgba(154,168,238,0.45),inset_0_1px_0_rgba(154,168,238,0.45)]";
-                    const ME_BOTTOM = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(154,168,238,0.45),inset_-1px_0_0_rgba(154,168,238,0.45),inset_0_-1px_0_rgba(154,168,238,0.45)]";
+                    const ME_SIDES = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(18,36,107,0.45),inset_-1px_0_0_rgba(18,36,107,0.45)]";
+                    const ME_TOP = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(18,36,107,0.45),inset_-1px_0_0_rgba(18,36,107,0.45),inset_0_1px_0_rgba(18,36,107,0.45)]";
+                    const ME_BOTTOM = "bg-accent/[0.06] shadow-[inset_1px_0_0_rgba(18,36,107,0.45),inset_-1px_0_0_rgba(18,36,107,0.45),inset_0_-1px_0_rgba(18,36,107,0.45)]";
                     return (
                       <div className="card-base overflow-x-auto rounded-2xl max-sm:[mask-image:linear-gradient(to_right,#000_calc(100%_-_32px),transparent)]">
                         <table className="w-full min-w-max border-collapse">
@@ -146,7 +148,7 @@ export default function MentorTool() {
                                     return (
                                       <td key={i} className={`border-l border-white/5 p-[6px] ${me}`}>
                                         <div className="flex min-h-[64px] flex-col justify-center gap-[2px] rounded-lg px-[12px] py-[8px]"
-                                          style={{ background: `linear-gradient(135deg, ${tint}59, ${tint}2E)`, boxShadow: `inset 0 0 0 1px ${tint}66` }}>
+                                          style={{ background: `${tint}1F`, boxShadow: `inset 4px 0 0 ${tint}` }}>
                                           <span className={`truncate ${BODY} font-bold text-white`}>{b.team}</span>
                                           <span className={`${META} tabular-nums text-white/75`}>{fmtKst(b.startsAt)}~{fmtKst(b.endsAt)}</span>
                                         </div>

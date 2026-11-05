@@ -47,10 +47,12 @@ export type OpsDay = (typeof OPS_DAYS)[number];
  * DECIDED 2026-10-18 (사용자: "무슨 트랙인지에 따라서 슬롯 색깔이 달라졌으면"): 시간표의 칸이 그 팀의 트랙 색으로 칠해집니다.
  * 잉크 바탕 위에 틴트로만 씁니다(밝은 판 금지).
  */
-export const TRACK_TINTS = { blue: "#9AA8EE", violet: "#A99AD6", plum: "#C99ACB", orange: "#E08A76" } as const;
+// DECIDED 2026-11-05 (사이트 점검, 종이): 트랙 색 넷을 brand 10장 종이 팔레트(남색, 보라, 마젠타, 테라코타)로. 그 전 어두운 바탕용 파스텔 #9AA8EE, #A99AD6, #C99ACB, #E08A76.
+// 키(blue, violet, plum, orange)는 DB의 트랙 값이라 그대로 둡니다.
+export const TRACK_TINTS = { blue: "#12246B", violet: "#4B3A8C", plum: "#845185", orange: "#9A3324" } as const;
 export type TrackColor = keyof typeof TRACK_TINTS;
 export type Track = { id: string; label: { ko: string; en: string }; color: TrackColor };
-export const trackTint = (c: string | undefined): string => (c && c in TRACK_TINTS ? TRACK_TINTS[c as TrackColor] : "#FFFFFF");
+export const trackTint = (c: string | undefined): string => (c && c in TRACK_TINTS ? TRACK_TINTS[c as TrackColor] : "#141418");
 
 export const PROOF_KINDS = ["photo", "pdf"] as const;
 export type ProofKind = (typeof PROOF_KINDS)[number];

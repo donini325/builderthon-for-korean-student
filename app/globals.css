@@ -308,7 +308,8 @@ body {
   /* DECIDED 2026-11-04 (site-tells A4): 카드 셋의 그라데이션을 단색으로. 층은 명도와 그림자로만 나눕니다. card-tint는 그 전 그라데이션의 가운데 값. */
   .card-base { background: rgb(var(--ui-surface)); border: 1px solid rgb(var(--ui-line)); }
   .card-raised { background: rgb(var(--ui-surface)); border: 1px solid rgb(var(--ui-line)); }
-  .card-tint { background: color-mix(in srgb, rgb(var(--ui-surface)) 94%, rgb(var(--ui-link-strong))); border: 1px solid color-mix(in srgb, rgb(var(--ui-line)) 70%, rgb(var(--ui-link-strong))); }
+  /* 2026-11-05 (사이트 점검: 남색을 섞은 회청색 면이 크림과 따로 놂): 강조 면은 크림보다 한 단 짙은 #F6F4EE에 선 하나. */
+  .card-tint { background: rgb(var(--ui-raised)); border: 1px solid rgb(var(--ui-line)); }
 }
 
 /* ── Marquee ───────────────────────────────────────────────────────────────── */
@@ -665,3 +666,19 @@ img[src*="/logos/white/"], img[src*="%2Flogos%2Fwhite%2F"] { filter: brightness(
   [data-schedule] > div { padding: 14px; }
   [data-schedule] :is(a, button, [role="link"])[class*="rounded-full"] { border-radius: 12px; padding: 8px 10px; min-height: 40px; font-size: 0.8125rem; line-height: 1.35; }
 }
+
+/* DECIDED 2026-11-05 (사이트 점검): 잉크 바탕이 남는 자리(퀴즈 저장 이미지와 그 오버레이, brand 10장 "결과 카드, 저장 이미지는 잉크 #070B1F")에서
+   white/NN과 글자 토큰을 그 전 다크 값으로 되돌립니다. */
+.ink-scope { --ui-fg: 255 255 255; --ui-text: 214 214 220; --ui-muted: 163 163 176; --ui-caption: 138 138 149; --ui-link: 124 149 255; }
+
+/* DECIDED 2026-11-05 (사이트 점검, 접근성 1.4.3): 어두운 바탕에서 쓰던 옅은 글자 단계(white/40~/55)는 크림 위에서 3.4~4.0:1이라
+   글자에 쓰인 것만 잉크 65%(약 5.4:1)로 올립니다. 면과 테두리의 white/NN은 그대로입니다. 파일 끝이라 utilities를 이깁니다. */
+.text-white\/40, .text-white\/45, .text-white\/50, .text-white\/55 { color: rgb(var(--ui-fg) / 0.65); }
+
+/* DECIDED 2026-11-05 (사이트 점검): AI 모델 아이콘(public/logos, 전부 흰 실루엣)도 크림 위에서는 잉크로. 잉크 바탕인 저장 이미지(.ink-scope) 안은 흰색 그대로. */
+img[src^="/logos/"]:not(.ink-scope img), img[src*="url=%2Flogos%2F"]:not(.ink-scope img) { filter: brightness(0) opacity(0.82); }
+
+/* DECIDED 2026-11-05 (사이트 점검): 어두운 바탕용 밝은 상태 색이 크림 위에서 보이지 않습니다(오류 문구 rose-300 약 1.9:1).
+   오류는 테라코타 #9A3324(brand 10장 종이), 보라 라벨은 남색으로 돌립니다. */
+.text-rose-200, .text-rose-300 { color: #9A3324; }
+.text-violet-200, .text-violet-200\/80, .text-violet-300 { color: rgb(var(--ui-link)); }
