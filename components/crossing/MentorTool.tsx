@@ -21,7 +21,8 @@ import { OPS_DAYS, dayDate, fmtKst, trackTint, type Track } from "@/lib/crossing
 
 type Row = { id: string; day: number; team: string; track: string; startsAt: string; endsAt: string; files: { day: number; url: string }[] };
 type BoardMentor = { name: string; field: string | null; me: boolean; slots: string[]; bookings: { team: string; track: string; startsAt: string; endsAt: string }[] };
-type Data = { mentor: { name: string; field: string | null }; tracks: Track[]; slots?: Record<string, string[]>; board?: Record<string, BoardMentor[]>; bookings: Row[] };
+type Brief = { title: { ko: string; en: string }; url: string };
+type Data = { mentor: { name: string; field: string | null }; briefs?: Brief[]; tracks: Track[]; slots?: Record<string, string[]>; board?: Record<string, BoardMentor[]>; bookings: Row[] };
 const HOUR = 3_600_000;
 
 export default function MentorTool() {
@@ -94,6 +95,27 @@ export default function MentorTool() {
 
         {data && (
           <>
+            {/* DECIDED 2026-11-05 (사용자: 출제사와 정리한 PDF는 멘토 페이지에서만): 멘토 열쇠로 받은 30분짜리 URL만 그립니다. 참가자 화면에는 이 묶음이 없습니다. */}
+            <section aria-labelledby="mentor-briefs" className="flex flex-col gap-[12px]">
+              <h2 id="mentor-briefs" className={`${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>{t(c.briefsTitle)}</h2>
+              <p className={`${META} leading-relaxed text-naru-muted`}>{t(c.briefsLead)}</p>
+              {data.briefs?.length ? (
+                <div className="grid gap-[8px] sm:grid-cols-2">
+                  {data.briefs.map((b) => (
+                    <a key={b.url} href={b.url} target="_blank" rel="noreferrer"
+                      className="card-raised group flex min-h-[52px] items-center gap-[10px] rounded-xl px-[12px] py-[8px] transition-[transform,border-color] duration-150 hover:-translate-y-0.5 hover:border-accent/40">
+                      <span aria-hidden className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/15 text-accent">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg>
+                      </span>
+                      <span className={`flex-1 ${META} font-semibold text-white`}>{t(b.title)}</span>
+                      <span aria-hidden className={`${META} text-naru-muted transition-[transform,color] group-hover:translate-x-0.5 group-hover:text-accent`}>↗</span>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <p className={`card-sunken rounded-xl border-dashed px-[14px] py-[12px] ${META} text-naru-muted`}>{t(c.briefsEmpty)}</p>
+              )}
+            </section>
             <p className={`${BODY} leading-relaxed text-naru-muted`}>{t(c.lead)} <span className={`${META} text-naru-muted/80`}>{t(c.refresh)}</span></p>
             {/* DECIDED 2026-11-03 (사용자: "본인이 맡지 않는 날은 그냥 없애는 걸로"): 칸도 팀도 없는 날은 구획째 뺍니다. */}
             {!OPS_DAYS.some((d) => (data.slots?.[String(d)] ?? []).length || data.bookings.some((b) => b.day === d)) && <p className={`${META} text-naru-muted`}>{t(c.offDay)}</p>}

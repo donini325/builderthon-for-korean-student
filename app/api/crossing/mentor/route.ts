@@ -13,7 +13,7 @@ import { NextResponse } from "next/server";
 import { timingSafeEqual } from "node:crypto";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { CURRENT_EVENT } from "@/lib/registrationWindow";
-import { PROOF_BUCKET, listTracks, mentorKey } from "@/lib/crossingOpsServer";
+import { BRIEF_BUCKET, PROOF_BUCKET, listTracks, mentorKey } from "@/lib/crossingOpsServer";
 import { OPS_DAYS, slotStarts, windowsFor } from "@/lib/crossingOps";
 
 export const dynamic = "force-dynamic";
@@ -66,8 +66,13 @@ export async function GET(req: Request) {
     bookings: (allBookings ?? []).filter((b) => b.mentor_id === m.id && b.day === d).map((b) => ({ team: b.team_name, track: b.track, startsAt: b.starts_at, endsAt: b.ends_at })),
   })).filter((m) => m.slots.length || m.bookings.length)]));
 
+  // DECIDED 2026-11-05 (사용자: 출제사와 정리한 PDF를 멘토는 자기 페이지에서, 참가자는 절대 접근 못 하게): 멘토 열쇠를 확인한 이 자리에서만
+  // 비공개 버킷(BRIEF_BUCKET)의 30분짜리 보기 URL을 만듭니다. 자료가 없거나 읽지 못하면 빈 목록이고, 페이지의 나머지는 그대로 뜹니다.
+  const briefs = await listBriefs(db);
+
   return NextResponse.json({
     mentor: { name: mentor.name, field: mentor.field },
+    briefs,
     board,
     tracks,
     // DECIDED 2026-11-02 (사용자: "팀이 없습니다 이런식으로 말고 뭔가 좀 더 visual"): 날마다 이 멘토가 받는 칸의 시작 시각(정각).
@@ -79,4 +84,20 @@ export async function GET(req: Request) {
       files: [1, 2, 3].map((d) => ({ day: d, url: file(b.team_name, d) })).filter((f) => f.url),
     })),
   });
+}
+
+type BriefEntry = { path: string; title: { ko: string; en: string } };
+
+/** 출제사 이슈 정리 PDF 목록과 30분짜리 보기 URL. 멘토 열쇠를 확인한 뒤에만 부릅니다. */
+async function listBriefs(db: NonNullable<ReturnType<typeof getSupabaseAdmin>>) {
+  try {
+    const { data: idx } = await db.storage.from(BRIEF_BUCKET).download("index.json");
+    if (!idx) return [];
+    const entries = (JSON.parse(await idx.text()) as BriefEntry[]).filter((e) => typeof e?.path === "string" && e.path.endsWith(".pdf"));
+    if (!entries.length) return [];
+    const { data: signed } = await db.storage.from(BRIEF_BUCKET).createSignedUrls(entries.map((e) => e.path), 1800);
+    return entries.map((e, i) => ({ title: e.title, url: signed?.[i]?.signedUrl ?? null })).filter((b) => b.url);
+  } catch {
+    return [];
+  }
 }

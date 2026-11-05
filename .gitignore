@@ -43,3 +43,6 @@ lib/metal-human.zip
 *.csv
 scripts/data/backup*
 __pycache__/
+
+# 출제사 이슈 정리 PDF는 레포에 두지 않습니다(scripts/issue-briefs.mjs로 비공개 버킷에 올림).
+/issue-briefs/

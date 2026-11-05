@@ -122,6 +122,13 @@ export const mentorCopy = {
   file3: { ko: "Day 3 발표 자료", en: "Day 3 slides" },
   notYet: { ko: "아직", en: "Not yet" },
   teamCount: { ko: "{n}팀", en: "{n} teams" },
+  // DECIDED 2026-11-05 (사용자: 출제사와 정리한 PDF를 멘토 페이지에서. 참가자에게는 공개하지 않음): 멘토 페이지 맨 위 묶음.
+  briefsTitle: { ko: "출제사와 정리한 이슈", en: "Issue write-ups from the companies" },
+  briefsLead: {
+    ko: "멘토님만 보시는 자료입니다. 참가자에게는 공개하지 않으니 파일과 링크를 전달하지 말아 주세요. 링크는 30분 뒤 닫히고, 이 페이지가 1분마다 새로 엽니다.",
+    en: "These are for mentors only and are not shared with participants, so please don't forward the files or links. Links expire after 30 minutes; this page renews them every minute.",
+  },
+  briefsEmpty: { ko: "출제사와 정리한 자료가 올라오면 여기에 뜹니다.", en: "Write-ups will appear here once they are ready." },
   badLink: { ko: "링크가 맞지 않습니다. 운영진에게 다시 받아 주세요.", en: "This link does not match. Please ask the organisers for it again." },
   errGeneric: { ko: "잠시 뒤 다시 열어 주세요.", en: "Something went wrong. Please reopen in a moment." },
 } satisfies Record<string, Phrase>;

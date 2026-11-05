@@ -35,6 +35,16 @@ export const teamFolder = (name: string) => createHash("sha256").update(name).di
 export const PROOF_BUCKET = "crossing-proofs";
 
 /**
+ * 출제사와 정리한 이슈 PDF(멘토 전용). DECIDED 2026-11-05 (사용자: "맨토들은 본인 페이지에서 볼 수 있도록, but make sure the 일반 참여자들은
+ * 절대 pdf 에 access 가 없도록"). 출제사 미팅 전사록 11/05: 자세한 정리는 멘토에게만, 학생은 Day 1에 출제사의 말로 듣는다.
+ * - 팀 증빙(PROOF_BUCKET)과 다른 비공개(public=false) 버킷입니다. 참가자 API(/api/crossing/proofs)는 이 버킷을 모릅니다.
+ * - 이 상수를 쓰는 곳은 /api/crossing/mentor 하나뿐이고, 멘토 열쇠(mentorKey)를 확인한 뒤에만 30분짜리 보기 URL을 만듭니다.
+ * - 파일은 레포(public/ 포함)에 두지 않습니다. 올리기는 scripts/issue-briefs.mjs(버킷이 비공개인지 확인한 뒤 올림).
+ * - 버킷 안의 index.json이 목록(경로와 제목)입니다.
+ */
+export const BRIEF_BUCKET = "crossing-issue-briefs";
+
+/**
  * 멘토 페이지(/crossing/mentor?k=)의 열쇠. 멘토 ID를 서버 비밀로 서명한 20자입니다. 표에 따로 적지 않습니다.
  * DECIDED 2026-10-26 (사용자: 멘토가 팀의 1장을 미리 보는 방법으로 "멘토 전용 페이지"): 멘토마다 자기 링크가 있고,
  * 링크가 없으면 다른 멘토나 팀의 칸은 볼 수 없습니다. 링크는 scripts/mentor-links.mjs가 뽑습니다(같은 계산).
