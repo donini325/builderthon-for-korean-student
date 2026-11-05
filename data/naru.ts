@@ -361,6 +361,8 @@ export const naruNav: { id: string; label: Phrase; railLines?: Phrase; ariaLabel
   // 보이는 글자("남는 것")와 읽히는 이름("오면 무엇이 남는가")이 달라 Lighthouse label-content-name-mismatch에 걸렸습니다.
   { id: "gains", label: { ko: "남는 것", en: "Takeaways" } },
   { id: "partners", label: { ko: "함께하는 곳", en: "Partners" } },
+  // DECIDED 2026-11-05 (사용자: "TOC를 다시 for 12월 page"): 페이지 순서대로 넷. 등록은 맨 끝 등록 줄(id="register")로 갑니다.
+  { id: "register", label: { ko: "등록", en: "Register" } },
 ];
 
 // DECIDED 2026-10-10 (구조 브리프 3.2): /naru의 목차 넷. id는 그 페이지의 섹션 id와 같아야 합니다

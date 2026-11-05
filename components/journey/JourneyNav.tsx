@@ -138,6 +138,11 @@ function useActiveSection(enabled: boolean, anchors: NavAnchor[]) {
       let current: string | null = null;
       const line = Math.max(140, window.innerHeight * 0.35);
       for (const n of nodes) if (n.getBoundingClientRect().top <= line) current = n.id;
+      // 2026-11-05 (사용자: /crossing 목차 다시, 마지막 칸 "등록"): 페이지 끝에 닿았고 마지막 항목이 화면 안에 있으면 마지막 항목이 현위치입니다.
+      // 맨 끝 블록은 판정선까지 올라오지 못해, 눌러 내려가도 바로 위 칸에 불이 남았습니다.
+      const last = nodes[nodes.length - 1];
+      const doc = document.documentElement;
+      if (current && window.scrollY + window.innerHeight >= doc.scrollHeight - 4 && last.getBoundingClientRect().top < window.innerHeight) current = last.id;
       setActive(current);
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(read); };

@@ -779,7 +779,7 @@ export default function NaruHome() {
             {/* DECIDED 2026-10-11 (사용자, 스크린숏: "여기에 있으면 좋겠음. 2x2, 버튼 별 사이즈는 똑같이"): AI 유형 테스트 버튼이 일정표의
                 Day 1에서 여기로 왔습니다. 버튼 넷이 두 칸 두 줄로 서고, 격자가 칸을 늘려 넷의 크기가 같습니다(글은 가운데).
                 폰은 한 칸이고 "프로그램 보기"는 전처럼 폰에서 숨깁니다. */}
-            <div id="register" className={`mx-auto mt-10 grid w-fit max-w-full scroll-mt-40 lg:mx-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
+            <div className={`mx-auto mt-10 grid w-fit max-w-full lg:mx-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:[&>*]:whitespace-normal`}>
               {regState === "open" ? (
                 // DECIDED 2026-11-02 (docs/register-ux-brief.md O1, D4): 이 기기에서 등록했으면 "등록했습니다"(유령 필). 누르면 완료 화면이 다시 열립니다.
                 <button type="button" onClick={() => { track("naru_cta", { src: "hero", to: reg?.registered ? "registered" : "register" }); reg?.openRegister(); }} className={`group ${reg?.registered ? `${buttonClass("secondary")} ${HERO_BUTTON_GROUND}` : buttonClass("primary", "naru")}`}>
@@ -925,7 +925,7 @@ export default function NaruHome() {
           })()}
         </div>
         {/* DECIDED 2026-11-05 (사용자, 스크린숏: "이 부분 빼줘"): 닷새 장 아래의 등록 블록(스크리닝 한 줄, 여는 날, 버튼 둘, 휴대폰 안내, 기업 출제/후원 문의)을 뺍니다.
-            같은 버튼 둘과 여는 날, 조건 없음은 히어로가 말합니다. 헤더 "등록"과 밖의 #register 링크는 히어로의 버튼 줄(id="register")에 착지합니다.
+            같은 버튼 둘과 여는 날, 조건 없음은 히어로가 말합니다. 헤더 "등록"과 밖의 #register 링크는 페이지 맨 끝 등록 줄(id="register")에 착지합니다.
             기업 문의 메일은 푸터와 나루 홈에 있습니다. 그 전 코드는 git 3905a76. */}
         </PlateSegment>
         {/* DECIDED 2026-10-10 (사용자: "객관적으로 너무 내용이 많다", 중복 브리프 B3): #december의 둘째 판 조각을 홈에서
@@ -1125,7 +1125,8 @@ export default function NaruHome() {
       {/* DECIDED 2026-11-05 (사이트 점검, UX 치명: 끝까지 읽은 학생이 누를 등록이 없음): 페이지 끝에 히어로와 같은 버튼 줄과 안내 한 줄.
           닷새 장 아래의 큰 등록 블록(같은 날 사용자가 뺌)은 되살리지 않고, 맨 끝 한 줄만 둡니다. */}
       {regState !== "closed" && (
-        <section aria-label={t({ ko: "등록", en: "Register" })} className="w-full px-6 pb-16 pt-4 sm:px-12 lg:px-16 lg:pb-24">
+        // 2026-11-05 (사용자: 목차 다시): 목차 "등록"과 밖의 #register 링크가 여기 착지합니다(그 전 같은 날: 히어로 버튼 줄).
+        <section id="register" aria-label={t({ ko: "등록", en: "Register" })} className="w-full px-6 pb-16 pt-4 sm:px-12 lg:px-16 lg:pb-24">
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 pt-6 text-center lg:px-10">
             <p id="end-register-note" className={`break-keep ${BODY} font-semibold text-white/85`}>{t(regState === "open" ? registerNoteOpen : registerNoteShort)}</p>
             <div className="grid w-fit max-w-full grid-cols-1 gap-3 sm:grid-cols-2 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:w-full max-sm:[&>*]:whitespace-normal">
