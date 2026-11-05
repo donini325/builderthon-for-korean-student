@@ -825,7 +825,8 @@ export default function NaruHome() {
           </p>
         ))}
         {slot("date", <span className={`${META} text-caption`}>{formatDecemberDayWithWeekday(locale, stage.dayOffset)}</span>)}
-        {slot("line", <p className={`break-keep ${META} leading-[1.6] text-white/85`}>{t(stage.line)}</p>)}
+        {/* 2026-11-05 (사용자: "same length of 문장이어야 하고"): 칸마다 길이를 맞춘 한 줄(short, 19~27자). 긴 line은 폰 패널과 띠의 상세가 씁니다. */}
+        {slot("line", <p className={`break-keep ${BODY} leading-[1.6] text-white/85`}>{t(stage.short)}</p>)}
         {slot("session", stage.session && (
           <p className={`break-keep ${META} text-naru-muted`}>
             <span className="mr-1.5">{t(naru.december.sessionLabel)}</span>

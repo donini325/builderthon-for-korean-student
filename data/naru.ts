@@ -2789,7 +2789,7 @@ export const naru = {
         when: { ko: "Day 3", en: "Day 3" },
         dayOffset: 3,
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
-        short: { ko: "그 병목만 푸는 작은 툴을 만듭니다.", en: "Teams build a small tool that solves only that bottleneck." },
+        short: { ko: "그 병목만 푸는 작은 툴을 만들어 멘토에게 여쭙니다.", en: "Teams build a small tool for that bottleneck and ask a mentor." },
         body: {
           // DECIDED 2026-10-23 (사용자): 둘째 문장 "리허설을 팀끼리 서로 보여 주고 의견을 주고받습니다."를 뺐습니다. 아래 세션(Open tables)이
           // 같은 말을 하고, 그 미션은 2026-10-17에 멘토 찾아가기와 진척 공유로 바뀌었습니다.
