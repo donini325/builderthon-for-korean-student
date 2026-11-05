@@ -577,7 +577,9 @@ export const naru = {
     // 답은 바로 아래 sub와 Day 1 본문에 있습니다. 같은 말은 gains.spine.heading이 한 번 더 받습니다(brand 5장 두 번까지).
     catch: { ko: "왜 아직, 손으로?", en: "Why still by hand?" },
     // DECIDED 2026-11-04 (docs/catch-answer-brief.md K1, 사용자: 생각하는 힘을 기르게 해 준다는 것이 캐치프레이즈에 반영되게. 질문은 그대로, 둘째 줄이 답): 브랜드 6장 포지션을 그대로 말합니다. "기르게 해 줍니다" 같은 약속형은 brand 5장 "약속하지 않는다"에 걸려 "기르는 닷새"로 씁니다.
-    catchAnswer: { ko: "생각하는 힘을 기르는 닷새", en: "Five days to train how you think" },
+    // DECIDED 2026-11-05 (사용자: 네 가지(생각 → 만들기, 현업의 터치, 팀마다 다른 것, 팀 간 교류)를 닷새 순서의 동사로): 질문 줄은 그대로, 답 줄만.
+    // Day 1 생각, Day 2·3 현업에 묻고 만들기, Day 4 서로 봄. 그 전 답 줄 "생각하는 힘을 기르는 닷새"는 남는 것 리드(gains.spine)가 받습니다. 그 전 문장은 git b2d5c79.
+    catchAnswer: { ko: "생각부터 하고, 현업에 묻고, 팀마다 다르게 만들어 서로 봅니다.", en: "Think first, ask the field, build what no other team builds, and see each other's work." },
     // 사진 넷 아래 한 줄(감사 반영 브리프 1.3). 캡션이 없으면 12월 사진으로 읽힙니다.
     photosCaption: { ko: "제로백 빌더톤 2026.08 싱가포르", en: "Zero100 builderthon Aug 2026, Singapore" },
     // DECIDED 2026-10-13 (사용자, 스크린숏: "이렇게 디테일한 설명은 필요 없음"): 2026-10-12에 캡션 뒤에 붙였던 8월 숫자 문장
