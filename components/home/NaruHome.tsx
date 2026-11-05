@@ -938,13 +938,13 @@ export default function NaruHome() {
           {(() => {
             const st = flowDay != null ? naru.december.stages[flowDay] : null;
             return (
-              <DayFlowModal onClose={() => setFlowDay(null)} heading={t(naru.december.dayFlowLabel)} mustLabel={t(naru.december.dayFlowMustLabel)} closeLabel={t(naru.december.dayFlowClose)}
+              <DayFlowModal onClose={() => setFlowDay(null)} heading={t(naru.december.dayFlowLabel)} closeLabel={t(naru.december.dayFlowClose)}
                 day={st && st.flow ? {
                   dayLabel: `${t(naru.december.dayLabel)} ${st.dayOffset}`,
                   date: formatDecemberDayWithWeekday(locale, st.dayOffset),
                   title: t(st.title),
                   lead: t(st.line),
-                  rows: st.flow.map((r) => ({ time: r.time, what: t(r.what), where: r.where && t(r.where), must: r.must })),
+                  rows: st.flow.map((r) => ({ time: r.time, what: t(r.what), where: r.where && t(r.where) })),
                 } : null} />
             );
           })()}

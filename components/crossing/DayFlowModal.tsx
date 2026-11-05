@@ -3,7 +3,7 @@
 // DECIDED 2026-11-05 (사용자, 스크린숏: "이런식으로 싫음. 클릭하면 보이는 식으로 like 8월 처럼"): docs/day-flow-brief.md 안 B.
 // /crossing Day 카드의 "하루의 흐름 →"을 누르면 그날의 줄이 이 모달에 열립니다. 껍데기(포털, 배경, 포커스 가둠, 뒤 화면 inert,
 // 스크롤 잠금, 폰에서는 아래에서 올라오는 시트)는 8월 DayModal(components/journey/Journey.tsx)과 같고, 줄 목록은 8월 RunOfShow의
-// 모양(폰은 시각을 위에, sm부터 시각 칸 + 무엇)입니다. 필참은 ★ 하나(D7). 시각이 정해지지 않은 줄은 시각을 그리지 않습니다(D2).
+// 모양(폰은 시각을 위에, sm부터 시각 칸 + 무엇)입니다. 필참 표시는 없습니다(전원 전부 참여). 시각이 정해지지 않은 줄은 시각을 그리지 않습니다(D2).
 // 같은 날 앞선 카드 안 접는 띠(안 A)는 이 모달이 대신합니다.
 
 import { useEffect, useRef, useState } from "react";
@@ -12,7 +12,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useBodyScrollLock } from "@/lib/useBodyScrollLock";
 import { META, BODY, SUBTITLE } from "@/components/ui/typography";
 
-export type DayFlowRow = { time?: string; what: string; where?: string; must?: boolean };
+export type DayFlowRow = { time?: string; what: string; where?: string };
 export type DayFlowContent = { dayLabel: string; date: string; title: string; lead: string; rows: DayFlowRow[] };
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -21,13 +21,11 @@ export default function DayFlowModal({
   day,
   onClose,
   heading,
-  mustLabel,
   closeLabel,
 }: {
   day: DayFlowContent | null;
   onClose: () => void;
   heading: string;
-  mustLabel: string;
   closeLabel: string;
 }) {
   const reduce = useReducedMotion();
@@ -73,7 +71,6 @@ export default function DayFlowModal({
   }, [open]);
 
   if (!mounted) return null;
-  const hasMust = day?.rows.some((r) => r.must);
 
   return createPortal(
     <AnimatePresence>
@@ -110,7 +107,7 @@ export default function DayFlowModal({
             </button>
             <div className="overflow-y-auto overscroll-contain px-6 pt-7 pb-[max(1.75rem,env(safe-area-inset-bottom))] text-left sm:px-8 sm:py-8">
               {/* 2026-11-05 (사용자, 스크린숏: "디자인이 진짜 별루임"): 상자 속 상자, 빈 시각 칸, 같은 굵기의 긴 줄, 줄마다 되풀이되는 "현장"을 걷고
-                  노선도와 같은 문법의 세로 선 하나에 날마다의 정거장을 찍습니다. 필참은 남색 꽉 찬 점과 ★, 나머지는 빈 점.
+                  노선도와 같은 문법의 세로 선 하나에 날마다의 정거장을 찍습니다. 점은 모두 같습니다(같은 날 사용자: "필참 이런게 어디있어 다 참여해야지", 그 전 ★ 필참과 꽉 찬 점).
                   줄의 첫 마디(마침표나 쌍점 앞)가 이름이고 나머지는 작은 글자. 장소는 "현장"이 아닐 때만 작은 꼬리표로 붙습니다. */}
               <p className={`flex flex-wrap items-baseline gap-x-2 pr-12 ${META}`}>
                 <span lang="en" className="font-bold text-accent">{day.dayLabel}</span>
@@ -120,7 +117,6 @@ export default function DayFlowModal({
               <p className={`mt-2 break-keep ${META} leading-[1.65] text-naru-muted`}>{day.lead}</p>
               <div className="mt-6 flex items-center justify-between gap-3 border-t border-white/10 pt-5">
                 <p className={`${META} font-bold text-white/85`}>{heading}</p>
-                {hasMust && <p className={`${META} text-caption`}><span aria-hidden className="text-accent">★</span> {mustLabel.replace(/^★\s*/, "")}</p>}
               </div>
               <ol className="relative mt-4">
                 {/* 세로 선: 첫 점 가운데에서 마지막 점 가운데까지. */}
@@ -132,11 +128,10 @@ export default function DayFlowModal({
                   const onSite = !r.where || r.where === "현장" || r.where === "On site";
                   return (
                     <li key={j} className="relative pb-5 pl-7 last:pb-0">
-                      <span aria-hidden className={`absolute left-0 top-[5px] h-[11px] w-[11px] rounded-full border-2 ${r.must ? "border-accent bg-accent" : "border-white/30 bg-naru-surface"}`} />
+                      <span aria-hidden className={`absolute left-0 top-[5px] h-[11px] w-[11px] rounded-full border-2 border-accent bg-naru-surface`} />
                       {r.time && <p className={`${META} font-semibold tabular-nums text-accent`}>{r.time}</p>}
                       <p className={`break-keep ${BODY} font-semibold leading-snug text-white`}>
                         {name}
-                        {r.must && <><span aria-hidden className="ml-1.5 text-accent">★</span><span className="sr-only"> ({mustLabel.replace(/^★\s*/, "")})</span></>}
                       </p>
                       {detail && <p className={`mt-1 break-keep ${META} leading-[1.6] text-naru-muted`}>{detail}</p>}
                       {!onSite && (

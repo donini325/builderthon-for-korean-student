@@ -2213,7 +2213,6 @@ export const naru = {
     // DECIDED 2026-11-05 (docs/day-flow-brief.md 안 B, 사용자: "클릭하면 보이는 식으로 like 8월 처럼"): Day 카드의 "하루의 흐름 →" 링크와 그 모달.
     dayFlowLabel: { ko: "하루의 흐름", en: "How the day runs" },
     dayFlowClose: { ko: "닫기", en: "Close" },
-    dayFlowMustLabel: { ko: "★ 필참", en: "★ Required" },
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:
     // 그 1장을 Day 2에 멘토에게 들고 가고, Day 1에 PDF로 올립니다(시간표 페이지의 Day 1 칸).
@@ -2633,7 +2632,7 @@ export const naru = {
         title: { ko: "컨텍스트 열기", en: "Context Open" },
         when: { ko: "Day 0", en: "Day 0" },
         dayOffset: 0,
-        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). ★ = must.
+        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
           { what: { ko: "이슈 공개. 어느 회사가 아직 손으로 하는 어떤 일인지, 회사 이름과 함께 알립니다", en: "The issue opens: which company, and which task it still does by hand" }, where: { ko: "참가자 카카오톡 방", en: "Participants' KakaoTalk room" } },
           { what: { ko: "멘토에게는 같은 이슈의 자세한 정리가 먼저 갑니다", en: "Mentors get a detailed write-up of the same issue first" } },
@@ -2671,12 +2670,12 @@ export const naru = {
         title: { ko: "찾기", en: "Find" },
         when: { ko: "Day 1", en: "Day 1" },
         dayOffset: 1,
-        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). ★ = must.
+        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
-          { what: { ko: "오프닝", en: "Opening" }, where: { ko: "현장", en: "On site" }, must: true },
-          { what: { ko: "출제사의 30분. 아직 손으로 하는 일 하나와 그 일이 왜 있는지를 출제사가 직접 말로", en: "30 minutes with the issuing company: the task it still does by hand and why it exists, in its own words" }, where: { ko: "현장", en: "On site" }, must: true },
-          { what: { ko: "팀 맺기. AI 유형 테스트 결과로 현장에서. 모든 팀에 싱가포르 학생 1~2명과 한국 학교별 학생", en: "Forming teams on site from the AI type test. Every team has 1 to 2 students from Singapore and students from each school in Korea" }, where: { ko: "현장", en: "On site" }, must: true },
-          { what: { ko: "트랙 고르기. 1~3순위를 적고 운영진이 고르게 섞음", en: "Choosing tracks: write your top three, and the organizers mix teams evenly" }, where: { ko: "현장", en: "On site" }, must: true },
+          { what: { ko: "오프닝", en: "Opening" }, where: { ko: "현장", en: "On site" } },
+          { what: { ko: "출제사의 30분. 아직 손으로 하는 일 하나와 그 일이 왜 있는지를 출제사가 직접 말로", en: "30 minutes with the issuing company: the task it still does by hand and why it exists, in its own words" }, where: { ko: "현장", en: "On site" } },
+          { what: { ko: "팀 맺기. AI 유형 테스트 결과로 현장에서. 모든 팀에 싱가포르 학생 1~2명과 한국 학교별 학생", en: "Forming teams on site from the AI type test. Every team has 1 to 2 students from Singapore and students from each school in Korea" }, where: { ko: "현장", en: "On site" } },
+          { what: { ko: "트랙 고르기. 1~3순위를 적고 운영진이 고르게 섞음", en: "Choosing tracks: write your top three, and the organizers mix teams evenly" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "Lovable workshop", en: "Lovable workshop" }, where: { ko: "현장", en: "On site" } },
           { time: "12:00", what: { ko: "멘토 시간표 열림. Day 2, 3 칸을 노트북에서 넣음", en: "The mentor timetable opens. Book Day 2 and 3 slots from a laptop" }, where: { ko: "/crossing/team", en: "/crossing/team" } },
           { what: { ko: "팀의 생각 1장 쓰기. Day 1 PDF로 올려 두면 칸을 넣은 멘토가 미리 읽음", en: "Write the team's one page. Upload it as the Day 1 PDF and the mentor you booked reads it ahead" } },
@@ -2747,11 +2746,11 @@ export const naru = {
         title: { ko: "확인받기", en: "Check" },
         when: { ko: "Day 2", en: "Day 2" },
         dayOffset: 2,
-        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). ★ = must.
+        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
-          { time: "10:00~16:00", what: { ko: "멘토 찾아가기. 넣은 칸의 시각에 팀이 함께, 생각 1장을 들고", en: "Visiting a mentor: the team goes together at the booked time, with the one page" }, where: { ko: "멘토 계신 곳(오피스, 카페, 온라인)", en: "Where the mentor is (an office, a café, or online)" }, must: true },
+          { time: "10:00~16:00", what: { ko: "멘토 찾아가기. 넣은 칸의 시각에 팀이 함께, 생각 1장을 들고", en: "Visiting a mentor: the team goes together at the booked time, with the one page" }, where: { ko: "멘토 계신 곳(오피스, 카페, 온라인)", en: "Where the mentor is (an office, a café, or online)" } },
           { what: { ko: "PO session. 현업 PO 셋이 각각 무엇을 왜 만들기로 했는지와 멈춘 지점, 그 뒤 대담", en: "PO session: three working POs on what they chose to build, why, and where they stopped, then a conversation" }, where: { ko: "현장", en: "On site" } },
-          { what: { ko: "미션 제출. 멘토와 찍은 사진, 고친 1장 PDF", en: "Mission submission: a photo with the mentor and the revised one-page PDF" }, where: { ko: "/crossing/team", en: "/crossing/team" }, must: true },
+          { what: { ko: "미션 제출. 멘토와 찍은 사진, 고친 1장 PDF", en: "Mission submission: a photo with the mentor and the revised one-page PDF" }, where: { ko: "/crossing/team", en: "/crossing/team" } },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
         short: { ko: "일을 해 본 사람의 감각으로 멘토에게 확인받습니다.", en: "Mentors check it with the sense of people who have done the work." },
@@ -2820,12 +2819,12 @@ export const naru = {
         title: { ko: "만들기", en: "Build" },
         when: { ko: "Day 3", en: "Day 3" },
         dayOffset: 3,
-        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). ★ = must.
+        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
-          { time: "10:00~16:00", what: { ko: "멘토 찾아가기. 만든 툴을 들고, 기업이 가져다 쓸 수 있을지", en: "Visiting a mentor: bring the tool you built, and ask whether the company could use it" }, where: { ko: "멘토 계신 곳", en: "Where the mentor is" }, must: true },
+          { time: "10:00~16:00", what: { ko: "멘토 찾아가기. 만든 툴을 들고, 기업이 가져다 쓸 수 있을지", en: "Visiting a mentor: bring the tool you built, and ask whether the company could use it" }, where: { ko: "멘토 계신 곳", en: "Where the mentor is" } },
           { what: { ko: "만들기. 그 병목만 푸는 작은 툴", en: "Building: a small tool that clears that one bottleneck" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "Open tables. 막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 감", en: "Open tables: ask other teams where you are stuck and borrow each other's thinking" }, where: { ko: "현장", en: "On site" } },
-          { what: { ko: "미션 제출. 멘토와 찍은 사진, 발표 자료 PDF", en: "Mission submission: a photo with the mentor and the presentation PDF" }, where: { ko: "/crossing/team", en: "/crossing/team" }, must: true },
+          { what: { ko: "미션 제출. 멘토와 찍은 사진, 발표 자료 PDF", en: "Mission submission: a photo with the mentor and the presentation PDF" }, where: { ko: "/crossing/team", en: "/crossing/team" } },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
         short: { ko: "그 병목만 푸는 작은 툴을 만들어 멘토에게 여쭙니다.", en: "Teams build a small tool for that bottleneck and ask a mentor." },
@@ -2904,12 +2903,12 @@ export const naru = {
         title: { ko: "공유하기", en: "Share" },
         when: { ko: "Day 4", en: "Day 4" },
         dayOffset: 4,
-        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). ★ = must.
+        // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각이 빈 줄은 아직 정하지 않은 것(D2). 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
-          { what: { ko: "트랙별 발표. 출제사와 멘토, 투자사 앞에서 고른 병목과 만든 툴, 숫자 하나로 본 효과. 출제사는 트랙마다 1.5시간을 비워 두고 옴", en: "Presentations by track, in front of the issuing companies, mentors and investors: the bottleneck you chose, the tool you built, and its effect in one number. Each issuing company sets aside 1.5 hours per track" }, where: { ko: "현장", en: "On site" }, must: true },
+          { what: { ko: "트랙별 발표. 출제사와 멘토, 투자사 앞에서 고른 병목과 만든 툴, 숫자 하나로 본 효과. 출제사는 트랙마다 1.5시간을 비워 두고 옴", en: "Presentations by track, in front of the issuing companies, mentors and investors: the bottleneck you chose, the tool you built, and its effect in one number. Each issuing company sets aside 1.5 hours per track" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "팀끼리 피드백. 발표를 들은 팀들이 서로 좋은 점과 고칠 점을 말함", en: "Feedback between teams: teams who heard each other say what worked and what to fix" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "트랙별 인기투표", en: "Vote by track" }, where: { ko: "/crossing/vote", en: "/crossing/vote" } },
-          { what: { ko: "시상과 클로징. 출제사가 트랙마다 한 팀, 투자사가 고른 팀, 인기투표. 출제사가 고른 팀은 행사 뒤 그 기업과 한 번 더 만남", en: "Awards and closing: one team per track picked by the issuing company, a team picked by the investors, and the vote. The team an issuing company picks meets that company once more after the event" }, where: { ko: "현장", en: "On site" }, must: true },
+          { what: { ko: "시상과 클로징. 출제사가 트랙마다 한 팀, 투자사가 고른 팀, 인기투표. 출제사가 고른 팀은 행사 뒤 그 기업과 한 번 더 만남", en: "Awards and closing: one team per track picked by the issuing company, a team picked by the investors, and the vote. The team an issuing company picks meets that company once more after the event" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "끝난 뒤 멘토에게 무엇을 만들었는지 한 줄로 먼저 연락", en: "Afterwards, write to your mentor first, with one line on what you built" } },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
@@ -2966,8 +2965,8 @@ export const naru = {
       short: Phrase;
       when: Phrase;
       dayOffset: number;
-      /** 하루의 흐름(2026-11-05, day-flow 브리프). time은 KST "10:00" 꼴, 정하지 않았으면 비웁니다. must는 ★ 필참. */
-      flow?: { time?: string; what: Phrase; where?: Phrase; must?: boolean }[];
+      /** 하루의 흐름(2026-11-05, day-flow 브리프). time은 KST "10:00" 꼴, 정하지 않았으면 비웁니다. 필참 표시는 없습니다(전원 전부 참여). */
+      flow?: { time?: string; what: Phrase; where?: Phrase }[];
       /** 노선도 정거장 위의 로고(2026-10-19). 흰색 단색 PNG. name은 스크린리더가 읽습니다. */
       // url (2026-10-20, hwang 브리프 3.8): 있으면 노선도 로고가 새 창 링크가 됩니다(호버 설명 대신).
       logo?: { src: string; name: string; w: number; h: number; url?: string };
