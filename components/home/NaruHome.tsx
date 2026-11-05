@@ -599,9 +599,9 @@ export default function NaruHome() {
   // DECIDED 2026-11-05 (사용자, 스크린숏: "내용이 너무 삐뚤빼뚤함"): /crossing 닷새 장의 다섯 칸 카드. 칸마다 일곱 자리(머리, 날짜, 그날 한 줄, 세션,
   // 팀 구성과 링크, 띠, 버튼)를 두고 lg부터 다섯 칸이 같은 행 격자(subgrid)를 나눠 써 같은 종류가 같은 높이에 섭니다. 없는 자리는 lg에서만 빈칸.
   // 글과 띠, 버튼은 stageCard의 폰 패널과 같은 데이터와 부품입니다. Day 0의 둘째 문단(panelBody)은 칸 높이를 맞추려 그리지 않습니다.
-  const dayCard = (stage: (typeof naru.december.stages)[number], i: number) => {
-    const slot = (key: string, node: ReactNode, extra = "") =>
-      node ? <div key={key} className={`min-w-0 ${extra}`}>{node}</div> : <div key={key} aria-hidden className="hidden lg:block" />;
+  // DECIDED 2026-11-05 (사용자, 스크린숏 둘: "같은 공간을 쓰되, 이 상자들이 5 columns가 아니고, main처럼"): 날마다의 부품(머리, 한 줄, 세션,
+  // 팀 구성 줄, 띠, 인기투표)을 만들고, 배치는 아래 일정 판이 main처럼 정합니다(Day 0 위, Day 1~3 세 칸과 공용 시간표 버튼, Day 4 아래).
+  const dayParts = (stage: (typeof naru.december.stages)[number], i: number) => {
     const strip = !stage.milestone && stage.submit ? (
       <MilestoneStrip id={`carry-day-${stage.dayOffset}-card`} tone="plain" label={t(naru.december.carryLabel)} title={t(stage.submit)} center={false} expanded={false} compact
         detail={[
@@ -617,13 +617,7 @@ export default function NaruHome() {
         ...(stage.session ? [{ label: t(naru.december.sessionLabel), items: [`${t(stage.session.title)}: ${t(stage.session.body)}`] }] : []),
       ]} center={false} expanded={false} compact />
     ) : null;
-    const action = (i === 2 || i === 3) && timetableButton ? (
-      <>
-        {timetableButton}
-        {/* 2026-11-05 (사이트 점검, UX): 잠긴 버튼이 언제 열리는지. 인기투표 버튼의 안내 줄과 같은 자리, 같은 글자. */}
-        {!TIMETABLE_OPEN && <p className={`mt-[8px] ${META} text-caption`}>{t(naru.december.timetableNote)}</p>}
-      </>
-    ) : stage.voteCta ? (
+    const vote = stage.voteCta ? (
       VOTE_BUTTON_OPEN ? (
         <Link href={stage.voteCta.href} className={`group w-full justify-center ${buttonClass("secondary")}`}>
           {t(stage.voteCta.label)}<span aria-hidden className={ARROW_CLASS}>→</span>
@@ -646,30 +640,22 @@ export default function NaruHome() {
         )}
       </p>
     ) : null;
-    return (
-      <div key={stage.name.en} className="flex flex-col gap-2.5 rounded-2xl card-base p-4 text-left lg:row-span-7 lg:grid lg:grid-rows-subgrid lg:gap-y-2.5">
-        {slot("head", (
-          // 2026-11-05 (사이트 점검, 접근성 1.3.1): 칸 이름은 h3. 모양은 그대로.
-          <h3 className="flex flex-wrap items-baseline gap-x-2">
-            <span lang="en" className={`${META} font-bold text-accent`}>{`${t(naru.december.dayLabel)} ${stage.dayOffset}`}</span>
-            <span className={ROW_HEADING}>{t(stage.title)}</span>
-          </h3>
-        ))}
-        {slot("date", <span className={`${META} text-caption`}>{formatDecemberDayWithWeekday(locale, stage.dayOffset)}</span>)}
-        {/* 2026-11-05 (사용자: "same length of 문장이어야 하고"): 칸마다 길이를 맞춘 한 줄(short, 19~27자). 긴 line은 폰 패널과 띠의 상세가 씁니다. */}
-        {slot("line", <p className={`break-keep ${BODY} leading-[1.6] text-white/85`}>{t(stage.short)}</p>)}
-        {slot("session", stage.session && (
-          <p className={`break-keep ${META} text-naru-muted`}>
-            <span className="mr-1.5">{t(naru.december.sessionLabel)}</span>
-            <span lang="en" className="font-semibold text-white/85">{t(stage.session.title)}</span>
-          </p>
-        ))}
-        {slot("chips", chips)}
-        {/* 띠는 같은 최소 높이로 닫혀 있고, 하나를 펼쳐도 옆 칸의 띠는 늘어나지 않습니다(self-start). */}
-        {slot("strip", strip, "self-start w-full lg:[&>*]:min-h-[6.25rem]")}
-        {slot("action", action)}
-      </div>
+    const head = (center: boolean) => (
+      <h3 className={`flex flex-wrap items-baseline gap-x-2.5 gap-y-1 ${center ? "justify-center" : ""}`}>
+        <span lang="en" className={`${META} font-bold text-accent`}>{`${t(naru.december.dayLabel)} ${stage.dayOffset}`}</span>
+        <span className={ROW_HEADING}>{t(stage.title)}</span>
+        <span className={`${META} text-caption`}>{formatDecemberDayWithWeekday(locale, stage.dayOffset)}</span>
+      </h3>
     );
+    const line = <p className={`break-keep ${BODY} leading-[1.65] text-white/85`}>{t(stage.line)}</p>;
+    const session = stage.session ? (
+      <p className={`break-keep ${META} text-naru-muted`}>
+        <span className="mr-1.5">{t(naru.december.sessionLabel)}</span>
+        <span lang="en" className={`${BODY} font-semibold text-white/85`}>{t(stage.session.title)}</span>
+      </p>
+    ) : null;
+    void i;
+    return { head, line, session, chips, strip, vote };
   };
   // DECIDED 2026-10-10 (구조 브리프 3.2): 옛 주소. 홈에 있던 #join, #how, #why, #record, #join-ways는 /naru로 갔습니다.
   // 해시는 서버에 오지 않아 redirects로 잡을 수 없으므로, 마운트 때 한 번 보고 /naru의 같은 자리로 바꿉니다.
@@ -889,9 +875,44 @@ export default function NaruHome() {
             <h2 id="december-title" className={`${H2} max-sm:text-[28px] !mx-0 text-balance`}>{t(naru.december.programHeading)}</h2>
             <p id="mentoring" className={`mt-4 break-keep ${BODY} leading-[1.65] text-naru-muted`}>{t(naru.december.scheduleLead)}</p>
           </div>
-          <div data-schedule className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-2.5 lg:gap-y-0">
-            {naru.december.stages.map((stage, i) => dayCard(stage, i))}
-          </div>
+          {/* 일정 판(main 배치): Day 0 위 전폭, Day 1~3 세 칸(같은 행 격자: 머리, 한 줄, 세션, 띠, 팀 구성 줄)과 공용 시간표 버튼, Day 4 아래 전폭. */}
+          {(() => {
+            const P = naru.december.stages.map((st, i) => dayParts(st, i));
+            const wide = (k: number, last = false) => (
+              <div className={`flex flex-col items-center gap-3 px-4 py-6 text-center sm:px-6 ${last ? "border-t border-white/10" : "border-b border-white/10"}`}>
+                {P[k].head(true)}
+                <div className="max-w-2xl">{P[k].line}</div>
+                {P[k].chips}
+                {P[k].vote && <div className="mt-1 w-full max-w-sm">{P[k].vote}</div>}
+              </div>
+            );
+            return (
+              <div data-schedule className="overflow-hidden rounded-2xl card-base text-left">
+                {wide(0)}
+                <div className="px-4 py-6 sm:px-6">
+                  <div className="grid grid-cols-1 gap-y-10 md:grid-cols-3 md:gap-x-6 md:gap-y-3">
+                    {[1, 2, 3].map((k) => (
+                      <div key={k} className={`flex min-w-0 flex-col gap-3 md:row-span-5 md:grid md:grid-rows-subgrid ${k > 1 ? "md:border-l md:border-white/10 md:pl-6" : ""}`}>
+                        {P[k].head(false)}
+                        {P[k].line}
+                        {P[k].session ?? <span aria-hidden className="hidden md:block" />}
+                        <div className="min-w-0 self-start w-full">{P[k].strip}</div>
+                        {P[k].chips ?? <span aria-hidden className="hidden md:block" />}
+                      </div>
+                    ))}
+                  </div>
+                  {timetableButton && (
+                    <div className="mt-6 text-center">
+                      {timetableButton}
+                      {/* 2026-11-05 (사이트 점검, UX): 잠긴 버튼이 언제 열리는지. */}
+                      {!TIMETABLE_OPEN && <p className={`mt-[8px] ${META} text-caption`}>{t(naru.december.timetableNote)}</p>}
+                    </div>
+                  )}
+                </div>
+                {wide(4, true)}
+              </div>
+            );
+          })()}
         </div>
         {/* DECIDED 2026-11-05 (사용자, 스크린숏: "이 부분 빼줘"): 닷새 장 아래의 등록 블록(스크리닝 한 줄, 여는 날, 버튼 둘, 휴대폰 안내, 기업 출제/후원 문의)을 뺍니다.
             같은 버튼 둘과 여는 날, 조건 없음은 히어로가 말합니다. 헤더 "등록"과 밖의 #register 링크는 히어로의 버튼 줄(id="register")에 착지합니다.
