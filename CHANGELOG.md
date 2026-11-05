@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-05 폰 점검 반영](#2026-11-05-mobile-fixes)
 - [2026-11-05 로고 띠가 멈추지 않게](#2026-11-05-marquee-always)
 - [2026-11-05 캐치프레이즈 답 줄을 닷새 순서로](#2026-11-05-catch-verbs)
 - [2026-11-05 도구 페이지를 종이에 맞춤(합치기 전)](#2026-11-05-merge-tools)
@@ -475,6 +476,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-05-mobile-fixes"></a>
+## 2026-11-05 폰 점검 반영
+- 범위: components/home/NaruHome.tsx, naru/NaruPage.tsx, journey/(Journey, JourneyNav, ThanksStrip), shared/MobileChatBar.tsx, ui/(LinkedInLink, MotionToggle), naru/ManifestoViewer.tsx, Quiz, quiz/QuizIntroShell, data/(naru, dictionary, schedule), app/globals.css
+- 한 것: 사용자 요청으로 폰 점검(mobile-ux-optimizer, ui-designer) 결과를 모두 main에. 히어로 중심(워드마크 40px, 날짜 줄 작게), 남는 것 폰 막대를 날 글자로, 라벨 한 겹, 일정 판 왼쪽 정렬과 구분선, 제목 남색, 잠긴 버튼 흰 면, 누름 영역 44px, 화살표, 떠 있는 채팅 바 숨김, 8월 연사 3열과 "피칭" 문구, 퀴즈 3×2, 12px 글자를 13px로.
+- 근거: brand 10장(제목 남색, 글자 크기 넷), 5장 안 쓰는 말(피칭), 6장 캐치프레이즈가 히어로의 굵은 한 덩어리.
+- 검증: build 통과. 390 KO/EN 가로 넘침 0(/crossing, /, /2026-08), 스크린숏으로 히어로, 일정 판, 남는 것 확인.
+- 커밋: c10aae7
 
 ---
 
