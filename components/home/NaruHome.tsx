@@ -870,10 +870,20 @@ export default function NaruHome() {
         {/* DECIDED 2026-11-05 (사용자, 스크린숏 둘: "여기가 왼쪽에, 여기가 오른쪽에"): 제목과 리드는 왼쪽 단, Day 카드 다섯은 오른쪽 단(lg부터). 목업의 배치.
             폭은 히어로, 숫자 띠와 같은 양 끝선(max-w-6xl 안 좌우 40px). 같은 날 앞서 챕터 여백까지 넓혔다가 "너무 넓음"으로 되돌림. 카드 안 버튼은 모서리 둥근 사각형(globals.css [data-schedule]).
             lg 아래는 제목 아래 카드(sm 두 칸, 폰 한 칸). */}
-        <div id="schedule" className="mx-auto grid w-full max-w-6xl gap-8 text-left lg:grid-cols-[minmax(0,12rem)_minmax(0,1fr)] lg:gap-8 lg:px-10">
-          <div>
+        <div id="schedule" className="mx-auto grid w-full max-w-6xl gap-8 text-left lg:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] lg:gap-10 lg:px-10">
+          {/* DECIDED 2026-11-05 (사용자, 스크린숏: 왼쪽 단 "여기가 너무... 또 적어"): 리드 아래에 main의 "팀 구성 / 공간 / 미션" 세 줄(december.facts)을 둡니다.
+              lg부터 왼쪽 단은 스크롤 동안 판 옆에 머뭅니다(sticky). */}
+          <div className="lg:sticky lg:top-[calc(var(--site-header-height,96px)+24px)] lg:self-start">
             <h2 id="december-title" className={`${H2} max-sm:text-[28px] !mx-0 text-balance`}>{t(naru.december.programHeading)}</h2>
             <p id="mentoring" className={`mt-4 break-keep ${BODY} leading-[1.65] text-naru-muted`}>{t(naru.december.scheduleLead)}</p>
+            <dl className="mt-8 flex flex-col">
+              {naru.december.facts.map((f) => (
+                <div key={f.k.en} className="flex flex-col gap-1.5 border-t border-white/10 py-4">
+                  <dt className={`${META} font-bold text-accent`}>{t(f.k)}</dt>
+                  <dd className={`break-keep ${BODY} leading-[1.65] text-white/85`}>{t(f.v)}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
           {/* 일정 판(main 배치): Day 0 위 전폭, Day 1~3 세 칸(같은 행 격자: 머리, 한 줄, 세션, 띠, 팀 구성 줄)과 공용 시간표 버튼, Day 4 아래 전폭. */}
           {(() => {
