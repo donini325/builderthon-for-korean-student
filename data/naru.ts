@@ -3587,6 +3587,18 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
       label: { ko: "시상 크레딧", en: "Award credits" },
       logos: [{ name: "Readray", src: "/partners/logos/paper/readray.png", w: 1983, h: 377, url: "https://readray.ai" }],
     },
+    // DECIDED 2026-11-06 (사용자: "와이드모바일 (상금 후원) 넣어줘"). 로고는 CI/250207_도시락eSIM_LogoGuide.pdf의 가로형(도시락eSIM은 와이드모바일의 브랜드,
+    // App Store 판매자 Wide Mobile Co., Ltd.). 흰 바탕만 걷은 원래 색입니다. 금액은 쓰지 않습니다(brand 9장). 사이트가 열리지 않아 링크 없이 둡니다.
+    {
+      label: { ko: "상금 후원", en: "Prize sponsor" },
+      logos: [{ name: "와이드모바일 도시락eSIM WideMobile", src: "/partners/logos/paper/dosirak-esim.png", w: 846, h: 122 }],
+    },
+    // DECIDED 2026-11-06 (사용자: "terminal espresso house (다과지원) 넣어줘"). 원본은 CI/Terminal Espresso House.jpeg(검정 바탕 흰 글자)이고,
+    // 바탕을 걷어 흰 실루엣으로(크림 위에서는 globals.css가 잉크 색으로). 사람 그림 아래 두 줄 글자라 크라이치즈버거처럼 square 높이.
+    {
+      label: { ko: "다과 지원", en: "Refreshments" },
+      logos: [{ name: "Terminal Espresso House", src: "/partners/logos/white/trimmed/terminal-espresso.png", w: 363, h: 321, square: true }],
+    },
     // DECIDED 2026-10-31 (사용자: 10/29 워크숍 인트로 미팅과 10/30 회신 메일, "이분이 있는 business를 넣어줘야함"): Day 1 Lovable 워크숍을 맡은 회사.
     // 회신 메일에서 법인 명칭을 함께 표기해 달라고 했습니다. 정식 이름은 Carraway & Gatsby Corporation이고, 회사 사이트(cgcorp.io)의 제목이
     // "Carraway & Gatsby"라 로고는 나침반 심볼 + "Carraway &" / "Gatsby" 두 줄입니다(사용자가 세 시안 중 고름). 전체 이름은 링크 이름과 대체 글에.
