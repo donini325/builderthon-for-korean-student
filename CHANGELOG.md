@@ -497,8 +497,8 @@
 - 범위: data/naru.ts(december.mentors days, mentorsListLabel), components/home/NaruHome.tsx(멘토 모달 필터)
 - 한 것: 사용자 요청(날마다 멘토가 다름, 한 분은 두 날 모두). 멘토마다 오는 날(days)을 두고 Day 2, 3 모달은 그날의 멘토만. 나눔은 DB sort 순서(1~4 Day 2, 5~8 Day 3)를 사용자가 확인. 목록 머리는 "이날의 멘토".
 - 근거: brand 7장 멘토링(멘토 한 분은 Day 2 또는 Day 3 중 하루의 반나절).
-- 검증: Day 2 모달 다섯, Day 3 모달 넷. build 통과.
-- 커밋: 121c18a
+- 검증: Day 2 모달 다섯, Day 3 모달 넷. build 통과. 같은 날 뒤에 Day 3에 한 분 더(브리프에서 뺐던 분, 사용자 요청)로 다섯과 다섯.
+- 커밋: 121c18a, da84df9
 
 ---
 
