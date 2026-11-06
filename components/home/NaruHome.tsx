@@ -475,9 +475,10 @@ function MilestoneStrip({ id, label, title, detail, center = false, expanded = f
 
 // 함께하는 곳 로고의 높이(2026-10-21). 같은 높이면 가로로 긴 워드마크(DRIMAES, Lovable)가 커 보이고 두 줄짜리 마크(팝업스튜디오, Wilt)가
 // 작아 보여서, 가로세로 비율로 높이를 나눕니다. 눈에 보이는 면적이 비슷해지는 값입니다.
-function partnerLogoHeight(l: { w: number; h: number; square?: boolean }): string {
+function partnerLogoHeight(l: { w: number; h: number; square?: boolean; boost?: boolean }): string {
   if (l.square) return "h-12 sm:h-14"; // 2026-10-21: 크라이치즈버거가 얼굴 아래 글자 두 줄인 판으로 바뀌어 글자가 읽히는 높이로.
-  const r = l.w / l.h;
+  // boost(2026-11-06): 경계 바로 위에 걸려 작아 보이는 로고 하나만 한 단 위 칸으로(코드프레소).
+  const r = l.boost ? Math.min(l.w / l.h, 4.9) : l.w / l.h;
   if (r > 5) return "h-4 sm:h-[1.15rem]";
   if (r > 3.6) return "h-5 sm:h-[1.35rem]";
   if (r > 2.4) return "h-6 sm:h-7";
@@ -485,7 +486,7 @@ function partnerLogoHeight(l: { w: number; h: number; square?: boolean }): strin
 }
 
 /** 함께하는 곳의 로고 하나. 링크가 있으면 새 탭 링크입니다. h를 주면 비율 높이 대신 그 높이(AXMOS 머리). */
-function partnerLogo(l: { name: string; src: string; w: number; h: number; url?: string; square?: boolean }, h?: string) {
+function partnerLogo(l: { name: string; src: string; w: number; h: number; url?: string; square?: boolean; boost?: boolean }, h?: string) {
   const img = (
     <Image src={l.src} alt={l.name} width={l.w} height={l.h} unoptimized className={`block w-auto ${h ?? partnerLogoHeight(l)} opacity-90`} />
   );

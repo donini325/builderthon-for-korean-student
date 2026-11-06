@@ -3481,7 +3481,7 @@ export const naru = {
 // 금액, 무료 여부는 쓰지 않습니다(brand 9장).
 // DECIDED 2026-10-21 (사용자, 스크린숏: "그냥 로고만 보여줘"): 줄마다의 설명은 지웠습니다. 같은 날 (사용자: "role 도 각 row 마다 넣어줘"): 분류 이름(label)은 줄마다 로고 위에 보입니다.
 // ─────────────────────────────────────────────────────────────────────────────
-export type PartnerLogo = { name: string; src: string; w: number; h: number; url?: string; square?: boolean };
+export type PartnerLogo = { name: string; src: string; w: number; h: number; url?: string; square?: boolean; boost?: boolean };
 /**
  * 서울 안의 대학교(DECIDED 2026-10-22, 사용자: "서울 안에서 빛이 비추면 안 보이던 한국 대학교 학회 로고가 보이면 좋겠어. 한동대는 일단 빼줘", 같은 날 다시 넣음,
  * 이어서 "로고는 지금 쓰면 안 되겠다. 대학교 로고로 해줘"). 학회 로고는 쓰지 않고, 함께하는 학회가 있는 대학교의 휘장을 씁니다.
@@ -3532,7 +3532,8 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
         // DECIDED 2026-10-22 (사용자: "translink, wilt, codepresso, popup, 드림에이스 순서임").
         { name: "Translink Investment", src: "/partners/logos/white/trimmed/translink.png", w: 330, h: 91, url: "https://translink.kr" },
         { name: "Wilt Venture Builder", src: "/partners/logos/white/trimmed/wilt.png", w: 309, h: 148, url: "https://www.wiltvb.com/" },
-        { name: "Codepresso", src: "/partners/logos/white/trimmed/codepresso.png", w: 456, h: 91, url: "https://codepresso.io" },
+        // 2026-11-06 (사용자: "codepresso 로고가 다른 로고들에 비해서 좀 작아보임"): 비율 5.01이 가장 납작한 칸(5 넘음)에 걸려 한 단 올림(boost).
+        { name: "Codepresso", src: "/partners/logos/white/trimmed/codepresso.png", w: 456, h: 91, url: "https://codepresso.io", boost: true },
         { name: "Popup Studio", src: "/partners/logos/white/trimmed/popup-studio.png", w: 512, h: 245, url: "https://popupstudio.ai" },
         { name: "Drimaes", src: "/partners/logos/white/trimmed/drimaes.png", w: 332, h: 50, url: "https://www.drimaes.com" },
       ],
