@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { fixUrl } from "@/lib/fixPath";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 언어별 공유 카드(DECIDED 2026-10-14, 사용자: "영어로 바꾼 뒤 공유하면 받는 사람에게도 영어로, 이미지와 설명도").
@@ -15,6 +16,17 @@ const PAGES = new Set(["/", "/crossing", "/2026-08", "/crossing/team", "/crossin
 
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
+
+  // DECIDED 2026-11-06 (사용자: "링크에 이상이 있어도 왠만하면 올 수 있도록"): 망가진 주소를 먼저 고쳐 봅니다(lib/fixPath.ts).
+  // 고칠 것이 없거나 못 고치면 null이라 아래 원래 규칙과 404가 그대로입니다.
+  const fixed = fixUrl(pathname, req.nextUrl.search);
+  if (fixed) {
+    const url = req.nextUrl.clone();
+    url.pathname = fixed.pathname;
+    url.search = fixed.search;
+    url.hash = fixed.hash;
+    return NextResponse.redirect(url, 308);
+  }
 
   if (pathname === "/naru" || pathname === "/en/naru") {
     const url = req.nextUrl.clone();
@@ -46,8 +58,9 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
+  // 2026-11-06: 망가진 주소를 고치려고 페이지 주소 전부를 받습니다. Next 내부, API, 오픈채팅 세기(/go), 공유 카드와 아이콘,
+  // 확장자가 있는 파일(이미지, 폰트, PDF 등)은 받지 않습니다. 끝에 "."만 붙은 주소(/crossing.)는 확장자가 아니라 받습니다.
   matcher: [
-    "/", "/naru", "/crossing", "/2026-08", "/crossing/team", "/crossing/mentor", "/crossing/vote", "/match",
-    "/en", "/en/naru", "/en/crossing", "/en/2026-08", "/en/crossing/team", "/en/crossing/mentor", "/en/crossing/vote", "/en/match",
+    "/((?!_next/|api/|go/|.*opengraph-image|.*twitter-image|icon|apple-icon|favicon|sitemap|robots|.*\\.(?:png|jpe?g|svg|webp|gif|avif|ico|woff2?|ttf|otf|mp4|webm|mov|pdf|txt|xml|json|js|mjs|css|map|webmanifest|csv|zip)$).*)",
   ],
 };
