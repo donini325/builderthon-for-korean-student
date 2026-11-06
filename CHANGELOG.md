@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 멘토 모달은 그날의 멘토만](#2026-11-06-mentors-days)
 - [2026-11-06 멘토 소속과 경력 한 줄](#2026-11-06-mentors-bio)
 - [2026-11-06 멘토 모달에 현업의 감각 넷](#2026-11-06-mentors-talk)
 - [2026-11-06 멘토는 Day 2, 3 카드에서 모달로](#2026-11-06-mentors-modal)
@@ -488,6 +489,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-06-mentors-days"></a>
+## 2026-11-06 멘토 모달은 그날의 멘토만
+- 범위: data/naru.ts(december.mentors days, mentorsListLabel), components/home/NaruHome.tsx(멘토 모달 필터)
+- 한 것: 사용자 요청(날마다 멘토가 다름, 한 분은 두 날 모두). 멘토마다 오는 날(days)을 두고 Day 2, 3 모달은 그날의 멘토만. 나눔은 DB sort 순서(1~4 Day 2, 5~8 Day 3)를 사용자가 확인. 목록 머리는 "이날의 멘토".
+- 근거: brand 7장 멘토링(멘토 한 분은 Day 2 또는 Day 3 중 하루의 반나절).
+- 검증: Day 2 모달 다섯, Day 3 모달 넷. build 통과.
+- 커밋: 121c18a
 
 ---
 
