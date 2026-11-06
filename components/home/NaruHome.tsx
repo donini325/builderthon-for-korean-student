@@ -837,8 +837,8 @@ export default function NaruHome() {
         {/* 같은 날 뒤(사용자, 스크린숏: "주최 나루라는것도 아래에", 아래 함께하는 곳 장은 "없애도 되는거 같음"): 이 띠가 #partners이고, 맨 아래 줄이
             주최 나루(#naru, 옛 /#naru 링크와 목차가 내려앉는 자리). 그 장의 원래 색 로고와 대학 휘장은 걷었습니다(그 전 코드는 git 7b4d4a7). */}
         <div id="partners" className="w-full scroll-mt-[calc(var(--site-header-height,96px)+16px)] px-6 sm:px-10 lg:px-10 xl:px-16">
-          <HeroPartnerStrip t={t} tiers={decemberStripTiers} label={decemberPartners.heading} sizeClass={META} scrim={false} className="mx-auto mt-14 max-w-[1150px] xl:mt-16" />
-          <div id="naru" className="mx-auto mt-5 flex max-w-[1150px] flex-wrap items-center justify-center gap-x-5 gap-y-2 py-1.5">
+          <HeroPartnerStrip t={t} tiers={decemberStripTiers} label={decemberPartners.heading} sizeClass={META} scrim={false} className="mx-auto mt-14 max-w-[1100px] xl:mt-16 [&_img]:!opacity-55 [&_a:hover_img]:!opacity-90" />
+          <div id="naru" className="mx-auto mt-4 flex max-w-[1100px] flex-wrap items-center justify-center gap-x-5 gap-y-2 py-1.5">
             <span className={`${META} font-bold text-accent`}>{t(naru.teaser.eyebrow)}</span>
             <Image
               src={locale === "en" ? "/naru/naru-name-en-paper.svg" : "/naru/naru-name-paper.png"}
@@ -846,7 +846,7 @@ export default function NaruHome() {
               width={604}
               height={168}
               unoptimized={locale === "en"}
-              className="block h-7 w-auto sm:h-8"
+              className="block h-5 w-auto opacity-80 sm:h-6"
             />
             <Link
               href={naru.teaser.cta.href}
