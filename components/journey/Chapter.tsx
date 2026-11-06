@@ -14,6 +14,7 @@ export default function Chapter({
   wide = false,
   labelledBy,
   contentSized = false,
+  inset = false,
 }: {
   id?: string;
   children: ReactNode;
@@ -39,6 +40,11 @@ export default function Chapter({
   labelledBy?: string;
   /** 나루 전용 거터와 배경 전환 간격을 구분합니다. 세로 여백과 화면 최소 높이는 공통값을 유지합니다. */
   contentSized?: boolean;
+  /**
+   * 2026-11-06 (사용자: "12월과 8월 페이지의 폭이 동일했으면 좋겠음. 8월을 12월에 맞추어줘"): 레일(max-w-6xl) 안에 lg부터 양옆 40px.
+   * 12월(/crossing)의 블록들이 레일 안에 lg:px-10을 두어 내용 폭이 1072px(1440 화면)이라, 8월 장들도 같은 폭이 되게 합니다. 기본은 꺼짐.
+   */
+  inset?: boolean;
 }) {
   // DECIDED 2026-10-20 (hwang 브리프 3.1, D5): 챕터 리빌을 걷었습니다(8월 페이지도 같은 부품). 최종 화면은 전과 같습니다.
   // text alignment for the inner column
@@ -78,7 +84,7 @@ export default function Chapter({
           for it so the centred content can't grow down into it on short phones -
           iPhone heights vary, so we don't chase a fixed number: pad the bottom
           on mobile and let it drop away once there's room (sm+). */}
-      <div className={`relative z-10 w-full ${wide ? "" : "mx-auto max-w-6xl"} ${footer ? "pb-24 sm:pb-0" : ""}`}>
+      <div className={`relative z-10 w-full ${wide ? "" : "mx-auto max-w-6xl"} ${inset && !wide ? "lg:px-10" : ""} ${footer ? "pb-24 sm:pb-0" : ""}`}>
         <div
           // data-chapter-reveal: globals.css의 안전망이 잡는 손잡이입니다.
           // 이 div는 서버 마크업에 style="opacity:0"을 실어 보내고, 그 안에

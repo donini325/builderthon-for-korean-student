@@ -2149,10 +2149,12 @@ export default function Journey() {
             below lg. The small px gutters keep text off the very edge.
             heroRef anchors the scroll-parallax: the two columns drift up at
             different speeds and fade as the hero scrolls out. */}
-        <div className="grid items-center gap-12 px-6 sm:px-10 lg:grid-cols-2 lg:gap-14 lg:px-0">
+        {/* DECIDED 2026-11-06 (사용자: "12월과 8월 페이지의 폭이 동일했으면 좋겠음. 8월을 12월에 맞추어줘"): 그 전에는 두 칸이 화면 양 끝에 붙었습니다(lg:px-0, 왼쪽 칸 lg:pl-10 xl:pl-16).
+            /crossing 히어로와 같은 레일(lg:max-w-6xl, 양옆 lg:px-10, 칸 사이 lg:gap-16). 배경 영상은 그대로 전체 폭. */}
+        <div className="relative grid items-center gap-12 px-6 sm:px-10 lg:mx-auto lg:max-w-6xl lg:grid-cols-2 lg:gap-16 lg:px-10">
           {/* LEFT - headline, meta, blurb, CTAs. Centred on mobile, left-aligned
               and pushed to the left edge from lg up. */}
-          <div className="text-center lg:pl-10 lg:text-left xl:pl-16">
+          <div className="text-center lg:text-left">
             {/* The returning-quiz-taker greeting lives only in the nav now
                 (compact, desktop-only), so there's no hero greeting - it stays
                 off mobile entirely and never shows twice on desktop. */}
@@ -2244,7 +2246,7 @@ export default function Journey() {
 
           {/* 오른쪽 단은 비어 있습니다(훅 카드가 2026-08-23에 내려갔습니다). 2단 격자의
               자리만 지킵니다. */}
-          <div aria-hidden className="hidden lg:block lg:pr-10 xl:pr-16" />
+          <div aria-hidden className="hidden lg:block" />
         </div>
 
         {/* Confirmed-partner logo band, spanning under both hero columns and
@@ -2257,7 +2259,7 @@ export default function Journey() {
             first thing the fade erased. It just scrolls away with the page
             instead, which also keeps one more element off the scroll-linked
             repaint path. */}
-        <div className="px-6 sm:px-10 lg:px-10 xl:px-16">
+        <div className="px-6 sm:px-10 lg:mx-auto lg:max-w-6xl lg:px-10">
           {/* DECIDED 2026-10-26 (사용자): 함께해 주신 분들을 로고 띠 위에. components/journey/ThanksStrip.tsx */}
           <ThanksStrip t={t} />
           <HeroPartnerStrip t={t} />
@@ -2269,7 +2271,7 @@ export default function Journey() {
           끝입니다. 이 페이지는 이제 히어로 다음 바로 모집 당시 그대로의 기록입니다. 키(dict.record, naru.record.gaps,
           dict.footer.thanks)는 둡니다. 옛 마크업은 git 이력에. */}
       {/* ── CH 1 · ABOUT ───────────────────────────────────────────── */}
-      <Chapter id="about" align="center">
+      <Chapter id="about" align="center" inset>
         <div className="text-center">
           <Eyebrow>{t(dict.about.tag)}</Eyebrow>
           <h2 className="mx-auto max-w-3xl text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
@@ -2373,7 +2375,7 @@ export default function Journey() {
       </Chapter>
 
       {/* ── CH 2 · WHO SHOULD JOIN / WHAT YOU GET ──────────────────── */}
-      <Chapter id="join" align="center">
+      <Chapter id="join" align="center" inset>
         <div className="text-center">
           <Eyebrow color="emerald">{t(dict.whoWhat.tag)}</Eyebrow>
           <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
@@ -2430,7 +2432,7 @@ export default function Journey() {
       {/* ── CH 2.5 · WHY JOIN (benefits) + INCENTIVES ──────────────── */}
       {/* 폰에서 아래 여백을 줄입니다(2026-10-08): 이 챕터 끝과 프로그램 제목 사이가
           360px 폭에서 500px 가까이 비어 덜 불러온 화면처럼 보였습니다. */}
-      <Chapter id="benefits" align="center" className="!pb-6 sm:!pb-20 lg:!pb-24">
+      <Chapter id="benefits" align="center" inset className="!pb-6 sm:!pb-20 lg:!pb-24">
         <Eyebrow color="cyan">{t(dict.benefits.tag)}</Eyebrow>
         <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.benefits.heading)}
@@ -2481,9 +2483,10 @@ export default function Journey() {
       {/* Full-width translucent program band - a dark violet tint that dims the
           WebGL field for legibility while still letting the background dots show
           through. Top & bottom fade out so it blends into the journey. */}
-      <section id="program" className={`relative w-full ${BAND_TINT} pb-14 pt-10 sm:py-20 lg:py-28`}>
+      {/* 2026-11-06 (사용자: 8월 폭을 12월에 맞춤): 그 전 레일은 max-w-[1700px] px-6 sm:px-10(1440에서 40..1394). 다른 장(Chapter inset)과 같은 레일로. */}
+      <section id="program" className={`relative w-full ${BAND_TINT} px-6 pb-14 pt-10 sm:px-12 sm:py-20 lg:px-16 lg:py-28`}>
         <BandFades />
-        <div className="relative mx-auto w-full max-w-[1700px] px-6 sm:px-10">
+        <div className="relative mx-auto w-full max-w-6xl lg:px-10">
           <div className="text-center">
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Eyebrow className="!mb-0">{t(dict.program.tag)}</Eyebrow>
@@ -2630,7 +2633,7 @@ export default function Journey() {
       {/* ── CH 3.2 · SPEAKER SESSIONS (Day 1·5·8) ──────────────────── */}
       {/* Speaker names + photos are transcribed from the internal deck - public
           naming/likeness to be confirmed with the user (flagged in the handoff). */}
-      <Chapter id="speakers" align="center">
+      <Chapter id="speakers" align="center" inset>
         <Eyebrow>{t(dict.speakers.tag)}</Eyebrow>
         <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.speakers.heading)}
@@ -2734,7 +2737,7 @@ export default function Journey() {
       </Chapter>
 
       {/* ── CH 3.3 · MENTORING PHILOSOPHY ──────────────────────────── */}
-      <Chapter id="mentoring" align="center">
+      <Chapter id="mentoring" align="center" inset>
         <Eyebrow color="emerald">{t(dict.mentoring.tag)}</Eyebrow>
         <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.mentoring.heading)}
@@ -3061,7 +3064,7 @@ export default function Journey() {
       {/* ── CH 4 · PARTNERS ────────────────────────────────────────── */}
       {/* DECIDED 2026-10-25 (사용자, 스크린숏: "gap이 너무 커"): FAQ가 빠져 이 챕터가 마지막 내용입니다. 화면 높이(min-h-screen)를 채우며
           가운데 서던 것을 내용 높이로, 아래 여백도 줄여 바로 아래 오픈채팅 버튼과 붙입니다. */}
-      <Chapter id="builders" align="center" className="md:!min-h-0 !pb-6 sm:!pb-8">
+      <Chapter id="builders" align="center" inset className="md:!min-h-0 !pb-6 sm:!pb-8">
         {/* Contained dark backing box (not full-width) to lift readability over
             the bright background field. */}
         <div className="mx-auto w-full max-w-4xl ">
