@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 멘토는 AI 커뮤니티의 현업](#2026-11-06-mentors-community)
 - [2026-11-06 멘토 모달은 그날의 멘토만](#2026-11-06-mentors-days)
 - [2026-11-06 멘토 소속과 경력 한 줄](#2026-11-06-mentors-bio)
 - [2026-11-06 멘토 모달에 현업의 감각 넷](#2026-11-06-mentors-talk)
@@ -489,6 +490,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-06-mentors-community"></a>
+## 2026-11-06 멘토는 AI 커뮤니티의 현업
+- 범위: data/naru.ts(mentorsListNote), components/home/NaruHome.tsx(멘토 모달 "이날의 멘토" 아래)
+- 한 것: 사용자 요청. 멘토 명단 머리 아래에 "모두 AI 커뮤니티에서 활동하고 있는 현업입니다." 한 줄.
+- 근거: brand 7장 멘토링.
+- 검증: 390 모달에서 머리 아래 한 줄. build 통과.
+- 커밋: c56bc10
 
 ---
 
