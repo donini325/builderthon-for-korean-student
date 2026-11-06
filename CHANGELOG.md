@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 상금 후원과 다과 지원 로고](#2026-11-06-partners-prize-cafe)
 - [2026-11-06 시간표 버튼 엶](#2026-11-06-timetable-open)
 - [2026-11-06 멘토 명단 하나로](#2026-11-06-mentors-merged)
 - [2026-11-06 공유 카드를 종이로](#2026-11-06-og-paper)
@@ -504,6 +505,14 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-06-partners-prize-cafe"></a>
+## 2026-11-06 상금 후원과 다과 지원 로고
+- 범위: data/naru.ts(decemberPartners 두 줄), components/shared/HeroPartnerStrip.tsx(DECEMBER_MASS), public/partners/logos 로고 둘
+- 한 것: 사용자 요청. 함께하는 곳 띠에 "상금 후원" 와이드모바일(CI 로고 가이드의 도시락eSIM 가로형, 원래 색)과 "다과 지원" Terminal Espresso House(검정 바탕을 걷은 흰 실루엣, 크림 위에서 잉크)를 더함. 금액은 쓰지 않음.
+- 근거: brand 9장(금액, 무료 여부를 쓰지 않음), 10장 흰 실루엣 로고는 잉크 색으로.
+- 검증: build 통과. 1280px에서 도시락eSIM 159x23(다른 워드마크와 같은 높이), Terminal은 크라이치즈버거와 같은 정사각 높이.
+- 커밋: 9dab365
 
 <a id="2026-11-06-timetable-open"></a>
 ## 2026-11-06 시간표 버튼 엶
