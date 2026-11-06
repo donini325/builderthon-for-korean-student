@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 영문을 한국어 줄 수에 맞춤](#2026-11-06-en-length)
 - [2026-11-06 생각과 팀마다 다른 답을 문장에](#2026-11-06-think-different)
 - [2026-11-06 Day 1~3 칸 폭 같게](#2026-11-06-day-cols)
 - [2026-11-06 코어 5개사 로고 크기 하나 맞춤](#2026-11-06-core-logo)
@@ -497,6 +498,17 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-06-en-length"></a>
+## 2026-11-06 영문을 한국어 줄 수에 맞춤
+- 범위: data/dictionary.ts, data/naru.ts, data/schedule.ts, data/crossingTeam.ts, data/quiz.ts, data/quizEditions.ts, components/journey/ThanksStrip.tsx (en 값만)
+- 한 것: 사용자 요청(언어를 바꿔도 문장 길이가 같게, 늘어남 없이, 사이트 전체, 한국어는 정본이라 손대지 않음). 페이지마다 1440과 390에서 글 덩어리의 줄 수를 KO와 EN으로 재고, EN이 더 긴 곳의 영문을 줄임. 화면에서 재지 못한 퀴즈 문항과 시간표 페이지 문구는 영문이 한국어의 2.2배를 넘는 것을 함께 줄임. 뜻이 빠진 셋(파이널 리허설, 12월 테스트 링크, 개인정보 한 줄)은 되살림.
+- 남긴 예외: 사람 이름 둘, 공식 직함, 고유명사(AI-DLC, Crash Course, Final Rehearsal), 기사 제목, 워드마크 CROSSING SEOUL., 태그라인(brand 6장 영문 그대로).
+- 근거: brand 5장(짧은 평서문), 6장.
+- 검증: EN이 KO보다 줄이 많은 글 덩어리 / 2026-08 67~70, / 10~19, /crossing 18~19, /crossing/team 3~5, /match, /quiz 1~2 → 예외 18만. ko 값 7파일 모두 그대로(문자열 목록 대조). 줄표 추가 0. build 통과.
+- 커밋: 3c60776
 
 ---
 
