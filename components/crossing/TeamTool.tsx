@@ -11,7 +11,7 @@
 // 트랙 색(lib/crossingOps.ts TRACK_TINTS)으로 칠합니다. 우리 팀은 주황 대신 흰 테두리로 가립니다(주황은 트랙 색과 겹침).
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocale } from "@/lib/LocaleContext";
 import { BODY, META, SUBTITLE } from "@/components/ui/typography";
 import { buttonClass } from "@/components/ui/Button";
@@ -69,10 +69,15 @@ export default function TeamTool() {
   useEffect(() => { setNow(Date.now()); }, [mentors]);
   const notYet = now > 0 && bookingGate(now) === "not_yet";
 
+  // 2026-11-06: ?day=3으로 들어오면 첫 그림의 Day 2 응답이 Day 3 응답보다 늦게 와서 Day 3 탭에 Day 2 멘토가 남을 수 있었습니다. 지금 탭이 아닌 날의 응답은 버립니다.
+  const dayNow = useRef(day);
+  dayNow.current = day;
   const refresh = useCallback(async () => {
     const r = await fetch(`/api/crossing/mentoring?day=${day}`, { cache: "no-store" });
+    if (dayNow.current !== day) return;
     if (!r.ok) { setMsg(t(c.errGeneric)); return; }
     const j = await r.json();
+    if (dayNow.current !== day) return;
     setTeams(j.teams ?? []); setTracks(j.tracks ?? []); setTeamTracks(j.teamTracks ?? {}); setMentors(j.mentors ?? []); setPendingTeams(j.pendingTeams ?? []);
     setLoaded(true);
   }, [day]);
@@ -153,7 +158,9 @@ export default function TeamTool() {
           onClick={() => (asking ? (setPending(null), call("POST", { team: picked, mentorId: m.id, startsAt: new Date(r).toISOString() })) : setPending({ m: m.id, r }))}
           // 묻는 칸은 우리 팀의 트랙 색으로 미리 칠합니다(넣으면 이 색이 됩니다).
           style={asking ? { background: `${myTint}${SLOT_ALPHA}`, borderColor: myTint } : undefined}
-          className={`min-h-[44px] w-full rounded-md px-1 py-2 ${META} transition-colors duration-150 ${asking ? "border font-bold text-white" : ok ? "border border-white/10 bg-white/[0.02] text-naru-muted hover:border-accent/40 hover:bg-accent/10 hover:text-accent" : locked ? "cursor-not-allowed text-white/20" : "text-transparent"}`}>
+          // 2026-11-06 (사용자, 스크린숏: "오전에 되는 분이 있고, 오후에 되는 분들이 나누어져있는데, 그 구분이 없는거 같음"): F6로 "+"를 지우자 받는 칸과
+          // 받지 않는 시간이 똑같이 비어 보였습니다. 그 멘토가 받는 칸은 아직 못 눌러도 테두리 상자로 그립니다(멘토 페이지의 "빈 칸" 상자와 같은 모양).
+          className={`min-h-[44px] w-full rounded-md px-1 py-2 ${META} transition-colors duration-150 ${asking ? "border font-bold text-white" : ok ? "border border-white/10 bg-white/[0.02] text-naru-muted hover:border-accent/40 hover:bg-accent/10 hover:text-accent" : locked ? "cursor-default border border-white/10 bg-white/[0.02]" : "text-transparent"}`}>
           {/* DECIDED 2026-11-06 (docs/first-click-brief.md F6, D4 빈 칸): 누를 수 없는 칸에는 "+"를 그리지 않습니다. 열리는 시각은 위 안내 줄이 말합니다. */}
           {asking ? t(c.confirmPut) : ok ? "+" : ""}
         </button>
@@ -165,6 +172,12 @@ export default function TeamTool() {
   // 뉴트럴 잉크 바탕, 면은 card-base/card-sunken/card-tint, 강조는 블루(accent) 하나, 캡션 톤(naru-muted). 주황 안내 글씨는 없앴습니다.
   // 규칙 여섯은 같은 모양 카드 여섯 장(UI Craft가 꼽는 템플릿 문법)이 아니라 한 판 안의 목록입니다. 글자 크기는 SUBTITLE, BODY, META.
   const dayLabel = (d: number) => dayDate(d).slice(5).replace("-", ".");
+  // 맡은 반나절: "오전 10:00~13:00". 시작이 KST 12시 전이면 오전.
+  const halfDay = (ws: Window[]) => ws.map((w) => {
+    const a = Date.parse(w.startsAt), b = Date.parse(w.endsAt);
+    const am = new Date(a + 9 * 3600_000).getUTCHours() < 12;
+    return `${t(am ? { ko: "오전", en: "AM" } : { ko: "오후", en: "PM" })} ${fmtKst(a)}~${fmtKst(b)}`;
+  }).join(", ");
   return (
     <main id="main" className="min-h-screen bg-naru-ink px-4 pb-24 pt-4 text-naru-text">
       <div className="mx-auto flex max-w-5xl flex-col gap-[32px]">
@@ -254,6 +267,8 @@ export default function TeamTool() {
                     {mentors!.map((m) => (
                       <th key={m.id} className="min-w-[120px] border-l border-white/5 px-2 py-3 text-left align-bottom">
                         <span className={`block ${META} font-semibold text-white`}>{mentorTitle(m.name, locale)}</span>
+                        {/* 2026-11-06 (사용자: 오전, 오후 멘토의 구분): 그날 맡은 반나절. 안내 PDF 4쪽(멘토님별 맡으신 시간)과 같은 말. */}
+                        {m.windows.length > 0 && <span className={`block ${META} font-normal tabular-nums text-accent`}>{halfDay(m.windows)}</span>}
                         {m.field && <span className={`block ${META} font-normal text-naru-muted`}>{m.field}</span>}
                       </th>
                     ))}
