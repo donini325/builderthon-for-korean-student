@@ -21,9 +21,10 @@ import { META } from "@/components/ui/typography";
 type Tfn = (p: Phrase) => string;
 type RoleKey = "speaker" | "panel" | "mentor";
 
+// DECIDED 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 좁은 카드에서 줄이 늘지 않게 영문 역할 칩만 줄임.
 const ROLE: Record<RoleKey, { label: Phrase; href: string }> = {
   speaker: { label: { ko: "연사", en: "Speaker" }, href: "#speakers" },
-  panel: { label: { ko: "피드백 패널", en: "Feedback panel" }, href: "#feedback-panel" },
+  panel: { label: { ko: "피드백 패널", en: "Panel" }, href: "#feedback-panel" },
   mentor: { label: { ko: "멘토", en: "Mentor" }, href: "#mentoring" },
 };
 const ORDER: RoleKey[] = ["speaker", "panel", "mentor"];

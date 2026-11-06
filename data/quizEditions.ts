@@ -52,14 +52,15 @@ export interface EditionConfig {
 
 // 12월판이 덮는 문구. 8월 문구의 "제로백 빌더톤", "빌더톤"이 든 줄과 시작 화면의 세 줄입니다.
 // 시작 화면: 제목, 한 줄 설명, 그리고 안내 한 줄(8월의 meta 자리). 가운뎃점은 쓰지 않습니다.
+// 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
 const UI_2026_12: typeof quizUI = {
   ...quizUI,
   back: { ko: "크로싱 서울", en: "CROSSING SEOUL" },
   eyebrow: { ko: "Day 1 현장 팀 매칭", en: "Day 1 on-site team matching" },
   title: { ko: "크로싱 서울 팀 매칭", en: "CROSSING SEOUL team matching" },
   // 2026-10-09 (팀 매칭 유머 브리프 5): 한 줄을 덧붙입니다.
-  subtitle: { ko: "14문항, 약 3분이면 끝나고 결과는 Day 1 팀 매칭에 씁니다. 마음에 안 들면 다시 해도 됩니다. 다들 그래요.", en: "14 questions, about 3 minutes, and your result is used for team matching on Day 1. Don't like it? Take it again. Everyone does." },
-  meta: { ko: "이름, 나라, 테스트 결과는 현장 팀 매칭에만 씁니다.", en: "Your name, country and result are used only for on-site team matching." },
+  subtitle: { ko: "14문항, 약 3분이면 끝나고 결과는 Day 1 팀 매칭에 씁니다. 마음에 안 들면 다시 해도 됩니다. 다들 그래요.", en: "14 questions, 3 minutes, used for Day 1 team matching. Don't like it? Retake. Everyone does." },
+  meta: { ko: "이름, 나라, 테스트 결과는 현장 팀 매칭에만 씁니다.", en: "Name, country, result: team matching only." },
   roleLabel: { ko: "추천 역할", en: "Your role" },
   matchSub: { ko: "이 유형 보이면 일단 잡으세요. 이유는 Day 4에 알게 돼요 ✦", en: "See one of these? Grab them. You'll find out why on Day 4 ✦" },
   matchRoleLabel: { ko: "이 친구 추천 역할", en: "Their role" },

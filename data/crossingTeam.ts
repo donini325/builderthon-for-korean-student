@@ -5,8 +5,9 @@
 
 import type { Phrase } from "@/data/dictionaryCore";
 
+// 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
 export const teamCopy = {
-  title: { ko: "멘토 시간표와 미션 인증", en: "Mentor timetable and check-in" },
+  title: { ko: "멘토 시간표와 미션 인증", en: "Mentors and check-in" },
   // 2026-10-23 (모바일 점검): /match처럼 돌아가기와 EN/KR이 있는 머리를 둡니다. 그 전에는 제목으로 바로 시작했습니다.
   back: { ko: "크로싱 서울", en: "Crossing Seoul" },
   swipeHint: { ko: "옆으로 밀면 다른 멘토의 칸이 보입니다.", en: "Swipe sideways for the other mentors' slots." },
@@ -22,7 +23,7 @@ export const teamCopy = {
   notYet: { ko: "아직 열리지 않았습니다. Day 1(12.18) 12:00부터 넣을 수 있습니다.", en: "Not open yet. You can add slots from Day 1 (Dec 18) at 12:00." },
   day1BookHint: { ko: "Day 2, 3 멘토 칸은 Day 1(12.18) 12:00부터 Day 2, Day 3 탭에서 넣습니다.", en: "From Day 1 (Dec 18) at 12:00, add your Day 2 and 3 mentor slots in the Day 2 and Day 3 tabs." },
   // 2026-10-18 (사용자: "트랙에 따라서 슬롯 색깔이 달라졌으면"). 2026-11-05 (docs/merge-paper-brief.md T2): 종이에서 우리 팀 칸은 남색 테두리.
-  trackLegend: { ko: "칸의 색은 그 팀의 트랙입니다. 남색 테두리는 우리 팀입니다.", en: "Each slot takes its team's track colour. A navy outline marks your team." },
+  trackLegend: { ko: "칸의 색은 그 팀의 트랙입니다. 남색 테두리는 우리 팀입니다.", en: "Colour is the track. Navy outline is your team." },
   time: { ko: "시간", en: "Time" },
   gap: { ko: "쉬는 10분", en: "10-minute gap" },
   past: { ko: "지남", en: "Past" },
@@ -34,14 +35,14 @@ export const teamCopy = {
   errPending: { ko: "우리 팀이 넣은 멘토링이 끝나면 다음 칸을 넣을 수 있습니다.", en: "Your team can add the next slot once its booked session is over." },
   errPast: { ko: "지난 시간입니다.", en: "That time has passed." },
   errNotYet: { ko: "Day 1(12.18) 12:00부터 넣을 수 있습니다.", en: "Slots open on Day 1 (Dec 18) at 12:00." },
-  errGeneric: { ko: "잠시 뒤 다시 해 주세요.", en: "Something went wrong. Try again in a moment." },
+  errGeneric: { ko: "잠시 뒤 다시 해 주세요.", en: "Try again in a moment." },
 
   proofHeading: { ko: "미션 인증", en: "Mission check-in" },
   proofLead: {
     // DECIDED 2026-10-26 (사용자): 멘토 찾아가기는 Day 2, 3 날마다 팀이 함께. 10/17의 "하루 이상" 완화를 되돌립니다.
     // DECIDED 2026-10-26 (사용자: "진척 pdf가 새로운 pdf를 만드는 것이 아니고, 기존 내용을 멘토의 피드백과 팀들의 progress에 맞추어 updated 된 pdf"):
     ko: "멘토의 피드백과 그날의 진척에 맞춰 고친 1장(PDF)과, 팀이 함께 멘토와 찍은 사진을 올립니다. 현장 출석은 운영진이 체크합니다.",
-    en: "Upload your one page, updated with the mentor's feedback and the day's progress, as a PDF, and a photo of the team with the mentor. The organisers check who is on site.",
+    en: "Upload your updated page (PDF) and a team photo with the mentor. Organisers check attendance.",
   },
   proofPhoto: { ko: "멘토와 함께 찍은 인증 사진", en: "Photo with the mentor" },
   // 2026-10-26: 진척 PDF는 새 문서가 아니라 고쳐 올린 1장입니다.
@@ -60,7 +61,7 @@ export const teamCopy = {
   // DECIDED 2026-10-26 (사용자: "폰에서는 사진이 바로 갤러리에서 올릴 수 있으면 좋겠고, 파일은 폰의 파일이나 노트북에서 바로, either choose or by dragging"):
   // 노트북은 상자에 끌어다 놓거나 고르기, 폰은 갤러리(사진)와 파일 앱(PDF)에서 바로 고르기.
   proofDrop: { ko: "여기로 끌어다 놓거나", en: "Drag a file here, or" },
-  proofDropActive: { ko: "놓으면 골라집니다", en: "Drop to choose this file" },
+  proofDropActive: { ko: "놓으면 골라집니다", en: "Drop to choose" },
   proofPickPhotoPhone: { ko: "갤러리에서 사진 고르기", en: "Choose from your photos" },
   proofPickPdfPhone: { ko: "파일에서 PDF 고르기", en: "Choose a PDF from Files" },
   // 같은 날(사용자: "여기에 있는 기능들은 폰으로는 할 수 없도록 for the participants"): 칸 넣기는 노트북이나 PC에서. 폰은 시간표 보기만.
@@ -70,11 +71,11 @@ export const teamCopy = {
   // 시간표 넣는 규칙(2026-10-26 카드 여섯 장). DECIDED 2026-11-03 (사용자): 규칙의 목적은 모든 팀이 한 번은 멘토님을 만나는 것과
   // 멘토님께 무리가 가지 않는 것이라, 남길 규칙만 한 줄로 씁니다. 정본은 lib/crossingOps.ts(SESSION_MINUTES, teamHasPending, BOOKING_OPENS_AT).
   // 같은 날 사용자: 이동 시간을 생각해 무리하게 붙여 잡지 않게 하는 한 줄을 더합니다(멘토는 오피스, 카페에 계시고 팀이 찾아감, brand 7장).
-  rulesLine: { ko: "팀마다 한 번에 한 칸, 40분입니다. 넣은 멘토링이 끝나면 다음 칸을 넣을 수 있습니다. 12.18 12:00에 열리고, 넣은 칸은 바꿀 수 없습니다.", en: "One slot at a time per team, 40 minutes each. Once your session is over, you can add the next. Booking opens Dec 18 at 12:00, and a slot cannot be changed once it is in." },
-  travelLine: { ko: "멘토님이 계신 곳(오피스, 카페)까지 가는 시간을 생각해, 다른 일정과 바로 붙여 무리하게 잡지 마세요.", en: "Leave time to get to where the mentor is (an office or a café). Do not squeeze it right up against your other plans." },
+  rulesLine: { ko: "팀마다 한 번에 한 칸, 40분입니다. 넣은 멘토링이 끝나면 다음 칸을 넣을 수 있습니다. 12.18 12:00에 열리고, 넣은 칸은 바꿀 수 없습니다.", en: "One 40-minute slot per team at a time; book the next once it ends. Opens Dec 18, 12:00. No changes." },
+  travelLine: { ko: "멘토님이 계신 곳(오피스, 카페)까지 가는 시간을 생각해, 다른 일정과 바로 붙여 무리하게 잡지 마세요.", en: "Allow travel time to the mentor's office or café; don't book back-to-back." },
   // 2026-10-26 (사용자: 한 번만 올리기, 하루가 끝나기 전에 신중하게): 고른 뒤 한 번 더 묻고 올립니다.
   // 같은 날 이어서(사용자: "잘못 업로드 하면 운영진에게 알려달라"): 운영진이 crossing_mission_proofs의 그 행을 지우면 다시 올릴 수 있습니다.
-  proofOnce: { ko: "사진과 PDF는 날마다 한 번씩만 올릴 수 있고, 올린 뒤에는 바꿀 수 없습니다. 그날이 끝나기 전에 확인하고 올려 주세요. 잘못 올렸다면 운영진에게 알려 주세요.", en: "You can upload each photo and PDF once a day, and it cannot be changed afterwards. Check it carefully before the day ends. If you uploaded the wrong file, tell the organisers." },
+  proofOnce: { ko: "사진과 PDF는 날마다 한 번씩만 올릴 수 있고, 올린 뒤에는 바꿀 수 없습니다. 그날이 끝나기 전에 확인하고 올려 주세요. 잘못 올렸다면 운영진에게 알려 주세요.", en: "One photo and PDF a day, no changes after. Check before the day ends. Wrong file? Tell the organisers." },
   proofConfirm: { ko: "이 파일로 올리기", en: "Upload this file" },
   proofTeamCheck: { ko: "{team} 팀으로 올립니다. 올린 뒤에는 바꿀 수 없습니다.", en: "Uploading as team {team}. You cannot change it afterwards." },
   proofCancel: { ko: "다시 고르기", en: "Choose again" },
@@ -97,6 +98,7 @@ export const mentorTitle = (name: string, locale: string): string =>
   locale === "ko" && !name.startsWith("멘토") ? `${name} 멘토님` : name;
 
 // 멘토 페이지(/crossing/mentor?k=)의 글(2026-10-26). 멘토가 찾아올 팀과 그 팀의 1장을 미리 봅니다.
+// 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
 export const mentorCopy = {
   title: { ko: "멘토 페이지", en: "Mentor page" },
   lead: {
@@ -123,12 +125,12 @@ export const mentorCopy = {
   notYet: { ko: "아직", en: "Not yet" },
   teamCount: { ko: "{n}팀", en: "{n} teams" },
   // DECIDED 2026-11-05 (사용자: 출제사와 정리한 PDF를 멘토 페이지에서. 참가자에게는 공개하지 않음): 멘토 페이지 맨 위 묶음.
-  briefsTitle: { ko: "출제사와 정리한 이슈", en: "Issue write-ups from the companies" },
+  briefsTitle: { ko: "출제사와 정리한 이슈", en: "Company issue write-ups" },
   briefsLead: {
     ko: "멘토님만 보시는 자료입니다. 참가자에게는 공개하지 않으니 파일과 링크를 전달하지 말아 주세요. 링크는 30분 뒤 닫히고, 이 페이지가 1분마다 새로 엽니다.",
     en: "These are for mentors only and are not shared with participants, so please don't forward the files or links. Links expire after 30 minutes; this page renews them every minute.",
   },
   briefsEmpty: { ko: "출제사와 정리한 자료가 올라오면 여기에 뜹니다.", en: "Write-ups will appear here once they are ready." },
-  badLink: { ko: "링크가 맞지 않습니다. 운영진에게 다시 받아 주세요.", en: "This link does not match. Please ask the organisers for it again." },
-  errGeneric: { ko: "잠시 뒤 다시 열어 주세요.", en: "Something went wrong. Please reopen in a moment." },
+  badLink: { ko: "링크가 맞지 않습니다. 운영진에게 다시 받아 주세요.", en: "Wrong link. Ask the organisers for a new one." },
+  errGeneric: { ko: "잠시 뒤 다시 열어 주세요.", en: "Reopen in a moment." },
 } satisfies Record<string, Phrase>;

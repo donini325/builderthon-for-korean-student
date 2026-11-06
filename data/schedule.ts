@@ -375,6 +375,7 @@ const VENUE_SMU = { src: "/partners/logos/white/trimmed/smu-lockup.png", name: "
 // 함께 고치세요.
 
 // Day theme labels + one-line summaries (Opening → the Showcase)
+// 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
 export const days: DayMeta[] = [
   {
     day: 1,
@@ -400,7 +401,7 @@ export const days: DayMeta[] = [
       // 흐르는 차례대로 읽히고(Day 8 summary와 같은 규칙), 인사말이 AWS 세션 뒤로
       // 옮겨졌으니 순서도 따라갑니다. 시각은 여기 적지 않습니다 - 정본은 runOfShow.
       ko: "The Foundry(The Refinery 홀) 현장, 12:40 입장(선착순 굿즈), 원대로 대표님 오프닝 키노트, 문제 공개, AWS 연사 한장환 님, 해시드 인사말.",
-      en: "In person at The Foundry (The Refinery hall), doors 12:40 (first-come goods), Won's opening keynote, problem release, AWS talk by Han Jang-whan, a word from Hashed.",
+      en: "The Foundry (The Refinery hall), doors 12:40 (first-come goods), Won's keynote, problems out, AWS's Han Jang-whan, Hashed's welcome.",
     },
     // Venue booked: The Foundry - The Refinery hall, 11 Prinsep Link, 22 Aug 2026
     // (2026-08-03). On-site was already confirmed under the previous booking (SMU
@@ -545,7 +546,7 @@ export const days: DayMeta[] = [
       // 열어봐야 알 수 있습니다. 마감의 정본은 d1-problem-release.description이고
       // 이 줄은 사본이니 한쪽만 고치지 마세요.
       ko: "바이브 코딩 입문(비개발자 OK), 코드프레소 김지훈 이사님 진행. 오후에는 Day\u00a01 매칭 팀들의 팀 빌딩 시간이 이어져요. 트랙 선택은 이 날이 끝나기 전까지 정해 운영진 이메일로 알려주세요.",
-      en: "A vibe-coding intro (beginners OK), led by Jihoon Kim, Director at Codepresso. In the afternoon, teams matched on Day\u00a01 continue into a team-building session. Track choices are due by the end of this day, emailed to the organizers.",
+      en: "Vibe-coding intro (beginners OK), led by Jihoon Kim, Director at Codepresso. Afternoon: team building for Day\u00a01 teams. Email the organizers your track by day's end.",
     },
     // DECIDED 2026-08-20: 이 날도 hours를 답니다. 현장 대관 창이 아니라 실시간
     // 온라인 세션의 창입니다 - 크래시코스가 9AM에 시작해 12PM에 끝나고, 참가자는
@@ -575,11 +576,11 @@ export const days: DayMeta[] = [
     // day whose only fixed item is an optional 1:1 slot.
     summary: {
       ko: "정해진 일정은 오후 1:1 멘토링(온라인 기본)뿐이고, 나머지는 각자 비는 시간에 원하는 만큼 빌드하면 됩니다.",
-      en: "The only fixed thing is a PM 1:1 mentoring slot (online by default), and the rest is yours to build in whatever free time you have.",
+      en: "Only the PM 1:1 mentoring (online by default) is fixed. Build whenever you're free.",
     },
     whyStop: {
       ko: "내 아이디어를 현직자에게 1:1로 검증받는 첫 기회",
-      en: "The first time your idea meets a working founder, 1:1",
+      en: "Your first 1:1 check with a working pro",
     },
     stopLabel: { ko: "1:1 멘토링", en: "1:1 mentoring" },
     // 온라인이 기본이되 멘토에 따라 한인회관 대면이 있을 수 있는 날 - "online"이
@@ -594,11 +595,11 @@ export const days: DayMeta[] = [
     theme: { ko: "자율 빌드 멘토링", en: "Self-paced build Mentoring" },
     summary: {
       ko: "정해진 일정은 오후 1:1 멘토링(온라인 기본)뿐이고, 나머지는 각자 비는 시간에 원하는 만큼 빌드하면 됩니다.",
-      en: "The only fixed thing is a PM 1:1 mentoring slot (online by default), and the rest is yours to build in whatever free time you have.",
+      en: "Only the PM 1:1 mentoring (online by default) is fixed. Build whenever you're free.",
     },
     whyStop: {
       ko: "방향을 아직 바꿀 수 있을 때 받는 두 번째 1:1",
-      en: "A second 1:1, while there's still time to change direction",
+      en: "A second 1:1, while you can still pivot",
     },
     stopLabel: { ko: "1:1 멘토링", en: "1:1 mentoring" },
     // Day 3과 같습니다 (dayMode 주석 참고).
@@ -655,7 +656,7 @@ export const days: DayMeta[] = [
     // 더 늘리지 마세요.
     summary: {
       ko: "온라인 구간을 지나 다시 현장으로 갑니다. 만든 것을 또래 앞에 공유하며 피드백을 주고받고, 함께 빌드하고, 트랙을 섞어 이야기해요. 코드프레소 이동훈 대표님과의 시간으로 하루를 닫습니다.",
-      en: "Back in person after the online stretch. You share what you have with the room and trade feedback, build together, and talk across tracks. The day closes with Lee Dong-hoon, CEO of Codepresso.",
+      en: "Back in person. Share what you've built with peers, trade feedback, build together and mix tracks. The day closes with Lee Dong-hoon, CEO of Codepresso.",
     },
     // DECIDED 2026-08-13: 내려설 이유가 '교류' 하나에서 '중간 점검 + 가산'으로
     // 옮겨왔습니다. 빌드는 어디서나 할 수 있지만, 또래 앞에 한 번 서보는 자리는
@@ -685,7 +686,7 @@ export const days: DayMeta[] = [
     // "한 번"과 "의 빌드에"만 빠졌습니다.
     whyStop: {
       ko: "또래 앞에 먼저 서보고, 서로 피드백을 주고받는 날",
-      en: "A first turn in front of peers, trading feedback both ways",
+      en: "A first turn before peers, trading feedback",
     },
     // 노선도 키워드를 theme 머리에서 덮습니다 (Day 3·4·6과 같은 이유). theme 머리는
     // "집중 빌드"인데, 빌드는 어디서나 할 수 있는 일이라 정거장에 내려설 이유가
@@ -870,7 +871,7 @@ export const days: DayMeta[] = [
     // 이 줄과 같은 말이기 때문입니다 - 한 카드에서 두 번 읽히면 안 됩니다.
     whyStop: {
       ko: "정해진 것 없음. 온전히 팀의 빌드 시간",
-      en: "Nothing scheduled. The day belongs to your team's build",
+      en: "Nothing scheduled. All team build time",
     },
     // DECIDED 2026-08-09: 멘토링이 Day 3–7 닷새 매일 열리면서 이 날의 파생 키워드
     // ("자율 빌드")가 틀린 말이 됐습니다 - 노선도에서 내려설 이유는 이 날도
@@ -915,7 +916,7 @@ export const days: DayMeta[] = [
       // dict.program.entryNotice(데이 모달)에 있고, 이 줄은 카드에서 보이는 유일한
       // 표면이라 날짜만 실어 나릅니다. 여기서 문장으로 늘리지 마세요.
       ko: "AWS 오피스(입장 명단 8/25 12시 마감), 멘토 테이블을 옮겨가는 라운드테이블 점검, 박희덕 대표님 조언 세션, 1:1 멘토링(온라인), 저녁: 사전 제출물 마감(필수).",
-      en: "AWS office (entry list closes 25 Aug, 12:00), a roundtable check moving between mentor tables, Park Hee-deok's advice session, 1:1 mentoring (online), Evening: submission deadline (required).",
+      en: "AWS office (entry list closes 25 Aug, 12:00), mentor roundtables, Park Hee-deok's advice, online 1:1s. Evening: required submissions due.",
     },
     whyStop: {
       ko: "전문가들이 던질 질문을 무대에 서기 하루 전에 미리 받아보는 자리",
@@ -1102,7 +1103,7 @@ export const days: DayMeta[] = [
       // SMU_LKCSB 상수이고, 요약은 캠퍼스 이름까지만 말합니다(방 번호는 카드의
       // 장소 행이 집니다).
       ko: "SMU 현장, 트랙별 팀 발표(팀당 10분), 커리어 간담회(3인 패널), 테마별 어워드 발표, 완주 수료증과 단체 사진.",
-      en: "In person at SMU, team presentations by track (10 min each), a three-person career panel, thematic awards, completion certificates and a group photo.",
+      en: "At SMU: team presentations by track (10 min each), a 3-person career panel, theme awards, certificates, group photo.",
     },
     // 참가자 프로그램 시간입니다. SMU 대관은 5PM까지이고(2026-08-26 확인), 철수는
     // 프로그램이 끝난 뒤 그 안에서 합니다 - 그래서 hours는 대관 창이 아니라 마지막
@@ -1519,6 +1520,7 @@ const HASHED_ORG = {
   },
 } as const;
 
+// 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
 export const schedule: BEvent[] = [
   // ─── PRE-EVENT · 13 Aug ────────────────────────────────────────────────────
   // day: 0 - this is NOT part of the 8-day arc; it runs nine days before Day 1.
@@ -1564,7 +1566,7 @@ export const schedule: BEvent[] = [
     speakerLogo: { src: "/partners/logos/white/trimmed/microsoft.png", alt: "Microsoft" },
     summary: {
       ko: "본 행사 9일 전, SMU 법학대학원. “데모는 쉽고, 시스템은 어렵다”를 주제로 엔터프라이즈 AI 에이전트 만들기를 다뤘습니다.",
-      en: "Held in person at SMU's School of Law nine days before the event, on “The demo is easy, the system is hard” and what it takes to build enterprise AI agents for real.",
+      en: "Nine days before the event at SMU's School of Law, on “The demo is easy, the system is hard”: building enterprise AI agents.",
     },
     // 모달이 스스로 말하는 것은 여기서 반복하지 않습니다: 연사 소속은 연사 행,
     // 시각은 시간 행, 강의실은 장소 행, 그리고 신원·권한·툴·승인·감사 · 회계

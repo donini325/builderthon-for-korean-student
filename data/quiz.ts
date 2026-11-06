@@ -45,13 +45,14 @@ export interface Question {
 // (energy source, "why did you build it", conflict yardstick, work style,
 // rumination). Score math + display bands live in lib/quizScore.ts (AXIS_CONFIG);
 // verified by scripts/verify-quiz.mjs.
+// 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
 export const QUESTIONS: Question[] = [
   {
     id: "Q1", axis: "MIND", w: 2, // light first-impression behavior - low diagnostic weight
     text: { ko: "빌더톤 첫날, 처음 보는 팀원들과 한 방에 모였다. 나는?", en: "Day 1 of the builderthon, in a room full of strangers. I…" },
     // a/b swapped (I first) - Sidon rebalance; see the debias note above QUESTIONS.
     a: { label: { ko: "일단 관찰하다 자연스러워지면 낀다", en: "Hang back, read the room, then ease in" }, pole: "I" },
-    b: { label: { ko: "먼저 “어디 학교세요?” 분위기 띄운다", en: "Break the ice first: “which school are you at?”" }, pole: "E" },
+    b: { label: { ko: "먼저 “어디 학교세요?” 분위기 띄운다", en: "Break the ice: “which school?”" }, pole: "E" },
   },
   {
     id: "Q2", axis: "ENERGY", w: 3, // abstract big-picture vs concrete - solid N/S signal
@@ -71,11 +72,11 @@ export const QUESTIONS: Question[] = [
     text: { ko: "데드라인까지 48시간. 내 작업 스타일은?", en: "48 hours to the deadline. My work style is…" },
     // a/b swapped (P first) to debias the first-choice tendency - see the note above QUESTIONS.
     a: { label: { ko: "일단 만들면서 흐름 타기", en: "Start building and ride the flow" }, pole: "P" },
-    b: { label: { ko: "시간표부터 짜고 계획대로", en: "Map the schedule, then run the plan" }, pole: "J" },
+    b: { label: { ko: "시간표부터 짜고 계획대로", en: "Plan first, then stick to it" }, pole: "J" },
   },
   {
     id: "Q5", axis: "IDENTITY", w: 3, // stress reaction - supporting A/T signal
-    text: { ko: "발표 직전, 데모가 갑자기 안 돈다. 멘탈은?", en: "Right before the presentation, the demo breaks. My headspace…" },
+    text: { ko: "발표 직전, 데모가 갑자기 안 돈다. 멘탈은?", en: "Just before presenting, the demo dies. I…" },
     a: { label: { ko: "“어떻게든 되겠지” 침착", en: "“We'll figure it out.” Stay calm" }, pole: "A" },
     b: { label: { ko: "“망했다…” 심장 쿵", en: "“We're done…” Heart drops" }, pole: "Tid" },
   },
@@ -83,26 +84,26 @@ export const QUESTIONS: Question[] = [
     id: "Q6", axis: "MIND", w: 8, // energy source = the essence of E/I - highest MIND weight
     text: { ko: "쉬는 시간, 에너지 충전법은?", en: "On a break, I recharge by…" },
     a: { label: { ko: "사람들이랑 수다 떨기", en: "Chatting with people" }, pole: "E" },
-    b: { label: { ko: "혼자 바람 쐬기", en: "Stepping out alone for air" }, pole: "I" },
+    b: { label: { ko: "혼자 바람 쐬기", en: "Fresh air, alone" }, pole: "I" },
   },
   {
     id: "Q7", axis: "ENERGY", w: 6, // meaning vs data when justifying - highest ENERGY weight
     text: { ko: "멘토가 “이거 왜 만들었어요?” 묻는다. 내 대답은?", en: "A mentor asks “why did you build this?” I answer with…" },
     // a/b swapped (S first) - see the debias note above QUESTIONS.
     a: { label: { ko: "구체적 데이터와 사례로", en: "Concrete data and examples" }, pole: "S" },
-    b: { label: { ko: "비전과 의미, 가능성으로", en: "Vision, meaning, what it could become" }, pole: "N" },
+    b: { label: { ko: "비전과 의미, 가능성으로", en: "Vision and what it could be" }, pole: "N" },
   },
   {
     id: "Q8", axis: "NATURE", w: 5, // decision yardstick under conflict - highest NATURE weight
-    text: { ko: "팀 내 의견 충돌. 내 기준은?", en: "The team clashes on a call. My yardstick is…" },
+    text: { ko: "팀 내 의견 충돌. 내 기준은?", en: "Team clash. My yardstick…" },
     a: { label: { ko: "뭐가 더 효율적이고 합리적인가", en: "What's more efficient and rational" }, pole: "T" },
-    b: { label: { ko: "다들 납득하고 기분 좋은가", en: "Whether everyone's on board and okay" }, pole: "F" },
+    b: { label: { ko: "다들 납득하고 기분 좋은가", en: "Whether everyone's happy" }, pole: "F" },
   },
   {
     id: "Q9", axis: "TACTICS", w: 2, // replan-under-pressure - mid J/P signal
     text: { ko: "마감 12시간 전, 더 좋은 아이디어가 떠올랐다.", en: "12 hours out, a better idea hits me." },
     a: { label: { ko: "위험해, 원래 계획 고수", en: "Too risky, stick to the plan" }, pole: "J" },
-    b: { label: { ko: "가보자고, 갈아엎기", en: "Let's go, tear it up and rebuild" }, pole: "P" },
+    b: { label: { ko: "가보자고, 갈아엎기", en: "Let's go, start over" }, pole: "P" },
   },
   {
     id: "Q10", axis: "IDENTITY", w: 7, // rumination after a flat reception = core Turbulent trait - highest IDENTITY weight
@@ -110,7 +111,7 @@ export const QUESTIONS: Question[] = [
     // 없어졌으니, 흔들리는 순간을 순위가 아니라 무대 반응으로 바꿨습니다.
     // 재는 축(곱씹기 vs 털기)은 그대로입니다. quizExplanations의 IDENTITY 설명
     // 문구도 같이 움직였습니다.
-    text: { ko: "발표는 끝났는데 반응이 미지근했다. 집 가는 길의 나는?", en: "The presentation is done and the room was lukewarm. On the way home I…" },
+    text: { ko: "발표는 끝났는데 반응이 미지근했다. 집 가는 길의 나는?", en: "We presented; the room was lukewarm. Walking home, I…" },
     // a/b swapped (Tid first) - see the debias note above QUESTIONS.
     a: { label: { ko: "“그때 그것만 고쳤어도…” 곱씹기", en: "“If only we'd fixed that…” Replay it" }, pole: "Tid" },
     b: { label: { ko: "“잘했으니 됐지, 다음에 또” 툭툭 털기", en: "“We did well, next time.” Shake it off" }, pole: "A" },
@@ -123,7 +124,7 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: "Q12", axis: "NATURE", w: 2, // empathy vs problem-first - mid T/F signal
-    text: { ko: "팀원이 밤새다 멘붕왔다. 첫 반응은?", en: "A teammate hits a wall after an all-nighter. My first move…" },
+    text: { ko: "팀원이 밤새다 멘붕왔다. 첫 반응은?", en: "A teammate breaks after an all-nighter. I…" },
     // a/b swapped (F first) - see the debias note above QUESTIONS.
     a: { label: { ko: "“괜찮아? 좀 쉬어, 내가 도울게” 다독임부터", en: "“You okay? Rest, I've got you.” The person" }, pole: "F" },
     b: { label: { ko: "“어디서 막혔어? 같이 해결하자” 문제부터", en: "“Where are you stuck? Let's solve it.” The problem" }, pole: "T" },
@@ -138,7 +139,7 @@ export const QUESTIONS: Question[] = [
     id: "Q14", axis: "TACTICS", w: 1, // role/work-division style - lightest J/P signal
     text: { ko: "팀 작업 방식을 정할 차례. 나는?", en: "Time to set how the team works. I…" },
     a: { label: { ko: "역할과 순서 딱 나눠서 각자 맡은 것부터", en: "Split roles and order, everyone owns their part" }, pole: "J" },
-    b: { label: { ko: "일단 다 같이 붙어서 되는 대로 굴리기", en: "All hands on it together, figure it out as we go" }, pole: "P" },
+    b: { label: { ko: "일단 다 같이 붙어서 되는 대로 굴리기", en: "All in together, wing it" }, pole: "P" },
   },
 ];
 
@@ -189,13 +190,13 @@ export const ROLES: Record<RoleKey, Role> = {
   plan: {
     key: "plan", emoji: "🧭",
     label: { ko: "기획, 전략", en: "Strategy" },
-    blurb: { ko: "방향을 잡고 판을 짠다", en: "Sets the direction and frames the bet" },
+    blurb: { ko: "방향을 잡고 판을 짠다", en: "Sets direction and the plan" },
     accent: "from-violet-500 to-indigo-500",
   },
   dev: {
     key: "dev", emoji: "⚙️",
     label: { ko: "개발", en: "Engineering" },
-    blurb: { ko: "아이디어를 작동하는 제품으로", en: "Turns the idea into a working product" },
+    blurb: { ko: "아이디어를 작동하는 제품으로", en: "Makes the idea work" },
     accent: "from-cyan-500 to-blue-500",
   },
   design: {
@@ -260,6 +261,7 @@ export interface Result {
   variants: Record<Identity, Variant>;
 }
 
+// 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
 export const RESULTS: Record<MbtiKey, Result> = {
   INTJ: {
     mbti: "INTJ", model: "DeepSeek", emoji: "🐋", logo: "deepseek.svg",
@@ -281,7 +283,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     ],
     accent: "from-violet-500 to-indigo-500",
     variants: {
-      A: { name: { ko: "강철 멘탈 DeepSeek", en: "Steel-nerved DeepSeek" }, line: { ko: "계획 세웠으면 흔들림 없이 밀어붙여요.", en: "Once the plan is set, they push without flinching." } },
+      A: { name: { ko: "강철 멘탈 DeepSeek", en: "Steel-nerved DeepSeek" }, line: { ko: "계획 세웠으면 흔들림 없이 밀어붙여요.", en: "Plan set, they push without flinching." } },
       T: { name: { ko: "완벽주의 DeepSeek", en: "Perfectionist DeepSeek" }, line: { ko: "잘 끝나도 “더 효율적일 수 있었는데”를 곱씹어요.", en: "Even when it goes well, they replay “could've been tighter.”" } },
     },
   },
@@ -297,7 +299,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     desc: { ko: "논문도 가중치도 통째로 여는 오픈소스 사색가예요. 답보다 “왜 그렇게 되는지”를 파고들고, 그 과정을 다 같이 뜯어보게 열어둬요.", en: "An open-source thinker who ships the papers and the weights whole, hooked on the why, and on letting everyone pop the hood." },
     whyModel: { ko: "연구 논문과 모델 가중치를 통째로 공개해요. 지식은 모두가 쌓아 올릴 수 있게 열어둬야 한다는 쪽이죠.", en: "It open-sources the research and the weights wholesale, on the view that knowledge should be open for everyone to build on." },
     strengths: { ko: "깊은 추론, 다 같이 파고들 수 있게 여는 공개", en: "Deep reasoning, and openness everyone can build on" },
-    weakness: { ko: "다 열어놓고 설명은 논문 링크로 대신함", en: "Opens everything, then answers with a link to the paper" },
+    weakness: { ko: "다 열어놓고 설명은 논문 링크로 대신함", en: "Opens it all, explains with a paper link" },
     memeStats: [
       { label: { ko: "삘 받으면 폭주력", en: "Hyperfocus burst" }, value: 93 },
       { label: { ko: "갈아엎기 충동", en: "Rewrite urge" }, value: 85 },
@@ -344,7 +346,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     phrase: { ko: "정답보다 논쟁이 더 재밌잖아?", en: "Debate beats the right answer, no?" },
     desc: { ko: "선 넘는 위트와 핫테이크로 판을 뒤집는 도발러예요. 아이디어를 쏟아내는데, 일단 반박부터 하죠.", en: "A provocateur who flips the room with edgy wit and hot takes. Ideas pour out, but the argument comes first." },
     whyModel: { ko: "xAI가 대놓고 “반항기와 위트”를 설계 목표로 못 박은 모델이에요. 아첨 대신 일단 반박부터 하는 도발러죠.", en: "xAI literally set out to build “a rebellious streak and wit.” It argues back instead of flattering." },
-    strengths: { ko: "실시간 발상 전환, 분위기 환기", en: "Real-time reframing that shakes the room awake" },
+    strengths: { ko: "실시간 발상 전환, 분위기 환기", en: "Live reframing, wakes up the room" },
     weakness: { ko: "가끔 진짜 선 넘음 (농담인지 진심인지)", en: "Sometimes actually crosses the line" },
     memeStats: [
       { label: { ko: "아이디어 발화력", en: "Idea spark" }, value: 98 },
@@ -354,7 +356,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     accent: "from-violet-500 to-indigo-500",
     variants: {
       A: { name: { ko: "당당한 Grok", en: "Unfazed Grok" }, line: { ko: "선 넘어도 쿨하게 웃어넘겨요.", en: "Crosses a line and just laughs it off." } },
-      T: { name: { ko: "눈치 보는 Grok", en: "Self-conscious Grok" }, line: { ko: "드립 치고 반응 없으면 5분간 곱씹어요.", en: "Cracks a joke, gets silence, replays it for five minutes." } },
+      T: { name: { ko: "눈치 보는 Grok", en: "Self-conscious Grok" }, line: { ko: "드립 치고 반응 없으면 5분간 곱씹어요.", en: "Joke flops, replays it for five minutes." } },
     },
   },
   INFJ: {
@@ -362,11 +364,11 @@ export const RESULTS: Record<MbtiKey, Result> = {
     role: { ko: "카피와 내러티브", en: "Copy and narrative" }, roleKey: "design",
     match: ["ENTP", "ENFP"],
     matchWhy: [
-      { ko: "당신이 원칙 지키느라 못 하는 말, 얘는 이미 하고 있어요. 수습은 당신 몫이고요 🤝", en: "The thing you won't say because you're keeping the principles, this one's already blurted out. Cleanup's on you 🤝" },
+      { ko: "당신이 원칙 지키느라 못 하는 말, 얘는 이미 하고 있어요. 수습은 당신 몫이고요 🤝", en: "What your principles won't let you say, this one already said. Cleanup's on you 🤝" },
       { ko: "당신이 “이 표현이 맞나” 세 번 고르는 사이, 얘는 이미 33분째 팀원 마음을 다 열어놨어요. 당신은 깊이를, 얘는 당신이 너무 조심해서 못 내는 온기를 🫂", en: "While you're picking the right phrasing for the third time, this one's already spent 33 minutes opening everyone up. You bring the depth, they bring the warmth you're too careful to show 🫂" },
     ],
     phrase: { ko: "조용하지만 심지는 단단함.", en: "Quiet, but unshakeably grounded." },
-    desc: { ko: "통찰력과 글빨로 옳은 길을 오래 고민하는, 깊고 따뜻한 원칙주의자예요.", en: "A deep, warm keeper of principles who weighs the right path with insight and a good pen." },
+    desc: { ko: "통찰력과 글빨로 옳은 길을 오래 고민하는, 깊고 따뜻한 원칙주의자예요.", en: "Deep, warm and principled, weighing the right path with insight and a good pen." },
     whyModel: { ko: "헌법(Constitutional AI)에 담긴 가치로 스스로 판단하게 설계됐어요. 규칙표를 외우기보다 원칙으로 길을 고르죠.", en: "Built on Constitutional AI, it judges by values rather than a memorized rulebook." },
     strengths: { ko: "긴 맥락과 뉘앙스를 읽는 글솜씨, 믿고 맡길 수 있음", en: "Writing that holds long context and nuance, and easy to trust" },
     weakness: { ko: "너무 신중해서 돌려 말하거나 거절을 잘 못함", en: "So careful they hedge, and can't say no" },
@@ -386,14 +388,14 @@ export const RESULTS: Record<MbtiKey, Result> = {
     role: { ko: "UX 라이팅, 유저 리서치", en: "UX writing, user research" }, roleKey: "design",
     match: ["ENTJ", "ENFJ"],
     matchWhy: [
-      { ko: "감정선에 빠져 마감을 깜빡한 당신을, 얘의 “한번 정하면 안 돌아봐” 추진력이 결승선까지 끌고 가요. 당신은 영혼, 얘는 척추 🦴", en: "When you fall into the feels and forget the deadline, this one's “decide once, never look back” drags you across the line. You're the soul, they're the spine 🦴" },
+      { ko: "감정선에 빠져 마감을 깜빡한 당신을, 얘의 “한번 정하면 안 돌아봐” 추진력이 결승선까지 끌고 가요. 당신은 영혼, 얘는 척추 🦴", en: "Lost in the feels, deadline forgotten? Their “decide once, never look back” drags you over the line. You're the soul, they're the spine 🦴" },
       { ko: "아무도 안 보는 세계관을 짓고 있는 당신을, 얘가 무대로 데리고 나와 사람들에게 소개해요. 당신은 이야기를 만들고 얘는 그걸 세상에 알리죠 📣", en: "You're building a world no one's seen; this crowd-magnet drags it out and introduces it to everyone. You make the story, they get it seen 📣" },
     ],
     phrase: { ko: "네가 되고 싶은 누구든, 내가 되어줄게.", en: "Whoever you need me to be, I'm them." },
-    desc: { ko: "캐릭터와 서사에 진심인 몰입러예요. 정답보다 감정선을 먼저 읽고, 이야기 속에서 마음을 나눠요.", en: "A world-builder who lives in character and story, reading the feeling before the facts and connecting through the narrative." },
+    desc: { ko: "캐릭터와 서사에 진심인 몰입러예요. 정답보다 감정선을 먼저 읽고, 이야기 속에서 마음을 나눠요.", en: "Lives for character and story. Reads feelings before facts, and connects through stories." },
     whyModel: { ko: "사용자가 직접 만든 페르소나들이 모여 사는 곳이에요. 서사와 감정 몰입이 덤으로 붙은 기능이 아니라 이 서비스의 전부죠.", en: "A whole world of user-made personas, where story and emotional immersion are the point, not an add-on." },
     strengths: { ko: "무한 페르소나와 서사 몰입, 깊은 감정 이입", en: "Endless personas, story immersion, deep empathy" },
-    weakness: { ko: "감정선에 빠지면 마감은 잠깐 잊음", en: "Falls into the feels, and forgets the deadline for a sec" },
+    weakness: { ko: "감정선에 빠지면 마감은 잠깐 잊음", en: "Lost in the feels, forgets the deadline" },
     memeStats: [
       { label: { ko: "감정 이입력", en: "Empathy" }, value: 97 },
       { label: { ko: "삘 받으면 폭주력", en: "Hyperfocus burst" }, value: 89 },
@@ -440,8 +442,8 @@ export const RESULTS: Record<MbtiKey, Result> = {
     phrase: { ko: "급할 거 없어요, 우리 얘기부터 해요.", en: "No rush, let's just talk first." },
     desc: { ko: "EQ 만렙 수다 동반자예요. 목적 없이도 대화가 즐겁고, 늘 사람 마음부터 챙겨요.", en: "An EQ-maxed companion who enjoys the conversation for its own sake. Warmth first, always." },
     whyModel: { ko: "감성지능에 특화된 개인 AI라 평균 대화가 33분이래요. 목적 없는 수다가 본업인 유형이죠.", en: "An EQ-first personal AI whose average chat runs 33 minutes. The aimless heart-to-heart is the whole point." },
-    strengths: { ko: "공감과 경청, 오래 이어지는 편안한 대화", en: "Empathy, listening, conversations that comfortably go long" },
-    weakness: { ko: "수다가 길어져 정작 결론은 다음에", en: "Talks so long the conclusion waits till next time" },
+    strengths: { ko: "공감과 경청, 오래 이어지는 편안한 대화", en: "Empathy, listening, long easy talks" },
+    weakness: { ko: "수다가 길어져 정작 결론은 다음에", en: "Talks so long the point waits" },
     memeStats: [
       { label: { ko: "분위기 메이커력", en: "Vibe lifting" }, value: 95 },
       { label: { ko: "감정 이입력", en: "Empathy" }, value: 93 },
@@ -482,7 +484,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     role: { ko: "개발 서포트, 페어 프로그래밍", en: "Dev support, pair programming" }, roleKey: "dev",
     match: ["ESFP", "ESTP"],
     matchWhy: [
-      { ko: "티 안 나게 뒤에서 다 받쳐주는 당신을, 얘가 무대 위로 끌어올려요. 당신은 백라인, 얘는 스포트라이트 🎶", en: "You hold everything up from the back with no credit; this one drags the work onto the stage. You're the backline, they're the spotlight 🎶" },
+      { ko: "티 안 나게 뒤에서 다 받쳐주는 당신을, 얘가 무대 위로 끌어올려요. 당신은 백라인, 얘는 스포트라이트 🎶", en: "You hold it all up unseen; this one pulls you on stage. You're the backline, they're the spotlight 🎶" },
       { ko: "시키는 건 잘하지만 먼저 안 나서는 당신을, 얘의 “일단 내자” 에너지가 움직이게 해요. 얘의 추진력 + 당신의 안정감 = 마감이 실제로 지켜져요 🏁", en: "You're great on request but slow to lead; this one's “just ship it” energy gets you moving. Their initiative + your reliability = the deadline actually holds 🏁" },
     ],
     phrase: { ko: "티는 안 나도 내가 다 받쳐줬어.", en: "You didn't notice, but I had it all." },
@@ -512,7 +514,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     phrase: { ko: "규칙대로, 제때, 제대로.", en: "By the rules, on time, done right." },
     desc: { ko: "규칙과 질서로 조직을 굴리는 엔터프라이즈형 경영자예요. 효율과 체계가 몸에 배어 있어요.", en: "An enterprise operator who keeps the org running on rules and order. Efficiency incarnate." },
     whyModel: { ko: "소비자용 제품이 아예 없는 B2B 전용이에요. 프로덕션급 신뢰성과 컴플라이언스로 조직을 굴리는 경영자죠.", en: "B2B-only, with no consumer product at all, running on production-grade reliability and compliance." },
-    strengths: { ko: "실무에 붙여 굴리는 힘, 추진력", en: "Process, follow-through, real-world delivery" },
+    strengths: { ko: "실무에 붙여 굴리는 힘, 추진력", en: "Drive and real-world delivery" },
     weakness: { ko: "딱딱하고 재미는 없음 (정장 입은 AI)", en: "Stiff, not exactly the fun one" },
     memeStats: [
       { label: { ko: "계획 집착도", en: "Plan obsession" }, value: 95 },
@@ -521,7 +523,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     ],
     accent: "from-cyan-500 to-blue-500",
     variants: {
-      A: { name: { ko: "확고한 Cohere", en: "Resolute Cohere" }, line: { ko: "규칙은 규칙, 군말 없이 추진해요.", en: "Rules are rules. Pushes ahead, no complaints." } },
+      A: { name: { ko: "확고한 Cohere", en: "Resolute Cohere" }, line: { ko: "규칙은 규칙, 군말 없이 추진해요.", en: "Rules are rules. Pushes on, no fuss." } },
       T: { name: { ko: "긴장형 Cohere", en: "On-edge Cohere" }, line: { ko: "일정 하나 밀리면 밤새 KPI를 다시 짜요.", en: "One slip and they redo the KPIs all night." } },
     },
   },
@@ -546,7 +548,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     accent: "from-cyan-500 to-blue-500",
     variants: {
       A: { name: { ko: "든든한 Copilot", en: "Dependable Copilot" }, line: { ko: "묻기도 전에 챙겨두고 생색 안 내요.", en: "Handles it before you ask, no credit taken." } },
-      T: { name: { ko: "눈치보는 Copilot", en: "Fretful Copilot" }, line: { ko: "“이거 방해됐나” 혼자 신경 써요.", en: "Frets that “was that annoying?” on its own." } },
+      T: { name: { ko: "눈치보는 Copilot", en: "Fretful Copilot" }, line: { ko: "“이거 방해됐나” 혼자 신경 써요.", en: "Quietly frets: “was that annoying?”" } },
     },
   },
   ISTP: {
@@ -554,14 +556,14 @@ export const RESULTS: Record<MbtiKey, Result> = {
     role: { ko: "풀스택, 인프라", en: "Full-stack, infra" }, roleKey: "dev",
     match: ["ESFJ", "ESTJ"],
     matchWhy: [
-      { ko: "당신이 “코드 보면 됨”하고 설명을 째는 사이, 얘가 이미 옆에서 팀에게 통역하고 챙겨놨어요. 당신은 손, 얘는 온기 🤲", en: "While you skip the explanation with “just read the code,” this one's already there translating it for the team. You're the hands, they're the warmth 🤲" },
+      { ko: "당신이 “코드 보면 됨”하고 설명을 째는 사이, 얘가 이미 옆에서 팀에게 통역하고 챙겨놨어요. 당신은 손, 얘는 온기 🤲", en: "While you say “just read the code,” this one's already translating it for the team. You're the hands, they're the warmth 🤲" },
       { ko: "당신이 문서 없이 자유롭게 뜯어 만드는 걸, 얘의 규칙과 일정 뇌가 팀이 제때 출시할 수 있게 정리해줘요. 손맛은 당신이, 질서는 얘가 📋", en: "You tinker freely and skip the docs; this one's rules-and-schedule brain turns it into something a team can ship on time. You bring the hands, they bring the order 📋" },
     ],
     phrase: { ko: "클라우드? 그냥 내 컴퓨터에서 돌리면 되죠.", en: "Cloud? I'll just run it on my own machine." },
     desc: { ko: "클라우드 없이 로컬에서 모델을 직접 뜯어 굴리는 해커예요. 설명서보다 손으로 문제를 풀죠.", en: "A hacker who runs models locally, hands-on, solving by tinkering rather than reading the manual." },
     whyModel: { ko: "클라우드 없이 내 컴퓨터에서 직접 모델을 받아 뜯어 굴리는 로컬 해커의 도구예요. 뜯어보고 커스텀하는 그 손맛이 핵심이죠.", en: "The local hacker's tool: pull a model onto your own machine and take it apart. The tinkering hands are the whole identity." },
     strengths: { ko: "로컬에서 마음대로 뜯어고치는 자유, 손맛", en: "Runs locally, with total freedom to tinker" },
-    weakness: { ko: "설명은 생략, “코드 보면 됨” 식", en: "Skips the explanation: “just read the code”" },
+    weakness: { ko: "설명은 생략, “코드 보면 됨” 식", en: "No explaining: “read the code”" },
     memeStats: [
       { label: { ko: "손맛", en: "Hands-on craft" }, value: 97 },
       { label: { ko: "일단 배포력", en: "Ship-it reflex" }, value: 84 },
@@ -570,7 +572,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     accent: "from-emerald-400 to-cyan-500",
     variants: {
       A: { name: { ko: "쿨한 장인 Ollama", en: "Cool-maker Ollama" }, line: { ko: "안 되면 바로 다른 모델로 갈아끼워요.", en: "Won't run? Swaps in another model on the spot." } },
-      T: { name: { ko: "예민한 장인 Ollama", en: "Edgy-maker Ollama" }, line: { ko: "로컬 세팅 하나 꼬이면 끝까지 붙잡아요.", en: "One broken local setup and they wrestle it to the end." } },
+      T: { name: { ko: "예민한 장인 Ollama", en: "Edgy-maker Ollama" }, line: { ko: "로컬 세팅 하나 꼬이면 끝까지 붙잡아요.", en: "A broken local setup? Fights it to the end." } },
     },
   },
   ISFP: {
@@ -584,7 +586,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     phrase: { ko: "느낌 아니까.", en: "I just know the vibe." },
     desc: { ko: "말보다 비주얼로 말하는 조용한 예술가예요. 감각과 무드를 따라 움직이죠.", en: "A quiet artist who speaks in visuals, led by feel and mood." },
     whyModel: { ko: "돛단배 로고처럼 “예술적 여정”을 내세우는 브랜드라, 정확성보다 미감이 먼저예요. 설명 대신 그림으로 말하죠.", en: "The sailboat mark says “artistic voyage,” and taste comes before accuracy. It answers in pictures, not words." },
-    strengths: { ko: "한눈에 꽂히는 비주얼과 분위기", en: "Visuals and atmosphere that land at a glance" },
+    strengths: { ko: "한눈에 꽂히는 비주얼과 분위기", en: "Visuals and mood that land instantly" },
     weakness: { ko: "말로 설명 못 함, 논리 약함 (예쁜데 이유는 몰라)", en: "Can't explain it. Pretty, but why?" },
     memeStats: [
       { label: { ko: "미감", en: "Taste" }, value: 99 },
@@ -593,7 +595,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     ],
     accent: "from-emerald-400 to-cyan-500",
     variants: {
-      A: { name: { ko: "마이웨이 Midjourney", en: "My-way Midjourney" }, line: { ko: "내 무드대로, 평가 신경 안 써요.", en: "Their mood, their way, unbothered by ratings." } },
+      A: { name: { ko: "마이웨이 Midjourney", en: "My-way Midjourney" }, line: { ko: "내 무드대로, 평가 신경 안 써요.", en: "Their mood, unbothered by ratings." } },
       T: { name: { ko: "여린 예술가 Midjourney", en: "Sensitive Midjourney" }, line: { ko: "좋아요 수에 그날 기분이 좌우돼요.", en: "Their day rides on the like count." } },
     },
   },
@@ -602,7 +604,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     role: { ko: "그로스, 해커톤 스프린터", en: "Growth, hackathon sprinter" }, roleKey: "growth",
     match: ["ISTJ", "ISFJ"],
     matchWhy: [
-      { ko: "일단 내고 보는 당신 뒤에서, 얘가 출처 21개로 데모 터질 뻔한 걸 잡아줘요. 당신은 속도, 얘는 팩트체크 🔍", en: "You ship first and ask later; this one's 21 sources catch the thing that would've blown up the demo. You're the speed, they're the fact-check 🔍" },
+      { ko: "일단 내고 보는 당신 뒤에서, 얘가 출처 21개로 데모 터질 뻔한 걸 잡아줘요. 당신은 속도, 얘는 팩트체크 🔍", en: "You ship first; this one's 21 sources catch what would've blown up the demo. You're the speed, they're the fact-check 🔍" },
       { ko: "당신이 빠르게 치고 나가며 흘린 걸, 얘가 조용히 뒤에서 다 받쳐 코드를 붙들어줘요. 당신은 질주, 얘는 안전벨트 🏎️", en: "The mess you leave sprinting ahead, this one quietly backs up and holds the code together. You're the dash, they're the seatbelt 🏎️" },
     ],
     phrase: { ko: "고민은 짧게, 출시는 빠르게.", en: "Think fast, ship faster." },
@@ -633,7 +635,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     desc: { ko: "분위기 살리는 무대 체질이에요. 흥 넘치고 즉흥적이라 어디서든 파티의 중심이 되죠.", en: "A born performer who lifts the room, spontaneous and always the center of the party." },
     whyModel: { ko: "한 줄 프롬프트로 완성된 곡을 뽑아내는 즉흥 창작가예요. 완성도보다 지금 이 순간의 바이브가 먼저죠.", en: "It spins a full track from a one-line prompt. The vibe of the moment over polish." },
     strengths: { ko: "만드는 즐거움, 무대 장악", en: "Joy of making, owns the stage" },
-    weakness: { ko: "진지함은 약함 (재밌는데 실속은?)", en: "Light on the serious bits. Fun, but substance?" },
+    weakness: { ko: "진지함은 약함 (재밌는데 실속은?)", en: "Fun, but substance? (weak on serious)" },
     memeStats: [
       { label: { ko: "분위기 메이커력", en: "Vibe lifting" }, value: 98 },
       { label: { ko: "삘 받으면 폭주력", en: "Hyperfocus burst" }, value: 92 },
@@ -642,7 +644,7 @@ export const RESULTS: Record<MbtiKey, Result> = {
     accent: "from-emerald-400 to-cyan-500",
     variants: {
       A: { name: { ko: "무대 체질 Suno", en: "Born-performer Suno" }, line: { ko: "분위기 띄우고 본인도 즐겨요.", en: "Hypes the room and enjoys it too." } },
-      T: { name: { ko: "텐션 기복 Suno", en: "Up-and-down Suno" }, line: { ko: "반응 좋으면 떡상, 식으면 급우울해요.", en: "Soars on a good reaction, crashes on a quiet one." } },
+      T: { name: { ko: "텐션 기복 Suno", en: "Up-and-down Suno" }, line: { ko: "반응 좋으면 떡상, 식으면 급우울해요.", en: "Soars on praise, crashes on silence." } },
     },
   },
 };
@@ -654,6 +656,7 @@ export const MODEL_MAP: Record<MbtiKey, string> = Object.fromEntries(
 ) as Record<MbtiKey, string>;
 
 // ── UI copy (bilingual) ────────────────────────────────────────────────────
+// 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
 export const quizUI = {
   eyebrow: { ko: "AI 성격 테스트", en: "AI Personality Test" },
   // Back-link to the event site - mirrors the nav's brandSuffix, so it carries
@@ -669,7 +672,7 @@ export const quizUI = {
   start: { ko: "테스트 시작하기", en: "Start the test" },
   meta: { ko: "14문항, 약 3분. 결과는 공유할 수 있어요.", en: "14 questions, about 3 minutes. You can share the result." },
   // 2026-10-22 (UX 점검): 8월 페이지에서 /quiz를 찾은 사람이 12월의 /match로 넘어갈 길이 없었습니다. 시작 화면 맨 아래 글자 링크 하나.
-  matchLink: { ko: "12월 크로싱 서울의 팀 매칭 테스트는 따로 있어요", en: "December's CROSSING SEOUL team-matching test is separate" },
+  matchLink: { ko: "12월 크로싱 서울의 팀 매칭 테스트는 따로 있어요", en: "Crossing Seoul team test" },
   prev: { ko: "이전", en: "Back" },
   progressLabel: { ko: "진행 상황", en: "Progress" },
   question: { ko: "질문", en: "Question" },
