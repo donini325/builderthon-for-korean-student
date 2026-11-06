@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 시간표 버튼 엶](#2026-11-06-timetable-open)
 - [2026-11-06 멘토 명단 하나로](#2026-11-06-mentors-merged)
 - [2026-11-06 공유 카드를 종이로](#2026-11-06-og-paper)
 - [2026-11-06 크로싱 서울의 정체성 한 문장](#2026-11-06-identity)
@@ -501,6 +502,16 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-06-timetable-open"></a>
+## 2026-11-06 시간표 버튼 엶
+- 범위: lib/crossingOps.ts(TIMETABLE_OPEN true), components/home/NaruHome.tsx(안내 줄)
+- 한 것: 사용자 요청(스크린숏: 예약용 멘토 시간표와 인증 버튼에 들어갈 수 있게). 잠긴 버튼을 /crossing/team 링크로. 칸 넣기는 서버의 bookingGate가 그대로 Day 1 12:00까지 막아, 버튼 아래 "Day 1(12.18) 12:00에 열립니다" 줄은 남김.
+- 근거: brand 7장 멘토링(칸은 Day 1 12:00에 열린다).
+- 검증: /crossing의 버튼이 /crossing/team 링크, 그 페이지 200. build 통과.
+- 커밋: 5bb2b6f
 
 ---
 
