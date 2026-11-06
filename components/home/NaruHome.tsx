@@ -1010,9 +1010,11 @@ export default function NaruHome() {
               <div data-schedule className="overflow-hidden rounded-2xl card-base text-left">
                 {wide(0)}
                 <div className="px-4 py-6 sm:px-6">
-                  <div className="grid grid-cols-1 gap-y-8 md:grid-cols-3 md:gap-x-6 md:gap-y-3">
+                  {/* 2026-11-06 (사용자, 스크린숏: "이거 폭이 같은거 맞음?"): Day 2, 3만 왼쪽 선과 pl-6을 가져 Day 1이 24px 넓었음(1440에서 231 대 207px).
+                      칸 사이를 gap-x-12로 두고 세로 선은 그 틈 가운데에 절대 위치로 그려 세 칸의 폭을 같게. */}
+                  <div className="grid grid-cols-1 gap-y-8 md:grid-cols-3 md:gap-x-12 md:gap-y-3">
                     {[1, 2, 3].map((k) => (
-                      <div key={k} className={`flex min-w-0 flex-col gap-3 md:row-span-5 md:grid md:grid-rows-subgrid ${k > 1 ? "max-md:border-t max-md:border-white/10 max-md:pt-8 md:border-l md:border-white/10 md:pl-6" : ""}`}>
+                      <div key={k} className={`relative flex min-w-0 flex-col gap-3 md:row-span-5 md:grid md:grid-rows-subgrid ${k > 1 ? "max-md:border-t max-md:border-white/10 max-md:pt-8 md:before:absolute md:before:-left-6 md:before:inset-y-0 md:before:w-px md:before:bg-white/10 md:before:content-['']" : ""}`}>
                         {P[k].head(false)}
                         {P[k].line}
                         {P[k].session ?? <span aria-hidden className="hidden md:block" />}
