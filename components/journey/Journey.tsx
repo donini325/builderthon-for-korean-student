@@ -38,6 +38,7 @@ import FlowStrip from "@/components/shared/FlowStrip";
 import EventModal from "@/components/EventModal";
 import PartnerModal, { type PartnerInfo } from "@/components/PartnerModal";
 import ChatGlyph from "@/components/ChatGlyph";
+import { naru, type RecordPhoto } from "@/data/naru";
 // DECIDED 2026-10-08 (전체 리뷰 반영): 이 파일에서 "행사 중" 시계(useEventDay,
 // 히어로 라이브 스트립, 노선도의 지나온 레일, 데이 카드의 오늘/지난 상태)와
 // 8월 등록 컨텍스트, Day 8 투표 관찰자를 걷었습니다. 모든 날짜가 지나 어느
@@ -1555,6 +1556,7 @@ function DayModal({
               </div>
               <h3 id="day-modal-title" className="mt-5 text-[24px] font-bold leading-tight text-white sm:text-[30px]">{t(day.theme)}</h3>
               <p className="mt-2 text-sm leading-[1.65] text-white/70">{t(day.summary)}</p>
+              <DayPhotos n={day.day} t={t} />
               {/* 입장 안내가 먼저입니다 - 건물에 못 들어가면 그날의 나머지는
                   읽을 이유가 없습니다. 제출물 박스보다 아래로 내리지 마세요. */}
               {day.entryNotice && <EntryNoticeBox t={t} />}
@@ -1615,6 +1617,30 @@ function DayModal({
 // handler the cards use); rows without one are plain text, because there is
 // nothing more to show for a break or a doors-open slot. Making every row look
 // clickable would promise detail that doesn't exist.
+// DECIDED 2026-11-07 (사용자, 스크린숏: "클릭을 하면 각 날마다 사진이 있으면 좋겠음. 사진이 없는 날들도 있겠지만, 적어도 있는 날들의 경우에는"):
+// 날의 창 머리 아래에 그날 사진. 이미 사이트에 있는 8월 사진(나루 홈의 eventHero, record)을 파일 이름의 dayN으로 골라 씁니다(같은 사진 한 번).
+// 사진이 없는 날(Day 2, 3, 4, 6, 7)은 아무것도 그리지 않습니다. 넉 장까지.
+const DAY_PHOTOS: RecordPhoto[] = [...naru.eventHero.photos, ...naru.record.photos].filter(
+  (p, i, all) => all.findIndex((o) => o.src === p.src) === i,
+);
+function photosForDay(n: number): RecordPhoto[] {
+  return DAY_PHOTOS.filter((p) => new RegExp(`(^|/)(hero-)?day${n}-`).test(p.src)).slice(0, 4);
+}
+function DayPhotos({ n, t }: { n: number; t: Tfn }) {
+  const ps = photosForDay(n);
+  if (!ps.length) return null;
+  return (
+    // 한 장이어도 다른 날의 한 칸 크기(두 칸 격자의 왼쪽)로. 창 폭 전체를 채우면 사진이 일정보다 커집니다.
+    <ul role="list" className="mt-5 grid grid-cols-2 gap-2">
+      {ps.map((p) => (
+        <li key={p.src} className="relative aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-white/10">
+          <Image src={p.src} alt={t(p.alt)} fill sizes="(max-width: 720px) 45vw, 330px" className="object-cover" />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function RunOfShow({
   rows,
   t,
