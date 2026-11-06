@@ -2186,8 +2186,9 @@ export const naru = {
       // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C2, humanize-korean 우선): 그 전 문장은 git 9c77437.
       // DECIDED 2026-11-06 (docs/think-different-brief.md T2, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 둘째 문장만.
       // DECIDED 2026-11-06 (docs/write-first-brief.md W1, D2 예): 문장 +1. S1("AI가 쓴 것을 고치지 말고, 내가 쓴 것을 AI가 고치게.")이 사이트에 그대로 서는 유일한 자리. 그 전 문장은 git 5360254.
-      ko: "등록은 혼자, 팀은 Day 1 현장에서 맺고, 날마다 팀의 생각을 한 장으로 씁니다. AI가 쓴 것을 고치지 말고, 내가 쓴 것을 AI가 고치게. 닷새 안에 다 풀리지 않을 수 있는 문제라, 답이 아니라 어디까지 생각해 파고들었는지를 봅니다.",
-      en: "Register alone; teams form on site on Day 1 and write one page of their thinking every day. Don't fix what AI wrote. Let AI fix what you wrote. Five days may not solve it, so we look at how far you dug, not the answer.",
+      // 2026-11-06 (사용자, 스크린숏: "여기는 좀 너무 긴거 같음"): 브리프 D2의 대안대로 "날마다 팀의 생각을 한 장으로 씁니다"를 빼고 S1만 남김. 한 장을 먼저 쓰는 일은 Day 1 줄(W4)이 말합니다.
+      ko: "등록은 혼자, 팀은 Day 1 현장에서 맺습니다. AI가 쓴 것을 고치지 말고, 내가 쓴 것을 AI가 고치게. 닷새 안에 다 풀리지 않을 수 있는 문제라, 답이 아니라 어디까지 생각해 파고들었는지를 봅니다.",
+      en: "Register alone; teams form on site on Day 1. Don't fix what AI wrote. Let AI fix what you wrote. Five days may not solve it, so we look at how far you dug, not the answer.",
     },
     // 2026-09-20 (크로싱서울_일정.pdf): 라벨이 "워크샵"에서 "세션"으로. PDF가 부르는
     // 이름이고, stages의 필드 이름(workshop -> session)과 같은 말을 씁니다.
