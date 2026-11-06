@@ -608,8 +608,9 @@ export const naru = {
       // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C1, humanize-korean 우선): 그 전 문장은 git 9c77437.
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C1, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
       // DECIDED 2026-11-05 (사용자: "AI로 만드는 비용이 0에 가까워진 지금, 기업에 아직 손으로 하는 일이 남아 있다는 것 자체가 이슈. 왜 아직 손으로 하는지 찾고, 무엇을 왜 만들지 정하고, 실제로 써 보게 해서 확인하는 과정을 익히는 자리"가 반영되게, 기존 글의 길이는 바꾸지 않고 수정만): 앞의 naruLine과 한 문단이고, 문단 줄 수는 늘지 않습니다(KO 2/2/3줄, EN 3/3/5줄이 2/2/3, 3/3/5 이하, 1440/1024/390). 닷새는 캐치프레이즈 둘째 줄, 병목과 작은 툴은 Day 카드와 남는 것, 그 기업 앞에 선다는 말은 남는 것 리드가 받습니다. 그 전 문장은 git 046f2e2.
-      ko: "AI로 만드는 비용이 0에 가까운 지금, 기업이 아직 손으로 하는 일이 왜 남았는지 찾고 만들 것을 정해 실제로 써 보게 합니다.",
-      en: "Building with AI costs almost nothing now. Find out why a company still does a task by hand, decide what to build, and have people actually try it.",
+      // DECIDED 2026-11-06 (docs/think-different-brief.md T1, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): D2대로 "팀마다"는 뺌(T3, T5, T7, T8이 맡음).
+      ko: "AI로 만드는 비용이 0에 가까운 지금, 기업이 아직 손으로 하는 일이 왜 남았는지 생각해 찾고, 만들 것을 정해 실제로 써 보게 합니다.",
+      en: "Now that building with AI costs close to nothing, you think through why a company still does one task by hand, decide what to build, and get it used for real.",
     },
     ctaProgram: { ko: "프로그램 보기", en: "See the programme" },
     // DECIDED 2026-10-11 (사용자): AI 유형 테스트(/match)로 가는 버튼이 일정표의 Day 1에서 히어로의 버튼 줄로 왔습니다.
@@ -1047,8 +1048,9 @@ export const naru = {
         days: [2, 3],
         body: {
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C26, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-          ko: "팀의 생각 한 장과 시안을 들고 현업 멘토를 찾아가, 일을 해 본 사람의 감각으로 반박을 듣고 고칩니다.",
-          en: "You take your team's one page and a draft to a mentor, get pushed back on with the sense of someone who has done the work, and fix it.",
+          // DECIDED 2026-11-06 (docs/think-different-brief.md T9, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로):
+          ko: "팀의 생각 한 장과 시안을 들고 현업 멘토를 찾아가, 일을 해 본 사람의 감각으로 반박을 듣고 생각을 고칩니다.",
+          en: "You take your team's one page and a draft to a mentor, get pushed back on with the sense of someone who has done the work, and revise the thinking.",
         },
         evidence: { ko: "8월 11명", en: "August: eleven of them" },
       },
@@ -1061,8 +1063,9 @@ export const naru = {
         body: {
           // DECIDED 2026-10-26 (사용자: 이슈와 문제, 병목 하나를 푸는 툴을 문장 수를 늘리지 않고 기존 문장에. 근거 12월 빌더톤/이벤트 기획/크로싱서울_이슈와_문제_정의_2026-10-26.md). 그 전: "정의한 문제를 풀 아이디어를 코드로 옮겨, 손에 쥐고 나갑니다."
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C27, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-          ko: "반박을 거쳐 고친 작은 툴을 코드로 만들고, 기업이 그 일에 가져다 쓸 수 있는지 숫자 하나로 확인해 손에 쥐고 나갑니다.",
-          en: "You build the small tool, fixed through that pushback, in code, check in one number whether the company could use it on that task, and leave holding it.",
+          // DECIDED 2026-11-06 (docs/think-different-brief.md T10, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로):
+          ko: "반박을 거쳐 고친 생각을 작은 툴로 만들고, 기업이 그 일에 가져다 쓸 수 있는지 숫자 하나로 확인해 손에 쥐고 나갑니다.",
+          en: "You turn the thinking, revised through that pushback, into a small tool, check in one number whether the company could use it on that task, and leave holding it.",
         },
       },
       {
@@ -2039,7 +2042,8 @@ export const naru = {
         // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C12, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
         // DECIDED 2026-10-31 (docs/talent-two-places-brief.md T3, 사용자: 두 곳의 학교에서 온 학생을 일하는 모습으로 보는 자리): 그 전 문장은 git f818891.
         // DECIDED 2026-10-31 (사용자, 스크린숏: "exact 학교 이름들이 mention 이 되지는 않았으면 함"): 학교 이름 대신 한국과 싱가포르. schools 키는 뺐습니다. 그 전 문장은 git 82a564e.
-        v: { ko: "모든 팀에 한국과 싱가포르의 대학생, 직접 만드는 학생과 숫자를 다루는 학생이 섞입니다. 대항전이 아닙니다.", en: "Every team mixes students from Korea and Singapore, and students who build with students who handle numbers. It is not a contest between countries or schools." },
+        // DECIDED 2026-11-06 (docs/think-different-brief.md T3, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 문장 +1.
+        v: { ko: "모든 팀에 한국과 싱가포르의 대학생, 직접 만드는 학생과 숫자를 다루는 학생이 섞입니다. 그래서 같은 이슈를 받고도 팀마다 다른 답이 나옵니다. 대항전이 아닙니다.", en: "Every team mixes students from Korea and Singapore, students who build with students who handle numbers. That is why the same issue gets a different answer from every team. It is not a contest." },
       },
       // DECIDED 2026-10-22 (UX 점검, brand 2장 판단 질문 둘): "세션"(어느 3시간을 떼어 와도 따로 열 수 있게)과 "왜 날마다"(한 팀에게
       // 몰아 주는 것보다 나누는 쪽) 두 줄을 뺐습니다. 파트너에게 하는 설계 설명이라 참가자의 어느 코어도 돕지 않았습니다.
@@ -2062,7 +2066,8 @@ export const naru = {
         // DECIDED 2026-10-13 (사용자, 멘토링 브리프 2): 미션은 Day 2부터이고 조건은 참여입니다. 그 전에는 Day 2부터라는 말이 없었습니다.
         // 2026-10-19 (사용자): 미션은 Day 2와 Day 3에만. 그 전 "Day 2부터 날마다 하나씩".
         // DECIDED 2026-10-25 (사용자: 칸마다 줄 수를 같게): 두 줄로. 그 전 "Day 2와 Day 3에 하나씩 있고, 무엇을 냈는지보다 함께 있었는지를 봅니다. 해낸 팀은 모두 그날 지원을 받고, 그 미션은 팀의 기록으로 남습니다."
-        v: { ko: "Day 2와 Day 3에 하나씩, 함께 있었는지를 봅니다. 해낸 팀은 모두 그날 지원을 받습니다.", en: "One on Day 2 and one on Day 3, and what counts is whether you were there together. Every team that completes one gets support that day." },
+        // DECIDED 2026-11-06 (docs/think-different-brief.md T4, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 11/05 출제사 미팅: 생각이 어떻게 바뀌었는지를 1장으로.
+        v: { ko: "Day 2와 Day 3에 하나씩, 함께 있었는지와 생각이 어떻게 달라졌는지(고친 1장)를 봅니다. 해낸 팀은 모두 그날 지원을 받습니다.", en: "One on Day 2 and one on Day 3: were you there together, and how did the thinking change (the revised one page). Every team that does it gets that day's support." },
       },
     ] as { k: Phrase; v: Phrase }[],
 
@@ -2168,8 +2173,9 @@ export const naru = {
       // DECIDED 2026-10-26 (사용자: "불필요한 텍스트 양"): 가운데 문장(찾기, 확인받기, 만들기, 공유하기를 하루에 하나씩)을 뺐습니다.
       // 바로 아래 노선도가 같은 이름 넷을 날마다 적습니다. 세 줄이 두 줄이 됩니다.
       // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C2, humanize-korean 우선): 그 전 문장은 git 9c77437.
-      ko: "등록은 혼자, 팀은 Day 1 현장에서 맺습니다. 닷새 안에 다 풀리지 않을 수 있는 문제라, 어디까지 파고들었는지를 봅니다.",
-      en: "Register alone; teams form on site on Day 1. The problem may not be solved in five days, so we look at how deep you got.",
+      // DECIDED 2026-11-06 (docs/think-different-brief.md T2, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 둘째 문장만.
+      ko: "등록은 혼자, 팀은 Day 1 현장에서 맺습니다. 닷새 안에 다 풀리지 않을 수 있는 문제라, 답이 아니라 어디까지 생각해 파고들었는지를 봅니다.",
+      en: "Register alone; teams form on site on Day 1. The problem may not be solved in five days, so what we look at is not the answer but how far the thinking went.",
     },
     // 2026-09-20 (크로싱서울_일정.pdf): 라벨이 "워크샵"에서 "세션"으로. PDF가 부르는
     // 이름이고, stages의 필드 이름(workshop -> session)과 같은 말을 씁니다.
@@ -2756,8 +2762,9 @@ export const naru = {
           // DECIDED 2026-10-26 (사용자: 이슈와 문제, 병목 하나를 푸는 툴을 문장 수를 늘리지 않고 기존 문장에. 근거 12월 빌더톤/이벤트 기획/크로싱서울_이슈와_문제_정의_2026-10-26.md). 그 전: "8월과 달리 팀이 문제를 정의하고 출제사가 막힌 곳을 엽니다." 출제사의 세션은 기업 상자(Day 1 기업마다 1시간)가 말합니다.
           // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C4, humanize-korean 우선): 그 전 문장은 git 9c77437.
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C6, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-          ko: "팀이 그 일의 흐름에서 누가 어느 단계에서 무엇에 막히는지, 병목 하나를 골라 문제로 정합니다.",
-          en: "Your team picks one bottleneck in that task, who gets stuck on what at which step, and makes it the problem.",
+          // DECIDED 2026-11-06 (docs/think-different-brief.md T5, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 문장 +1.
+          ko: "같은 이슈를 받아도 팀마다 고르는 병목이 다릅니다. 그 일의 흐름에서 누가 어느 단계에서 무엇에 막히는지 생각해, 병목 하나를 골라 문제로 정합니다.",
+          en: "Teams get the same issue and pick different bottlenecks. You think through who gets stuck where in that task and on what, then pick one bottleneck and make it the problem.",
         },
         // DECIDED 2026-10-08 (현장 팀 매칭 브리프 5): "팀 매칭" 칩 자리에 /match로 가는 버튼 하나가 섭니다.
         // 12월에는 AI 유형 테스트가 신청의 일부가 아니라 Day 1 현장의 팀 매칭 도구입니다. 칩은 뺐습니다
@@ -2822,7 +2829,8 @@ export const naru = {
         // 그 전 "오전 안에 돌아가는 첫 버전을 만들고 계속 고칩니다."는 만드는 날의 말이라 Day 3("코드화하는 시간")과 겹쳤습니다.
         // DECIDED 2026-10-26 (사용자: 이슈와 문제, 병목 하나를 푸는 툴을 문장 수를 늘리지 않고 기존 문장에. 근거 12월 빌더톤/이벤트 기획/크로싱서울_이슈와_문제_정의_2026-10-26.md). 그 전: "정의한 문제와 아이디어를 멘토에게 확인받는 시간입니다."
         // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C7, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-        line: { ko: "문제와 범위가 말이 되는지, 일을 해 본 사람의 감각으로 멘토에게 확인받습니다.", en: "Mentors check whether the problem and its scope make sense, with the sense anyone who has done the work has." },
+        // DECIDED 2026-11-06 (docs/think-different-brief.md T6, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로):
+        line: { ko: "왜 그 병목인지, 문제와 범위가 말이 되는지를 팀의 생각으로 설명하고, 일을 해 본 사람의 감각으로 반박을 듣습니다.", en: "You explain, in your team's own thinking, why that bottleneck and whether the problem and scope make sense, and get pushed back on with the sense of someone who has done the work." },
         // DECIDED 2026-10-24 (companies-block-brief 1.5): 멘토링 상자가 내려가며 "시간표로 예약"은 이 칩이 말합니다. 바로 아래 버튼
         // "멘토 시간표와 미션 인증"으로 이어집니다. 그 전: "방향 전환은 팀의 몫"(그 뜻은 위 body 둘째 문장이 그대로 말합니다).
         // 2026-10-24 (사용자: "멘토 시간은 시간표로 예약 이 부분은 빼주고"): 예약은 아래 버튼 "예약용 멘토 시간표와 인증"이 말합니다.
@@ -2903,8 +2911,9 @@ export const naru = {
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C9, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
           // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O5, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
           // DECIDED 2026-11-05 (사용자, 스크린숏: "3일 문장 길이를 1,2일에 맞춰줘"): 앞의 "흐름 전체를 바꾸는 시스템 대신"을 뺌. 네 줄에서 세 줄. 그 전 문장은 git 80e0e1f.
-          ko: "그 병목만 푸는 작은 툴을 만들고, 기업이 가져다 쓸 수 있을지 멘토에게 여쭙습니다.",
-          en: "You build a small tool for that one bottleneck and ask a mentor whether the company could use it.",
+          // DECIDED 2026-11-06 (docs/think-different-brief.md T7, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 문장 +1. 브리프의 앞부분("흐름 전체를 바꾸는 시스템 대신")은 11-05 사용자 결정대로 넣지 않음.
+          ko: "그 병목만 푸는 작은 툴을 만들고, 기업이 가져다 쓸 수 있을지 멘토에게 여쭙니다. 같은 이슈에서 팀마다 다른 툴이 나옵니다.",
+          en: "You build a small tool for that one bottleneck and ask a mentor whether the company could use it. From one issue, every team ends up with a different tool.",
         },
         // DECIDED 2026-10-10 (중복 브리프 B1): 칩 "멘토링은 이 날까지"를 뺐습니다. General Mentoring 상자의
         // "Day 3은 피칭 준비, Day 4는 멘토링이 없습니다"가 같은 말을 합니다.
@@ -3005,8 +3014,9 @@ export const naru = {
           // 2026-10-23 (사용자: "정확히 몇 분 발표 질의 하는지는 빼줘"): 5분, 5분을 뺐습니다.
           // DECIDED 2026-10-26 (사용자: 이슈와 문제, 병목 하나를 푸는 툴을 문장 수를 늘리지 않고 기존 문장에. 근거 12월 빌더톤/이벤트 기획/크로싱서울_이슈와_문제_정의_2026-10-26.md). 그 전: "...팀이 찾은 문제와 어디까지 갔는지를..."
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C11, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
-          ko: "이슈를 낸 기업 앞에서 팀이 고른 병목과 만든 툴, 숫자 하나로 본 효과를 발표하고 질의를 받습니다. 끝난 뒤에는 멘토에게 무엇을 만들었는지 한 줄로 먼저 연락합니다.",
-          en: "In front of the company behind the issue, your team presents the bottleneck it chose, the tool it built and the effect in one number, and takes questions. Afterwards, message your mentor first with one line on what you built.",
+          // DECIDED 2026-11-06 (docs/think-different-brief.md T8, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 문장 +1, 연락 문장은 셋째로.
+          ko: "이슈를 낸 기업 앞에서 팀마다 다르게 고른 병목과 만든 툴, 숫자 하나로 본 효과를 발표하고 질의를 받습니다. 그 기업은 같은 이슈에 대한 다른 답 여럿을 한자리에서 봅니다. 끝난 뒤에는 멘토에게 무엇을 만들었는지 한 줄로 먼저 연락합니다.",
+          en: "In front of the company behind the issue, each team presents the bottleneck it chose, the tool it built and the effect in one number, and takes questions. The company sees several different answers to one issue in one room. Afterwards, message your mentor first with one line on what you built.",
         },
         // DECIDED 2026-10-10 (중복 브리프 B1): 칩 "멘토링 없음"을 뺐습니다(위 Day 3과 같은 이유).
         chips: [{ ko: "시상과 클로징", en: "Awards and closing" }],
