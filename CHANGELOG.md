@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 멘토 한 분은 하는 일로](#2026-11-06-mentor-anon)
 - [2026-11-06 시간표에 멘토의 반나절](#2026-11-06-timetable-halfday)
 - [2026-11-06 처음 보는 사람 기준 첫 화면과 조용한 버튼](#2026-11-06-first-click)
 - [2026-11-06 망가진 링크 고치기](#2026-11-06-fix-links)
@@ -511,6 +512,14 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-06-mentor-anon"></a>
+## 2026-11-06 멘토 한 분은 하는 일로
+- 범위: lib/crossingOpsServer.ts(publicMentorName), app/api/crossing/mentoring, app/api/crossing/mentor, data/crossingTeam.ts(mentorTitle), components/crossing/TeamTool.tsx, MentorTool.tsx, data/naru.ts(명단), components/home/NaruHome.tsx
+- 한 것: 사용자 요청(회사 사정으로 이름을 넣을 수 없는 멘토 한 분, "이름을 넣지 말고 뭐하는 사람인지를 표시", 명단과 시간표에). 이름과 회사 대신 "식품 기업 기획파트장"(EN "Head of planning at a food company"). 시간표와 멘토 페이지는 서버가 DB id로 바꿔 보내 실제 이름이 브라우저로 나가지 않음. 멘토 링크는 id로 계산해 그대로. 명단에 다시 넣고 소속 줄은 그리지 않음. 레포의 이름과 회사 표기를 지움.
+- 근거: brand 5장(사람 이름은 공개 레포에 쓰지 않음), 7장 멘토링.
+- 검증: /api/crossing/mentoring과 그 멘토의 /api/crossing/mentor 응답에 실제 이름 0, 멘토 링크 열림. 명단, 시간표 머리(KO, EN) 스크린숏. build 통과.
+- 커밋: 721fe20
 
 <a id="2026-11-06-timetable-halfday"></a>
 ## 2026-11-06 시간표에 멘토의 반나절
