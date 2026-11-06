@@ -230,7 +230,8 @@ function registerNoteLines(): Phrase[] {
   return [
     // DECIDED 2026-11-02 (사용자, 등록 UX 브리프 D2: "14일에 여는 걸로"): 여는 날을 "11월 둘째 주 끝"에서 11월 14일(토)로. 여는 시각은 보류(opensAt은 비움), 카운트다운은 그대로.
     { ko: "등록은 11월 14일(토)에 엽니다. 여는 시각은 카카오톡 오픈채팅에서 먼저 알립니다.", en: "Registration opens on Saturday, 14 November. The time it opens is announced first in the KakaoTalk open chat." },
-    { ko: "등록은 혼자, 팀은 Day 1에 맺습니다. 전공과 코딩 경험은 조건이 아닙니다.", en: "You register on your own, and teams are formed on Day 1. Your major and coding experience are not conditions." },
+    // DECIDED 2026-11-06 (사용자: 정체성 한 줄의 "만들 줄 아는 학생들"을 그대로 쓰고 "전공과 코딩 경험은 조건이 아닙니다"는 뺌): 아래 두 줄도 같음.
+    { ko: "등록은 혼자, 팀은 Day 1에 맺습니다.", en: "Register alone; teams form on Day 1." },
     { ko: `${venueLine.ko} 진행은 한국어입니다.`, en: `${venueLine.en} The programme runs in Korean.` },
   ];
 }
@@ -240,15 +241,15 @@ export const registerNote: Phrase[] = registerNoteLines();
 export const registerNoteShort: Phrase = {
   // DECIDED 2026-11-02 (사용자: "will be open at the end of second week of november"): 여는 때를 11월에서 11월 둘째 주 끝으로 좁힙니다.
   // DECIDED 2026-11-02 (사용자, 등록 UX 브리프 D2: "14일에 여는 걸로"): 여는 날을 "11월 둘째 주 끝"에서 11월 14일(토)로. 여는 시각은 보류(opensAt은 비움), 카운트다운은 그대로.
-  ko: "등록은 11월 14일(토)에 엽니다. 혼자 등록하고, 전공과 코딩 경험은 조건이 아닙니다.",
-  // 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
-  en: "Registration opens Sat 14 Nov. Register alone; no major or coding required.",
+  // DECIDED 2026-11-06 (사용자: 정체성 한 줄과 어긋나 "전공과 코딩 경험은 조건이 아닙니다"를 뺌).
+  ko: "등록은 11월 14일(토)에 엽니다. 혼자 등록합니다.",
+  en: "Registration opens Sat 14 Nov. Register alone.",
 };
 
 // DECIDED 2026-11-02 (브리프 O3): 등록이 열리면 위 줄의 "11월 둘째 주 끝"만 빠지고, 혼자 등록과 조건 없음은 같은 자리에 남습니다.
 export const registerNoteOpen: Phrase = {
-  ko: "혼자 등록하고, 전공과 코딩 경험은 조건이 아닙니다.",
-  en: "You register on your own; your major and coding experience are not conditions.",
+  ko: "혼자 등록합니다.",
+  en: "Register alone.",
 };
 
 export const register = {
@@ -612,8 +613,9 @@ export const naru = {
       // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C1, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
       // DECIDED 2026-11-05 (사용자: "AI로 만드는 비용이 0에 가까워진 지금, 기업에 아직 손으로 하는 일이 남아 있다는 것 자체가 이슈. 왜 아직 손으로 하는지 찾고, 무엇을 왜 만들지 정하고, 실제로 써 보게 해서 확인하는 과정을 익히는 자리"가 반영되게, 기존 글의 길이는 바꾸지 않고 수정만): 앞의 naruLine과 한 문단이고, 문단 줄 수는 늘지 않습니다(KO 2/2/3줄, EN 3/3/5줄이 2/2/3, 3/3/5 이하, 1440/1024/390). 닷새는 캐치프레이즈 둘째 줄, 병목과 작은 툴은 Day 카드와 남는 것, 그 기업 앞에 선다는 말은 남는 것 리드가 받습니다. 그 전 문장은 git 046f2e2.
       // DECIDED 2026-11-06 (docs/think-different-brief.md T1, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): D2대로 "팀마다"는 뺌(T3, T5, T7, T8이 맡음).
-      ko: "AI로 만드는 비용이 0에 가까운 지금, 기업이 아직 손으로 하는 일이 왜 남았는지 생각해 찾고, 만들 것을 정해 실제로 써 보게 합니다.",
-      en: "With AI making building nearly free, you find why a company still does a task by hand, pick what to build, and get it used.",
+      // DECIDED 2026-11-06 (사용자: "이게 이 행사의 정체성임. 이거를 왭사이트 12월 페이지에 반영", 질문에 "히어로 둘째 문장을 바꿈"): brand 6장 포지션과 같은 문장. 그 전 문장은 git e93a4e4.
+      ko: "만드는 건 AI가 해 주는 지금, 만들 줄 아는 학생들이 '무엇을 왜 만들지'부터 정하고 결과물로 증명하는 닷새.",
+      en: "With AI doing the making, students who can make decide what and why, then prove it.",
     },
     ctaProgram: { ko: "프로그램 보기", en: "See the programme" },
     // DECIDED 2026-10-11 (사용자): AI 유형 테스트(/match)로 가는 버튼이 일정표의 Day 1에서 히어로의 버튼 줄로 왔습니다.
