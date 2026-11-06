@@ -2232,7 +2232,7 @@ export const naru = {
       { title: { ko: "하나만 남기기", en: "Keep just one" }, quote: { ko: "\"하나만 풀면 되지 않을까요?\"", en: "\"Couldn't you solve just one?\"" }, body: { ko: "다 풀려는 팀이 막힌 곳 하나를 고르도록 돕습니다.", en: "They help a team that wants to solve everything pick the one place it is stuck." } },
       { title: { ko: "일하며 겪은 이야기", en: "Stories from the work" }, quote: { ko: "\"제가 처음 일할 때는요\"", en: "\"When I first started working...\"" }, body: { ko: "제품 이야기가 아니어도 됩니다. 일하며 겪은 커리어 이야기도 듣습니다.", en: "Not only about the product. You also hear about their careers." } },
     ] as { title: Phrase; quote: Phrase; body: Phrase }[],
-    mentorsListLabel: { ko: "함께하는 멘토", en: "The mentors" },
+    mentorsListLabel: { ko: "이날의 멘토", en: "Mentors this day" },
     mentorsLead: {
       ko: "멘토는 답을 주러 오지 않습니다. 일을 해 본 사람이면 누구나 아는 감각으로, 팀이 들고 간 한 장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말해 줍니다.",
       en: "Mentors do not come with answers. With the sense anyone who has done the work has, they tell the team, to its one page and draft, \"that is not how it works in practice.\"",
@@ -2243,24 +2243,26 @@ export const naru = {
     },
     // 2026-11-06 (사용자: "링크드인 들어가서 이분들 더 조사를 해봐봐", "강상우님도 찾아서 반영"): LinkedIn 경력에서 소속, 직책을 맞추고
     // 지난 경력 한 줄(bio)을 더합니다(8월 카드의 intro 자리). 브리프에서 뺐던 강상우 님을 사용자가 다시 넣음. 표기는 본인 확인 전 임시값.
+    // 2026-11-06 (사용자: "각 날마다 맨토들이 다름. 유재민님은 두 날다 놓고"): days는 그 멘토가 오는 날. Day 2, 3 모달은 그날의 멘토만 그립니다.
+    // 나눔은 DB sort(1~4 Day 2, 5~8 Day 3) 순서를 사용자가 확인한 것.
     mentors: [
       { name: { ko: "허수진 님", en: "Heo Su-jin" }, org: { ko: "C&R Research", en: "C&R Research" }, role: { ko: "Project Leader", en: "Project Leader" },
-        bio: { ko: "한독, SK케미칼에서 15년 넘게 임상 개발", en: "15+ years in clinical development at Handok and SK Chemicals" }, confirmed: true },
+        bio: { ko: "한독, SK케미칼에서 15년 넘게 임상 개발", en: "15+ years in clinical development at Handok and SK Chemicals" }, days: [2], confirmed: true },
       { name: { ko: "김규리 님", en: "Kim Gyu-ri" }, org: { ko: "Aside (YC F25)", en: "Aside (YC F25)" }, role: { ko: "Chief of Staff", en: "Chief of Staff" },
-        bio: { ko: "SaaS 스타트업 스코디 공동창업, B2B GTM", en: "Co-founded SaaS startup Scordi, B2B GTM" }, confirmed: true },
+        bio: { ko: "SaaS 스타트업 스코디 공동창업, B2B GTM", en: "Co-founded SaaS startup Scordi, B2B GTM" }, days: [2], confirmed: true },
       { name: { ko: "조동현 님", en: "Cho Dong-hyun" }, org: { ko: "KAIST AI 대학원, 인클리즈랩", en: "KAIST Graduate School of AI, Inclease Lab" }, role: { ko: "박사과정, Co-founder&CTO", en: "PhD student, Co-founder & CTO" },
-        bio: { ko: "네이버클라우드 이미지 생성 모델 연구 인턴", en: "AI research intern on image generation at NAVER Cloud" }, confirmed: true },
+        bio: { ko: "네이버클라우드 이미지 생성 모델 연구 인턴", en: "AI research intern on image generation at NAVER Cloud" }, days: [2], confirmed: true },
       { name: { ko: "최우현 님", en: "Choi Woo-hyun" }, org: { ko: "DanaMed, 수일개발", en: "DanaMed, SOOIL Development" }, role: { ko: "CEO, 의료기기 인허가", en: "CEO, medical device regulatory affairs" },
-        bio: { ko: "인슐린 펌프 인허가(EU MDR)와 AI 업무 자동화", en: "Insulin pump approval (EU MDR) and AI workflow automation" }, confirmed: true },
+        bio: { ko: "인슐린 펌프 인허가(EU MDR)와 AI 업무 자동화", en: "Insulin pump approval (EU MDR) and AI workflow automation" }, days: [2], confirmed: true },
       { name: { ko: "강정민 님", en: "Kang Jeong-min" }, org: { ko: "Independent AI Researcher", en: "Independent AI Researcher" }, role: { ko: "NeurIPS 2026 TAE 워크숍 포스터 저자 (AX 인재전쟁 본선, Upstage MABC 결선)", en: "Author of a NeurIPS 2026 TAE workshop poster (AX Talent War finals, Upstage MABC finals)" },
-        bio: { ko: "뉴텍의 첫 AI 프로덕션 유닛, 100% AI 뮤직비디오", en: "Built Newtech's first AI production unit, a fully AI-made music video" }, confirmed: true },
+        bio: { ko: "뉴텍의 첫 AI 프로덕션 유닛, 100% AI 뮤직비디오", en: "Built Newtech's first AI production unit, a fully AI-made music video" }, days: [3], confirmed: true },
       { name: { ko: "이민재 님", en: "Lee Min-jae" }, org: { ko: "BIGPIE C&T", en: "BIGPIE C&T" }, role: { ko: "해외영업 총괄", en: "Head of Overseas Sales" },
-        bio: { ko: "K-뷰티 수출, LG전자 미얀마 마케팅 매니저", en: "K-beauty exports, formerly marketing manager at LG Electronics Myanmar" }, confirmed: true },
+        bio: { ko: "K-뷰티 수출, LG전자 미얀마 마케팅 매니저", en: "K-beauty exports, formerly marketing manager at LG Electronics Myanmar" }, days: [3], confirmed: true },
       { name: { ko: "유재민 님", en: "You Jae-min" }, org: { ko: "Kia, Bloom", en: "Kia, Bloom" }, role: { ko: "마케팅 커뮤니케이션 매니저, Bloom Gardener", en: "Marketing Communications Manager, Bloom Gardener" },
-        bio: { ko: "EV9 출시 스타벅스 공동 브랜딩", en: "Led the Starbucks co-branding for the EV9 launch" }, confirmed: true },
+        bio: { ko: "EV9 출시 스타벅스 공동 브랜딩", en: "Led the Starbucks co-branding for the EV9 launch" }, days: [2, 3], confirmed: true },
       { name: { ko: "강상우 님", en: "Kang Sang-woo" }, org: { ko: "Scopely (Pokémon GO)", en: "Scopely (Pokémon GO)" }, role: { ko: "APAC Regional Game Designer", en: "APAC Regional Game Designer" },
-        bio: { ko: "Niantic, 네이버제트(ZEPETO)에서 게임 디자인", en: "Game design at Niantic and NAVER Z (ZEPETO)" }, confirmed: true },
-    ] as { name: Phrase; org: Phrase; role: Phrase; bio?: Phrase; confirmed: boolean }[],
+        bio: { ko: "Niantic, 네이버제트(ZEPETO)에서 게임 디자인", en: "Game design at Niantic and NAVER Z (ZEPETO)" }, days: [3], confirmed: true },
+    ] as { name: Phrase; org: Phrase; role: Phrase; bio?: Phrase; days: number[]; confirmed: boolean }[],
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:
     // 그 1장을 Day 2에 멘토에게 들고 가고, Day 1에 PDF로 올립니다(시간표 페이지의 Day 1 칸).
