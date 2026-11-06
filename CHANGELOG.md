@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 내가 쓴 것을 AI가 고치게](#2026-11-06-write-first)
 - [2026-11-06 상금 후원과 다과 지원 로고](#2026-11-06-partners-prize-cafe)
 - [2026-11-06 시간표 버튼 엶](#2026-11-06-timetable-open)
 - [2026-11-06 멘토 명단 하나로](#2026-11-06-mentors-merged)
@@ -505,6 +506,15 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-06-write-first"></a>
+## 2026-11-06 내가 쓴 것을 AI가 고치게
+- 범위: data/naru.ts(december.scheduleLead, gains.spine.tangiblesLine, gains 02 본문, stages[1].line, carryDetail.todo[1], stages[2] 미션 조건 셋째 줄), docs/brand.md(6장 방법 한 문장 후보, 5장 두 번까지의 괄호, 마지막 손질)
+- 한 것: 브리프 W1~W6의 KO/EN "뒤" 문장 그대로. 11/06 현업 미팅에서 나온 "AI가 쓴 것을 고치지 말고, 내가 쓴 것을 AI가 고치게."를 닷새 장 리드에 한 번 세우고, 생각 1장을 말하는 자리는 "팀이 먼저 쓰고"로. 결정은 4장 기본값(D1 안 A 본문, D2 리드 세 문장, D3 02 둘째 문장, D4 brand에 후보로). 히어로 두 줄, 정체성, 코어, 단계와 세션 이름, 남는 것 제목, december.find는 그대로.
+- 근거: brand 6장 캐치프레이즈의 둘째 줄 "생각부터 하고"의 방법, 5장 같은 사실 두 번까지(브리프는 9장 괄호라 했으나 그 규칙과 괄호는 5장에 있어 5장에 더함).
+- 검증: /crossing innerText에서 S1 1, "손으로 쓰" 0, "제대로" 0, "직접" 3(전과 같음), "빌더" 1(전과 같음), 가운뎃점과 줄표 0. "먼저 쓰"는 1(접힌 Day 1 띠를 연 상태, 기본 화면 0): W2 tangiblesLine은 10/23부터 그리지 않고, carry.todo는 Day 1 띠 한 곳에만 그려져 브리프의 3이 나오지 않음. 리드 줄 수 390에서 3 → 5(D2 기준 6 이내), 1440 좁은 칸에서 4 → 7. build 통과.
+- 브리프: docs/write-first-brief.md
+- 커밋: 이 항목과 같은 커밋(copy(crossing): 내가 쓴 것을 AI가 고치게 ...)
 
 <a id="2026-11-06-partners-prize-cafe"></a>
 ## 2026-11-06 상금 후원과 다과 지원 로고

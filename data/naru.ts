@@ -998,8 +998,9 @@ export const naru = {
         { ko: "그 기업 앞에서 증명해 봅니다", en: "show that company how you got there" },
       ] as Phrase[],
       tangiblesLine: {
-        ko: "손에는 팀의 생각 한 장과 코드로 옮긴 결과물이 남습니다.",
-        en: "You leave with a page of the team's take and something built in code.",
+        // DECIDED 2026-11-06 (docs/write-first-brief.md W2): 팀이 먼저 쓰고 AI로 고친 한 장. 그 전 문장은 git abd1ecd.
+        ko: "손에는 팀이 먼저 쓰고 AI로 고친 생각 한 장과 코드로 옮긴 결과물이 남습니다.",
+        en: "You leave with a page of the team's thinking, written first and then fixed with AI, and something built in code.",
       },
       tangibles: [
         { ko: "팀의 생각 1장", en: "One page of the team's take" },
@@ -1056,8 +1057,9 @@ export const naru = {
         body: {
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C26, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
           // DECIDED 2026-11-06 (docs/think-different-brief.md T9, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로):
-          ko: "팀의 생각 한 장과 시안을 들고 현업 멘토를 찾아가, 일을 해 본 사람의 감각으로 반박을 듣고 생각을 고칩니다.",
-          en: "Take your team's page and a draft to a mentor, get pushback from someone who's done the work, and revise.",
+          // DECIDED 2026-11-06 (docs/write-first-brief.md W3, D3 예): 문장 +1. 전사록: AI가 낸 결과를 자기 것도 아닌데 지키려 했다. 그 전 문장은 git 01b9585.
+          ko: "팀이 쓴 생각 한 장과 시안을 들고 현업 멘토를 찾아가, 일을 해 본 사람의 감각으로 반박을 듣고 생각을 고칩니다. 내가 쓴 것이라 고칠 수 있습니다.",
+          en: "Take the page your team wrote and a draft to a mentor, get pushback from someone who's done the work, and revise. You can revise it because you wrote it.",
         },
         evidence: { ko: "8월 11명", en: "August: eleven of them" },
       },
@@ -2183,9 +2185,9 @@ export const naru = {
       // 바로 아래 노선도가 같은 이름 넷을 날마다 적습니다. 세 줄이 두 줄이 됩니다.
       // DECIDED 2026-10-30 (docs/humanize-review-2026-10-30.md C2, humanize-korean 우선): 그 전 문장은 git 9c77437.
       // DECIDED 2026-11-06 (docs/think-different-brief.md T2, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 둘째 문장만.
-      ko: "등록은 혼자, 팀은 Day 1 현장에서 맺습니다. 닷새 안에 다 풀리지 않을 수 있는 문제라, 답이 아니라 어디까지 생각해 파고들었는지를 봅니다.",
-      // 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
-      en: "Register alone; teams form on site on Day 1. Five days may not solve it, so we look at how far you dug, not the answer.",
+      // DECIDED 2026-11-06 (docs/write-first-brief.md W1, D2 예): 문장 +1. S1("AI가 쓴 것을 고치지 말고, 내가 쓴 것을 AI가 고치게.")이 사이트에 그대로 서는 유일한 자리. 그 전 문장은 git 5360254.
+      ko: "등록은 혼자, 팀은 Day 1 현장에서 맺고, 날마다 팀의 생각을 한 장으로 씁니다. AI가 쓴 것을 고치지 말고, 내가 쓴 것을 AI가 고치게. 닷새 안에 다 풀리지 않을 수 있는 문제라, 답이 아니라 어디까지 생각해 파고들었는지를 봅니다.",
+      en: "Register alone; teams form on site on Day 1 and write one page of their thinking every day. Don't fix what AI wrote. Let AI fix what you wrote. Five days may not solve it, so we look at how far you dug, not the answer.",
     },
     // 2026-09-20 (크로싱서울_일정.pdf): 라벨이 "워크샵"에서 "세션"으로. PDF가 부르는
     // 이름이고, stages의 필드 이름(workshop -> session)과 같은 말을 씁니다.
@@ -2296,7 +2298,8 @@ export const naru = {
       // 같은 날 뒤(사용자: "또 너무 길잖아 compare to day 2 and 3. 똑같이. 상자 색깔로 동일하게"): 두 목록 각 세 줄, 줄이 꺾이지 않는 길이.
       todo: [
         { ko: "현장에서 팀 맺기", en: "Form your team on site" },
-        { ko: "팀의 생각을 1장으로 정리하기", en: "Put the team's take on one page" },
+        // DECIDED 2026-11-06 (docs/write-first-brief.md W5): 학생이 실제로 하는 줄이라 가장 구체적으로. 그 전 문장은 git 678e4f2.
+        { ko: "팀의 생각을 1장으로 먼저 쓰기 (AI는 고치는 데만)", en: "Write the team's one page yourselves first (AI only to fix it)" },
         { ko: "Day 2에 멘토에게 들고 가기", en: "Bring it to a mentor on Day 2" },
       ],
       // 2026-10-19 (사용자: Day 1 미션 뺌, 한 장은 미션 아닌 띠로): 올리기는 선택입니다. 라벨은 carrySubmitLabel.
@@ -2776,9 +2779,9 @@ export const naru = {
           // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C6, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
           // DECIDED 2026-11-06 (docs/think-different-brief.md T5, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 문장 +1.
           // 2026-11-06 (사용자, 스크린숏: "줄길이 같게"): Day 2, 3과 같은 넷째 줄까지. "그 일의 흐름에서"와 "골라"를 뺌.
-          ko: "같은 이슈를 받아도 팀마다 고르는 병목이 다릅니다. 누가 어느 단계에서 무엇에 막히는지 생각해, 병목 하나를 문제로 정합니다.",
-          // 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.
-          en: "Same issue, different bottlenecks. Work out who gets stuck where on what; make one the problem.",
+          // DECIDED 2026-11-06 (docs/write-first-brief.md W4): 문장 수 그대로, 팀이 먼저 한 장으로 씀. 그 전 문장은 git c1ca39b.
+          ko: "같은 이슈를 받아도 팀마다 고르는 병목이 다릅니다. 누가 어느 단계에서 무엇에 막히는지 생각해 병목 하나를 문제로 정하고, 팀이 먼저 한 장으로 씁니다.",
+          en: "Same issue, different bottlenecks. Work out who gets stuck where on what, make one the problem, and write the page yourselves first.",
         },
         // DECIDED 2026-10-08 (현장 팀 매칭 브리프 5): "팀 매칭" 칩 자리에 /match로 가는 버튼 하나가 섭니다.
         // 12월에는 AI 유형 테스트가 신청의 일부가 아니라 Day 1 현장의 팀 매칭 도구입니다. 칩은 뺐습니다
@@ -2887,7 +2890,8 @@ export const naru = {
             { ko: "팀원 과반이 멘토를 찾아가 사진 한 장", en: "Most of the team visits a mentor, one photo" },
             // DECIDED 2026-10-26 (사용자): 진척 PDF는 새 문서가 아니라 1장을 멘토의 피드백과 그날의 진척에 맞춰 고친 것.
             // DECIDED 2026-10-31 (사용자, 스크린숏: "상자의 길이가 다름. day 1 이랑 day 2 and 3 가 다름"): 인정 조건을 1440 칸에서 한 줄씩으로. Day 1(할 것 셋 + 세션 두 줄)과 같은 다섯 줄. 그 전: 1장을 피드백과 진척에 맞춰 고쳐 공유하기(진척은 띠 제목이 말함)
-            { ko: "1장을 피드백에 맞춰 고쳐 공유하기", en: "Update your one page with feedback and share it" },
+            // DECIDED 2026-11-06 (docs/write-first-brief.md W6): "피드백"을 사이트의 말 "반박"으로. 그 전 문장은 git 93a69c2.
+            { ko: "1장을 반박에 맞춰 고쳐 공유하기", en: "Revise your one page to the pushback and share it" },
           ],
           submit: [
             { ko: "멘토와 팀이 함께 찍은 사진", en: "A photo of the team with the mentor" },
