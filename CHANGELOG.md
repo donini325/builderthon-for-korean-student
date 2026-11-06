@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 크로싱 주소 끝 괄호 리다이렉트](#2026-11-06-crossing-tail-redirect)
 - [2026-11-06 닷새 리드 줄임](#2026-11-06-lead-trim)
 - [2026-11-06 내가 쓴 것을 AI가 고치게](#2026-11-06-write-first)
 - [2026-11-06 상금 후원과 다과 지원 로고](#2026-11-06-partners-prize-cafe)
@@ -507,6 +508,14 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-06-crossing-tail-redirect"></a>
+## 2026-11-06 크로싱 주소 끝 괄호 리다이렉트
+- 범위: next.config.mjs(redirects)
+- 한 것: 사용자 요청(Analytics 점검 제안 3). 10/22에 만든 "주소 끝에 붙은 ) . ," 리다이렉트에 10/26에 생긴 /crossing, /crossing/team이 빠져 "/crossing)"가 404였음. 두 주소를 더함.
+- 근거: brand 2장 판단 질문(공유받은 사람이 깨진 페이지 없이 들어옴).
+- 검증: 로컬에서 /crossing) . , 와 /crossing/team) 이 308로 원래 주소, /crossing 200. "/)"는 10/22 뒤 방문 0(실서버 308 확인). build 통과.
+- 커밋: 4acb5fe
 
 <a id="2026-11-06-lead-trim"></a>
 ## 2026-11-06 닷새 리드 줄임
