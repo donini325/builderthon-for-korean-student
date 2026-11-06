@@ -2233,6 +2233,8 @@ export const naru = {
       { title: { ko: "일하며 겪은 이야기", en: "Stories from the work" }, quote: { ko: "\"제가 처음 일할 때는요\"", en: "\"When I first started working...\"" }, body: { ko: "제품 이야기가 아니어도 됩니다. 일하며 겪은 커리어 이야기도 듣습니다.", en: "Not only about the product. You also hear about their careers." } },
     ] as { title: Phrase; quote: Phrase; body: Phrase }[],
     mentorsListLabel: { ko: "이날의 멘토", en: "Mentors this day" },
+    // 2026-11-06 (사용자: "이 맨토들 다 AI community 에서 활동하고 있는 사람들이라고 써줘"): 명단 머리 아래 한 줄.
+    mentorsListNote: { ko: "모두 AI 커뮤니티에서 활동하고 있는 현업입니다.", en: "All of them work in the field and are active in AI communities." },
     mentorsLead: {
       ko: "멘토는 답을 주러 오지 않습니다. 일을 해 본 사람이면 누구나 아는 감각으로, 팀이 들고 간 한 장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말해 줍니다.",
       en: "Mentors do not come with answers. With the sense anyone who has done the work has, they tell the team, to its one page and draft, \"that is not how it works in practice.\"",

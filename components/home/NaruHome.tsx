@@ -999,6 +999,7 @@ export default function NaruHome() {
                   ))}
                 </ol>
                 <p className={`mt-7 border-t border-white/10 pt-5 ${META} font-bold text-white/85`}>{t(naru.december.mentorsListLabel)}</p>
+                <p className={`mt-1 break-keep ${META} leading-[1.6] text-naru-muted`}>{t(naru.december.mentorsListNote)}</p>
                 <ul className="mt-2 flex flex-col">
                   {ms.map((m) => {
                     const role = nb(t(m.role));
