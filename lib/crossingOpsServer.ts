@@ -50,6 +50,20 @@ export const BRIEF_BUCKET = "crossing-issue-briefs";
  * 링크가 없으면 다른 멘토나 팀의 칸은 볼 수 없습니다. 링크는 scripts/mentor-links.mjs가 뽑습니다(같은 계산).
  * 비밀은 MENTOR_LINK_SECRET, 없으면 SUPABASE_SERVICE_ROLE_KEY. 비밀을 바꾸면 모든 링크가 바뀝니다.
  */
+/**
+ * 이름을 밝힐 수 없는 멘토(DECIDED 2026-11-06, 사용자: 회사 사정으로 이름을 못 넣음, "이름을 넣지 말고 뭐하는 사람인지를 표시").
+ * 키는 DB crossing_mentors.id, 값은 화면에 이름 대신 쓰는 하는 일. 실제 이름은 서버 밖으로 내보내지 않습니다(레포에도 쓰지 않음).
+ * 멘토 링크(mentorKey)는 id로 계산하므로 그대로입니다.
+ */
+const MENTOR_PUBLIC_LABEL: Record<string, { ko: string; en: string }> = {
+  "16c50f5e-8dfe-46de-80d5-052f47fdd1c0": { ko: "식품 기업 기획파트장", en: "Head of planning at a food company" },
+};
+/** 화면에 내보내는 멘토 이름. 숨기는 멘토면 하는 일(ko)과 영문(nameEn). */
+export function publicMentorName(id: string, name: string): { name: string; nameEn?: string } {
+  const l = MENTOR_PUBLIC_LABEL[id];
+  return l ? { name: l.ko, nameEn: l.en } : { name };
+}
+
 export function mentorKey(mentorId: string): string | null {
   const secret = process.env.MENTOR_LINK_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!secret) return null;

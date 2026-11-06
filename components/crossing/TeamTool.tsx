@@ -29,7 +29,7 @@ const TEAM_KEY = "crossing-team";
 const SLOT_ALPHA = "1F", SLOT_ALPHA_END = "1F";
 const MIN = 60_000;
 type Bk = { id: string; team: string; track: string; startsAt: string; endsAt: string };
-type Mentor = { id: string; name: string; field: string | null; windows: Window[]; bookings: Bk[] };
+type Mentor = { id: string; name: string; nameEn?: string; field: string | null; windows: Window[]; bookings: Bk[] };
 type Proof = { id: string; day: number; kind: ProofKind; createdAt: string; sizeBytes?: number };
 
 const load = (k: string) => { try { return localStorage.getItem(k) ?? ""; } catch { return ""; } };
@@ -266,7 +266,7 @@ export default function TeamTool() {
                     <th className={`sticky left-0 z-10 bg-naru-surface-2 px-3 py-3 text-left ${META} font-semibold text-naru-muted`}>{t(c.time)}</th>
                     {mentors!.map((m) => (
                       <th key={m.id} className="min-w-[120px] border-l border-white/5 px-2 py-3 text-left align-bottom">
-                        <span className={`block ${META} font-semibold text-white`}>{mentorTitle(m.name, locale)}</span>
+                        <span className={`block ${META} font-semibold text-white`}>{mentorTitle(m.name, locale, m.nameEn)}</span>
                         {/* 2026-11-06 (사용자: 오전, 오후 멘토의 구분): 그날 맡은 반나절. 안내 PDF 4쪽(멘토님별 맡으신 시간)과 같은 말. */}
                         {m.windows.length > 0 && <span className={`block ${META} font-normal tabular-nums text-accent`}>{halfDay(m.windows)}</span>}
                         {m.field && <span className={`block ${META} font-normal text-naru-muted`}>{m.field}</span>}

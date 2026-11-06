@@ -14,7 +14,7 @@ import { tooMany } from "@/lib/memThrottle";
 import { clientIp } from "@/lib/register/shared";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { CURRENT_EVENT } from "@/lib/registrationWindow";
-import { findTeam, listTracks } from "@/lib/crossingOpsServer";
+import { findTeam, listTracks, publicMentorName } from "@/lib/crossingOpsServer";
 import { OPS_DAYS, GRID_MINUTES, teamHasPending, windowsFor, SESSION_MINUTES, bookingGate, fitsWindow, isPhoneUA, isOpsDay, isProofDay } from "@/lib/crossingOps";
 
 export const dynamic = "force-dynamic";
@@ -47,7 +47,7 @@ export async function GET(req: Request) {
     teamTracks: Object.fromEntries((teams.data ?? []).map((t) => [t.name, t.track])),
     // DECIDED 2026-11-03 (사용자): 그날 맡은 멘토만 내보냅니다(구간이 없는 멘토는 빈 열이 되므로). Day 1은 구간을 읽지 않아 비어 있습니다.
     mentors: (mentors.data ?? []).map((m) => ({
-      id: m.id, name: m.name, field: m.field,
+      id: m.id, ...publicMentorName(m.id, m.name), field: m.field,
       windows: windowsFor(day, (windows ?? []).filter((w) => w.mentor_id === m.id)),
       bookings: (bookings ?? []).filter((b) => b.mentor_id === m.id).map((b) => ({
         id: b.id, team: b.team_name, track: b.track, startsAt: b.starts_at, endsAt: b.ends_at,

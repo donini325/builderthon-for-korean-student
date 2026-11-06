@@ -98,8 +98,9 @@ export const teamCopy = {
 
 // 멘토를 부르는 말. DECIDED 2026-11-03 (사용자: "정확히 성함이 있어야지", "맨토님"): 이름은 DB crossing_mentors.name에만 두고
 // (레포에 쓰지 않음, 운영진 문서 크로싱서울_멘토링크 기준), 화면에서 한국어는 "OOO 멘토님"으로 부릅니다. 아직 자리 이름("멘토 01")이면 붙이지 않습니다.
-export const mentorTitle = (name: string, locale: string): string =>
-  locale === "ko" && !name.startsWith("멘토") ? `${name} 멘토님` : name;
+// 2026-11-06: 이름을 밝힐 수 없는 멘토는 서버가 이름 대신 하는 일을 보냅니다(lib/crossingOpsServer.ts publicMentorName). 영문 화면은 nameEn.
+export const mentorTitle = (name: string, locale: string, nameEn?: string): string =>
+  locale === "en" && nameEn ? nameEn : locale === "ko" && !name.startsWith("멘토") ? `${name} 멘토님` : name;
 
 // 멘토 페이지(/crossing/mentor?k=)의 글(2026-10-26). 멘토가 찾아올 팀과 그 팀의 1장을 미리 봅니다.
 // 2026-11-06 (사용자: 한국어와 영어 문장 길이를 같게, 한국어가 정본): 영문만 줄임.

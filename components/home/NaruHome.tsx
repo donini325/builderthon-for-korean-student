@@ -1088,10 +1088,10 @@ export default function NaruHome() {
                     return (
                       <li key={m.name.ko} className="flex flex-col gap-0.5 border-b border-white/10 py-3.5 first:pt-1 last:border-b-0 last:pb-0">
                         <p className={`break-keep ${BODY} font-bold leading-snug text-white`}>{nb(t(m.name))}</p>
-                        <p className={`break-keep ${META} leading-[1.55] text-white/80`}>
+                        {t(m.org) && <p className={`break-keep ${META} leading-[1.55] text-white/80`}>
                           {nb(t(m.org))}<span aria-hidden className="mx-1.5 text-caption">/</span>
                           <span className="text-caption">{cut > 0 ? <>{role.slice(0, cut)}<span className="max-sm:hidden">{role.slice(cut)}</span></> : role}</span>
-                        </p>
+                        </p>}
                         {/* 2026-11-06: 지난 경력 한 줄(8월 카드의 intro 자리). */}
                         {m.bio && <p className={`break-keep ${META} leading-[1.55] text-naru-muted`}>{t(m.bio)}</p>}
                       </li>

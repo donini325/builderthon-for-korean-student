@@ -13,7 +13,7 @@ import { NextResponse } from "next/server";
 import { timingSafeEqual } from "node:crypto";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { CURRENT_EVENT } from "@/lib/registrationWindow";
-import { BRIEF_BUCKET, PROOF_BUCKET, listTracks, mentorKey } from "@/lib/crossingOpsServer";
+import { BRIEF_BUCKET, PROOF_BUCKET, listTracks, mentorKey, publicMentorName } from "@/lib/crossingOpsServer";
 import { OPS_DAYS, slotStarts, windowsFor } from "@/lib/crossingOps";
 
 export const dynamic = "force-dynamic";
@@ -61,7 +61,7 @@ export async function GET(req: Request) {
     db.from("crossing_mentor_bookings").select("mentor_id, day, team_name, track, starts_at, ends_at").in("day", myDays).in("mentor_id", ids).order("starts_at"),
   ]) : [{ data: [] }, { data: [] }];
   const board = Object.fromEntries(myDays.map((d) => [d, (mentors ?? []).map((m) => ({
-    name: m.name, field: m.field, me: m.id === mentor.id,
+    ...publicMentorName(m.id, m.name), field: m.field, me: m.id === mentor.id,
     slots: slotStarts(windowsFor(d, (allWindows ?? []).filter((w) => w.mentor_id === m.id && w.day === d))).map((t) => new Date(t).toISOString()),
     bookings: (allBookings ?? []).filter((b) => b.mentor_id === m.id && b.day === d).map((b) => ({ team: b.team_name, track: b.track, startsAt: b.starts_at, endsAt: b.ends_at })),
   })).filter((m) => m.slots.length || m.bookings.length)]));
@@ -71,7 +71,7 @@ export async function GET(req: Request) {
   const briefs = await listBriefs(db);
 
   return NextResponse.json({
-    mentor: { name: mentor.name, field: mentor.field },
+    mentor: { ...publicMentorName(mentor.id, mentor.name), field: mentor.field },
     briefs,
     board,
     tracks,

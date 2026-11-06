@@ -2235,7 +2235,7 @@ export const naru = {
     dayFlowClose: { ko: "닫기", en: "Close" },
     // DECIDED 2026-11-05 (docs/mentors-section-brief.md, 사용자): /crossing 닷새 장 아래 "멘토" 블록. 사진과 링크 없이 글 세 줄(D4).
     // 여섯을 다 적고 confirmed가 true인 사람만 그립니다(D2). 확인 대기 셋의 표기는 LinkedIn 헤드라인에서 온 임시값이라, 답이 오면 고치고 true로.
-    // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 브리프에서 뺐던 강상우 님, 안대선 님은 2026-11-06에 사용자가 다시 넣음.
+    // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 브리프에서 뺐던 두 분은 2026-11-06에 사용자가 다시 넣음(한 분은 하는 일로만).
     // 순서는 Day 2 멘토부터(DB crossing_mentors sort). 영문 이름은 8월 표기(성 먼저, 하이픈)로 옮긴 것이라 본인 확인 전입니다.
     mentorsHeading: { ko: "멘토", en: "Mentors" },
     mentorsCtaLabel: { ko: "멘토 보기", en: "See the mentors" },
@@ -2286,9 +2286,10 @@ export const naru = {
       // 2026-11-06 (본인 메시지, 사용자 전달): 회사와 프로덕트 이름은 빼고 "실리콘밸리 게임기업 아시아태평양 프로덕트 담당", "게임 기획자"로. 19일(Day 2)로 조율.
       { name: { ko: "강상우 님", en: "Kang Sang-woo" }, org: { ko: "실리콘밸리 게임기업", en: "A Silicon Valley game company" }, role: { ko: "아시아태평양 프로덕트 담당", en: "APAC product" },
         bio: { ko: "게임 기획자", en: "Game designer" }, days: [2], confirmed: true },
-      // 2026-11-06 (사용자: "안대선이라는 사람도 day 3 에 넣어줘"): 브리프에서 뺐던 분을 다시 넣음. 표기는 LinkedIn 경력에서 온 임시값.
-      { name: { ko: "안대선 님", en: "An Dae-sun" }, org: { ko: "보나비(대한제분)", en: "Bonavie (Daehan Flour Mills)" }, role: { ko: "기획파트장", en: "Head of Planning" },
-        bio: { ko: "메가MGC커피 전략기획, 카페베네 6개국 매장 오픈", en: "Strategy at Mega MGC Coffee, opened Caffe Bene in six countries" }, days: [3], confirmed: false }, // 2026-11-06 (사용자: "안대선은 그 맨토 언급에서 제외"): 화면에서 뺌.
+      // DECIDED 2026-11-06 (사용자: 회사 사정으로 이름을 넣을 수 없음, "이름을 넣지 말고 뭐하는 사람인지를 표시"): 이름과 회사 대신 하는 일.
+      // 시간표와 멘토 페이지도 같은 말(lib/crossingOpsServer.ts publicMentorName). org가 비면 소속 줄을 그리지 않습니다.
+      { name: { ko: "식품 기업 기획파트장", en: "Head of planning at a food company" }, org: { ko: "", en: "" }, role: { ko: "", en: "" },
+        bio: { ko: "커피 프랜차이즈 전략기획, 6개국 매장 오픈", en: "Strategy at coffee franchises, opened stores in six countries" }, days: [2], confirmed: true },
     ] as { name: Phrase; org: Phrase; role: Phrase; bio?: Phrase; days: number[]; confirmed: boolean }[],
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:

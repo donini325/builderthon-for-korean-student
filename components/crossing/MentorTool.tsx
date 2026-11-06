@@ -20,9 +20,9 @@ import { mentorCopy as c, mentorTitle } from "@/data/crossingTeam";
 import { OPS_DAYS, dayDate, fmtKst, trackTint, type Track } from "@/lib/crossingOps";
 
 type Row = { id: string; day: number; team: string; track: string; startsAt: string; endsAt: string; files: { day: number; url: string }[] };
-type BoardMentor = { name: string; field: string | null; me: boolean; slots: string[]; bookings: { team: string; track: string; startsAt: string; endsAt: string }[] };
+type BoardMentor = { name: string; nameEn?: string; field: string | null; me: boolean; slots: string[]; bookings: { team: string; track: string; startsAt: string; endsAt: string }[] };
 type Brief = { title: { ko: string; en: string }; url: string };
-type Data = { mentor: { name: string; field: string | null }; briefs?: Brief[]; tracks: Track[]; slots?: Record<string, string[]>; board?: Record<string, BoardMentor[]>; bookings: Row[] };
+type Data = { mentor: { name: string; nameEn?: string; field: string | null }; briefs?: Brief[]; tracks: Track[]; slots?: Record<string, string[]>; board?: Record<string, BoardMentor[]>; bookings: Row[] };
 const HOUR = 3_600_000;
 
 export default function MentorTool() {
@@ -75,7 +75,7 @@ export default function MentorTool() {
       <div className="mx-auto flex max-w-5xl flex-col gap-[40px]">
         <div className="flex flex-col gap-[10px]">
           <p className={`${META} font-semibold text-naru-muted`}>{t(c.title)}</p>
-          <h1 className={`${TITLE} font-bold leading-[1.1] tracking-[-0.03em] text-white`}>{data ? mentorTitle(data.mentor.name, locale) : t(c.title)}</h1>
+          <h1 className={`${TITLE} font-bold leading-[1.1] tracking-[-0.03em] text-white`}>{data ? mentorTitle(data.mentor.name, locale, data.mentor.nameEn) : t(c.title)}</h1>
           {data?.mentor.field && <p className={`${BODY} text-naru-muted`}>{data.mentor.field}</p>}
           {data && OPS_DAYS.map((d) => {
             const mine = data.slots?.[String(d)] ?? [];
@@ -152,7 +152,7 @@ export default function MentorTool() {
                               {board.map((m, i) => (
                                 <th key={i} className={`min-w-[160px] border-l border-white/5 px-[14px] py-[16px] text-left align-bottom ${m.me ? ME_TOP : ""}`}>
                                   {m.me && <span className={`mb-[4px] block ${META} font-semibold text-accent`}>{t(c.me)}</span>}
-                                  <span className={`block ${BODY} font-bold ${m.me ? "text-white" : "text-white/85"}`}>{mentorTitle(m.name, locale)}</span>
+                                  <span className={`block ${BODY} font-bold ${m.me ? "text-white" : "text-white/85"}`}>{mentorTitle(m.name, locale, m.nameEn)}</span>
                                 </th>
                               ))}
                             </tr>
