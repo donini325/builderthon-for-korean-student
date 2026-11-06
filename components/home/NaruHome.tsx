@@ -1027,7 +1027,8 @@ export default function NaruHome() {
                     <div className="mt-6 text-center">
                       {timetableButton}
                       {/* 2026-11-05 (사이트 점검, UX): 잠긴 버튼이 언제 열리는지. */}
-                      {!TIMETABLE_OPEN && <p className={`mt-[8px] ${META} text-caption`}>{t(naru.december.timetableNote)}</p>}
+                      {/* 2026-11-06: 버튼이 열려도 칸 넣기는 Day 1 12:00부터라 안내 줄은 남깁니다. */}
+                      <p className={`mt-[8px] ${META} text-caption`}>{t(naru.december.timetableNote)}</p>
                     </div>
                   )}
                 </div>

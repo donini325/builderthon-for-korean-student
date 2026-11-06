@@ -37,7 +37,8 @@ export const teamHasPending = (teamBookings: { startsAt: string }[], now = Date.
  * DECIDED 2026-10-17 (사용자: "production에도 열어줘, 그런데 당장은 이용자들이 바로면 안되서, 일단 button은 disable").
  * 열 때 true로 바꿉니다. /crossing/team 페이지 자체는 주소로 열립니다.
  */
-export const TIMETABLE_OPEN = false;
+// DECIDED 2026-11-06 (사용자, 스크린숏: "이거 들어갈 수 있게 해줘"): 버튼을 엽니다. 칸 넣기는 그대로 서버의 bookingGate가 Day 1 12:00까지 막습니다.
+export const TIMETABLE_OPEN = true;
 /** 예약과 인증이 있는 날. */
 export const OPS_DAYS = [2, 3] as const;
 export type OpsDay = (typeof OPS_DAYS)[number];
