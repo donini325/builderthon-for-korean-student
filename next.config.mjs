@@ -36,7 +36,8 @@ const nextConfig = {
   // 원래 페이지로 보냅니다. 예: "(https://.../)"를 메신저가 ")"까지 링크로 잡은 경우.
   async redirects() {
     // 끝에 붙는 것: ")" "." ","(path-to-regexp에서 ")"와 "."은 이스케이프). 페이지 다섯.
-    const pages = ["/", "/naru", "/2026-08", "/match", "/quiz"];
+    // 2026-11-06 (Analytics 점검): 10/26에 생긴 /crossing과 /crossing/team이 빠져 있어 "/crossing)"가 404였습니다. 지금 가장 많이 공유되는 주소라 더합니다.
+    const pages = ["/", "/naru", "/2026-08", "/match", "/quiz", "/crossing", "/crossing/team"];
     const tails = ["\\)", "\\.", ","];
     return pages.flatMap((p) => tails.map((tail) => ({ source: `${p}${tail}`, destination: p, permanent: true })));
   },
