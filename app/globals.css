@@ -661,6 +661,12 @@ img[src*="/logos/white/"], img[src*="%2Flogos%2Fwhite%2F"] { filter: brightness(
 .naru-content-chapter + .naru-content-chapter { margin-top: 0 !important; }
 .naru-content-chapter { min-height: auto !important; }
 
+/* DECIDED 2026-11-06 (사용자: "audit the gap between the content in the website, 너무 벌어진거 같음"): 크로싱 서울 페이지만 장 위아래 여백을
+   96 → 60px(lg), 80 → 48px(sm), 56 → 36px(폰). 장 사이 글과 글의 틈이 실측 190~220px(폰 100~140px)이라 120px 안팎(폰 72px 안팎)으로. */
+.naru-home-v2 .naru-content-chapter { padding-top: 36px; padding-bottom: 36px; }
+@media (min-width: 640px) { .naru-home-v2 .naru-content-chapter { padding-top: 48px; padding-bottom: 48px; } }
+@media (min-width: 1024px) { .naru-home-v2 .naru-content-chapter { padding-top: 60px; padding-bottom: 60px; } }
+
 /* 2026-11-05: 다섯 칸 카드용 [data-schedule] 버튼 규칙은 같은 날 main 배치로 바꾸며 뺐습니다. */
 
 /* DECIDED 2026-11-05 (사이트 점검): 잉크 바탕이 남는 자리(퀴즈 저장 이미지와 그 오버레이, brand 10장 "결과 카드, 저장 이미지는 잉크 #070B1F")에서

@@ -734,7 +734,7 @@ export default function NaruHome() {
           바로 붙어 있었습니다. 카운트다운 띠까지 1440×900 한 화면에 들어오는 선에서입니다. */}
       {/* DECIDED 2026-10-22 (사용자, 스크린숏: "여기는 kwan 전의 version으로 되돌려줘"): 히어로(이 챕터, CountdownPanel, HeroPhotos)는
           kwan-design 합치기(a032318) 전의 8784ca1 그대로입니다. 아래 챕터의 kwan 간격 정리는 그대로 둡니다. */}
-      <Chapter id="top" labelledBy="hero-title" align="center" wide className="!pt-[calc(var(--site-header-height,116px)+48px)] sm:!pt-[calc(var(--site-header-height,116px)+64px)]">
+      <Chapter id="top" labelledBy="hero-title" align="center" wide className="!pt-[calc(var(--site-header-height,116px)+48px)] sm:!pt-[calc(var(--site-header-height,116px)+64px)] !pb-8 sm:!pb-10 lg:!pb-12">
         {/* relative는 2026-09-17에 framer-motion의 useScroll target 경고 때문에
             붙었습니다. 그 훅은 2026-09-20에 사라졌지만 클래스는 둡니다. 히어로가
             앉는 쌓임 맥락이고, 빼는 것은 아무도 요청하지 않은 레이아웃 변경입니다. */}
@@ -872,6 +872,7 @@ export default function NaruHome() {
           (같은 날 사용자: "put the logo at the center". 그 전은 lg에서 왼쪽 분류, 오른쪽 로고).
           로고는 원래 색이고(data/naru.ts decemberPartners) 비율로 높이를 맞춥니다. 링크가 확실한 곳만 새 탭 링크입니다. */}
       {/* 2026-10-26: 위아래 여백은 Chapter contentSized와 같은 값입니다(위 #december 주석). 휘장이 fixed라 Chapter의 isolate 안에 넣지 않고 section 그대로 둡니다. */}
+      {/* 2026-11-06 (사용자: 간격 점검 "너무 벌어진거 같음"): 장 안의 줄 여백도 줄임. 제목 아래 48 → 36, 메인 후원 줄 64 → 40, 흐르는 띠 줄 56 → 28, 주최 줄 32 → 24(lg). 폰도 같은 비율. */}
       <section id="partners" aria-labelledby="partners-title" className="naru-content-chapter relative w-full px-6 py-14 sm:px-12 sm:py-20 lg:px-16 lg:py-24">
         <div className={WIDE}>
           <h2 id="partners-title" className={`${H2} max-sm:text-[28px] text-center`}>{t(decemberPartners.heading)}</h2>
@@ -880,9 +881,9 @@ export default function NaruHome() {
               같은 날 뒤(사용자, 스크린숏: "주최는 따로 빼주면 좋겠음"): 브리프 D3의 네 묶음에서 주최를 빼 셋째 줄에 따로 둡니다(전처럼 라벨, 로고, 링크 한 줄). */}
           {/* DECIDED 2026-10-24 (폰 밀도 브리프 1.1~1.7, 사용자: "폰도 이렇게 깔끔하면 좋겠다"): 폰(sm 미만)만 묶음 패딩 32 → 20, 로고 사이 45 → 24(코어 상자는 28),
               주최는 sm처럼 한 줄. 전부 max-sm: 추가이고 sm 이상은 그대로. 로고와 글은 그대로. */}
-          <ul className="mt-[45px] max-sm:mt-[32px] border-t border-white/10 lg:mt-[48px] lg:grid lg:grid-cols-3">
+          <ul className="mt-[32px] max-sm:mt-[24px] border-t border-white/10 lg:mt-[36px] lg:grid lg:grid-cols-3">
             {decemberPartners.groups.map((g, gi) => g.lead && (
-              <li key={g.label.en} className={`flex flex-col items-center gap-5 border-b border-white/10 py-[40px] text-center max-sm:gap-4 max-sm:py-[32px] ${g.lead ? "lg:col-span-3 lg:py-[64px]" : `lg:px-[16px] lg:py-[32px] ${gi > 1 ? "lg:border-l lg:border-white/10" : ""}`}`}>
+              <li key={g.label.en} className={`flex flex-col items-center gap-5 border-b border-white/10 py-[32px] text-center max-sm:gap-4 max-sm:py-[24px] ${g.lead ? "lg:col-span-3 lg:py-[40px]" : `lg:px-[16px] lg:py-[32px] ${gi > 1 ? "lg:border-l lg:border-white/10" : ""}`}`}>
                 {/* DECIDED 2026-10-21 (사용자: "그냥 로고만 보여줘"): 설명 줄은 없앴습니다.
                     같은 날 (사용자, 스크린숏: "role 도 각 row 마다 넣어줘"): 분류 이름을 다시 보이게. 주최 줄과 같은 META, 로고 위 가운데.
                     같은 날 (사용자: "글자가 더 잘보이게"): white/50 → white/85, 굵게. 크기는 META 그대로. */}
@@ -909,14 +910,14 @@ export default function NaruHome() {
             ))}
             {/* 2026-10-26: 메인 후원 아래 나머지 줄은 로고 띠 하나. 줄의 한 줄 설명(note, Lovable 워크숍)은 띠 아래에 그대로. */}
             {/* 2026-10-26 (사용자: "로고쪽 상하간격 더 줘"): 메인 후원 줄 위아래 lg 48 → 64px, 띠 줄 32 → 56px, 띠 안 로고 칸 위아래 12/20px. */}
-            <li className="flex flex-col items-center gap-5 border-b border-white/10 py-[40px] text-center max-sm:py-[32px] lg:col-span-3 lg:py-[56px]">
+            <li className="flex flex-col items-center gap-5 border-b border-white/10 py-[24px] text-center max-sm:py-[16px] lg:col-span-3 lg:py-[28px]">
               <PartnerTicker t={t} />
               {decemberPartners.groups.map((g) => g.note && <p key={g.label.en} className={`${META} text-caption`}>{t(g.note)}</p>)}
             </li>
             {/* DECIDED 2026-10-21 (사용자, 스크린숏: "따로 아래에 주최 박스를 넣지 말고, 나루 로고를 주최에 넣어줘 at the table, 로고 옆에 learn more"):
                 아래에 있던 나루 티저 상자를 없애고 이 표의 마지막 줄로. 이벤트가 먼저, 나루는 그 안에서 드러납니다(brand 3장 원칙 2, 6장 나루 = 주최).
                 id="naru"는 옛 링크 /#naru와 목차 칩이 여기에 내려앉게 이 줄로 옮겼습니다. */}
-            <li id="naru" className="flex flex-col items-center gap-4 border-b border-white/10 py-[32px] text-center max-sm:flex-row max-sm:flex-wrap max-sm:justify-center max-sm:gap-x-[20px] max-sm:gap-y-[12px] max-sm:py-[20px] sm:flex-row sm:justify-center sm:gap-8 lg:col-span-3">
+            <li id="naru" className="flex flex-col items-center gap-4 border-b border-white/10 py-[24px] text-center max-sm:flex-row max-sm:flex-wrap max-sm:justify-center max-sm:gap-x-[20px] max-sm:gap-y-[12px] max-sm:py-[16px] sm:flex-row sm:justify-center sm:gap-8 lg:col-span-3">
               <p className={`${META} font-semibold text-white/85`}>{t(naru.teaser.eyebrow)}</p>
               <Image
                 src={locale === "en" ? "/naru/naru-name-en-paper.svg" : "/naru/naru-name-paper.png"}
@@ -1223,7 +1224,7 @@ export default function NaruHome() {
           닷새 장 아래의 큰 등록 블록(같은 날 사용자가 뺌)은 되살리지 않고, 맨 끝 한 줄만 둡니다. */}
       {regState !== "closed" && (
         // 2026-11-05 (사용자: 목차 다시): 목차 "등록"과 밖의 #register 링크가 여기 착지합니다(그 전 같은 날: 히어로 버튼 줄).
-        <section id="register" aria-label={t({ ko: "등록", en: "Register" })} className="w-full px-6 pb-16 pt-4 sm:px-12 lg:px-16 lg:pb-24">
+        <section id="register" aria-label={t({ ko: "등록", en: "Register" })} className="w-full px-6 pb-10 pt-4 sm:px-12 lg:px-16 lg:pb-14">
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 pt-6 text-center lg:px-10">
             <p id="end-register-note" className={`break-keep ${BODY} font-semibold text-white/85`}>{t(regState === "open" ? registerNoteOpen : registerNoteShort)}</p>
             <div className="grid w-fit max-w-full grid-cols-1 gap-3 sm:grid-cols-2 [&>*]:justify-center [&>*]:whitespace-nowrap max-sm:w-full max-sm:[&>*]:whitespace-normal">
