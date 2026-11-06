@@ -291,6 +291,8 @@ function HeroPhotos({ photos, t, className = "", desktopOnly = false, single = f
             key={photo.src}
             type="button"
             aria-haspopup="dialog"
+            // DECIDED 2026-11-06 (docs/first-click-brief.md 2장 둘째, D5): 폰에서 이름이 비었습니다(1440에서는 "8월 Day 1"). 두 폭에서 같은 이름.
+            aria-label={photo.day ? `${t({ ko: "8월", en: "Aug" })} ${t(photo.day)}` : t(photo.alt) || t(naru.eventHero.photoOpen)}
             title={t(naru.eventHero.photoOpen)}
             onPointerEnter={() => warmPhoto(photo.src)}
             onTouchStart={() => warmPhoto(photo.src)}
@@ -1046,7 +1048,7 @@ export default function NaruHome() {
                   title: t(st.title),
                   lead: t(st.line),
                   venue: st.logo,
-                  rows: st.flow.map((r) => ({ time: r.time, what: t(r.what), where: r.where && t(r.where) })),
+                  rows: st.flow.map((r) => ({ time: r.time, what: t(r.what), where: r.where && t(r.where), href: r.href })),
                 } : null} />
             );
           })()}

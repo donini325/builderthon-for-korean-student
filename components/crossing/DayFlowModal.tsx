@@ -10,10 +10,11 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useBodyScrollLock } from "@/lib/useBodyScrollLock";
 import { META, BODY, SUBTITLE } from "@/components/ui/typography";
 
-export type DayFlowRow = { time?: string; what: string; where?: string };
+export type DayFlowRow = { time?: string; what: string; where?: string; href?: string };
 export type DayFlowContent = { dayLabel: string; date: string; title: string; lead: string; rows: DayFlowRow[]; venue?: { src: string; name: string; w: number; h: number } };
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -149,7 +150,8 @@ export default function DayFlowModal({
                       {!onSite && (
                         <p className={`mt-1.5 inline-flex items-center gap-1 ${META} text-caption`}>
                           <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
-                          {r.where}
+                          {/* 2026-11-06 (docs/first-click-brief.md F8): 장소가 우리 사이트의 페이지면 그 글자가 링크. */}
+                          {r.href ? <Link href={r.href} className="font-semibold text-accent underline decoration-1 underline-offset-[3px]">{r.where}</Link> : r.where}
                         </p>
                       )}
                     </li>

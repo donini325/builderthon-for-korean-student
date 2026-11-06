@@ -154,26 +154,17 @@ export function SiteMenu({ page, sitemap }: { page: SitePage; sitemap: SitemapPa
       <div
         className={`absolute -left-2 top-full z-50 pt-2 transition-[opacity,transform,visibility] duration-150 ease-out motion-reduce:transition-none ${open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0"}`}
       >
-        <nav id={id} aria-label={t(dict.siteMenu.aria)} className="card-raised w-[min(40rem,calc(100vw-40px))] rounded-xl py-2">
+        {/* DECIDED 2026-11-06 (docs/first-click-brief.md F2, D2 라벨 그대로 안만 줄임): 링크 24개 중 처음 온 사람이 쓰는 것은 페이지 셋이라
+            각 페이지의 장 목차를 뺐습니다. 목차는 그 페이지의 헤더 줄이 이미 그립니다. sitemap의 anchors는 받기만 하고 그리지 않습니다. */}
+        <nav id={id} aria-label={t(dict.siteMenu.aria)} className="card-raised w-[min(14rem,calc(100vw-40px))] rounded-xl py-2">
           <ul role="list" className="flex flex-col" onClick={() => { hold.current = true; setOpen(false); }}>
             {sitemap.map((col) => {
               const item = items.find((it) => it.page === col.page);
               if (!item) return null;
               const here = col.page === page;
               return (
-                <li key={col.page} className={`grid grid-cols-1 gap-x-8 px-4 py-1.5 sm:grid-cols-[9.5rem_1fr] ${here ? "bg-white/[0.03]" : ""}`}>
-                  <MenuLink it={item} page={page} src="site-menu" className="text-sm font-bold text-white hover:no-underline" />
-                  <ul role="list" className="flex flex-wrap gap-x-4 pb-1 sm:pb-0">
-                    {col.anchors.filter((a) => a.id !== "top").map((a) => {
-                      const href = here ? `#${a.id}` : `${item.href}#${a.id}`;
-                      const cls = "inline-flex min-h-[36px] items-center text-sm text-naru-muted transition-colors hover:text-white";
-                      return (
-                        <li key={a.id}>
-                          {here ? <a href={href} className={cls}>{t(a.label)}</a> : <Link href={href} onClick={() => track("page_chip", { from: page, to: `${col.page}#${a.id}` })} className={cls}>{t(a.label)}</Link>}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                <li key={col.page} className={`px-4 py-0.5 ${here ? "bg-white/[0.03]" : ""}`}>
+                  <MenuLink it={item} page={page} src="site-menu" className="w-full text-sm font-bold text-white hover:no-underline" />
                 </li>
               );
             })}

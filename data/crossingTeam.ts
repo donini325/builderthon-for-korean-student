@@ -14,6 +14,8 @@ export const teamCopy = {
   timetableHeading: { ko: "멘토 시간표", en: "Mentor timetable" },
   teamLabel: { ko: "우리 팀", en: "Your team" },
   teamPick: { ko: "팀을 고르세요", en: "Pick your team" },
+  // DECIDED 2026-11-06 (docs/first-click-brief.md F5): 팀이 아직 0이면 select를 끄고 이 한 줄. 열어 봐도 고를 것이 없고 왜 없는지 말이 없었습니다.
+  teamsLater: { ko: "팀은 Day 1 현장에서 맺고, 그날 이 목록에 생깁니다.", en: "Teams form on site on Day 1 and appear here that day." },
   pickFirst: { ko: "팀을 고르면 인증 올리기와 시간표 칸 넣기가 열립니다.", en: "Pick your team to unlock uploads and timetable slots." },
   // 2026-10-26: Day 1 탭에는 시간표가 없어(TeamTool) 안내에서 시간표를 뺍니다.
   pickFirstDay1: { ko: "팀을 고르면 인증 올리기가 열립니다.", en: "Pick your team to unlock uploads." },
@@ -61,6 +63,8 @@ export const teamCopy = {
   // DECIDED 2026-10-26 (사용자: "폰에서는 사진이 바로 갤러리에서 올릴 수 있으면 좋겠고, 파일은 폰의 파일이나 노트북에서 바로, either choose or by dragging"):
   // 노트북은 상자에 끌어다 놓거나 고르기, 폰은 갤러리(사진)와 파일 앱(PDF)에서 바로 고르기.
   proofDrop: { ko: "여기로 끌어다 놓거나", en: "Drag a file here, or" },
+  // DECIDED 2026-11-06 (docs/first-click-brief.md F7): 팀을 고르기 전 업로드 상자의 글. 파일 고르기 알약은 숨깁니다(눌러도 조용했음).
+  proofNeedTeam: { ko: "팀을 고르면 올릴 수 있습니다", en: "Pick your team to upload" },
   proofDropActive: { ko: "놓으면 골라집니다", en: "Drop to choose" },
   proofPickPhotoPhone: { ko: "갤러리에서 사진 고르기", en: "Choose from your photos" },
   proofPickPdfPhone: { ko: "파일에서 PDF 고르기", en: "Choose a PDF from Files" },

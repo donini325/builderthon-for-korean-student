@@ -48,6 +48,7 @@ export default function TeamTool() {
   const [pending, setPending] = useState<{ m: string; r: number } | null>(null); // 넣기 전에 한 번 묻는 칸
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [loaded, setLoaded] = useState(false); // 2026-11-06 (F5): 팀 목록을 한 번 읽은 뒤에만 "팀 없음"을 그립니다.
 
   useEffect(() => {
     setTeam(load(TEAM_KEY));
@@ -73,6 +74,7 @@ export default function TeamTool() {
     if (!r.ok) { setMsg(t(c.errGeneric)); return; }
     const j = await r.json();
     setTeams(j.teams ?? []); setTracks(j.tracks ?? []); setTeamTracks(j.teamTracks ?? {}); setMentors(j.mentors ?? []); setPendingTeams(j.pendingTeams ?? []);
+    setLoaded(true);
   }, [day]);
   useEffect(() => { setMentors(null); setMsg(null); setPending(null); void refresh(); }, [refresh]);
   // 다른 팀이 넣은 칸이 보이도록 20초마다 다시 읽습니다.
@@ -84,6 +86,7 @@ export default function TeamTool() {
   // DECIDED 2026-10-17 (사용자: "팀 선택을 해야 업로드나 시간표에 슬롯 넣는 것이 풀리는 걸로"): 목록에 있는 팀을 골라야
   // 인증 올리기와 칸 넣기가 풀립니다. 그 전에는 두 영역이 보이되 잠겨 있습니다.
   const picked = teams.includes(team) ? team : "";
+  const noTeams = loaded && teams.length === 0;
   const mine = (mentors ?? []).flatMap((m) => m.bookings.filter((b) => b.team === picked));
   const teamPending = !!picked && pendingTeams.includes(picked);
   const trackOf = (id: string | undefined) => tracks.find((x) => x.id === id);
@@ -151,7 +154,8 @@ export default function TeamTool() {
           // 묻는 칸은 우리 팀의 트랙 색으로 미리 칠합니다(넣으면 이 색이 됩니다).
           style={asking ? { background: `${myTint}${SLOT_ALPHA}`, borderColor: myTint } : undefined}
           className={`min-h-[44px] w-full rounded-md px-1 py-2 ${META} transition-colors duration-150 ${asking ? "border font-bold text-white" : ok ? "border border-white/10 bg-white/[0.02] text-naru-muted hover:border-accent/40 hover:bg-accent/10 hover:text-accent" : locked ? "cursor-not-allowed text-white/20" : "text-transparent"}`}>
-          {asking ? t(c.confirmPut) : "+"}
+          {/* DECIDED 2026-11-06 (docs/first-click-brief.md F6, D4 빈 칸): 누를 수 없는 칸에는 "+"를 그리지 않습니다. 열리는 시각은 위 안내 줄이 말합니다. */}
+          {asking ? t(c.confirmPut) : ok ? "+" : ""}
         </button>
       </td>
     );
@@ -177,13 +181,15 @@ export default function TeamTool() {
             <div className="flex flex-col gap-[8px]">
               <label htmlFor="team" className={`${META} font-semibold text-naru-muted`}>{t(c.teamLabel)}</label>
               <div className="relative">
-                <select id="team" value={teams.includes(team) ? team : ""} onChange={(e) => { setTeam(e.target.value); save(TEAM_KEY, e.target.value); }}
-                  className={`min-h-[44px] w-full min-w-[14rem] appearance-none rounded-lg border border-white/10 bg-naru-surface-2 py-2 pl-3 pr-10 ${BODY} text-white transition-colors focus-visible:border-accent/60 focus-visible:outline-none sm:w-auto`}>
+                <select id="team" disabled={noTeams} aria-describedby={noTeams ? "team-later" : undefined} value={teams.includes(team) ? team : ""} onChange={(e) => { setTeam(e.target.value); save(TEAM_KEY, e.target.value); }}
+                  className={`min-h-[44px] w-full min-w-[14rem] appearance-none rounded-lg border border-white/10 bg-naru-surface-2 py-2 pl-3 pr-10 ${BODY} text-white transition-colors focus-visible:border-accent/60 focus-visible:outline-none disabled:cursor-default disabled:opacity-60 sm:w-auto`}>
                   <option value="">{t(c.teamPick)}</option>
                   {teams.map((x) => <option key={x} value={x}>{trackOf(teamTracks[x]) ? `${x} (${t(trackOf(teamTracks[x])!.label)})` : x}</option>)}
                 </select>
-                <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-naru-muted"><path d="m6 9 6 6 6-6" /></svg>
+                {!noTeams && <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-naru-muted"><path d="m6 9 6 6 6-6" /></svg>}
               </div>
+              {/* DECIDED 2026-11-06 (docs/first-click-brief.md F5): 팀이 0이면 select를 끄고 왜 비었는지 한 줄. */}
+              {noTeams && <p id="team-later" className={`${META} text-naru-muted`}>{t(c.teamsLater)}</p>}
             </div>
             <div role="tablist" aria-label="Day" className="card-sunken inline-flex w-full rounded-full p-1 sm:w-auto">
               {PROOF_DAYS.map((d) => (
@@ -196,9 +202,6 @@ export default function TeamTool() {
           </div>
           {!picked && <Note>{t(timetableLocked ? c.pickFirstDay1 : c.pickFirst)}</Note>}
         </div>
-
-        {/* DECIDED 2026-10-17 (사용자, 스크린숏: "인증 올리는 거를 테이블 위로"): 인증이 시간표보다 먼저 섭니다. */}
-        <Proofs team={picked} day={day} phone={phone} />
 
         {msg && <p role="alert" className={`${META} text-rose-300`}>{msg}</p>}
         {/* DECIDED 2026-10-26 (사용자: "1일차에는 멘토 시간표가 없어야함"): Day 1 탭에서는 시간표 절 전체를 그리지 않습니다. */}
@@ -269,6 +272,10 @@ export default function TeamTool() {
           )}
         </section>
         )}
+
+        {/* DECIDED 2026-11-06 (docs/first-click-brief.md F4, D3 순서 바꾸기): 팀 고르기 → 멘토 시간표 → 미션 인증. 버튼과 제목은 시간표를 먼저 말하는데
+            업로드 상자가 먼저 보였습니다. 그 전(2026-10-17 사용자: "인증 올리는 거를 테이블 위로")은 인증이 위. Day 1 탭은 시간표가 없어 PDF 올리기만. */}
+        <Proofs team={picked} day={day} phone={phone} />
       </div>
     </main>
   );
@@ -375,6 +382,8 @@ function Proofs({ team, day, phone }: { team: string; day: ProofDay; phone: bool
     const latest = proofs.find((p) => p.day === day && p.kind === kind);
     const up = state[kind] === "uploading";
     const off = up || !team;
+    // DECIDED 2026-11-06 (docs/first-click-brief.md F7): 팀이 없으면 고르기 알약을 숨기고 "팀을 고르면 올릴 수 있습니다", 커서 기본. 눌러도 조용했습니다.
+    const noTeam = !team && !up;
     const f = picked[kind];
     const mb = (n: number) => `${(n / 1024 / 1024).toFixed(1)}MB`;
     const limit = t(kind === "photo" ? c.proofLimitPhoto : c.proofLimitPdf).replace("{mb}", String(PROOF_MAX_BYTES[kind] / 1024 / 1024));
@@ -435,9 +444,9 @@ function Proofs({ team, day, phone }: { team: string; day: ProofDay; phone: bool
           </div>
         ) : phone ? (
           // 폰: 끌어다 놓기가 없으므로 큰 고르기 버튼 하나.
-          <label aria-disabled={off} className={`card-sunken flex flex-1 cursor-pointer flex-col items-center justify-center gap-[8px] rounded-xl border border-dashed border-white/15 px-[16px] py-[22px] text-center transition-colors ${off ? "pointer-events-none opacity-50" : "active:bg-accent/10"}`}>
-            <span aria-hidden className="text-accent"><RuleIcon name={kind === "photo" ? "image" : "upload"} size={24} /></span>
-            <span className={`${BODY} font-semibold text-white`}>{pickLabel}</span>
+          <label aria-disabled={off} className={`card-sunken flex flex-1 flex-col items-center justify-center gap-[8px] rounded-xl border border-dashed border-white/15 px-[16px] py-[22px] text-center transition-colors ${off ? "pointer-events-none cursor-default" : "cursor-pointer active:bg-accent/10"}`}>
+            <span aria-hidden className={noTeam ? "text-naru-muted opacity-50" : "text-accent"}><RuleIcon name={kind === "photo" ? "image" : "upload"} size={24} /></span>
+            <span className={`${BODY} font-semibold ${noTeam ? "text-naru-muted" : "text-white"}`}>{noTeam ? t(c.proofNeedTeam) : pickLabel}</span>
             <span className={`${META} text-naru-muted`}>{limit}</span>
             {input}
           </label>
@@ -447,7 +456,7 @@ function Proofs({ team, day, phone }: { team: string; day: ProofDay; phone: bool
             {/* 2026-11-05 (사이트 점검, 접근성 1.4.3): 팀을 고르기 전에는 고르기 줄만 흐리고, 형식과 용량 안내(아래 limit)는 그대로 읽히게 둡니다. */}
             <span aria-hidden className={`${dragOver === kind ? "text-accent" : "text-naru-muted"} ${off ? "opacity-50" : ""}`}><RuleIcon name="upload" size={24} /></span>
             <span className={`flex flex-wrap items-center justify-center gap-[8px] ${META} text-naru-text ${off ? "opacity-50" : ""}`}>
-              {dragOver === kind ? t(c.proofDropActive) : (
+              {dragOver === kind ? t(c.proofDropActive) : noTeam ? t(c.proofNeedTeam) : (
                 <>
                   {t(c.proofDrop)}
                   <label aria-disabled={off} className={`inline-flex min-h-[36px] cursor-pointer items-center rounded-full border border-white/15 bg-naru-surface-2 px-[14px] font-semibold text-white transition-colors hover:border-accent/50 hover:text-accent ${off ? "pointer-events-none" : ""}`}>

@@ -2748,13 +2748,14 @@ export const naru = {
         when: { ko: "Day 1", en: "Day 1" },
         dayOffset: 1,
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
+        // DECIDED 2026-11-06 (docs/first-click-brief.md F8): Day 1, 2, 3의 "어디"가 경로 문자열 "/crossing/team" 그대로였습니다. "멘토 시간표 페이지"로 쓰고 링크로.
         flow: [
           { what: { ko: "오프닝", en: "Opening" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "출제사의 30분. 아직 손으로 하는 일 하나와 그 일이 왜 있는지를 출제사가 직접 말로", en: "30 minutes with the issuing company: the task it still does by hand and why it exists, in its own words" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "팀 맺기. AI 유형 테스트 결과로 현장에서. 모든 팀에 싱가포르 학생 1~2명과 한국 학교별 학생", en: "Forming teams on site from the AI type test. Every team has 1 to 2 students from Singapore and students from each school in Korea" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "트랙 고르기. 1~3순위를 적고 운영진이 고르게 섞음", en: "Choosing tracks: write your top three, and the organizers mix teams evenly" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "Lovable workshop. 사이트 넷을 띄운 Carraway & Gatsby가 진행", en: "Lovable workshop: run by Carraway & Gatsby, who launched four sites with it" }, where: { ko: "현장", en: "On site" } },
-          { what: { ko: "멘토 시간표 열림. Day 2, 3 칸을 노트북에서 넣음", en: "The mentor timetable opens. Book Day 2 and 3 slots from a laptop" }, where: { ko: "/crossing/team", en: "/crossing/team" } },
+          { what: { ko: "멘토 시간표 열림. Day 2, 3 칸을 노트북에서 넣음", en: "The mentor timetable opens. Book Day 2 and 3 slots from a laptop" }, where: { ko: "멘토 시간표 페이지", en: "Timetable page" }, href: "/crossing/team?day=2" },
           { what: { ko: "팀의 생각 1장 쓰기. Day 1 PDF로 올려 두면 칸을 넣은 멘토가 미리 읽음", en: "Write the team's one page. Upload it as the Day 1 PDF and the mentor you booked reads it ahead" } },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
@@ -2791,7 +2792,8 @@ export const naru = {
         chips: [{ ko: "현장에서 팀 구성", en: "Teams form on site" }],
         // DECIDED 2026-10-17 (사용자: "1일차에도 미션인증은 해야해서, 버튼은 2,3일차처럼"): Day 1 카드에도 같은 버튼. 들어가면 Day 1 탭이고 시간표는 잠겨 있습니다.
         // 2026-10-22 (사용자: "Day 2, 3일 때만 보이게"): 폰 일정 상자 아래의 공통 버튼은 Day 2, 3을 볼 때만 섭니다(정본 7장: 미션은 Day 2, 3).
-        timetableCta: { label: { ko: "예약용 멘토 시간표와 인증", en: "Book & check in" }, href: "/crossing/team?day=1" },
+        // DECIDED 2026-11-06 (docs/first-click-brief.md F3): "예약용"과 "인증"은 운영진의 말이고, 카드의 미션 띠가 이미 "제출"이라 씁니다. 그 전 "예약용 멘토 시간표와 인증" / "Book & check in". Day 2, 3 버튼도 같은 라벨.
+        timetableCta: { label: { ko: "멘토 시간표와 미션 제출", en: "Mentor timetable & mission uploads" }, href: "/crossing/team?day=1" },
         // 2026-10-11: 화면에 그리지 않았습니다(버튼은 히어로로). DECIDED 2026-10-22 (사용자: Analytics 개선 "적용", 30일 /match 13명): 다시 그립니다.
         // 히어로 버튼이 아니라 Day 1 칩 줄 옆의 글자 링크입니다(NaruHome stageCard).
         matchCta: { label: { ko: "AI 유형 테스트로 팀 매칭", en: "Match via AI type test" }, href: "/match" },
@@ -2831,7 +2833,7 @@ export const naru = {
         flow: [
           { what: { ko: "멘토 찾아가기. 넣은 칸의 시각에 팀이 함께, 생각 1장을 들고", en: "Visiting a mentor: the team goes together at the booked time, with the one page" }, where: { ko: "멘토 계신 곳(오피스, 카페, 온라인)", en: "Where the mentor is (an office, a café, or online)" } },
           { what: { ko: "PO session. 현업 PO 셋이 각각 무엇을 왜 만들기로 했는지와 멈춘 지점, 그 뒤 대담", en: "PO session: three working POs on what they chose to build, why, and where they stopped, then a conversation" }, where: { ko: "현장", en: "On site" } },
-          { what: { ko: "미션 제출. 멘토와 찍은 사진, 고친 1장 PDF", en: "Mission submission: a photo with the mentor and the revised one-page PDF" }, where: { ko: "/crossing/team", en: "/crossing/team" } },
+          { what: { ko: "미션 제출. 멘토와 찍은 사진, 고친 1장 PDF", en: "Mission submission: a photo with the mentor and the revised one-page PDF" }, where: { ko: "멘토 시간표 페이지", en: "Timetable page" }, href: "/crossing/team?day=2" },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
         short: { ko: "일을 해 본 사람의 감각으로 멘토에게 확인받습니다.", en: "Mentors check it with the sense of people who have done the work." },
@@ -2851,7 +2853,7 @@ export const naru = {
         line: { ko: "왜 그 병목인지, 문제와 범위가 말이 되는지를 팀의 생각으로 설명하고, 일을 해 본 사람의 감각으로 반박을 듣습니다.", en: "Argue your team's bottleneck and scope, then take pushback from someone who has done the work." },
         // DECIDED 2026-10-24 (companies-block-brief 1.5): 멘토링 상자가 내려가며 "시간표로 예약"은 이 칩이 말합니다. 바로 아래 버튼
         // "멘토 시간표와 미션 인증"으로 이어집니다. 그 전: "방향 전환은 팀의 몫"(그 뜻은 위 body 둘째 문장이 그대로 말합니다).
-        // 2026-10-24 (사용자: "멘토 시간은 시간표로 예약 이 부분은 빼주고"): 예약은 아래 버튼 "예약용 멘토 시간표와 인증"이 말합니다.
+        // 2026-10-24 (사용자: "멘토 시간은 시간표로 예약 이 부분은 빼주고"): 예약은 아래 버튼 "멘토 시간표와 미션 제출"(2026-11-06 전 "예약용 멘토 시간표와 인증")이 말합니다.
         // 2026-11-06 (사용자, 스크린숏 둘: "이렇게 보여주지 말고, day 2,3 을 클릭하면 보여지면 좋겠는데", Day 1의 "현장에서 팀 구성 / AI 유형 테스트로 팀 매칭 →" 모양으로):
         // 멘토는 Day 2, 3 카드의 글자 링크를 눌러 모달에서 봅니다. 그날의 멘토를 나눈 데이터가 없어 두 날 모두 같은 명단입니다.
         chips: [{ ko: "멘토 찾아가기", en: "Visiting mentors" }],
@@ -2861,7 +2863,7 @@ export const naru = {
         // 없다는 것이 참가자의 말이었습니다. 인턴도 그 기회를 잘 받지 못합니다.
         // 길이는 Day 3 세션 설명과 비슷하게 맞춥니다.
         // DECIDED 2026-10-17 (사용자: "여기에 들어갈 수 있는 button은 day 2 and day 3 상자에 있는걸로"): 멘토 시간표와 미션 인증으로 가는 버튼.
-        timetableCta: { label: { ko: "예약용 멘토 시간표와 인증", en: "Book & check in" }, href: "/crossing/team?day=2" },
+        timetableCta: { label: { ko: "멘토 시간표와 미션 제출", en: "Mentor timetable & mission uploads" }, href: "/crossing/team?day=2" },
         // DECIDED 2026-11-05 (사용자, 같은 날 뒤: "lovable 과 PO session 을 다시 바꾸자, lovable workshop 이 1일차에 오도록"): Day 1 Lovable workshop, Day 2 PO session으로 되돌림.
         session: {
           title: { ko: "PO session", en: "PO session" },
@@ -2911,7 +2913,7 @@ export const naru = {
           { what: { ko: "멘토 찾아가기. 만든 툴을 들고, 기업이 가져다 쓸 수 있을지", en: "Visiting a mentor: bring the tool you built, and ask whether the company could use it" }, where: { ko: "멘토 계신 곳", en: "Where the mentor is" } },
           { what: { ko: "만들기. 그 병목만 푸는 작은 툴", en: "Building: a small tool that clears that one bottleneck" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "Open tables. 막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 감", en: "Open tables: ask other teams where you are stuck and borrow each other's thinking" }, where: { ko: "현장", en: "On site" } },
-          { what: { ko: "미션 제출. 멘토와 찍은 사진, 발표 자료 PDF", en: "Mission submission: a photo with the mentor and the presentation PDF" }, where: { ko: "/crossing/team", en: "/crossing/team" } },
+          { what: { ko: "미션 제출. 멘토와 찍은 사진, 발표 자료 PDF", en: "Mission submission: a photo with the mentor and the presentation PDF" }, where: { ko: "멘토 시간표 페이지", en: "Timetable page" }, href: "/crossing/team?day=3" },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
         short: { ko: "그 병목만 푸는 작은 툴을 만들어 멘토에게 여쭙니다.", en: "Teams build a small tool for that bottleneck and ask a mentor." },
@@ -2943,7 +2945,7 @@ export const naru = {
         // 원하면 만날 수 있지만 한국 안의 외국인 창업가는 닿기 어렵다는 것이 그 자리의
         // 결론이었습니다. 함께 여는 단체 이름은 아직 화면에 쓰지 않습니다.
         // DECIDED 2026-10-17 (사용자: "여기에 들어갈 수 있는 button은 day 2 and day 3 상자에 있는걸로"): 멘토 시간표와 미션 인증으로 가는 버튼.
-        timetableCta: { label: { ko: "예약용 멘토 시간표와 인증", en: "Book & check in" }, href: "/crossing/team?day=3" },
+        timetableCta: { label: { ko: "멘토 시간표와 미션 제출", en: "Mentor timetable & mission uploads" }, href: "/crossing/team?day=3" },
         // DECIDED 2026-10-23 (사용자, Reactor School 피드백 10-22 회의록 3.7): 위 9/27 결정(해외 창업가 세션)을 대신합니다. Day 3은 바깥 연사가
         // 아니라 참가 팀끼리 섞이는 자리입니다. 처음 온 사람은 첫날 뒤 다른 팀이 궁금해져도 먼저 말을 걸지 않아서, 섞이는 자리를 일부러 둡니다.
         // 세션 길이가 정해지지 않아 "3시간"은 쓰지 않습니다. 브랜드 판단: 다른 팀도 막혀 있는 것을 보고(코어 01), 내 것을 남에게 설명해 봅니다(코어 02).
@@ -3057,7 +3059,8 @@ export const naru = {
       when: Phrase;
       dayOffset: number;
       /** 하루의 흐름(2026-11-05, day-flow 브리프). time은 KST "10:00" 꼴, 정하지 않았으면 비웁니다. 필참 표시는 없습니다(전원 전부 참여). */
-      flow?: { time?: string; what: Phrase; where?: Phrase }[];
+      // href(2026-11-06, docs/first-click-brief.md F8): 장소가 우리 사이트의 페이지면 "어디" 글자가 그 링크.
+      flow?: { time?: string; what: Phrase; where?: Phrase; href?: string }[];
       /** 노선도 정거장 위의 로고(2026-10-19). 흰색 단색 PNG. name은 스크린리더가 읽습니다. */
       // url (2026-10-20, hwang 브리프 3.8): 있으면 노선도 로고가 새 창 링크가 됩니다(호버 설명 대신).
       logo?: { src: string; name: string; w: number; h: number; url?: string };

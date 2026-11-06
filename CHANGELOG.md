@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 처음 보는 사람 기준 첫 화면과 조용한 버튼](#2026-11-06-first-click)
 - [2026-11-06 망가진 링크 고치기](#2026-11-06-fix-links)
 - [2026-11-06 크로싱 주소 끝 괄호 리다이렉트](#2026-11-06-crossing-tail-redirect)
 - [2026-11-06 닷새 리드 줄임](#2026-11-06-lead-trim)
@@ -509,6 +510,15 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-06-first-click"></a>
+## 2026-11-06 처음 보는 사람 기준 첫 화면과 조용한 버튼
+- 범위: components/naru/NaruPage.tsx(F1), components/shared/SiteChrome.tsx(F2), data/naru.ts(F3, F8), components/crossing/TeamTool.tsx와 data/crossingTeam.ts(F4~F7), components/crossing/DayFlowModal.tsx(F8 링크), components/home/NaruHome.tsx(F8 전달, 사진 버튼 이름)
+- 한 것: 브리프 F1~F8, 결정은 3장 기본값. 홈 여는 자리 표를 태그라인 바로 아래로(문장 그대로). 헤더 드롭다운은 페이지 셋만(라벨 그대로). Day 카드 버튼 "멘토 시간표와 미션 제출". /crossing/team은 팀 고르기, 멘토 시간표, 미션 인증 순. 팀이 0이면 select를 끄고 한 줄, 누를 수 없는 칸은 "+" 없이 빈 칸, 팀이 없으면 파일 고르기 알약 대신 "팀을 고르면 올릴 수 있습니다". 하루의 흐름 "어디"는 "멘토 시간표 페이지" 링크(Day 1 줄은 시간표가 있는 ?day=2). 폰 히어로 사진 버튼에 1440과 같은 이름(D5).
+- 근거: brand 2장 판단 질문 1(처음 온 사람이 헤매지 않고 들어옴), 10장 링크는 남색.
+- 검증: "크로싱 서울 보기" 1440 y716~758(화면 900), 390 y664~708(화면 844). 드롭다운 링크 24 → 3(세 페이지). /crossing/team?day=2 팀 없음, 열리기 전: 눌러서 아무 일 없는 것 0(17개 확인), "+" 0, 파일 알약 0, select 꺼짐. 시간표 표 머리 1440 y638로 첫 화면 안, 390은 제목 y434까지만(표 머리 y867). 하루의 흐름 "/crossing/team" 0, "멘토 시간표 페이지" 3. build 통과.
+- 브리프: docs/first-click-brief.md
+- 커밋: 이 항목과 같은 커밋(fix(site): 처음 보는 사람 기준 첫 화면과 조용한 버튼 (F1~F8))
 
 <a id="2026-11-06-fix-links"></a>
 ## 2026-11-06 망가진 링크 고치기
