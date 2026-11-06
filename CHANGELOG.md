@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-06 멘토는 Day 2, 3 카드에서 모달로](#2026-11-06-mentors-modal)
 - [2026-11-06 멘토 일곱 모두 켬](#2026-11-06-mentors-all)
 - [2026-11-05 닷새 장 아래 멘토 블록](#2026-11-05-mentors)
 - [2026-11-05 인기투표 버튼 폭을 시간표 버튼에 맞춤](#2026-11-05-vote-width)
@@ -485,6 +486,17 @@
 ### 2026-06
 
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
+
+---
+
+<a id="2026-11-06-mentors-modal"></a>
+## 2026-11-06 멘토는 Day 2, 3 카드에서 모달로
+- 범위: components/home/NaruHome.tsx(Day 카드 칩 줄, 모달), components/crossing/DayFlowModal.tsx(children), data/naru.ts(stages[2], [3] chips와 mentorsCta, mentorsCtaLabel)
+- 한 것: 사용자 요청(스크린숏 둘: 블록으로 보이지 말고 Day 2, 3을 누르면, Day 1 "현장에서 팀 구성 / AI 유형 테스트로 팀 매칭" 모양으로). 닷새 장 아래 멘토 블록을 걷고, Day 2, 3 카드에 "멘토 찾아가기" 아래 "멘토 보기 →". 누르면 하루의 흐름과 같은 모달에 리드, note, 이름 님 / 소속 / 직책 목록.
+- 그날의 멘토를 나눈 데이터가 없어 두 날 모두 같은 명단. 칩 줄은 라벨 위, 링크 아래로 세 날이 같음.
+- 근거: brand 7장 멘토링.
+- 검증: #mentors 블록 없음. Day 2, 3 모달 각 일곱, 사진 0, 링크 0, Esc로 닫힘(1440, 390). build 통과.
+- 커밋: 481bf4e
 
 ---
 
