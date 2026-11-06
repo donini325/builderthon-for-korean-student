@@ -2219,6 +2219,20 @@ export const naru = {
     // 순서는 Day 2 멘토부터(DB crossing_mentors sort). 영문 이름은 8월 표기(성 먼저, 하이픈)로 옮긴 것이라 본인 확인 전입니다.
     mentorsHeading: { ko: "멘토", en: "Mentors" },
     mentorsCtaLabel: { ko: "멘토 보기", en: "See the mentors" },
+    // 2026-11-06 (사용자, 스크린숏: 모달 "뭔가 내용이 아쉬움", 멘토 브리프의 "현업의 감각을 들려주세요" 장을 보여 주며 "이 내용이 더 반영되어 있으면"):
+    // 멘토에게 부탁한 넷을 학생 쪽에서 듣는 말로 옮깁니다. 브리프의 "바이브 코더", "빌더"는 brand 5장 안 쓰는 말이라 뜻만 남깁니다.
+    mentorsIntro: {
+      ko: "멘토링은 도메인 지식보다 현업의 감각을 듣는 자리입니다. 좋은 것을 만드는 것과 그것을 팔 수 있는 것은 다르고, 그 차이를 만드는 감각을 일해 본 사람에게 듣습니다.",
+      en: "Mentoring is where you hear the sense of the field, more than domain knowledge. Making something good and being able to sell it are different, and you hear what makes that difference from people who have done the work.",
+    },
+    mentorsTalkLabel: { ko: "이런 이야기를 듣게 됩니다", en: "What you will hear" },
+    mentorsTalk: [
+      { title: { ko: "솔직한 첫 반응", en: "An honest first reaction" }, quote: { ko: "\"나라면 안 샀을 것 같아요\"", en: "\"I don't think I would have bought it.\"" }, body: { ko: "이해가 안 된다, 안 살 것 같다는 말을 그대로 듣습니다. 그 말이 가장 도움이 됩니다.", en: "You hear \"I don't get it\" or \"I wouldn't buy it\" as it is. That helps most." } },
+      { title: { ko: "누구에게 가져가나", en: "Who you take it to" }, quote: { ko: "\"과장님께 어떻게 발표할래요?\"", en: "\"How would you present this to your manager?\"" }, body: { ko: "누구에게 먼저 말하고, 그다음 누구를 설득할지 짚어 줍니다.", en: "Who to tell first, and who to win over next." } },
+      { title: { ko: "하나만 남기기", en: "Keep just one" }, quote: { ko: "\"하나만 풀면 되지 않을까요?\"", en: "\"Couldn't you solve just one?\"" }, body: { ko: "다 풀려는 팀이 막힌 곳 하나를 고르도록 돕습니다.", en: "They help a team that wants to solve everything pick the one place it is stuck." } },
+      { title: { ko: "일하며 겪은 이야기", en: "Stories from the work" }, quote: { ko: "\"제가 처음 일할 때는요\"", en: "\"When I first started working...\"" }, body: { ko: "제품 이야기가 아니어도 됩니다. 일하며 겪은 커리어 이야기도 듣습니다.", en: "Not only about the product. You also hear about their careers." } },
+    ] as { title: Phrase; quote: Phrase; body: Phrase }[],
+    mentorsListLabel: { ko: "함께하는 멘토", en: "The mentors" },
     mentorsLead: {
       ko: "멘토는 답을 주러 오지 않습니다. 일을 해 본 사람이면 누구나 아는 감각으로, 팀이 들고 간 한 장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말해 줍니다.",
       en: "Mentors do not come with answers. With the sense anyone who has done the work has, they tell the team, to its one page and draft, \"that is not how it works in practice.\"",

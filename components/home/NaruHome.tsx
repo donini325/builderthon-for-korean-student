@@ -978,15 +978,28 @@ export default function NaruHome() {
             const ms = naru.december.mentors.filter((m) => m.confirmed);
             const nb = (s: string) => s.replace(/-/g, "\u2011");
             return (
-              <DayFlowModal onClose={() => setMentorsDay(null)} heading={t(naru.december.mentorsNote)} closeLabel={t(naru.december.dayFlowClose)}
+              <DayFlowModal onClose={() => setMentorsDay(null)} heading={t(naru.december.mentorsTalkLabel)} closeLabel={t(naru.december.dayFlowClose)}
                 day={st ? {
                   dayLabel: `${t(naru.december.dayLabel)} ${st.dayOffset}`,
                   date: formatDecemberDayWithWeekday(locale, st.dayOffset),
                   title: t(naru.december.mentorsHeading),
-                  lead: t(naru.december.mentorsLead),
+                  lead: t(naru.december.mentorsIntro),
                   rows: [],
                 } : null}>
-                <ul className="flex flex-col">
+                {/* 2026-11-06 (사용자: "뭔가 내용이 아쉬움", 멘토 브리프 "현업의 감각을 들려주세요"): 멘토에게 부탁한 넷을 학생이 듣는 말로. */}
+                <ol className="grid gap-2.5 sm:grid-cols-2">
+                  {naru.december.mentorsTalk.map((x, j) => (
+                    <li key={j} className="flex flex-col gap-1.5 rounded-xl card-sunken px-4 py-3.5">
+                      <p className={`flex items-baseline gap-2 ${BODY} font-bold leading-snug text-white`}>
+                        <span className={`${META} font-bold tabular-nums text-accent`}>{j + 1}</span>{t(x.title)}
+                      </p>
+                      <p className={`break-keep ${META} font-semibold leading-[1.5] text-accent`}>{t(x.quote)}</p>
+                      <p className={`break-keep ${META} leading-[1.6] text-naru-muted`}>{t(x.body)}</p>
+                    </li>
+                  ))}
+                </ol>
+                <p className={`mt-7 border-t border-white/10 pt-5 ${META} font-bold text-white/85`}>{t(naru.december.mentorsListLabel)}</p>
+                <ul className="mt-2 flex flex-col">
                   {ms.map((m) => {
                     const role = nb(t(m.role));
                     const cut = role.indexOf(" (");
