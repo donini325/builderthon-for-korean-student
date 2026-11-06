@@ -866,7 +866,7 @@ export default function NaruHome() {
             2026-11-04 9de532d에 넣었다가 같은 날 종이 목업(515f955)에서 숫자 띠로 바뀌었고, 숫자 띠는 11-05에 빠져 자리가 비어 있었습니다.
             로고와 분류 이름은 아래 #partners(함께하는 곳)와 같은 decemberPartners. 캡션은 META(글자 크기 넷). 근거: brand 5장 "무대가 진짜라는 사실로 부른다". */}
         <div className="w-full px-6 sm:px-10 lg:px-10 xl:px-16">
-          <HeroPartnerStrip t={t} tiers={decemberStripTiers} label={decemberPartners.heading} sizeClass={META} scrim={false} className="mx-auto mt-14 max-w-[1100px] xl:mt-16" />
+          <HeroPartnerStrip t={t} tiers={decemberStripTiers} label={decemberPartners.heading} sizeClass={META} scrim={false} className="mx-auto mt-14 max-w-[1200px] xl:mt-16" />
         </div>
         {/* DECIDED 2026-11-05 (사용자, 스크린숏: "이거는 빼도 될 거 같음"): 히어로 아래 숫자 넷 띠(닷새, 74명, 21팀, 14명)를 뺍니다.
             같은 날 앞서 목업대로 넣었던 것입니다. 데이터 키 eventHero.facts는 남겨 둡니다. */}

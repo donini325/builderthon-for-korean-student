@@ -98,7 +98,7 @@ type StripLogoSpec = {
 // row: 같은 값의 이웃한 줄은 한 줄에 나란히 섭니다(12월은 분류가 여섯이라 위아래로 쌓으면 히어로가 길어집니다).
 // lead(12월, 2026-11-04 사용자: "이러면 이 회사들이 AXMOS 맴버사라는 느낌이 안나는데"): 묶음의 머리 로고. 위에 홀로 서고, 짧은 선 아래
 // 테두리 상자 안에 items가 섭니다. 함께하는 곳(#partners)의 AXMOS 줄(2026-10-22)과 같은 그림입니다. leadNote는 그 사이 한 줄.
-export type StripTier = { label: Phrase; box: StripBox; items: StripLogoSpec[]; rowMax?: string; rowGap?: string; row?: string; lead?: StripLogoSpec; leadNote?: Phrase };
+export type StripTier = { label: Phrase; box: StripBox; items: StripLogoSpec[]; rowMax?: string; rowGap?: string; row?: string; lead?: StripLogoSpec; leadNote?: Phrase; leadBox?: StripBox };
 
 // The mark that renders at exactly the tier's base height: aspect × mass ≈ 1.45,
 // i.e. a ~4:1 wordmark painting ~36% of its box. That is the middle of this set,
@@ -137,6 +137,11 @@ const LEAD_BOX: StripBox = { h: 30, maxW: 160, mH: 24, mMaxW: 128 };
 // 묶음의 머리 로고(12월 AXMOS)는 회원사보다 한 단 큽니다.
 const LEAD_HEAD_BOX: StripBox = { h: 38, maxW: 200, mH: 28, mMaxW: 150 };
 const SPONSOR_BOX: StripBox = { h: 23, maxW: 122, mH: 18, mMaxW: 98 };
+// DECIDED 2026-11-06 (사용자, 12월 히어로 로고 띠 스크린숏: "좀 더 큼직큼직할 수는 없는건가?"): 12월 띠만 한 단 크게.
+// 8월(위 세 상자)은 그대로입니다. 데스크톱 약 1.4배, 폰 약 1.15배(폰은 폭이 좁아 줄이 늘지 않을 만큼만).
+const DEC_HEAD_BOX: StripBox = { h: 54, maxW: 280, mH: 32, mMaxW: 170 };
+const DEC_LEAD_BOX: StripBox = { h: 42, maxW: 220, mH: 27, mMaxW: 145 };
+const DEC_SPONSOR_BOX: StripBox = { h: 32, maxW: 170, mH: 21, mMaxW: 112 };
 
 // Rendered height for one mark inside one tier box, at one breakpoint.
 function stripHeight(spec: StripLogoSpec, base: number, maxW: number) {
@@ -278,7 +283,8 @@ export const decemberStripTiers: StripTier[] = decemberPartners.groups.map((g) =
   const big = Boolean(g.lead) || g.logos.length >= 3;
   return {
     label: g.label,
-    box: big ? LEAD_BOX : SPONSOR_BOX,
+    box: big ? DEC_LEAD_BOX : DEC_SPONSOR_BOX,
+    leadBox: g.lead ? DEC_HEAD_BOX : undefined,
     items: g.logos.map(decemberSpec),
     lead: g.lead ? decemberSpec(g.lead) : undefined,
     leadNote: g.lead?.note,
@@ -505,7 +511,7 @@ export default function HeroPartnerStrip({
             {tier.lead ? (
               // 머리 로고 → 한 줄 설명 → 짧은 선 → 선만 있는 상자 안의 회원사. 상자는 바탕을 칠하지 않습니다(어두운 바탕에 밝은 판 금지).
               <div className="mt-1 mb-3 flex flex-col items-center">
-                <StripLogo {...tier.lead} box={LEAD_HEAD_BOX} />
+                <StripLogo {...tier.lead} box={tier.leadBox ?? LEAD_HEAD_BOX} />
                 {tier.leadNote && <p className={`mt-2 ${sizeClass} text-white/60`}>{t(tier.leadNote)}</p>}
                 <span aria-hidden className="h-4 w-px bg-white/25 sm:h-5" />
                 <div className={`flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-2xl border border-white/15 px-4 py-3 sm:px-6 sm:py-4 ${tier.rowGap ?? "sm:gap-x-6"} ${tier.rowMax ?? ""}`}>
