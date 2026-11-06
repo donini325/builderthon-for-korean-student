@@ -2249,9 +2249,10 @@ export const naru = {
       { title: { ko: "하나만 남기기", en: "Keep just one" }, quote: { ko: "\"하나만 풀면 되지 않을까요?\"", en: "\"Couldn't you solve just one?\"" }, body: { ko: "다 풀려는 팀이 막힌 곳 하나를 고르도록 돕습니다.", en: "They help a team that wants to solve everything pick the one place it is stuck." } },
       { title: { ko: "일하며 겪은 이야기", en: "Stories from the work" }, quote: { ko: "\"제가 처음 일할 때는요\"", en: "\"When I first started working...\"" }, body: { ko: "제품 이야기가 아니어도 됩니다. 일하며 겪은 커리어 이야기도 듣습니다.", en: "Not only about the product. You also hear about their careers." } },
     ] as { title: Phrase; quote: Phrase; body: Phrase }[],
-    mentorsListLabel: { ko: "이날의 멘토", en: "Mentors this day" },
+    // DECIDED 2026-11-06 (사용자: "merge the mentor list in day 2 and day 3 button", "이런분들 말고도 다양한 분들이 오신다 이런느낌으로"): 두 날 모두 같은 명단, 머리는 "함께하는 멘토".
+    mentorsListLabel: { ko: "함께하는 멘토", en: "Mentors" },
     // 2026-11-06 (사용자: "이 맨토들 다 AI community 에서 활동하고 있는 사람들이라고 써줘"): 명단 머리 아래 한 줄.
-    mentorsListNote: { ko: "모두 AI 커뮤니티에서 활동하고 있는 현업입니다.", en: "All of them work in the field and are active in AI communities." },
+    mentorsListNote: { ko: "그중 몇 분을 먼저 소개합니다. 모두 AI 커뮤니티에서 활동하는 현업이고, 이 밖에도 여러 분야의 멘토가 함께합니다.", en: "A few of them, all active in AI communities. Mentors from other fields join too." },
     mentorsLead: {
       ko: "멘토는 답을 주러 오지 않습니다. 일을 해 본 사람이면 누구나 아는 감각으로, 팀이 들고 간 한 장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말해 줍니다.",
       en: "Mentors do not come with answers. With the sense anyone who has done the work has, they tell the team, to its one page and draft, \"that is not how it works in practice.\"",
@@ -2283,7 +2284,7 @@ export const naru = {
         bio: { ko: "Niantic, 네이버제트(ZEPETO)에서 게임 디자인", en: "Game design at Niantic and NAVER Z (ZEPETO)" }, days: [3], confirmed: true },
       // 2026-11-06 (사용자: "안대선이라는 사람도 day 3 에 넣어줘"): 브리프에서 뺐던 분을 다시 넣음. 표기는 LinkedIn 경력에서 온 임시값.
       { name: { ko: "안대선 님", en: "An Dae-sun" }, org: { ko: "보나비(대한제분)", en: "Bonavie (Daehan Flour Mills)" }, role: { ko: "기획파트장", en: "Head of Planning" },
-        bio: { ko: "메가MGC커피 전략기획, 카페베네 6개국 매장 오픈", en: "Strategy at Mega MGC Coffee, opened Caffe Bene in six countries" }, days: [3], confirmed: true },
+        bio: { ko: "메가MGC커피 전략기획, 카페베네 6개국 매장 오픈", en: "Strategy at Mega MGC Coffee, opened Caffe Bene in six countries" }, days: [3], confirmed: false }, // 2026-11-06 (사용자: "안대선은 그 맨토 언급에서 제외"): 화면에서 뺌.
     ] as { name: Phrase; org: Phrase; role: Phrase; bio?: Phrase; days: number[]; confirmed: boolean }[],
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:

@@ -633,7 +633,7 @@ export default function NaruHome() {
         </>
       )
     ) : null;
-    const mentorsOn = stage.mentorsCta && naru.december.mentors.some((m) => m.confirmed && m.days.includes(stage.dayOffset));
+    const mentorsOn = stage.mentorsCta && naru.december.mentors.some((m) => m.confirmed);
     const chips = stage.chips.length > 0 || stage.matchCta || mentorsOn ? (
       <p className={`flex flex-col items-start gap-1 ${META} text-caption`}>
         {stage.chips.map((c, j) => <span key={j}>{t(c)}</span>)}
@@ -1053,7 +1053,7 @@ export default function NaruHome() {
             // 2026-11-06: Day 2, 3의 "멘토 보기 →" 모달. 카드는 8월 멘토 카드에서 사진, 칩, 링크를 뺀 글 세 줄(docs/mentors-section-brief.md D4, D5).
             // 본인 확인(confirmed)된 사람만. 하이픈에서 줄이 꺾이지 않게, 직책의 괄호는 폰에서 접습니다(D6).
             const st = mentorsDay != null ? naru.december.stages[mentorsDay] : null;
-            const ms = naru.december.mentors.filter((m) => m.confirmed && st != null && m.days.includes(st.dayOffset));
+            const ms = naru.december.mentors.filter((m) => m.confirmed); // 2026-11-06: Day 2, 3 같은 명단(days는 데이터에만).
             const nb = (s: string) => s.replace(/-/g, "\u2011");
             return (
               <DayFlowModal onClose={() => setMentorsDay(null)} heading={t(naru.december.mentorsTalkLabel)} closeLabel={t(naru.december.dayFlowClose)}
