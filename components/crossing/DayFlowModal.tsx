@@ -6,7 +6,7 @@
 // 모양(폰은 시각을 위에, sm부터 시각 칸 + 무엇)입니다. 필참 표시는 없습니다(전원 전부 참여). 시각이 정해지지 않은 줄은 시각을 그리지 않습니다(D2).
 // 같은 날 앞선 카드 안 접는 띠(안 A)는 이 모달이 대신합니다.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
@@ -23,11 +23,14 @@ export default function DayFlowModal({
   onClose,
   heading,
   closeLabel,
+  children,
 }: {
   day: DayFlowContent | null;
   onClose: () => void;
   heading: string;
   closeLabel: string;
+  // 2026-11-06: 줄 목록 대신 다른 본문(멘토 명단)을 같은 껍데기에 담을 때.
+  children?: ReactNode;
 }) {
   const reduce = useReducedMotion();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -126,6 +129,7 @@ export default function DayFlowModal({
               <div className="mt-6 flex items-center justify-between gap-3 border-t border-white/10 pt-5">
                 <p className={`${META} font-bold text-white/85`}>{heading}</p>
               </div>
+              {children ? <div className="mt-4">{children}</div> : (
               <ol className="relative mt-4">
                 {/* 세로 선: 첫 점 가운데에서 마지막 점 가운데까지. */}
                 <span aria-hidden className="absolute bottom-3 left-[5px] top-2 w-px bg-white/15" />
@@ -152,6 +156,7 @@ export default function DayFlowModal({
                   );
                 })}
               </ol>
+              )}
             </div>
           </motion.div>
         </motion.div>

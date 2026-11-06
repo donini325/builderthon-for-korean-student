@@ -2218,6 +2218,7 @@ export const naru = {
     // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 강상우, 안대선은 넣지 않습니다(사용자).
     // 순서는 Day 2 멘토부터(DB crossing_mentors sort). 영문 이름은 8월 표기(성 먼저, 하이픈)로 옮긴 것이라 본인 확인 전입니다.
     mentorsHeading: { ko: "멘토", en: "Mentors" },
+    mentorsCtaLabel: { ko: "멘토 보기", en: "See the mentors" },
     mentorsLead: {
       ko: "멘토는 답을 주러 오지 않습니다. 일을 해 본 사람이면 누구나 아는 감각으로, 팀이 들고 간 한 장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말해 줍니다.",
       en: "Mentors do not come with answers. With the sense anyone who has done the work has, they tell the team, to its one page and draft, \"that is not how it works in practice.\"",
@@ -2793,7 +2794,10 @@ export const naru = {
         // DECIDED 2026-10-24 (companies-block-brief 1.5): 멘토링 상자가 내려가며 "시간표로 예약"은 이 칩이 말합니다. 바로 아래 버튼
         // "멘토 시간표와 미션 인증"으로 이어집니다. 그 전: "방향 전환은 팀의 몫"(그 뜻은 위 body 둘째 문장이 그대로 말합니다).
         // 2026-10-24 (사용자: "멘토 시간은 시간표로 예약 이 부분은 빼주고"): 예약은 아래 버튼 "예약용 멘토 시간표와 인증"이 말합니다.
-        chips: [],
+        // 2026-11-06 (사용자, 스크린숏 둘: "이렇게 보여주지 말고, day 2,3 을 클릭하면 보여지면 좋겠는데", Day 1의 "현장에서 팀 구성 / AI 유형 테스트로 팀 매칭 →" 모양으로):
+        // 멘토는 Day 2, 3 카드의 글자 링크를 눌러 모달에서 봅니다. 그날의 멘토를 나눈 데이터가 없어 두 날 모두 같은 명단입니다.
+        chips: [{ ko: "멘토 찾아가기", en: "Visiting mentors" }],
+        mentorsCta: true,
         // DECIDED 2026-09-27 (사용자, 9/7 8월 참가자 회고): 왜 하는지가 바로 읽히게.
         // UI는 AI가 바로 만들어 주지만 어떤 기능을 왜 넣을지 판단하는 훈련은 배울 곳이
         // 없다는 것이 참가자의 말이었습니다. 인턴도 그 기회를 잘 받지 못합니다.
@@ -2872,7 +2876,8 @@ export const naru = {
         },
         // DECIDED 2026-10-10 (중복 브리프 B1): 칩 "멘토링은 이 날까지"를 뺐습니다. General Mentoring 상자의
         // "Day 3은 피칭 준비, Day 4는 멘토링이 없습니다"가 같은 말을 합니다.
-        chips: [],
+        chips: [{ ko: "멘토 찾아가기", en: "Visiting mentors" }],
+        mentorsCta: true,
         // DECIDED 2026-09-27 (사용자, 9/27 학생 단체 미팅): Empower session이
         // 한국에서 창업한 해외 창업가를 만나는 세션이 됐습니다. 국내 VC와 창업가는
         // 원하면 만날 수 있지만 한국 안의 외국인 창업가는 닿기 어렵다는 것이 그 자리의
@@ -3005,6 +3010,7 @@ export const naru = {
       session?: { title: Phrase; body: Phrase };
       /** 그 행의 글 기둥 아래에 서는 버튼 하나(2026-10-08, Day 1의 /match). */
       matchCta?: { label: Phrase; href: string };
+      mentorsCta?: boolean;
       /** 그 날 카드 바닥의 버튼(2026-10-17, Day 2와 Day 3의 멘토 시간표). */
       timetableCta?: { label: Phrase; href: string };
       /** Day 4 카드 바닥의 인기투표 버튼(2026-10-19). 열기 전에는 잠겨 있습니다(lib/crossingVote.ts VOTE_BUTTON_OPEN). */
