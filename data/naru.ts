@@ -2280,8 +2280,9 @@ export const naru = {
         bio: { ko: "K-뷰티 수출, LG전자 미얀마 마케팅 매니저", en: "K-beauty exports, formerly marketing manager at LG Electronics Myanmar" }, days: [3], confirmed: true },
       { name: { ko: "유재민 님", en: "You Jae-min" }, org: { ko: "Kia, Bloom", en: "Kia, Bloom" }, role: { ko: "마케팅 커뮤니케이션 매니저, Bloom Gardener", en: "Marketing Communications Manager, Bloom Gardener" },
         bio: { ko: "EV9 출시 스타벅스 공동 브랜딩", en: "Led the Starbucks co-branding for the EV9 launch" }, days: [2, 3], confirmed: true },
-      { name: { ko: "강상우 님", en: "Kang Sang-woo" }, org: { ko: "Scopely (Pokémon GO)", en: "Scopely (Pokémon GO)" }, role: { ko: "APAC Regional Game Designer", en: "APAC Regional Game Designer" },
-        bio: { ko: "Niantic, 네이버제트(ZEPETO)에서 게임 디자인", en: "Game design at Niantic and NAVER Z (ZEPETO)" }, days: [3], confirmed: true },
+      // 2026-11-06 (본인 메시지, 사용자 전달): 회사와 프로덕트 이름은 빼고 "실리콘밸리 게임기업 아시아태평양 프로덕트 담당", "게임 기획자"로. 19일(Day 2)로 조율.
+      { name: { ko: "강상우 님", en: "Kang Sang-woo" }, org: { ko: "실리콘밸리 게임기업", en: "A Silicon Valley game company" }, role: { ko: "아시아태평양 프로덕트 담당", en: "APAC product" },
+        bio: { ko: "게임 기획자", en: "Game designer" }, days: [2], confirmed: true },
       // 2026-11-06 (사용자: "안대선이라는 사람도 day 3 에 넣어줘"): 브리프에서 뺐던 분을 다시 넣음. 표기는 LinkedIn 경력에서 온 임시값.
       { name: { ko: "안대선 님", en: "An Dae-sun" }, org: { ko: "보나비(대한제분)", en: "Bonavie (Daehan Flour Mills)" }, role: { ko: "기획파트장", en: "Head of Planning" },
         bio: { ko: "메가MGC커피 전략기획, 카페베네 6개국 매장 오픈", en: "Strategy at Mega MGC Coffee, opened Caffe Bene in six countries" }, days: [3], confirmed: false }, // 2026-11-06 (사용자: "안대선은 그 맨토 언급에서 제외"): 화면에서 뺌.
