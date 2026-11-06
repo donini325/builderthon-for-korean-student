@@ -2215,7 +2215,7 @@ export const naru = {
     dayFlowClose: { ko: "닫기", en: "Close" },
     // DECIDED 2026-11-05 (docs/mentors-section-brief.md, 사용자): /crossing 닷새 장 아래 "멘토" 블록. 사진과 링크 없이 글 세 줄(D4).
     // 여섯을 다 적고 confirmed가 true인 사람만 그립니다(D2). 확인 대기 셋의 표기는 LinkedIn 헤드라인에서 온 임시값이라, 답이 오면 고치고 true로.
-    // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 안대선 님은 넣지 않습니다(사용자). 강상우 님은 2026-11-06에 사용자가 다시 넣음.
+    // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 브리프에서 뺐던 강상우 님, 안대선 님은 2026-11-06에 사용자가 다시 넣음.
     // 순서는 Day 2 멘토부터(DB crossing_mentors sort). 영문 이름은 8월 표기(성 먼저, 하이픈)로 옮긴 것이라 본인 확인 전입니다.
     mentorsHeading: { ko: "멘토", en: "Mentors" },
     mentorsCtaLabel: { ko: "멘토 보기", en: "See the mentors" },
@@ -2262,6 +2262,9 @@ export const naru = {
         bio: { ko: "EV9 출시 스타벅스 공동 브랜딩", en: "Led the Starbucks co-branding for the EV9 launch" }, days: [2, 3], confirmed: true },
       { name: { ko: "강상우 님", en: "Kang Sang-woo" }, org: { ko: "Scopely (Pokémon GO)", en: "Scopely (Pokémon GO)" }, role: { ko: "APAC Regional Game Designer", en: "APAC Regional Game Designer" },
         bio: { ko: "Niantic, 네이버제트(ZEPETO)에서 게임 디자인", en: "Game design at Niantic and NAVER Z (ZEPETO)" }, days: [3], confirmed: true },
+      // 2026-11-06 (사용자: "안대선이라는 사람도 day 3 에 넣어줘"): 브리프에서 뺐던 분을 다시 넣음. 표기는 LinkedIn 경력에서 온 임시값.
+      { name: { ko: "안대선 님", en: "An Dae-sun" }, org: { ko: "보나비(대한제분)", en: "Bonavie (Daehan Flour Mills)" }, role: { ko: "기획파트장", en: "Head of Planning" },
+        bio: { ko: "메가MGC커피 전략기획, 카페베네 6개국 매장 오픈", en: "Strategy at Mega MGC Coffee, opened Caffe Bene in six countries" }, days: [3], confirmed: true },
     ] as { name: Phrase; org: Phrase; role: Phrase; bio?: Phrase; days: number[]; confirmed: boolean }[],
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:
