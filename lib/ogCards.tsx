@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import type { Locale } from "@/data/dictionaryCore";
-import { OG_BACKGROUND, OG_SIZE, WORDMARK_GRADIENT, loadOgFonts, publicPngDataUri } from "@/lib/ogCard";
+import { OG_BACKGROUND, OG_SIZE, OG_INK, OG_MUTED, OG_CAPTION, OG_LINE, OG_NAVY, OG_ORANGE, OG_MAGENTA, loadOgFonts, publicPngDataUri } from "@/lib/ogCard";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 공유 카드 세 장(홈, /naru, /2026-08)을 언어별로 그립니다. 경로 파일(app/**/opengraph-image.tsx,
@@ -25,7 +25,7 @@ const FRAME = {
   justifyContent: "space-between",
   padding: "68px 80px 64px",
   ...OG_BACKGROUND,
-  color: "#ffffff",
+  color: OG_INK,
   fontFamily: "Pretendard",
 } as const;
 
@@ -35,7 +35,7 @@ async function publicSvgDataUri(path: string) {
 }
 
 function Hairline() {
-  return <div style={{ display: "flex", width: "100%", height: 1, backgroundColor: "rgba(255,255,255,0.14)" }} />;
+  return <div style={{ display: "flex", width: "100%", height: 1, backgroundColor: OG_LINE }} />;
 }
 
 // 헤어라인 위의 두 줄. 왼쪽이 나루의 태그라인(data/naru.ts titleLine1, titleLine2).
@@ -52,7 +52,7 @@ function FootLine({ left, right }: { left: string; right: string }) {
           alignItems: "center",
           fontSize: 26,
           fontWeight: 400,
-          color: "#9AA3CE",
+          color: OG_MUTED,
         }}
       >
         <div style={{ display: "flex" }}>{left}</div>
@@ -70,13 +70,15 @@ const TAGLINE = { ko: "처음엔 다 서툽니다. 건너기 전에 연습부터
 // 한글 폭에 맞춰 벌립니다(brand 6장 표기 A). 영어: 영문 "CROSSING SEOUL" 단독에 같은 그라데이션(표기 B,
 // 영문 화면의 히어로와 같습니다). 로고는 이름 락업으로 왼쪽 위에 작게, 영어 카드는 영문 락업(NARU)입니다.
 // 텔레그램, 카카오의 카드는 폭 500px 남짓으로 줄어 보이므로 작은 줄은 둘까지만 둡니다.
+// DECIDED 2026-11-06 (종이): 크로싱 서울 워드마크는 사이트 히어로와 같이 남색 글자 끝에 주황 점 하나(brand 10장). 영문 줄은 두지 않습니다(히어로와 같음).
+// 바닥 왼쪽은 이 페이지의 캐치프레이즈 첫 줄(brand 6장: 크로싱 서울 페이지는 캐치프레이즈, 나루 홈은 태그라인).
+const CATCH = { ko: "왜 아직, 손으로?", en: "Why still by hand?" };
 export async function renderHomeCard(locale: Locale) {
   const [logoSrc, fonts] = await Promise.all([
-    locale === "en" ? publicSvgDataUri("naru/naru-name-en-rev.svg") : publicPngDataUri("naru/naru-name-rev.png"),
+    locale === "en" ? publicSvgDataUri("naru/naru-name-en-paper.svg") : publicPngDataUri("naru/naru-name-paper.png"),
     loadOgFonts(),
   ]);
-  const en = "CROSSING SEOUL";
-  const gradientText = { backgroundImage: WORDMARK_GRADIENT, backgroundClip: "text", color: "transparent" } as const;
+  const name = locale === "en" ? "CROSSING SEOUL" : "크로싱 서울";
 
   return new ImageResponse(
     (
@@ -85,32 +87,17 @@ export async function renderHomeCard(locale: Locale) {
         {locale === "en" ? <img src={logoSrc} width={290} height={48} alt="NARU" /> : <img src={logoSrc} width={173} height={48} alt="나루 NARU" />}
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {locale === "en" ? (
-            <div style={{ display: "flex", whiteSpace: "nowrap", fontSize: 116, fontWeight: 900, letterSpacing: -3, lineHeight: 1.1, paddingBottom: 6, ...gradientText }}>
-              {en}
-            </div>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", alignSelf: "flex-start" }}>
-              <div style={{ display: "flex", fontSize: 156, fontWeight: 900, letterSpacing: -4, lineHeight: 1.1, paddingBottom: 6, ...gradientText }}>
-                크로싱 서울
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 26, fontWeight: 700, color: "#E08A76" }}>
-                {[...en].map((ch, i) => (
-                  <div key={i} style={{ display: "flex" }}>
-                    {ch === " " ? " " : ch}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          <div style={{ display: "flex", marginTop: 44, fontSize: 40, fontWeight: 700, color: "#E6E8F5" }}>
+          <div style={{ display: "flex", alignItems: "baseline", whiteSpace: "nowrap", fontSize: locale === "en" ? 116 : 156, fontWeight: 900, letterSpacing: locale === "en" ? -3 : -4, lineHeight: 1.1, color: OG_NAVY }}>
+            <div style={{ display: "flex" }}>{name}</div>
+            <div style={{ display: "flex", color: OG_ORANGE }}>.</div>
+          </div>
+          <div style={{ display: "flex", marginTop: 36, fontSize: 40, fontWeight: 700, color: OG_INK }}>
             {locale === "en" ? "17–21 December 2026, Seoul" : "2026년 12월 17~21일, 서울"}
           </div>
         </div>
 
-        {/* 오른쪽은 크로싱 서울의 뜻(brand 6장). 영문은 data/naru.ts의 같은 뜻의 문장입니다. */}
         <FootLine
-          left={TAGLINE[locale]}
+          left={CATCH[locale]}
           right={locale === "en" ? "Wherever you study, the same team" : "한국의 대학생과 해외의 한인 학생이 한 팀으로"}
         />
       </div>
@@ -124,7 +111,7 @@ export async function renderHomeCard(locale: Locale) {
 // 오른쪽에 마스터 로고(v2). 카드가 폭 500px로 줄어도 약 150px이라 최소 가로 120px를 지킵니다(brand 10장).
 // 가운데 문장은 정의 짧은 판(brand 1장), 영어는 EN 부제입니다. 바닥 오른쪽은 관계 한 문장(brand 6장)의 뒤 절.
 export async function renderNaruCard(locale: Locale) {
-  const [masterSrc, fonts] = await Promise.all([publicPngDataUri("naru/naru-master-v3-rev.png"), loadOgFonts()]);
+  const [masterSrc, fonts] = await Promise.all([publicPngDataUri("naru/naru-master-v3-paper.png"), loadOgFonts()]);
 
   return new ImageResponse(
     (
@@ -132,14 +119,14 @@ export async function renderNaruCard(locale: Locale) {
         <div style={{ display: "flex", flex: 1, alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             {locale === "en" ? (
-              <div style={{ display: "flex", fontSize: 168, fontWeight: 900, letterSpacing: -4, lineHeight: 1 }}>NARU</div>
+              <div style={{ display: "flex", fontSize: 168, fontWeight: 900, letterSpacing: -4, lineHeight: 1, color: OG_NAVY }}>NARU</div>
             ) : (
               <div style={{ display: "flex", alignItems: "baseline", gap: 28 }}>
-                <div style={{ display: "flex", fontSize: 168, fontWeight: 900, letterSpacing: -4, lineHeight: 1 }}>나루</div>
-                <div style={{ display: "flex", fontSize: 40, fontWeight: 700, letterSpacing: 10, color: "#A99AD6" }}>NARU</div>
+                <div style={{ display: "flex", fontSize: 168, fontWeight: 900, letterSpacing: -4, lineHeight: 1, color: OG_NAVY }}>나루</div>
+                <div style={{ display: "flex", fontSize: 40, fontWeight: 700, letterSpacing: 10, color: OG_MAGENTA }}>NARU</div>
               </div>
             )}
-            <div style={{ display: "flex", flexDirection: "column", marginTop: 40, fontSize: 40, fontWeight: 700, lineHeight: 1.4, color: "#E6E8F5" }}>
+            <div style={{ display: "flex", flexDirection: "column", marginTop: 40, fontSize: 40, fontWeight: 700, lineHeight: 1.4, color: OG_INK }}>
               {/* 줄은 배열로 나눕니다. satori는 Fragment 안의 두 줄을 한 줄로 붙였습니다. */}
               {(locale === "en"
                 ? ["A Korea-rooted collective", "of student builders"]
@@ -177,8 +164,8 @@ const RECORD_STATS = [
 
 export async function renderRecordCard(locale: Locale) {
   const [logoSrc, naruSrc, fonts] = await Promise.all([
-    publicPngDataUri("partners/zero100-wordmark-white.png"),
-    locale === "en" ? publicSvgDataUri("naru/naru-name-en-rev.svg") : publicPngDataUri("naru/naru-name-rev.png"),
+    publicPngDataUri("partners/zero100-wordmark.png"),
+    locale === "en" ? publicSvgDataUri("naru/naru-name-en-paper.svg") : publicPngDataUri("naru/naru-name-paper.png"),
     loadOgFonts(),
   ]);
   const en = locale === "en";
@@ -190,7 +177,7 @@ export async function renderRecordCard(locale: Locale) {
         <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           {en ? <img src={naruSrc} width={290} height={48} alt="NARU" /> : <img src={naruSrc} width={173} height={48} alt="나루 NARU" />}
-          <div style={{ display: "flex", fontSize: 26, fontWeight: 700, color: "#A99AD6" }}>
+          <div style={{ display: "flex", fontSize: 26, fontWeight: 700, color: OG_MAGENTA }}>
             {en ? "The record, Singapore, 22–29 August 2026" : "2026년 8월 22~29일, 싱가포르의 기록"}
           </div>
         </div>
@@ -200,12 +187,12 @@ export async function renderRecordCard(locale: Locale) {
           <div style={{ display: "flex", flexDirection: en ? "column" : "row", alignItems: en ? "flex-start" : "center", gap: en ? 18 : 36 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={logoSrc} width={en ? 380 : 512} height={en ? 80 : 108} alt="Zero100" />
-            <div style={{ display: "flex", whiteSpace: "nowrap", fontSize: en ? 112 : 128, fontWeight: 900, letterSpacing: -3, lineHeight: 1.05 }}>
+            <div style={{ display: "flex", whiteSpace: "nowrap", fontSize: en ? 112 : 128, fontWeight: 900, letterSpacing: -3, lineHeight: 1.05, color: OG_NAVY }}>
               {en ? "AI Builderthon" : "빌더톤"}
             </div>
           </div>
           {!en && (
-            <div style={{ display: "flex", marginTop: 14, fontSize: 26, fontWeight: 700, letterSpacing: 8, color: "#C99ACB" }}>
+            <div style={{ display: "flex", marginTop: 14, fontSize: 26, fontWeight: 700, letterSpacing: 8, color: OG_MAGENTA }}>
               ZERO100 AI BUILDERTHON
             </div>
           )}
@@ -218,12 +205,12 @@ export async function renderRecordCard(locale: Locale) {
             {RECORD_STATS.map((s) => (
               <div key={s.n} style={{ display: "flex", flexDirection: "column", flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "baseline" }}>
-                  <div style={{ display: "flex", fontSize: 56, fontWeight: 900, letterSpacing: -1, lineHeight: 1 }}>{s.n}</div>
+                  <div style={{ display: "flex", fontSize: 56, fontWeight: 900, letterSpacing: -1, lineHeight: 1, color: OG_NAVY }}>{s.n}</div>
                   {s.unit[locale] && (
-                    <div style={{ display: "flex", marginLeft: 4, fontSize: 26, fontWeight: 700, color: "#E6E8F5" }}>{s.unit[locale]}</div>
+                    <div style={{ display: "flex", marginLeft: 4, fontSize: 26, fontWeight: 700, color: OG_INK }}>{s.unit[locale]}</div>
                   )}
                 </div>
-                <div style={{ display: "flex", marginTop: 10, fontSize: 26, fontWeight: 400, color: "#9AA3CE" }}>{s.label[locale]}</div>
+                <div style={{ display: "flex", marginTop: 10, fontSize: 26, fontWeight: 400, color: OG_CAPTION }}>{s.label[locale]}</div>
               </div>
             ))}
           </div>

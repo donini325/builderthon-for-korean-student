@@ -8,15 +8,16 @@ import { join } from "node:path";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
-// 사이트의 바탕(#070B1F)과 히어로 후광(보라 틴트 → 자주 틴트). brand 10장 "화면은 잉크 위에".
-export const OG_BACKGROUND = {
-  backgroundColor: "#070B1F",
-  backgroundImage:
-    "radial-gradient(78% 98% at 12% 0%, rgba(110,92,190,0.42) 0%, rgba(110,92,190,0) 62%), radial-gradient(66% 86% at 96% 104%, rgba(199,155,180,0.30) 0%, rgba(199,155,180,0) 60%)",
-} as const;
-
-// 크로싱 서울 워드마크 그라데이션(brand 10장, 2026-10-11). 사이트 히어로와 같은 네 색, 같은 자리.
-export const WORDMARK_GRADIENT = "linear-gradient(90deg, #9AA8EE 0%, #A99AD6 35%, #C99ACB 68%, #E08A76 100%)";
+// DECIDED 2026-11-06 (사용자: "링크를 외부에 공유할떄 나오는 이미지가 tone and manner of the previous version"): 공유 카드를 사이트와 같은
+// 종이 팔레트로(brand 10장 2026-11-04). 크림 바탕 하나, 그라데이션과 후광 없음. 그 전: 잉크 #070B1F 위 보라, 자주 후광과 네 색 워드마크(git 6c51071).
+export const OG_BACKGROUND = { backgroundColor: "#FCFBF8" } as const;
+export const OG_INK = "#141418";
+export const OG_MUTED = "#4A4A52";
+export const OG_CAPTION = "#6B6964";
+export const OG_LINE = "#E3E0D8";
+export const OG_NAVY = "#12246B";
+export const OG_ORANGE = "#EE8A4F";
+export const OG_MAGENTA = "#845185";
 
 // satori는 woff2를 읽지 못해 ttf입니다. 라틴 + 카드 파일에 적힌 한글만 든 서브셋(scripts/build-og-fonts.py).
 // 카드에 한글을 새로 쓰면 그 스크립트를 다시 돌리세요. 빠진 글자는 두부로 나옵니다.
