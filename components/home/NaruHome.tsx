@@ -1010,6 +1010,8 @@ export default function NaruHome() {
                           {nb(t(m.org))}<span aria-hidden className="mx-1.5 text-caption">/</span>
                           <span className="text-caption">{cut > 0 ? <>{role.slice(0, cut)}<span className="max-sm:hidden">{role.slice(cut)}</span></> : role}</span>
                         </p>
+                        {/* 2026-11-06: 지난 경력 한 줄(8월 카드의 intro 자리). */}
+                        {m.bio && <p className={`break-keep ${META} leading-[1.55] text-naru-muted`}>{t(m.bio)}</p>}
                       </li>
                     );
                   })}

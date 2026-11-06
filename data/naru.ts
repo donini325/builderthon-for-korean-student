@@ -2215,7 +2215,7 @@ export const naru = {
     dayFlowClose: { ko: "닫기", en: "Close" },
     // DECIDED 2026-11-05 (docs/mentors-section-brief.md, 사용자): /crossing 닷새 장 아래 "멘토" 블록. 사진과 링크 없이 글 세 줄(D4).
     // 여섯을 다 적고 confirmed가 true인 사람만 그립니다(D2). 확인 대기 셋의 표기는 LinkedIn 헤드라인에서 온 임시값이라, 답이 오면 고치고 true로.
-    // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 강상우, 안대선은 넣지 않습니다(사용자).
+    // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 안대선 님은 넣지 않습니다(사용자). 강상우 님은 2026-11-06에 사용자가 다시 넣음.
     // 순서는 Day 2 멘토부터(DB crossing_mentors sort). 영문 이름은 8월 표기(성 먼저, 하이픈)로 옮긴 것이라 본인 확인 전입니다.
     mentorsHeading: { ko: "멘토", en: "Mentors" },
     mentorsCtaLabel: { ko: "멘토 보기", en: "See the mentors" },
@@ -2241,16 +2241,26 @@ export const naru = {
       ko: "도메인 전문가가 아니어도 됩니다. 학생에게 빠진 것이 그 감각이라서요.",
       en: "They need not be domain experts. That sense is what students are missing.",
     },
+    // 2026-11-06 (사용자: "링크드인 들어가서 이분들 더 조사를 해봐봐", "강상우님도 찾아서 반영"): LinkedIn 경력에서 소속, 직책을 맞추고
+    // 지난 경력 한 줄(bio)을 더합니다(8월 카드의 intro 자리). 브리프에서 뺐던 강상우 님을 사용자가 다시 넣음. 표기는 본인 확인 전 임시값.
     mentors: [
-      { name: { ko: "허수진 님", en: "Heo Su-jin" }, org: { ko: "C&R Research", en: "C&R Research" }, role: { ko: "Project Leader", en: "Project Leader" }, confirmed: true },
-      { name: { ko: "김규리 님", en: "Kim Gyu-ri" }, org: { ko: "Aside", en: "Aside" }, role: { ko: "Chief of Staff", en: "Chief of Staff" }, confirmed: true },
-      { name: { ko: "조동현 님", en: "Cho Dong-hyun" }, org: { ko: "KAIST AI 대학원, 인클리즈랩", en: "KAIST Graduate School of AI, Inclease Lab" }, role: { ko: "박사과정, Co-founder&CTO", en: "PhD student, Co-founder & CTO" }, confirmed: true },
-      { name: { ko: "최우현 님", en: "Choi Woo-hyun" }, org: { ko: "DanaMed", en: "DanaMed" }, role: { ko: "CEO", en: "CEO" }, confirmed: true },
-      { name: { ko: "강정민 님", en: "Kang Jeong-min" }, org: { ko: "Independent AI Researcher", en: "Independent AI Researcher" }, role: { ko: "NeurIPS 2026 TAE 워크숍 포스터 저자 (AX 인재전쟁 본선, Upstage MABC 결선)", en: "Author of a NeurIPS 2026 TAE workshop poster (AX Talent War finals, Upstage MABC finals)" }, confirmed: true },
-      { name: { ko: "이민재 님", en: "Lee Min-jae" }, org: { ko: "BIGPIE C&T", en: "BIGPIE C&T" }, role: { ko: "K-뷰티 해외영업 팀장", en: "K-beauty overseas sales team lead" }, confirmed: true },
-      // 2026-11-06 (사용자: "다 켜줘 그리고 유재민도 넣어줘"): 확인 대기 셋도 켜고, 유재민 님을 더함. 표기는 LinkedIn(소속 Kia Worldwide, Bloom 가드너)에서 온 임시값.
-      { name: { ko: "유재민 님", en: "You Jae-min" }, org: { ko: "Kia, Bloom", en: "Kia, Bloom" }, role: { ko: "Bloom Gardener", en: "Bloom Gardener" }, confirmed: true },
-    ] as { name: Phrase; org: Phrase; role: Phrase; confirmed: boolean }[],
+      { name: { ko: "허수진 님", en: "Heo Su-jin" }, org: { ko: "C&R Research", en: "C&R Research" }, role: { ko: "Project Leader", en: "Project Leader" },
+        bio: { ko: "한독, SK케미칼에서 15년 넘게 임상 개발", en: "15+ years in clinical development at Handok and SK Chemicals" }, confirmed: true },
+      { name: { ko: "김규리 님", en: "Kim Gyu-ri" }, org: { ko: "Aside (YC F25)", en: "Aside (YC F25)" }, role: { ko: "Chief of Staff", en: "Chief of Staff" },
+        bio: { ko: "SaaS 스타트업 스코디 공동창업, B2B GTM", en: "Co-founded SaaS startup Scordi, B2B GTM" }, confirmed: true },
+      { name: { ko: "조동현 님", en: "Cho Dong-hyun" }, org: { ko: "KAIST AI 대학원, 인클리즈랩", en: "KAIST Graduate School of AI, Inclease Lab" }, role: { ko: "박사과정, Co-founder&CTO", en: "PhD student, Co-founder & CTO" },
+        bio: { ko: "네이버클라우드 이미지 생성 모델 연구 인턴", en: "AI research intern on image generation at NAVER Cloud" }, confirmed: true },
+      { name: { ko: "최우현 님", en: "Choi Woo-hyun" }, org: { ko: "DanaMed, 수일개발", en: "DanaMed, SOOIL Development" }, role: { ko: "CEO, 의료기기 인허가", en: "CEO, medical device regulatory affairs" },
+        bio: { ko: "인슐린 펌프 인허가(EU MDR)와 AI 업무 자동화", en: "Insulin pump approval (EU MDR) and AI workflow automation" }, confirmed: true },
+      { name: { ko: "강정민 님", en: "Kang Jeong-min" }, org: { ko: "Independent AI Researcher", en: "Independent AI Researcher" }, role: { ko: "NeurIPS 2026 TAE 워크숍 포스터 저자 (AX 인재전쟁 본선, Upstage MABC 결선)", en: "Author of a NeurIPS 2026 TAE workshop poster (AX Talent War finals, Upstage MABC finals)" },
+        bio: { ko: "뉴텍의 첫 AI 프로덕션 유닛, 100% AI 뮤직비디오", en: "Built Newtech's first AI production unit, a fully AI-made music video" }, confirmed: true },
+      { name: { ko: "이민재 님", en: "Lee Min-jae" }, org: { ko: "BIGPIE C&T", en: "BIGPIE C&T" }, role: { ko: "해외영업 총괄", en: "Head of Overseas Sales" },
+        bio: { ko: "K-뷰티 수출, LG전자 미얀마 마케팅 매니저", en: "K-beauty exports, formerly marketing manager at LG Electronics Myanmar" }, confirmed: true },
+      { name: { ko: "유재민 님", en: "You Jae-min" }, org: { ko: "Kia, Bloom", en: "Kia, Bloom" }, role: { ko: "마케팅 커뮤니케이션 매니저, Bloom Gardener", en: "Marketing Communications Manager, Bloom Gardener" },
+        bio: { ko: "EV9 출시 스타벅스 공동 브랜딩", en: "Led the Starbucks co-branding for the EV9 launch" }, confirmed: true },
+      { name: { ko: "강상우 님", en: "Kang Sang-woo" }, org: { ko: "Scopely (Pokémon GO)", en: "Scopely (Pokémon GO)" }, role: { ko: "APAC Regional Game Designer", en: "APAC Regional Game Designer" },
+        bio: { ko: "Niantic, 네이버제트(ZEPETO)에서 게임 디자인", en: "Game design at Niantic and NAVER Z (ZEPETO)" }, confirmed: true },
+    ] as { name: Phrase; org: Phrase; role: Phrase; bio?: Phrase; confirmed: boolean }[],
     // DECIDED 2026-10-17 (사용자, 스크린숏: "1일차랑 2&3일차 length of mission 차이가 너무 남"): Day 1 띠도 펼쳐집니다.
     // 미션이라고 부르지 않습니다(정본 "미션은 Day 2부터"는 그대로, 같은 날 사용자 결정). 넣는 것은 같은 날 정한 사실 둘뿐입니다:
     // 그 1장을 Day 2에 멘토에게 들고 가고, Day 1에 PDF로 올립니다(시간표 페이지의 Day 1 칸).
