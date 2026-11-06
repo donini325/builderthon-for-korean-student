@@ -28,7 +28,6 @@ import OpenChatLink from "@/components/ui/OpenChatLink";
 // 다시 넣었습니다. 멘토 / 연사와 피드백 패널 둘만.
 // (2026-09-19: RecordTabs·PressRows·Funnel은 화면에서 내려가 import도 뺐습니다. 파일은 그대로.)
 import { TITLE, SUBTITLE, BODY, META, H2, ROW_HEADING } from "@/components/ui/typography";
-import SeoulCampuses from "@/components/home/SeoulCampuses";
 import HeroPartnerStrip, { decemberStripTiers } from "@/components/shared/HeroPartnerStrip";
 import {
   READ, WIDE, HERO_BUTTON_GROUND,
@@ -500,36 +499,6 @@ function partnerLogo(l: { name: string; src: string; w: number; h: number; url?:
   );
 }
 
-/**
- * 함께하는 곳의 로고 띠(메인 후원을 뺀 줄들). DECIDED 2026-10-26 (사용자: "함께한 곳 로고 ticker slide효과", 이어서 "티커는 절제를 원했지 모두 삭제를
- * 지시하진 않았어", "pc에서 스폰서 로고 하나만 아래로 내려가서 불편"): 같은 날 정지 격자(4열에 다섯 개라 하나가 아래 줄로 떨어짐)로 바꾼 것을 되돌립니다.
- * 한 줄 띠, 90초 한 바퀴(globals.css .marquee-left), 호버해도 멈추지 않음(같은 날 사용자). 2026-11-05부터 모션 줄이기에서도 멈추지 않음(globals.css). 칸 이름은 로고 아래 캡션.
- * 네 벌을 이어 반(두 벌)만큼 흘러 이음매가 없습니다. 처음 한 벌만 링크와 읽기 대상이고 나머지는 aria-hidden입니다.
- */
-function PartnerTicker({ t }: { t: (p: Phrase) => string }) {
-  const items = decemberPartners.groups.filter((group) => !group.lead).flatMap((group) => group.logos.map((logo) => ({ logo, role: t(group.label) })));
-  const track = [...items, ...items, ...items, ...items];
-  return (
-    // DECIDED 2026-10-26 (사용자: "pc에선 티커 로고가 더 넓게 보여도 돼"): lg부터 띠가 글 기둥 밖 챕터 여백까지(64px, 2xl 144px) 넓어지고 로고와 칸이 한 단 커집니다.
-    <div className="group relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)] lg:-mx-16 lg:w-[calc(100%+8rem)] 2xl:-mx-32 2xl:w-[calc(100%+16rem)]">
-      <ul role="list" className="marquee-track marquee-left">
-        {track.map(({ logo, role }, i) => {
-          const dup = i >= items.length;
-          const img = <Image src={logo.src} alt={dup ? "" : logo.name} width={logo.w} height={logo.h} unoptimized className={`block w-auto ${partnerLogoHeight(logo)} lg:origin-center lg:scale-125`} />;
-          return (
-            <li key={i} aria-hidden={dup || undefined} className="flex shrink-0 flex-col items-center gap-3 px-[32px] py-[12px] sm:px-[48px] lg:gap-4 lg:px-[72px] lg:py-[20px]">
-              <span className="flex h-14 items-center lg:h-20">
-                {logo.url && !dup ? <a href={logo.url} target="_blank" rel="noopener noreferrer" aria-label={logo.name} className="inline-flex min-h-[44px] items-center">{img}</a> : img}
-              </span>
-              <span className={`${META} whitespace-nowrap text-caption`}>{role}</span>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-}
-
 export default function NaruHome() {
   const { t, locale } = useLocale();
   // 크로싱 서울 등록 상태(2026-09-18). 프로바이더가 없거나 창이 닫혀 있으면 "not_open"이고
@@ -865,8 +834,29 @@ export default function NaruHome() {
         {/* DECIDED 2026-11-06 (사용자, 스크린숏 둘: "함께해주시는 회사들이 8월 처럼 맨위로 와야하는거 같음"): 히어로 아래에 8월 히어로의 로고 띠를 되살립니다.
             2026-11-04 9de532d에 넣었다가 같은 날 종이 목업(515f955)에서 숫자 띠로 바뀌었고, 숫자 띠는 11-05에 빠져 자리가 비어 있었습니다.
             로고와 분류 이름은 아래 #partners(함께하는 곳)와 같은 decemberPartners. 캡션은 META(글자 크기 넷). 근거: brand 5장 "무대가 진짜라는 사실로 부른다". */}
-        <div className="w-full px-6 sm:px-10 lg:px-10 xl:px-16">
-          <HeroPartnerStrip t={t} tiers={decemberStripTiers} label={decemberPartners.heading} sizeClass={META} scrim={false} className="mx-auto mt-14 max-w-[1200px] xl:mt-16" />
+        {/* 같은 날 뒤(사용자, 스크린숏: "주최 나루라는것도 아래에", 아래 함께하는 곳 장은 "없애도 되는거 같음"): 이 띠가 #partners이고, 맨 아래 줄이
+            주최 나루(#naru, 옛 /#naru 링크와 목차가 내려앉는 자리). 그 장의 원래 색 로고와 대학 휘장은 걷었습니다(그 전 코드는 git 7b4d4a7). */}
+        <div id="partners" className="w-full scroll-mt-[calc(var(--site-header-height,96px)+16px)] px-6 sm:px-10 lg:px-10 xl:px-16">
+          <HeroPartnerStrip t={t} tiers={decemberStripTiers} label={decemberPartners.heading} sizeClass={META} scrim={false} className="mx-auto mt-14 max-w-[1150px] xl:mt-16" />
+          <div id="naru" className="mx-auto mt-5 flex max-w-[1150px] flex-wrap items-center justify-center gap-x-5 gap-y-2 py-1.5">
+            <span className={`${META} font-bold text-accent`}>{t(naru.teaser.eyebrow)}</span>
+            <Image
+              src={locale === "en" ? "/naru/naru-name-en-paper.svg" : "/naru/naru-name-paper.png"}
+              alt={t({ ko: "나루", en: "NARU" })}
+              width={604}
+              height={168}
+              unoptimized={locale === "en"}
+              className="block h-7 w-auto sm:h-8"
+            />
+            <Link
+              href={naru.teaser.cta.href}
+              onClick={() => track("naru_cta", { src: "hero-strip", to: "naru-page" })}
+              className={`tap-44 group inline-flex items-center gap-1.5 ${META} font-semibold text-accent transition-colors hover:text-white`}
+            >
+              {t(naru.teaser.cta.label)}
+              <span aria-hidden className={ARROW_CLASS}>→</span>
+            </Link>
+          </div>
         </div>
         {/* DECIDED 2026-11-05 (사용자, 스크린숏: "이거는 빼도 될 거 같음"): 히어로 아래 숫자 넷 띠(닷새, 74명, 21팀, 14명)를 뺍니다.
             같은 날 앞서 목업대로 넣었던 것입니다. 데이터 키 eventHero.facts는 남겨 둡니다. */}
@@ -1151,80 +1141,6 @@ export default function NaruHome() {
         </PlateSegment>
       </Chapter>
 
-      {/* ── 함께하는 곳 (DECIDED 2026-10-21, 사용자: 후원 현황 스크린숏과 "이렇게 로고 반영해줘") ──────────────
-          현황표의 네 줄(메인 후원, 장소, 기술과 크레딧, 커뮤니티와 홍보)을 그대로 옮겼습니다. 이벤트가 먼저, 나루는 그 뒤라
-          나루 티저 바로 앞입니다(brand 3장 원칙 2). 분류, 로고 줄, 한 줄 설명을 모든 폭에서 가운데로 쌓습니다
-          (같은 날 사용자: "put the logo at the center". 그 전은 lg에서 왼쪽 분류, 오른쪽 로고).
-          로고는 원래 색이고(data/naru.ts decemberPartners) 비율로 높이를 맞춥니다. 링크가 확실한 곳만 새 탭 링크입니다. */}
-      {/* 2026-10-26: 위아래 여백은 Chapter contentSized와 같은 값입니다(위 #december 주석). 휘장이 fixed라 Chapter의 isolate 안에 넣지 않고 section 그대로 둡니다. */}
-      <section id="partners" aria-labelledby="partners-title" className="naru-content-chapter relative w-full px-6 py-14 sm:px-12 sm:py-20 lg:px-16 lg:py-24">
-        {/* DECIDED 2026-10-22 (사용자): 서울 안에서 빛이 비추면 대학교 휘장이 보입니다(학회 로고는 쓰지 않음). 표보다 먼저 두어 표 아래에 깔립니다. */}
-        <SeoulCampuses />
-        <div className={WIDE}>
-          <h2 id="partners-title" className={`${H2} max-sm:text-[28px] text-center`}>{t(decemberPartners.heading)}</h2>
-          {/* DECIDED 2026-10-24 (밀도 브리프 1.4, D3): lg에서 다섯 줄을 줄였습니다. 1줄 = 메인 후원(AXMOS + 코어 5개사, 전과 같음), 2줄 = 장소 / 기술, 크레딧 /
-              커뮤니티, 홍보 세 묶음이 한 줄(묶음마다 META 라벨 위, 로고 아래, 사이 세로 선). 섹션 위아래 108/126px → 72px. 로고와 글은 그대로. 폰은 그대로.
-              같은 날 뒤(사용자, 스크린숏: "주최는 따로 빼주면 좋겠음"): 브리프 D3의 네 묶음에서 주최를 빼 셋째 줄에 따로 둡니다(전처럼 라벨, 로고, 링크 한 줄). */}
-          {/* DECIDED 2026-10-24 (폰 밀도 브리프 1.1~1.7, 사용자: "폰도 이렇게 깔끔하면 좋겠다"): 폰(sm 미만)만 묶음 패딩 32 → 20, 로고 사이 45 → 24(코어 상자는 28),
-              주최는 sm처럼 한 줄. 전부 max-sm: 추가이고 sm 이상은 그대로. 로고와 글은 그대로. */}
-          <ul className="mt-[45px] max-sm:mt-[32px] border-t border-white/10 lg:mt-[48px] lg:grid lg:grid-cols-3">
-            {decemberPartners.groups.map((g, gi) => g.lead && (
-              <li key={g.label.en} className={`flex flex-col items-center gap-5 border-b border-white/10 py-[40px] text-center max-sm:gap-4 max-sm:py-[32px] ${g.lead ? "lg:col-span-3 lg:py-[64px]" : `lg:px-[16px] lg:py-[32px] ${gi > 1 ? "lg:border-l lg:border-white/10" : ""}`}`}>
-                {/* DECIDED 2026-10-21 (사용자: "그냥 로고만 보여줘"): 설명 줄은 없앴습니다.
-                    같은 날 (사용자, 스크린숏: "role 도 각 row 마다 넣어줘"): 분류 이름을 다시 보이게. 주최 줄과 같은 META, 로고 위 가운데.
-                    같은 날 (사용자: "글자가 더 잘보이게"): white/50 → white/85, 굵게. 크기는 META 그대로. */}
-                <p className={`${META} font-semibold text-white/85`}>{t(g.label)}</p>
-                {g.lead ? (
-                  // DECIDED 2026-10-22 (사용자: "AXMOS라는 컨소시엄 안에 이 5개의 회사가 있다는 느낌을 더 보여줘"): AXMOS가 위, 짧은 선으로
-                  // 이어진 테두리 안에 코어 5개사. 테두리는 선만이고 바탕을 칠하지 않습니다(어두운 바탕에 밝은 판 금지).
-                  <div className="flex flex-col items-center">
-                    {partnerLogo(g.lead, "h-8 sm:h-10")}
-                    <p className={`mt-3 ${META} text-caption`}>{t(g.lead.note)}</p>
-                    <span aria-hidden className="h-6 w-px bg-white/25 max-sm:h-4" />
-                    <div className="flex flex-wrap items-center justify-center gap-x-[45px] gap-y-[22.5px] lg:gap-x-[48px] rounded-2xl card-sunken px-4 py-4 max-sm:gap-x-[28px] max-sm:gap-y-[16px] sm:px-6 sm:py-5">
-                      {g.logos.map((l) => partnerLogo(l))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-wrap items-center justify-center gap-x-[45px] gap-y-[22.5px] max-sm:gap-x-[24px] max-sm:gap-y-[16px] lg:gap-x-[24px] lg:gap-y-[16px]">
-                    {g.logos.map((l) => partnerLogo(l))}
-                  </div>
-                )}
-                {/* 2026-10-24 (사용자: "1일차에 lovable 현장 워크샵 진행"): 줄에 note가 있으면 로고 아래 한 줄. lead의 note와 같은 META, 같은 색. */}
-                {g.note && <p className={`${META} text-caption`}>{t(g.note)}</p>}
-              </li>
-            ))}
-            {/* 2026-10-26: 메인 후원 아래 나머지 줄은 로고 띠 하나. 줄의 한 줄 설명(note, Lovable 워크숍)은 띠 아래에 그대로. */}
-            {/* 2026-10-26 (사용자: "로고쪽 상하간격 더 줘"): 메인 후원 줄 위아래 lg 48 → 64px, 띠 줄 32 → 56px, 띠 안 로고 칸 위아래 12/20px. */}
-            <li className="flex flex-col items-center gap-5 border-b border-white/10 py-[40px] text-center max-sm:py-[32px] lg:col-span-3 lg:py-[56px]">
-              <PartnerTicker t={t} />
-              {decemberPartners.groups.map((g) => g.note && <p key={g.label.en} className={`${META} text-caption`}>{t(g.note)}</p>)}
-            </li>
-            {/* DECIDED 2026-10-21 (사용자, 스크린숏: "따로 아래에 주최 박스를 넣지 말고, 나루 로고를 주최에 넣어줘 at the table, 로고 옆에 learn more"):
-                아래에 있던 나루 티저 상자를 없애고 이 표의 마지막 줄로. 이벤트가 먼저, 나루는 그 안에서 드러납니다(brand 3장 원칙 2, 6장 나루 = 주최).
-                id="naru"는 옛 링크 /#naru와 목차 칩이 여기에 내려앉게 이 줄로 옮겼습니다. */}
-            <li id="naru" className="flex flex-col items-center gap-4 border-b border-white/10 py-[32px] text-center max-sm:flex-row max-sm:flex-wrap max-sm:justify-center max-sm:gap-x-[20px] max-sm:gap-y-[12px] max-sm:py-[20px] sm:flex-row sm:justify-center sm:gap-8 lg:col-span-3">
-              <p className={`${META} font-semibold text-white/85`}>{t(naru.teaser.eyebrow)}</p>
-              <Image
-                src={locale === "en" ? "/naru/naru-name-en-paper.svg" : "/naru/naru-name-paper.png"}
-                alt={t({ ko: "나루", en: "NARU" })}
-                width={604}
-                height={168}
-                unoptimized={locale === "en"}
-                className="block h-8 w-auto sm:h-9"
-              />
-              <Link
-                href={naru.teaser.cta.href}
-                onClick={() => track("naru_cta", { src: "partners", to: "naru-page" })}
-                className={`tap-44 group inline-flex items-center gap-1.5 ${BODY} font-semibold text-accent transition-colors hover:text-white`}
-              >
-                {t(naru.teaser.cta.label)}
-                <span aria-hidden className={ARROW_CLASS}>→</span>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </section>
 
       {/* DECIDED 2026-11-05 (사이트 점검, UX 치명: 끝까지 읽은 학생이 누를 등록이 없음): 페이지 끝에 히어로와 같은 버튼 줄과 안내 한 줄.
           닷새 장 아래의 큰 등록 블록(같은 날 사용자가 뺌)은 되살리지 않고, 맨 끝 한 줄만 둡니다. */}

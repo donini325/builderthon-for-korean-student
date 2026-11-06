@@ -138,10 +138,10 @@ const LEAD_BOX: StripBox = { h: 30, maxW: 160, mH: 24, mMaxW: 128 };
 const LEAD_HEAD_BOX: StripBox = { h: 38, maxW: 200, mH: 28, mMaxW: 150 };
 const SPONSOR_BOX: StripBox = { h: 23, maxW: 122, mH: 18, mMaxW: 98 };
 // DECIDED 2026-11-06 (사용자, 12월 히어로 로고 띠 스크린숏: "좀 더 큼직큼직할 수는 없는건가?"): 12월 띠만 한 단 크게.
-// 8월(위 세 상자)은 그대로입니다. 데스크톱 약 1.4배, 폰 약 1.15배(폰은 폭이 좁아 줄이 늘지 않을 만큼만).
-const DEC_HEAD_BOX: StripBox = { h: 54, maxW: 280, mH: 32, mMaxW: 170 };
-const DEC_LEAD_BOX: StripBox = { h: 42, maxW: 220, mH: 27, mMaxW: 145 };
-const DEC_SPONSOR_BOX: StripBox = { h: 32, maxW: 170, mH: 21, mMaxW: 112 };
+// 8월(위 세 상자)은 그대로입니다. 같은 날 뒤(사용자: "또 이건 너무 큰거 같음"): 1.4배에서 그 사이로, 데스크톱 약 1.2배, 폰 약 1.1배.
+const DEC_HEAD_BOX: StripBox = { h: 46, maxW: 240, mH: 31, mMaxW: 165 };
+const DEC_LEAD_BOX: StripBox = { h: 36, maxW: 190, mH: 26, mMaxW: 140 };
+const DEC_SPONSOR_BOX: StripBox = { h: 27, maxW: 145, mH: 20, mMaxW: 108 };
 
 // Rendered height for one mark inside one tier box, at one breakpoint.
 function stripHeight(spec: StripLogoSpec, base: number, maxW: number) {

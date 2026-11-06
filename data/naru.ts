@@ -353,6 +353,8 @@ export const naruNav: { id: string; label: Phrase; railLines?: Phrase; ariaLabel
   // DECIDED 2026-10-25 (사용자: "flow와 맞게 TOC를 쭉 수정, 특히 12월"): 실측 순서(화면 1.1 닷새, 3.0 큐레이션, 3.7 이슈, 4.1 등록,
   // 4.6 남는 것, 6.1 함께하는 곳)대로 여섯. "일정"(#schedule, 1.4)은 "프로그램"(#december, 1.1)과 0.3화면 차이라 하나로 합쳤고(#schedule id는 둠),
   // 칸이 없던 "과정 지향적인 이벤트를 큐레이션합니다"(#curation)와 "함께하는 곳"(#partners)을 더했습니다.
+  // DECIDED 2026-11-06 (사용자: 함께하는 곳을 맨 위로, 아래 장은 없앰): #partners는 히어로 아래 로고 띠라 화면 순서대로 맨 앞.
+  { id: "partners", label: { ko: "함께하는 곳", en: "Partners" } },
   { id: "december", label: { ko: "프로그램", en: "Programme" } },
   // DECIDED 2026-11-04 (사용자, site-tells 목업): "진행 방식"(#curation)과 "이슈"(#mentoring)를 뺐습니다. 닷새 장이 한 판으로 줄었습니다.
   // #mentoring id는 닷새 장의 미션 한 문장에 남아 밖의 링크가 같은 장에 착지합니다.
@@ -360,7 +362,6 @@ export const naruNav: { id: string; label: Phrase; railLines?: Phrase; ariaLabel
   // DECIDED 2026-10-22 (UX 점검, 사용자: "모든 것을 반영"): 영문 "Gains"는 "What you leave with"의 라벨로 어색했습니다. ariaLabel은 뺐습니다.
   // 보이는 글자("남는 것")와 읽히는 이름("오면 무엇이 남는가")이 달라 Lighthouse label-content-name-mismatch에 걸렸습니다.
   { id: "gains", label: { ko: "남는 것", en: "Takeaways" } },
-  { id: "partners", label: { ko: "함께하는 곳", en: "Partners" } },
   // DECIDED 2026-11-05 (사용자: "TOC를 다시 for 12월 page"): 페이지 순서대로 넷. 등록은 맨 끝 등록 줄(id="register")로 갑니다.
   { id: "register", label: { ko: "등록", en: "Register" } },
 ];
