@@ -2234,6 +2234,7 @@ export const naru = {
     dayFlowLabel: { ko: "하루의 흐름", en: "How the day runs" },
     dayFlowClose: { ko: "닫기", en: "Close" },
     // DECIDED 2026-11-05 (docs/mentors-section-brief.md, 사용자): /crossing 닷새 장 아래 "멘토" 블록. 사진과 링크 없이 글 세 줄(D4).
+    // DECIDED 2026-11-07 (사용자: "얼굴은 넣지 말자"): LinkedIn 사진을 넣었다가 같은 날 되돌림. 얼굴 사진은 두지 않습니다(그 코드는 git c4b6d9e).
     // 여섯을 다 적고 confirmed가 true인 사람만 그립니다(D2). 확인 대기 셋의 표기는 LinkedIn 헤드라인에서 온 임시값이라, 답이 오면 고치고 true로.
     // 본인이 보낸 표기는 그대로 씁니다. M5의 가운뎃점은 쉼표로(D6). "인재전쟁"은 대회 이름. 브리프에서 뺐던 두 분은 2026-11-06에 사용자가 다시 넣음(한 분은 하는 일로만).
     // 순서는 Day 2 멘토부터(DB crossing_mentors sort). 영문 이름은 8월 표기(성 먼저, 하이픈)로 옮긴 것이라 본인 확인 전입니다.
