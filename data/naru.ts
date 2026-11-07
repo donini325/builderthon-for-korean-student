@@ -2783,8 +2783,9 @@ export const naru = {
           // DECIDED 2026-11-06 (docs/think-different-brief.md T5, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 문장 +1.
           // 2026-11-06 (사용자, 스크린숏: "줄길이 같게"): Day 2, 3과 같은 넷째 줄까지. "그 일의 흐름에서"와 "골라"를 뺌.
           // DECIDED 2026-11-06 (docs/write-first-brief.md W4): 문장 수 그대로, 팀이 먼저 한 장으로 씀. 그 전 문장은 git c1ca39b.
-          ko: "같은 이슈를 받아도 팀마다 고르는 병목이 다릅니다. 누가 어느 단계에서 무엇에 막히는지 생각해 병목 하나를 문제로 정하고, 팀이 먼저 한 장으로 씁니다.",
-          en: "Same issue, different bottlenecks. Work out who gets stuck where on what, make one the problem, and write the page yourselves first.",
+          // 2026-11-07 (사용자, 스크린숏: "day 1 문장 길이를 day 2 and 3 와 동일하게"): W4로 다섯 줄이 되어 Day 2, 3과 같은 네 줄로(1440, 1280). 뜻은 그대로.
+          ko: "같은 이슈에서도 팀마다 병목이 다릅니다. 누가 어디서 무엇에 막히는지 생각해 하나를 고르고, 팀이 먼저 한 장으로 씁니다.",
+          en: "Same issue, different bottlenecks. Work out who gets stuck where on what, pick one, and write the page yourselves first.",
         },
         // DECIDED 2026-10-08 (현장 팀 매칭 브리프 5): "팀 매칭" 칩 자리에 /match로 가는 버튼 하나가 섭니다.
         // 12월에는 AI 유형 테스트가 신청의 일부가 아니라 Day 1 현장의 팀 매칭 도구입니다. 칩은 뺐습니다

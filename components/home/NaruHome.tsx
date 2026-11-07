@@ -671,7 +671,13 @@ export default function NaruHome() {
         )}
       </h3>
     );
-    const line = <p className={`break-keep ${BODY} leading-[1.65] text-white/85`}>{t(stage.line)}</p>;
+    // 2026-11-07 (사용자, 스크린숏: "day 4 너무 줄 나눔이 이상함"): 넓은 Day 4 칸에서 문장이 줄 끝에서 다음 문장으로 넘어가며 끊겼습니다("그 기업은 / 같은 이슈에...").
+    // Day 4는 sm부터 문장마다 새 줄에서 시작합니다. 글은 그대로.
+    const line = stage.dayOffset === 4 ? (
+      <p className={`break-keep ${BODY} leading-[1.65] text-white/85`}>
+        {t(stage.line).split(/(?<=[.?!]) /).map((x, k) => <span key={k} className="sm:block">{x}{" "}</span>)}
+      </p>
+    ) : <p className={`break-keep ${BODY} leading-[1.65] text-white/85`}>{t(stage.line)}</p>;
     const session = stage.session ? (
       <p className={`break-keep ${META} text-naru-muted`}>
         <span className="mr-1.5">{t(naru.december.sessionLabel)}</span>
