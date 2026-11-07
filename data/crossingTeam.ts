@@ -147,9 +147,10 @@ export const mentorCopy = {
     en: "Mentoring is about the sense of the work more than domain knowledge. Making something good and being able to sell it are different, and we want students to hear what makes that difference from people who have done the work.",
   },
   senseLabel: { ko: "현업의 감각이라고 할 때", en: "What we mean by the sense of the work" },
+  // 같은 날 뒤(사용자, 시각 점검 뒤 "반영해줘"): 넷이던 문장을 둘로. "도메인 지식이 아니라"는 바로 위 리드가 말하고, "충분"은 아래 머리와 겹쳐 뺍니다.
   senseBody: {
-    ko: "정답이나 전문 지식이 아니라, 일해 본 사람이면 아는 것들입니다. 누가 값을 치르고 누가 결재하는지, 이 일이 실제로 누구 책상에서 어떻게 돌아가는지, 새 도구가 들어와도 현장에서 왜 안 쓰이는지. 학생들은 AI로 무엇이든 금방 만들지만, 이 감각은 일해 봐야 생깁니다. 팀이 들고 온 1장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말씀해 주시면 충분합니다.",
-    en: "Not answers or expert knowledge, but what anyone who has done the work knows: who pays and who signs off, how the task really runs on someone's desk, why a new tool goes unused on the floor. Students can build almost anything quickly with AI, but this sense only comes from working. Telling a team, about its one page and draft, \"that is not how it works in practice\" is enough.",
+    ko: "누가 값을 치르고 결재하는지, 이 일이 실제로 누구 책상에서 어떻게 돌아가는지, 새 도구가 왜 현장에서 안 쓰이는지. 학생들은 AI로 무엇이든 금방 만들지만 이 감각은 일해 봐야 생기니, 팀이 들고 온 1장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말씀해 주세요.",
+    en: "Who pays and who signs off, how the task really runs on someone's desk, why a new tool goes unused on the floor. Students can build almost anything quickly with AI, but this sense only comes from working, so tell a team, about its one page and draft, \"that is not how it works in practice.\"",
   },
   guideCardsLabel: { ko: "이런 이야기면 충분합니다", en: "This kind of thing is enough" },
   guideCards: [
