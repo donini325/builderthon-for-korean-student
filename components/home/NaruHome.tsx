@@ -1092,14 +1092,7 @@ export default function NaruHome() {
                     const role = nb(t(m.role));
                     const cut = role.indexOf(" (");
                     return (
-                      <li key={m.name.ko} className="flex items-start gap-3.5 border-b border-white/10 py-3.5 first:pt-1 last:border-b-0 last:pb-0">
-                        {/* 2026-11-07 (사용자): 멘토 얼굴 사진. 사진이 없는 분은 같은 자리를 비운 원으로 둬 글의 왼쪽 끝을 맞춥니다. */}
-                        {m.photo ? (
-                          <Image src={m.photo} alt="" width={48} height={48} className="mt-0.5 h-12 w-12 shrink-0 rounded-full border border-white/10 object-cover" />
-                        ) : (
-                          <span aria-hidden className="mt-0.5 h-12 w-12 shrink-0 rounded-full border border-white/10 bg-white/[0.04]" />
-                        )}
-                        <div className="flex min-w-0 flex-col gap-0.5">
+                      <li key={m.name.ko} className="flex flex-col gap-0.5 border-b border-white/10 py-3.5 first:pt-1 last:border-b-0 last:pb-0">
                         <p className={`break-keep ${BODY} font-bold leading-snug text-white`}>{nb(t(m.name))}</p>
                         {t(m.org) && <p className={`break-keep ${META} leading-[1.55] text-white/80`}>
                           {nb(t(m.org))}<span aria-hidden className="mx-1.5 text-caption">/</span>
@@ -1107,7 +1100,6 @@ export default function NaruHome() {
                         </p>}
                         {/* 2026-11-06: 지난 경력 한 줄(8월 카드의 intro 자리). */}
                         {m.bio && <p className={`break-keep ${META} leading-[1.55] text-naru-muted`}>{t(m.bio)}</p>}
-                        </div>
                       </li>
                     );
                   })}
