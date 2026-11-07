@@ -214,6 +214,29 @@ export default function MentorTool() {
                 </section>
               );
             })}
+            {/* DECIDED 2026-11-07 (사용자: "비슷한 내용대로 맨토 페이지도 update, 현업의 감각이라고 했을때 나의 의도를 맨토들에게 전달"):
+                멘토링 안내 PDF 2장과 같은 말. 시간표가 먼저라 맨 아래에 둡니다. 카드는 /crossing 멘토 모달과 같은 모양. */}
+            <section aria-labelledby="mentor-guide" className="flex flex-col gap-[14px] border-t border-white/10 pt-[32px]">
+              <h2 id="mentor-guide" className={`${SUBTITLE} font-bold tracking-[-0.02em] text-white`}>{t(c.guideTitle)}</h2>
+              <p className={`break-keep ${BODY} leading-relaxed text-white/85`}>{t(c.guideLead)}</p>
+              <div className="card-raised flex flex-col gap-[6px] rounded-xl px-[18px] py-[16px]">
+                <p className={`${META} font-bold text-accent`}>{t(c.senseLabel)}</p>
+                <p className={`break-keep ${META} leading-[1.7] text-white/85`}>{t(c.senseBody)}</p>
+              </div>
+              <p className={`mt-[6px] ${META} font-bold text-white/85`}>{t(c.guideCardsLabel)}</p>
+              <ol className="grid gap-[10px] sm:grid-cols-2">
+                {c.guideCards.map((x, j) => (
+                  <li key={j} className="card-sunken flex flex-col gap-[6px] rounded-xl px-[16px] py-[14px]">
+                    <p className={`flex items-baseline gap-[8px] ${BODY} font-bold leading-snug text-white`}>
+                      <span className={`${META} font-bold tabular-nums text-accent`}>{j + 1}</span>{t(x.title)}
+                    </p>
+                    <p className={`break-keep ${META} font-semibold leading-[1.5] text-accent`}>{t(x.quote)}</p>
+                    <p className={`break-keep ${META} leading-[1.6] text-naru-muted`}>{t(x.body)}</p>
+                  </li>
+                ))}
+              </ol>
+              <p className={`break-keep ${META} leading-[1.7] text-naru-muted`}><span className="font-bold text-white/85">{t(c.noJudgeLabel)}</span>{"  "}{t(c.noJudge)}</p>
+            </section>
           </>
         )}
       </div>

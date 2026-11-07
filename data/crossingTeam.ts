@@ -138,4 +138,29 @@ export const mentorCopy = {
   briefsEmpty: { ko: "출제사와 정리한 자료가 올라오면 여기에 뜹니다.", en: "Write-ups will appear here once they are ready." },
   badLink: { ko: "링크가 맞지 않습니다. 운영진에게 다시 받아 주세요.", en: "Wrong link. Ask the organisers for a new one." },
   errGeneric: { ko: "잠시 뒤 다시 열어 주세요.", en: "Reopen in a moment." },
-} satisfies Record<string, Phrase>;
+  // DECIDED 2026-11-07 (사용자: /crossing 멘토 모달 스크린숏과 함께 "비슷한 내용대로 맨토 페이지도 update, 현업의 감각이라고 했을때 나의 의도를 맨토들에게 전달"):
+  // 멘토링 안내 PDF 2장(현업의 감각을 들려주세요)과 같은 말. 학생 쪽 모달의 넷을 멘토에게 부탁하는 말로 씁니다.
+  // "현업의 감각"의 뜻은 brand 7장(멘토는 도메인 지식이 아니라 일을 해 본 사람의 감각으로 반박)과 멘토 브리프 4장("실제로는 그렇게 안 돌아간다")에서.
+  guideTitle: { ko: "현업의 감각을 들려주세요", en: "Share your sense of the work" },
+  guideLead: {
+    ko: "멘토링은 도메인 지식보다 현업의 감각을 전하는 자리입니다. 좋은 것을 만드는 것과 팔 수 있는 것은 다르고, 그 차이를 만드는 감각을 일해 본 분께 듣고 싶습니다.",
+    en: "Mentoring is about the sense of the work more than domain knowledge. Making something good and being able to sell it are different, and we want students to hear what makes that difference from people who have done the work.",
+  },
+  senseLabel: { ko: "현업의 감각이라고 할 때", en: "What we mean by the sense of the work" },
+  senseBody: {
+    ko: "정답이나 전문 지식이 아니라, 일해 본 사람이면 아는 것들입니다. 누가 값을 치르고 누가 결재하는지, 이 일이 실제로 누구 책상에서 어떻게 돌아가는지, 새 도구가 들어와도 현장에서 왜 안 쓰이는지. 학생들은 AI로 무엇이든 금방 만들지만, 이 감각은 일해 봐야 생깁니다. 팀이 들고 온 1장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말씀해 주시면 충분합니다.",
+    en: "Not answers or expert knowledge, but what anyone who has done the work knows: who pays and who signs off, how the task really runs on someone's desk, why a new tool goes unused on the floor. Students can build almost anything quickly with AI, but this sense only comes from working. Telling a team, about its one page and draft, \"that is not how it works in practice\" is enough.",
+  },
+  guideCardsLabel: { ko: "이런 이야기면 충분합니다", en: "This kind of thing is enough" },
+  guideCards: [
+    { title: { ko: "솔직한 첫 반응", en: "An honest first reaction" }, quote: { ko: "\"나라면 안 샀을 것 같아요\"", en: "\"I don't think I would have bought it.\"" }, body: { ko: "이해가 안 된다, 안 살 것 같다는 말이 오히려 가장 도움이 됩니다.", en: "\"I don't get it\" or \"I wouldn't buy it\" helps most." } },
+    { title: { ko: "누구에게 가져가나", en: "Who they take it to" }, quote: { ko: "\"과장님께 어떻게 발표할래요?\"", en: "\"How would you present this to your manager?\"" }, body: { ko: "누구에게 먼저 말하고, 그다음 누구를 설득할지 짚어 주세요.", en: "Point out who to tell first, and who to win over next." } },
+    { title: { ko: "하나만 남기기", en: "Keep just one" }, quote: { ko: "\"하나만 풀면 되지 않을까요?\"", en: "\"Couldn't you solve just one?\"" }, body: { ko: "모든 걸 해결하려는 팀에게 막힌 곳 하나를 고르도록 도와주세요.", en: "Help a team that wants to solve everything pick the one place it is stuck." } },
+    { title: { ko: "일하며 겪은 이야기", en: "Stories from the work" }, quote: { ko: "\"제가 처음 일할 때는요\"", en: "\"When I first started working...\"" }, body: { ko: "꼭 제품 조언이 아니어도 됩니다. 커리어 이야기도 큰 도움이 됩니다.", en: "It need not be product advice. Career stories help a lot too." } },
+  ] as { title: Phrase; quote: Phrase; body: Phrase }[],
+  noJudgeLabel: { ko: "판단하지 않는 자리", en: "No judging" },
+  noJudge: {
+    ko: "반박은 솔직하게 해 주시되, 점수는 매기지 않습니다. 8월 학생들이 끝까지 남은 건 판단받지 않고 자기 이야기를 할 수 있어서였습니다.",
+    en: "Push back honestly, but no scores. In August, students stayed to the end because they could tell their own story without being judged.",
+  },
+};
