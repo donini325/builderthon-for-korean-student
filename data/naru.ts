@@ -2829,14 +2829,12 @@ export const naru = {
             ko: "사이트 넷을 띄운 Carraway & Gatsby가 진행합니다.",
             en: "Run by Carraway & Gatsby, who launched four sites with it.",
           },
-          // DECIDED 2026-11-09 (사용자, 스크린숏: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명.
+          // DECIDED 2026-11-09 (사용자, 스크린숏: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명. 같은 날 "너무 긴 거 같아"로 두 줄씩.
           // 근거는 운영 미팅 기록(워크숍 진행자와의 10/29, 11/05 미팅, 10/21~11/04 주간 회의). 시각은 아직 쓰지 않습니다(day-flow 결정).
           // 진행자가 말한 쓰임(생각을 짧은 시간에 화면으로, 멘토에게 보여 줄 시안)과 순서(목적부터 정하고 AI에게 되물어 맥락을 쌓은 뒤 화면으로), 워크숍 뒤 현장에 남는 것(11/05 합의).
           detail: [
-            { ko: "Lovable로 사이트 넷을 띄워 운영하는 Carraway & Gatsby가 현장에서 진행합니다.", en: "Run on site by Carraway & Gatsby, who launched and run four sites with Lovable." },
-            { ko: "Lovable은 생각을 짧은 시간에 화면으로 띄우는 데 강합니다. 멘토를 찾아갈 때 1장과 함께 보여 줄 시안을 만드는 데 씁니다.", en: "Lovable is good at getting an idea onto a screen fast. You use it for a draft to show mentors alongside your one page." },
-            { ko: "바로 만들지 않습니다. 기업이 이 일로 무엇을 풀고 싶은지부터 정하고, AI에게 되물어 맥락을 쌓은 뒤 화면으로 옮기는 순서를 직접 보여 줍니다.", en: "It does not start with building. It shows the order: first what the company wants solved, then questioning the AI to build up context, then the screen." },
-            { ko: "워크숍 뒤에도 현장에 남아 팀들의 질문을 받을 예정입니다.", en: "The host plans to stay on afterwards to take questions from teams." },
+            { ko: "Lovable로 사이트 넷을 운영하는 Carraway & Gatsby가 진행합니다.", en: "Run by Carraway & Gatsby, who run four sites built with Lovable." },
+            { ko: "생각을 화면으로 빨리 띄워, 멘토에게 1장과 함께 보여 줄 시안을 만드는 법을 배웁니다.", en: "Learn to get an idea onto a screen fast, as a draft to show mentors with your one page." },
           ],
         },
         // DECIDED 2026-10-10 (사용자, 마일스톤 브리프 2.1): 보상은 마지막 날 한 팀이 아니라, 그날의 마일스톤을 넘은 팀 모두에게.
@@ -2897,14 +2895,12 @@ export const naru = {
             ko: "현업 PO가 무엇을 왜 만들기로 했는지 풀어 줍니다.",
             en: "A working PO walks through what they chose to build and why.",
           },
-          // DECIDED 2026-11-09 (사용자, 스크린숏: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명.
+          // DECIDED 2026-11-09 (사용자, 스크린숏: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명. 같은 날 "너무 긴 거 같아"로 두 줄씩.
           // 근거는 운영 미팅 기록(워크숍 진행자와의 10/29, 11/05 미팅, 10/21~11/04 주간 회의). 시각은 아직 쓰지 않습니다(day-flow 결정).
           // 주간 회의(10/21: PO 셋이 차례로 멈춘 지점, 그 뒤 대담, 10/28과 11/04: 주제는 덜어내기, PO session과 멘토는 다른 일).
           detail: [
-            { ko: "현업 PO 세 명이 한 사람씩 나와, 무엇을 왜 만들기로 했는지와 어디서 멈췄는지를 자기 제품의 이야기로 들려줍니다.", en: "Three working POs take turns telling, through their own product, what they chose to build, why, and where they stopped." },
-            { ko: "주제는 덜어내기입니다. 하고 싶은 것 여럿 가운데 무엇을 빼고 하나를 남겼는지가 가운데에 있습니다.", en: "The theme is taking things out: of everything they wanted, what they cut and the one thing they kept." },
-            { ko: "마지막에는 셋이 함께 대담하고 질문을 받습니다.", en: "It ends with the three in conversation, taking questions." },
-            { ko: "멘토가 일을 해 본 사람의 감각으로 반박한다면, PO session은 무엇을 만들지 고르는 법을 보여 줍니다.", en: "Mentors push back with a feel for the work; the PO session shows how to choose what to build." },
+            { ko: "현업 PO 세 명이 무엇을 왜 만들기로 했고 어디서 멈췄는지 들려줍니다.", en: "Three working POs tell what they chose to build, why, and where they stopped." },
+            { ko: "주제는 덜어내기, 하나를 남기려고 무엇을 뺐는지입니다. 끝에 셋이 대담합니다.", en: "The theme is cutting: what they dropped to keep one thing. It ends with a conversation." },
           ],
         },
         // DECIDED 2026-10-13 (사용자, 멘토링 브리프 2, D4): 미션은 Day 2부터이고, 무엇을 냈는가보다 함께 있었는가를 봅니다.
@@ -2996,13 +2992,12 @@ export const naru = {
             ko: "막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 갑니다.",
             en: "Ask other teams where you are stuck and borrow each other's thinking.",
           },
-          // DECIDED 2026-11-09 (사용자, 스크린숏: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명.
+          // DECIDED 2026-11-09 (사용자, 스크린숏: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명. 같은 날 "너무 긴 거 같아"로 두 줄씩.
           // 근거는 운영 미팅 기록(워크숍 진행자와의 10/29, 11/05 미팅, 10/21~11/04 주간 회의). 시각은 아직 쓰지 않습니다(day-flow 결정).
           // 운영 미팅 기록에 Open tables의 세부는 없어, 사이트와 brand에 있는 뜻(8월에 팀과 팀이 섞이지 않았던 것, Day 3 미션 조건)만 씁니다.
           detail: [
-            { ko: "만드는 날, 팀과 팀이 한자리에 모입니다.", en: "On the building day, teams come together in one room." },
-            { ko: "팀마다 지금 어디까지 왔는지 나누고, 막힌 지점을 다른 팀에 물어 서로의 생각을 빌려 갑니다.", en: "Each team shares where it is, asks others where it is stuck, and borrows their thinking." },
-            { ko: "8월에는 팀 안에서는 붙었지만 팀과 팀은 섞이지 않았습니다. 그 자리를 메우는 시간입니다.", en: "In August teams stuck together inside but never mixed. This is the time that fills that gap." },
+            { ko: "만드는 날, 팀과 팀이 한자리에 모여 어디까지 왔는지 나눕니다.", en: "On the building day, teams meet in one room and share where they are." },
+            { ko: "막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 갑니다.", en: "Ask other teams where you are stuck and borrow their thinking." },
           ],
         },
         submit: { ko: "덱을 포함한 사전 제출물", en: "The deck and what goes with it" },
