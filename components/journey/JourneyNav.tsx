@@ -89,7 +89,7 @@ export type NavAnchor = {
 // 페이지에서 내려갔습니다(Journey.tsx의 같은 날짜 주석). 앵커 id는 섹션 id와
 // 반드시 짝이라, 섹션 없이 남으면 링크는 아무 데도 가지 않고 현위치 표시가
 // 영영 켜지지 않습니다. 라벨 키는 dict.wrap.navLabel에 그대로 있습니다.
-const DEFAULT_ANCHORS: NavAnchor[] = [
+export const DEFAULT_ANCHORS: NavAnchor[] = [
   // 2026-10-13: 앞의 네 챕터(결과, 취지, 참가, 혜택). id는 Journey.tsx의 섹션 id와 같습니다.
   // 2026-10-25: #results 판을 내려 "결과" 탭도 뺐습니다.
   { id: "about",     label: dict.nav.about },
@@ -118,7 +118,7 @@ const DEFAULT_ANCHORS: NavAnchor[] = [
 // active chip a half screen after you have visibly arrived. -45% at the bottom
 // keeps exactly one section qualifying at a time on tall screens.
 // ─────────────────────────────────────────────────────────────────────────────
-function useActiveSection(enabled: boolean, anchors: NavAnchor[]) {
+export function useActiveSection(enabled: boolean, anchors: NavAnchor[]) {
   const [active, setActive] = useState<string | null>(null);
   useEffect(() => {
     // 2026-10-13 (폰 점검): 맨 위로 돌아오면 현위치를 비웁니다. 그 전에는 마지막 챕터의 칩이 맨 위에서도 켜져 있었습니다.
