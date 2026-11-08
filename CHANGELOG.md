@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-08 크로싱 서울, 나루 홈 새 화면](#2026-11-08-redesign)
 - [2026-11-08 시간표 오전 먼저, 멘토 소개 한 줄](#2026-11-08-timetable-order)
 - [2026-11-08 멘토 두 분의 날 바꿈](#2026-11-08-mentor-day-swap)
 - [2026-11-07 멘토 페이지에 현업의 감각](#2026-11-07-mentor-guide)
@@ -519,6 +520,14 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-08-redesign"></a>
+## 2026-11-08 크로싱 서울, 나루 홈 새 화면
+- 범위: components/shared/redesign.tsx(글자 다섯 단, 버튼, Lines), components/shared/SiteHeader.tsx(세 페이지 공용 상단 메뉴), components/crossing/redesign/(CrossingSeoul, copy), components/naru/redesign/(NaruHome, copy), app/page.tsx, app/crossing/page.tsx, app/2026-08/page.tsx(상단 메뉴만), components/journey/Journey.tsx(작은 라벨 15~17px), components/journey/JourneyNav.tsx(export 두 개)
+- 한 것: 사용자 요청. 종이 바탕, 한 화면 글자 크기 넷까지, 본문과 같은 왼쪽 선. 데스크톱(1120px)에서 문장 단위로 줄을 나누고 폰에서는 이어서 흐름. 크로싱 서울은 노선도를 빼고 일정표 왼쪽 Day 칸을 크게(데스크톱에서 따라 내려옴), 스폰서를 주최(나루), 메인 후원(AXMOS와 코어 5개사), 후원(맡은 일 한 줄) 셋으로. 남는 것의 점 그래픽은 Day 글자 길이와 상관없이 같은 세로선. 나루 홈은 같은 체계로 새로 짬. 한국어 문구는 이 화면들에서 해요체로, 문장 끝을 섞음(영어는 data/naru.ts 원문). 예전 화면(components/naru/NaruPage.tsx, components/home/NaruHome.tsx)은 되돌릴 수 있게 그대로 둠.
+- 남은 것: 8월 기록 본문은 아직 예전 디자인(상단 메뉴만 새것).
+- 검증: tsc 통과, 로컬 /, /crossing, /2026-08 200. 바뀐 한국어 줄은 Pretendard 글리프 폭으로 재서 데스크톱 칸 안에 한 줄.
+- 커밋: redesign 커밋 하나
 
 <a id="2026-11-08-timetable-order"></a>
 ## 2026-11-08 시간표 오전 먼저, 멘토 소개 한 줄
