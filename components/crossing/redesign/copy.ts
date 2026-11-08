@@ -16,7 +16,8 @@ const stage = (n: number) => d.stages.find((s) => s.dayOffset === n)!;
 export const copy = {
   catchAnswer: ko("먼저 생각하고, 현업에 물어보고,\n팀마다 다른 걸 만들어 서로 보여 줘요.", h.catchAnswer),
   sub: ko("만드는 건 이제 AI 몫이에요.\n그래서 이번 닷새는 거의 다, 무엇을 왜 만들지 정하는 데 쓸 거예요.\n정한 게 맞았는지는 직접 만든 결과물이 증명하죠.", h.sub),
-  naruLine: ko("학생들이 직접 꾸리는 그룹, 나루가 엽니다.", h.naruLine),
+  // DECIDED 2026-11-09 (docs/brand-voice-brief.md D3): 새 화면에 남은 합니다체 한 줄을 해요체로. 그 전 "나루가 엽니다."
+  naruLine: ko("학생들이 직접 꾸리는 그룹, 나루가 열어요.", h.naruLine),
   photosCaption: ko("8월 싱가포르, 제로백 빌더톤", h.photosCaption),
   photosMore: (n: number): Phrase => ({ ko: `사진 ${n}장 더 보기`, en: `View ${n} photos` }),
 

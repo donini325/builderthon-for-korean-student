@@ -23,7 +23,9 @@ export const copy = {
   next: ko("다음 자리도 열릴 거예요. 장소는 그때 함께하는 학생회와 회사가 정하기로 했어요.", naru.events.next),
 
   coreHeading: ko("우리가 만들려는 건 두 가지예요", naru.why.heading),
-  coreTitles: kos(["안전하게 도전해 보는 자리", "내가 할 수 있는 걸 보여 주는 경험"], naru.why.cores.map((c) => c.title)),
+  // DECIDED 2026-11-09 (docs/brand-voice-brief.md D1): 코어 제목은 brand 2장 정본 그대로. 2장은 매니페스토와 같이 가서 사이트가 먼저 바꾸지 않습니다(brand 0장, 11장).
+  // 그 전(2026-11-08 새 화면) "안전하게 도전해 보는 자리", "내가 할 수 있는 걸 보여 주는 경험". 본문 세 줄(coreLines)은 뜻이 같아 brand 2장에 사이트 판으로 적었습니다.
+  coreTitles: kos(["안전하게 도전할 수 있는 자리", "자기 가치를 증명해 보는 경험"], naru.why.cores.map((c) => c.title)),
   coreLines: kos(
     [
       "아이디어가 없어서 말을 못 하는 게 아니에요.\n평가받지 않고 말해 볼 자리가 없었을 뿐이죠.\n그래서 여기선 점수를 매기지 않아요. 대신 끝까지 들어 줄 현업이 곁에 있어요.",
