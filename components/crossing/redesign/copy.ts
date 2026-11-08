@@ -1,0 +1,154 @@
+import { naru, register as registerCopy, registerNoteShort, registerNoteOpen, decemberPartners } from "@/data/naru";
+import { type Phrase } from "@/data/dictionaryCore";
+
+// DECIDED 2026-11-07 (redesign/crossing): 이 페이지 전용 한국어 문구. 영어는 data/naru.ts의 원문 그대로입니다.
+// 한국어의 \n은 데스크톱에서 줄을 나누는 자리입니다(CrossingSeoul의 Lines). 폰에서는 이어서 흐릅니다.
+// 날짜, 단계 이름(컨텍스트 열기, 찾기, 확인받기, 만들기, 공유하기), 성과 공유회, 미션, 숫자는 바꾸지 않았습니다.
+
+const d = naru.december;
+const h = naru.eventHero;
+const ko = (text: string, from: Phrase): Phrase => ({ ko: text, en: from.en });
+const kos = (texts: string[], from: readonly Phrase[]): Phrase[] =>
+  from.length === texts.length ? texts.map((x, i) => ko(x, from[i])) : [...from];
+
+const stage = (n: number) => d.stages.find((s) => s.dayOffset === n)!;
+
+export const copy = {
+  catchAnswer: ko("먼저 생각하고, 현업에 물어보고,\n팀마다 다른 걸 만들어 서로 보여 줘요.", h.catchAnswer),
+  sub: ko("만드는 건 이제 AI 몫이에요.\n그래서 이번 닷새는 거의 다, 무엇을 왜 만들지 정하는 데 쓸 거예요.\n정한 게 맞았는지는 직접 만든 결과물이 증명하죠.", h.sub),
+  naruLine: ko("학생들이 직접 꾸리는 그룹, 나루가 엽니다.", h.naruLine),
+  photosCaption: ko("8월 싱가포르, 제로백 빌더톤", h.photosCaption),
+  photosMore: (n: number): Phrase => ({ ko: `사진 ${n}장 더 보기`, en: `View ${n} photos` }),
+
+  noteShort: ko("등록 시작은 11월 14일(토).\n팀 없이 혼자 등록하면 돼요.", registerNoteShort),
+  noteOpen: ko("팀 없이 혼자 등록하면 돼요.", registerNoteOpen),
+  previewCta: ko("등록 폼 먼저 보기", registerCopy.previewCta),
+
+  programHeading: ko("닷새, 이렇게 보내요", d.programHeading),
+  scheduleLead: ko(
+    "등록은 혼자, 팀은 Day 1 현장에서.\n규칙은 하나에요: AI가 쓴 걸 고치지 말고, 내가 쓴 걸 AI한테 고치게 할 것.\n닷새 안에 다 못 풀어도 괜찮아요. 중요한 건 답보다, 얼마나 깊이 팠는지예요.",
+    d.scheduleLead,
+  ),
+  facts: kos(
+    [
+      "한 팀에 한국 학생과 싱가포르 학생이, 직접 만드는 사람과 숫자를 보는 사람이 섞여요.\n나라끼리 겨루는 대항전이 아니라는 뜻이죠.",
+      "4일 모두 아침부터 저녁까지 열려 있어요. 노트북은 각자 챙겨 오세요.",
+      "Day 2와 Day 3에 하나씩. 기준은 팀이 같이 있었는지, 한 장이 어떻게 바뀌었는지예요.\n해낸 팀이라면 전부, 그날 바로 지원받아요.",
+    ],
+    d.facts.map((f) => f.v),
+  ),
+
+  line: {
+    0: ko("어느 회사가 어떤 고민을 들고 오는지 미리 알려 드려요. 자세한 얘기는 Day 1에 회사가 직접.", stage(0).line),
+    1: ko("팀을 꾸리고, 그 일에서 누가 어디서 막히는지 하나를 골라요. 왜 거기인지는 팀이 먼저 한 장으로 적어 두세요.", stage(1).line),
+    2: ko("고른 병목이 맞는지 멘토를 찾아가 물어봐요.\n일을 해 본 사람은 바로 반박하거든요. 그 말을 듣고 한 장을 고치는 날이에요.", stage(2).line),
+    3: ko("그 병목 하나만 푸는 작은 툴을 만들어요. 회사가 정말 가져다 쓸 수 있을지, 멘토에게 한 번 더 물어보세요.", stage(3).line),
+    4: ko("이슈를 낸 회사 앞에서 고른 병목과 만든 툴을 발표하고 질문을 받아요.\n회사로서는 같은 고민에 대한 서로 다른 답을 한자리에서 보는 셈이죠.\n끝나면 멘토에게 뭘 만들었는지 한 줄로 먼저 연락해 주세요.", stage(4).line),
+  } as Record<number, Phrase>,
+
+  chips: {
+    1: kos(["현장에서 팀 꾸리기"], stage(1).chips),
+    4: kos(["시상, 마무리"], stage(4).chips),
+  } as Record<number, Phrase[]>,
+
+  carryTitle: ko("우리 팀 생각을 적은 한 장", stage(1).submit!),
+  carryTodo: kos(["현장에서 팀 꾸리기", "팀 생각을 한 장으로 먼저 쓰기 (AI는 고칠 때만)", "Day 2에 멘토에게 들고 가기"], d.carryDetail.todo),
+  carrySubmit: kos(["PDF로 올려 둬도 돼요", "시간표 페이지에서 Day 1을 고르면 돼요", "미션은 Day 2, 3에만 있어요"], d.carryDetail.submit),
+
+  milestone: {
+    2: ko("멘토 만나고, 고친 한 장 올리기", stage(2).milestone!),
+    3: ko("멘토 만나고, Open tables에서 나누기", stage(3).milestone!),
+  } as Record<number, Phrase>,
+  milestoneConditionsLabel: ko("이걸 다 하면 돼요", d.milestoneConditionsLabel),
+  milestoneSubmitLabel: ko("올리는 것", d.milestoneSubmitLabel),
+  conditions: {
+    2: kos(["팀원 절반 넘게 현장에 오기", "절반 넘게 같이 멘토를 찾아가서 사진 한 장", "반박 들은 대로 한 장을 고쳐서 공유하기"], stage(2).milestoneDetail!.conditions),
+    3: kos(["팀원 절반 넘게 현장에 오기", "절반 넘게 같이 멘토를 찾아가서 사진 한 장", "Open tables에서 어디까지 왔는지 나누기"], stage(3).milestoneDetail!.conditions),
+  } as Record<number, Phrase[]>,
+  submit: {
+    2: kos(["멘토랑 팀이 같이 찍은 사진", "고친 한 장 (PDF)", "현장 출석은 운영진이 체크해요"], stage(2).milestoneDetail!.submit ?? []),
+    3: kos(["멘토랑 팀이 같이 찍은 사진", "발표 자료 (슬라이드 PDF)", "현장 출석은 운영진이 체크해요"], stage(3).milestoneDetail!.submit ?? []),
+  } as Record<number, Phrase[]>,
+
+  dayFlowLabel: ko("하루 일정 보기", d.dayFlowLabel),
+  matchLabel: ko("AI 유형 테스트 해 보기", stage(1).matchCta!.label),
+  voteLocked: ko("성과 공유회 날 현장에서 열려요.", stage(4).voteCta!.lockedNote!),
+  timetableLabel: ko("멘토 시간표, 미션 올리기", stage(1).timetableCta!.label),
+  timetableNote: ko("Day 1(12.18) 낮 12시에 열려요. 칸은 노트북으로 넣어 주세요.", d.timetableNote),
+
+  flow: {
+    1: kos(
+      [
+        "오프닝",
+        "출제사 30분. 아직 손으로 하는 일이 뭔지, 왜 그렇게 하는지 회사가 직접 설명해요",
+        "팀 꾸리기. AI 유형 테스트 결과를 보고 현장에서 정해요. 팀마다 싱가포르 학생이 1~2명씩 들어가요",
+        "트랙 고르기. 1~3순위를 적으면 운영진이 고르게 나눠요",
+        "Lovable workshop. 사이트 네 개를 띄워 본 Carraway & Gatsby가 진행해요",
+        "멘토 시간표 열림. Day 2, 3 칸을 노트북으로 넣어요",
+        "팀 생각 한 장 쓰기. PDF로 올려 두면 칸을 잡은 멘토가 미리 읽어요",
+      ],
+      (stage(1).flow ?? []).map((r) => r.what),
+    ),
+    2: kos(
+      [
+        "멘토 찾아가기. 잡아 둔 시간에 팀이 같이, 한 장을 들고",
+        "PO session. 현업 PO 세 명이 뭘 왜 만들기로 했고 어디서 멈췄는지 들려주고, 이어서 대담",
+        "미션 올리기. 멘토랑 찍은 사진, 고친 한 장 PDF",
+      ],
+      (stage(2).flow ?? []).map((r) => r.what),
+    ),
+    3: kos(
+      [
+        "멘토 찾아가기. 만든 툴을 들고 가서 회사가 쓸 수 있을지 물어보기",
+        "만들기. 그 병목 하나만 푸는 작은 툴",
+        "Open tables. 막힌 데를 다른 팀에 물어보고 서로 아이디어 빌려 가기",
+        "미션 올리기. 멘토랑 찍은 사진, 발표 자료 PDF",
+      ],
+      (stage(3).flow ?? []).map((r) => r.what),
+    ),
+    4: kos(
+      [
+        "트랙별 발표. 출제사, 멘토, 투자사 앞에서 고른 병목과 만든 툴, 숫자 하나로 본 효과를 보여 줘요. 출제사는 트랙마다 1시간 반을 비워 두고 와요",
+        "트랙별 인기투표",
+        "시상과 마무리. 출제사가 트랙마다 한 팀, 투자사가 한 팀을 고르고 인기투표 결과도 같이 발표해요. 출제사가 고른 팀은 행사가 끝난 뒤 그 회사와 한 번 더 만나요",
+        "끝나면 멘토에게 뭘 만들었는지 한 줄로 먼저 연락하기",
+      ],
+      (stage(4).flow ?? []).map((r) => r.what),
+    ),
+  } as Record<number, Phrase[]>,
+
+  mentorsIntro: ko("멘토링에서 듣는 건 전문 지식보다 현장 감각이에요. 좋은 걸 만드는 것과 그걸 실제로 파는 건 다른 문제거든요. 그 차이를 일해 본 사람에게 들어요.", d.mentorsIntro),
+  mentorsTalkLabel: ko("이런 얘기를 듣게 돼요", d.mentorsTalkLabel),
+  mentorsTalkBody: kos(
+    [
+      "이해가 안 된다, 안 살 것 같다는 말도 그대로 들어요. 사실 그게 제일 도움이 돼요.",
+      "누구한테 먼저 보여 주고, 그다음 누구를 설득할지 같이 짚어 줘요.",
+      "다 풀려는 팀이 막힌 곳 하나만 고르도록 도와줘요.",
+      "제품 얘기가 아니어도 괜찮아요. 일하면서 겪은 커리어 얘기도 들을 수 있어요.",
+    ],
+    d.mentorsTalk.map((x) => x.body),
+  ),
+  mentorsListNote: ko("몇 분만 먼저 소개해요. 모두 AI 커뮤니티에서 활동하는 현업이고, 다른 분야 멘토도 더 오세요.", d.mentorsListNote),
+
+  gainsHeading: ko("끝나고 손에 남는 것", naru.gains.heading),
+  gainsSpine: ko(
+    "학생에게는 '이걸 왜 아직 손으로 하지?'부터 묻는 습관이 남아요.\n회사에는 그 일에 바로 써 볼 만한 작은 툴 하나.\n과정은 마지막 날, 그 회사 앞에서 보여 줄 차례예요.",
+    naru.gains.spine.heading,
+  ),
+  gainsTitles: kos(
+    ["이름이 걸린 회사의 실제 이슈", "현업의 반박", "회사가 써 볼 수 있는 툴", "이슈를 낸 회사의 질문", "한국과 싱가포르가 섞인 팀"],
+    naru.gains.items.map((x) => x.title),
+  ),
+  gainsBodies: kos(
+    [
+      "어느 회사의 어떤 일인지, 회사 이름까지 다 알고 시작하죠.",
+      "한 장과 시안을 들고 현업 멘토를 찾아가요. 일해 본 사람의 반박을 듣고 생각을 고쳐요.\n내가 쓴 거니까, 고칠 수도 있는 거예요.",
+      "고친 생각은 작은 툴로. 정말 쓸 만한지는 숫자 하나로 확인해요.",
+      "마지막 날 그 회사 앞에서 발표하고, 실제로 써 볼 수 있겠느냐는 질문까지 받아 봐요.",
+      "Day 1에 만난 팀 그대로, 끝까지.",
+    ],
+    naru.gains.items.map((x) => x.body),
+  ),
+
+  leadNote: ko("컨소시엄 핵심 회사 다섯 곳", decemberPartners.groups[0].lead!.note),
+};

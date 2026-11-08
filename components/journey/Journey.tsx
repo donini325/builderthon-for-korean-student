@@ -1783,7 +1783,7 @@ function SubmissionBox({ t }: { t: Tfn }) {
         <span className="inline-flex items-center gap-1 text-xs font-bold text-white">
           <span aria-hidden>★</span>{t(s.mustBadge)}
         </span>
-        <span className="text-xs font-bold text-white/85">{t(s.tag)}</span>
+        <span className="text-[0.9375rem] font-bold text-white/85">{t(s.tag)}</span>
       </div>
       <p className="mt-2.5 break-keep text-sm font-bold leading-snug text-white">{t(s.heading)}</p>
       {/* 한 줄이던 항목이 이름 · 형식 · 본문 세 조각이 됐습니다 (2026-08-19,
@@ -1837,7 +1837,7 @@ function AwardsBox({ t }: { t: Tfn }) {
         <span className="inline-flex items-center gap-1 text-xs font-bold text-white/85">
           <span aria-hidden>★</span>{t(a.countBadge)}
         </span>
-        <span className="text-xs font-bold text-white/85">{t(a.tag)}</span>
+        <span className="text-[0.9375rem] font-bold text-white/85">{t(a.tag)}</span>
       </div>
       <p className="mt-2.5 break-keep text-sm font-bold leading-snug text-white">{t(a.heading)}</p>
       {/* DECIDED 2026-08-16 (정체성 얼라인, 공모전): 제목 아래 부제 한 줄. 제목이
@@ -2191,7 +2191,7 @@ export default function Journey() {
                   0.55rem은 9.9px이었고 페이지에서 가장 작은 글자였습니다. 320px
                   에서 이 줄의 실측 폭이 250px, 칸이 266px이라 한 줄을 유지합니다
                   - 더 올리면(0.68rem = 260px) 두 줄로 접힙니다. */}
-              <Eyebrow>{t(dict.hero.eyebrow)}</Eyebrow>
+              <Eyebrow className="!text-[1.0625rem]">{t(dict.hero.eyebrow)}</Eyebrow>
             </div>
             {/* clamp caps trimmed (8rem->7.1rem, 3rem->2.65rem) so the 18px root
                 bump doesn't enlarge the hero headline - it stays ~its current size
@@ -2299,7 +2299,7 @@ export default function Journey() {
       {/* ── CH 1 · ABOUT ───────────────────────────────────────────── */}
       <Chapter id="about" align="center" inset>
         <div className="text-center">
-          <Eyebrow>{t(dict.about.tag)}</Eyebrow>
+          <Eyebrow className="!text-[1.0625rem]">{t(dict.about.tag)}</Eyebrow>
           <h2 className="mx-auto max-w-3xl text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
             {t(dict.about.heading)}
           </h2>
@@ -2403,7 +2403,7 @@ export default function Journey() {
       {/* ── CH 2 · WHO SHOULD JOIN / WHAT YOU GET ──────────────────── */}
       <Chapter id="join" align="center" inset>
         <div className="text-center">
-          <Eyebrow color="emerald">{t(dict.whoWhat.tag)}</Eyebrow>
+          <Eyebrow color="emerald" className="!text-[1.0625rem]">{t(dict.whoWhat.tag)}</Eyebrow>
           <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
             {t(dict.whoWhat.heading)}
           </h2>
@@ -2459,7 +2459,7 @@ export default function Journey() {
       {/* 폰에서 아래 여백을 줄입니다(2026-10-08): 이 챕터 끝과 프로그램 제목 사이가
           360px 폭에서 500px 가까이 비어 덜 불러온 화면처럼 보였습니다. */}
       <Chapter id="benefits" align="center" inset className="!pb-6 sm:!pb-20 lg:!pb-24">
-        <Eyebrow color="cyan">{t(dict.benefits.tag)}</Eyebrow>
+        <Eyebrow color="cyan" className="!text-[1.0625rem]">{t(dict.benefits.tag)}</Eyebrow>
         <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.benefits.heading)}
         </h2>
@@ -2472,7 +2472,7 @@ export default function Journey() {
             most emphatic block in the section, because it is the section's
             answer; the cards are the footnotes to it. */}
         <div className="mx-auto mt-10 max-w-3xl rounded-2xl card-tint p-5 sm:p-6">
-          <p className="text-xs font-bold text-white/85">{t(dict.benefits.spine.tag)}</p>
+          <p className="text-[0.9375rem] font-bold text-white/85">{t(dict.benefits.spine.tag)}</p>
           <p className="mx-auto mt-2.5 max-w-2xl break-keep text-base lg:text-[1.375rem] font-bold leading-[1.3] tracking-[-0.02em] text-accent">
             {t(dict.benefits.spine.heading)}
           </p>
@@ -2515,7 +2515,7 @@ export default function Journey() {
         <div className="relative mx-auto w-full max-w-6xl lg:px-10">
           <div className="text-center">
             <div className="flex flex-wrap items-center justify-center gap-2">
-              <Eyebrow className="!mb-0">{t(dict.program.tag)}</Eyebrow>
+              <Eyebrow className="!mb-0 !text-[1.0625rem]">{t(dict.program.tag)}</Eyebrow>
             </div>
             <h2 className="mt-4 text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
               {t(dict.program.heading)}
@@ -2622,7 +2622,7 @@ export default function Journey() {
               "questions move from thinking to evidence" claim without a sentence.
               Roles only; the question lists themselves stay in the forms. */}
           <div className="mx-auto mt-16 max-w-5xl text-center lg:mt-24">
-            <p className="text-xs font-bold text-accent">{t(dict.program.checkins.tag)}</p>
+            <p className="text-[0.9375rem] font-bold text-accent">{t(dict.program.checkins.tag)}</p>
             <h3 className="mx-auto mt-2 max-w-3xl text-base lg:text-[1.375rem] font-bold leading-[1.3] tracking-[-0.02em] text-accent">
               {t(dict.program.checkins.heading)}
             </h3>
@@ -2660,7 +2660,7 @@ export default function Journey() {
       {/* Speaker names + photos are transcribed from the internal deck - public
           naming/likeness to be confirmed with the user (flagged in the handoff). */}
       <Chapter id="speakers" align="center" inset>
-        <Eyebrow>{t(dict.speakers.tag)}</Eyebrow>
+        <Eyebrow className="!text-[1.0625rem]">{t(dict.speakers.tag)}</Eyebrow>
         <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.speakers.heading)}
         </h2>
@@ -2764,7 +2764,7 @@ export default function Journey() {
 
       {/* ── CH 3.3 · MENTORING PHILOSOPHY ──────────────────────────── */}
       <Chapter id="mentoring" align="center" inset>
-        <Eyebrow color="emerald">{t(dict.mentoring.tag)}</Eyebrow>
+        <Eyebrow color="emerald" className="!text-[1.0625rem]">{t(dict.mentoring.tag)}</Eyebrow>
         <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
           {t(dict.mentoring.heading)}
         </h2>
@@ -3006,7 +3006,7 @@ export default function Journey() {
             normal card and adds an amber "협의 중" pill (dict.judges.people[].pending). */}
         <div id="feedback-panel" className="mt-20 border-t border-white/10 pt-14 text-left lg:mt-24 lg:pt-16">
           <div className="text-center">
-            <Eyebrow color="violet">{t(dict.judges.tag)}</Eyebrow>
+            <Eyebrow color="violet" className="!text-[1.0625rem]">{t(dict.judges.tag)}</Eyebrow>
             <h3 className="text-base lg:text-[1.375rem] font-bold leading-[1.3] tracking-[-0.02em] text-accent">
               {t(dict.judges.heading)}
             </h3>
@@ -3094,7 +3094,7 @@ export default function Journey() {
         {/* Contained dark backing box (not full-width) to lift readability over
             the bright background field. */}
         <div className="mx-auto w-full max-w-4xl ">
-          <Eyebrow>{t(dict.partners.tag)}</Eyebrow>
+          <Eyebrow className="!text-[1.0625rem]">{t(dict.partners.tag)}</Eyebrow>
           <h2 className="text-[clamp(1.75rem,4.5vw,3rem)] max-sm:text-[28px] font-bold leading-[1.15] tracking-[-0.03em] text-naru-navy">
             {t(dict.partners.heading)}
           </h2>

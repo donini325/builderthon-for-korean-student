@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import JourneyNav from "@/components/journey/JourneyNav";
 import BackgroundMount from "@/components/BackgroundMount";
-import NaruHome from "@/components/home/NaruHome";
-import { naruNav } from "@/data/naru";
+import CrossingSeoul from "@/components/crossing/redesign/CrossingSeoul";
+import SiteHeader from "@/components/shared/SiteHeader";
 import { SITE_URL, ORGANIZATION_LD } from "@/lib/organizationLd";
 import { HOME_TITLE, SITE_DESCRIPTION, OG_TITLE, OG_DESCRIPTION, SITE_NAME } from "@/lib/crossingMeta";
 import { CrossingRegisterProvider } from "@/components/crossing/RegisterProvider";
@@ -103,8 +102,8 @@ export default function CrossingSeoulPage() {
           (lib/registrationWindow.ts의 CROSSING_WINDOW가 null) 화면은 그 전과 같고 모달은
           열리지 않습니다. 8월 RegisterProvider와 별개. */}
       <CrossingRegisterProvider>
-        <JourneyNav anchors={naruNav} page="crossing" />
-        <NaruHome />
+        <SiteHeader page="crossing" />
+        <CrossingSeoul />
       </CrossingRegisterProvider>
     </>
   );

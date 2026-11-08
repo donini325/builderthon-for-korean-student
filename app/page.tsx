@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import JourneyNav from "@/components/journey/JourneyNav";
+import SiteHeader from "@/components/shared/SiteHeader";
 import BackgroundMount from "@/components/BackgroundMount";
-import NaruPage from "@/components/naru/NaruPage";
-import { naru, naruPageNav } from "@/data/naru";
+import NaruHome from "@/components/naru/redesign/NaruHome";
+import { naru } from "@/data/naru";
 import { ORGANIZATION_LD } from "@/lib/organizationLd";
 import HashForward from "@/components/naru/HashForward";
 
@@ -54,8 +54,8 @@ export default function Home() {
       <BackgroundMount variant="water" still />
       {/* 그 전 홈의 앵커(/#december, /#register 등)와 /?register=1을 /crossing으로 넘깁니다. 밖에 뿌린 링크가 죽지 않게. */}
       <HashForward />
-      <JourneyNav anchors={naruPageNav} page="naru" />
-      <NaruPage />
+      <SiteHeader page="naru" />
+      <NaruHome />
     </>
   );
 }
