@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-08 Day 2, 3 미션을 펼친 카드로](#2026-11-08-mission-card)
 - [2026-11-08 멘토 칸 마감과 팀 간격 2시간](#2026-11-08-booking-cutoff)
 - [2026-11-08 트레바리 독서모임 쿠폰](#2026-11-08-trevari)
 - [2026-11-08 나루 홈 행사 묶음 제목](#2026-11-08-events-heading)
@@ -524,6 +525,13 @@
 
 ---
 
+<a id="2026-11-08-mission-card"></a>
+## 2026-11-08 Day 2, 3 미션을 펼친 카드로
+- 범위: components/crossing/redesign/CrossingSeoul.tsx(MissionCard), components/crossing/redesign/copy.ts, data/naru.ts(checks, checkLabels, milestoneReward, milestoneUpload, 조건 넷, facts 미션 줄), docs/brand.md 7장 미션 줄
+- 한 것: 사용자 요청(/crossing Day 카드에서 날마다의 미션이 더 자세히 보이게, 해내면 그날 세션 뒤 지원). 접는 띠를 없애고 펼친 카드 하나: 조건 넷마다 확인 칩(운영진 체크, 사진 1장, PDF 1장), 아래 두 줄(세션 뒤 지원, 시간표 페이지 링크). 조건은 멘토 한 분 이상을 과반이 함께, 그날 세션에 함께 있기를 더해 넷. "지원"이 무엇인지는 쓰지 않음(brand 8장). 옛 화면, /crossing/team, Day 1 "들고 갈 것" 띠는 그대로. 근거: brand 7장 미션 줄.
+- 검증: innerText "그날 세션이 끝난 뒤" 3, "PO session에 같이 있기" 1, "올리는 것" 0, 펼침 버튼 0(EN 같은 자리), copy.ts 조건 길이 4 = data/naru.ts, Day 1 카드 스크린숏 바이트 같음, npm run build 통과
+- 브리프: docs/mission-card-brief.md
+- 커밋: bbda6cc
 <a id="2026-11-08-booking-cutoff"></a>
 ## 2026-11-08 멘토 칸 마감과 팀 간격 2시간
 - 범위: lib/crossingOps.ts, app/api/crossing/mentoring/route.ts, supabase/migrations/0022_crossing_booking_cutoffs_and_gap.sql(파일만, 미적용), components/crossing/TeamTool.tsx, components/crossing/MentorTool.tsx, data/crossingTeam.ts, docs/brand.md 7장
