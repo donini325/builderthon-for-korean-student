@@ -3612,6 +3612,12 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
       label: { ko: "다과 지원", en: "Refreshments" },
       logos: [{ name: "Terminal Espresso House", src: "/partners/logos/white/trimmed/terminal-espresso.png", w: 363, h: 321, square: true }],
     },
+    // DECIDED 2026-11-08 (사용자: "트레바리 ... 반영을 해줘"). 파트너맵(11-07 확정): 참가 학생 전원에게 독서모임 쿠폰. 금액은 쓰지 않습니다(brand 9장).
+    // 로고는 파트너맵 소스(크로싱서울_파트너맵_소스/logos/trevari.png)의 주황 워드마크를 여백만 잘라 원래 색 그대로. 사이트를 curl로 열어 봤습니다.
+    {
+      label: { ko: "독서모임 쿠폰", en: "Book club vouchers" },
+      logos: [{ name: "트레바리 TREVARI", src: "/partners/logos/paper/trevari.png", w: 903, h: 160, url: "https://trevari.co.kr" }],
+    },
     // DECIDED 2026-10-31 (사용자: 10/29 워크숍 인트로 미팅과 10/30 회신 메일, "이분이 있는 business를 넣어줘야함"): Day 1 Lovable 워크숍을 맡은 회사.
     // 회신 메일에서 법인 명칭을 함께 표기해 달라고 했습니다. 정식 이름은 Carraway & Gatsby Corporation이고, 회사 사이트(cgcorp.io)의 제목이
     // "Carraway & Gatsby"라 로고는 나침반 심볼 + "Carraway &" / "Gatsby" 두 줄입니다(사용자가 세 시안 중 고름). 전체 이름은 링크 이름과 대체 글에.
