@@ -128,7 +128,7 @@ export const copy = {
     ],
     d.mentorsTalk.map((x) => x.body),
   ),
-  mentorsListNote: ko("몇 분만 먼저 소개해요. 모두 AI 커뮤니티에서 활동하는 현업이고, 다른 분야 멘토도 더 오세요.", d.mentorsListNote),
+  mentorsListNote: ko("몇 분만 먼저 소개해요. 모두 각자의 현업에서 AI를 적극적으로 쓰는 분들이고, 다른 분야 멘토도 더 와요.", d.mentorsListNote),
 
   gainsHeading: ko("끝나고 손에 남는 것", naru.gains.heading),
   gainsSpine: ko(
