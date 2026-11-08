@@ -33,7 +33,7 @@ export const copy = {
     [
       "한 팀에 한국 학생과 싱가포르 학생이, 직접 만드는 사람과 숫자를 보는 사람이 섞여요.\n나라끼리 겨루는 대항전이 아니라는 뜻이죠.",
       "4일 모두 아침부터 저녁까지 열려 있어요. 노트북은 각자 챙겨 오세요.",
-      "Day 2와 Day 3에 하나씩. 기준은 팀이 같이 있었는지, 한 장이 어떻게 바뀌었는지예요.\n해낸 팀이라면 전부, 그날 바로 지원받아요.",
+      "Day 2와 Day 3에 하나씩. 기준은 팀이 같이 있었는지, 한 장이 어떻게 바뀌었는지예요.\n해낸 팀이라면 전부, 그날 세션이 끝난 뒤 지원받아요.",
     ],
     d.facts.map((f) => f.v),
   ),
@@ -56,15 +56,26 @@ export const copy = {
   carrySubmit: kos(["PDF로 올려 둬도 돼요", "시간표 페이지에서 Day 1을 고르면 돼요", "미션은 Day 2, 3에만 있어요"], d.carryDetail.submit),
 
   milestone: {
-    2: ko("멘토 만나고, 고친 한 장 올리기", stage(2).milestone!),
-    3: ko("멘토 만나고, Open tables에서 나누기", stage(3).milestone!),
+    // DECIDED 2026-11-08 (docs/mission-card-brief.md S1, S2).
+    2: ko("멘토 만나고, PO session 듣고, 고친 한 장 올리기", stage(2).milestone!),
+    3: ko("멘토 만나고, Open tables에서 나누고, 발표 자료 올리기", stage(3).milestone!),
   } as Record<number, Phrase>,
   milestoneConditionsLabel: ko("이걸 다 하면 돼요", d.milestoneConditionsLabel),
   milestoneSubmitLabel: ko("올리는 것", d.milestoneSubmitLabel),
+  // DECIDED 2026-11-08 (docs/mission-card-brief.md S3, S4): 조건 넷. kos는 길이가 같을 때만 덮어쓰므로 data/naru.ts의 conditions도 넷입니다.
   conditions: {
-    2: kos(["팀원 절반 넘게 현장에 오기", "절반 넘게 같이 멘토를 찾아가서 사진 한 장", "반박 들은 대로 한 장을 고쳐서 공유하기"], stage(2).milestoneDetail!.conditions),
-    3: kos(["팀원 절반 넘게 현장에 오기", "절반 넘게 같이 멘토를 찾아가서 사진 한 장", "Open tables에서 어디까지 왔는지 나누기"], stage(3).milestoneDetail!.conditions),
+    2: kos(["팀원 절반 넘게 현장에 오기", "멘토 한 분 이상을 절반 넘게 같이 찾아가기", "PO session에 같이 있기", "반박 들은 대로 한 장을 고쳐서 올리기"], stage(2).milestoneDetail!.conditions),
+    3: kos(["팀원 절반 넘게 현장에 오기", "멘토 한 분 이상을 절반 넘게 같이 찾아가기", "Open tables에서 어디까지 왔는지 나누기", "발표 자료 올리기"], stage(3).milestoneDetail!.conditions),
   } as Record<number, Phrase[]>,
+  // S5~S7: 확인 칩 셋과 카드 아래 두 줄. "시간표 페이지"는 CrossingSeoul이 링크로 그립니다.
+  checkLabels: {
+    staff: ko("운영진 체크", d.checkLabels.staff),
+    photo: ko("사진 1장", d.checkLabels.photo),
+    pdf: ko("PDF 1장", d.checkLabels.pdf),
+  },
+  milestoneReward: ko("다 하면 그날 세션이 끝난 뒤 지원을 받아요.", d.milestoneReward),
+  milestoneUpload: ko("사진과 PDF는 시간표 페이지에서, 날마다 한 번씩.", d.milestoneUpload),
+  // 2026-11-08: 펼친 미션 카드(mission-card-brief)부터 이 화면은 submit을 그리지 않습니다. 확인 칩이 대신합니다. 키는 남겨 둡니다.
   submit: {
     2: kos(["멘토랑 팀이 같이 찍은 사진", "고친 한 장 (PDF)", "현장 출석은 운영진이 체크해요"], stage(2).milestoneDetail!.submit ?? []),
     3: kos(["멘토랑 팀이 같이 찍은 사진", "발표 자료 (슬라이드 PDF)", "현장 출석은 운영진이 체크해요"], stage(3).milestoneDetail!.submit ?? []),

@@ -81,6 +81,37 @@ function Disclosure({ id, label, title, groups, mission }: { id: string; label: 
   );
 }
 
+/**
+ * Day 2, 3의 미션. 접지 않고 다 보이는 카드(docs/mission-card-brief.md D1, 2026-11-08 사용자: 날마다의 미션이 더 자세히 보이게).
+ * 줄마다 왼쪽은 조건, 오른쪽은 어떻게 확인하는지 칩 하나(D2). 폰에서는 칩이 조건 아래로. ☐는 버튼이 아니라 글자(D3)이고 상태를 저장하지 않습니다.
+ * 아래 두 줄은 받는 것과 때, 올리는 곳. "지원"이 무엇인지는 적지 않습니다(brand 8장, D5).
+ */
+function MissionCard({ label, title, listLabel, rows, reward, upload, href }: { label: string; title: string; listLabel: string; rows: { text: string; check: string }[]; reward: string; upload: string; href: string }) {
+  // "시간표 페이지"(EN "timetable page")만 링크로 그립니다. 글은 copy.ts와 data/naru.ts에 문장 그대로 둡니다.
+  const m = upload.match(/시간표 페이지|timetable page/);
+  const linkCls = `font-semibold ${NAVY} underline decoration-naru-navy/30 underline-offset-[3px] transition-colors hover:decoration-naru-navy`;
+  return (
+    <div className={`rounded-xl border ${RULE} bg-[#FFFFFF] px-4 pb-4 pt-3.5`}>
+      <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className={`shrink-0 ${META} font-bold text-[#845185]`}>{label}</span>
+        <span className={`min-w-0 break-keep ${META} font-semibold ${INK} sm:text-[1.0625rem]`}>{title}</span>
+      </p>
+      <ul aria-label={listLabel} className={`mt-3 border-t ${RULE}`}>
+        {rows.map((r) => (
+          <li key={r.text} className={`flex flex-col gap-1.5 border-b ${RULE} py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4`}>
+            <span className={`flex gap-2 break-keep ${META} ${INK}`}><span aria-hidden className="text-caption">☐</span>{r.text}</span>
+            {r.check && <span className={`ml-6 w-fit shrink-0 rounded-full bg-[#F0EEE8] px-2.5 py-0.5 ${META} ${SOFT} sm:ml-0`}>{r.check}</span>}
+          </li>
+        ))}
+      </ul>
+      <p className={`mt-3 break-keep ${META} font-semibold ${INK}`}>{reward}</p>
+      <p className={`mt-1 break-keep ${META} ${SOFT}`}>
+        {m ? <>{upload.slice(0, m.index)}<Link href={href} className={linkCls}>{m[0]}</Link>{upload.slice(m.index! + m[0].length)}</> : upload}
+      </p>
+    </div>
+  );
+}
+
 type PartnerLogo = { name: string; src: string; w: number; h: number; url?: string; square?: boolean; boost?: boolean };
 
 /** 로고마다 비율이 달라 높이를 맞추면 납작한 로고가 커 보입니다. 같은 넓이로 맞춘 뒤 칸에 넘치지 않게 자릅니다. */
@@ -256,16 +287,19 @@ export default function CrossingSeoul() {
               <span aria-hidden className="absolute bottom-10 left-[5px] top-10 w-px bg-naru-navy/25 lg:left-[calc(11rem+5px)]" />
               {stages.map((s, i) => {
                 const mentorsOn = s.mentorsCta && d.mentors.some((m) => m.confirmed);
+                // DECIDED 2026-11-08 (docs/mission-card-brief.md D1): 미션은 접는 띠 대신 펼친 카드. Day 1 "들고 갈 것" 띠는 그대로 Disclosure.
                 const strip = s.milestone ? (
-                  <Disclosure
-                    id={`mission-${s.dayOffset}`}
-                    mission
+                  <MissionCard
                     label={`★ ${t(d.milestoneLabel)}`}
                     title={t(C.milestone[s.dayOffset] ?? s.milestone)}
-                    groups={[
-                      ...(s.milestoneDetail ? [{ label: t(C.milestoneConditionsLabel), items: (C.conditions[s.dayOffset] ?? s.milestoneDetail.conditions).map(t) }] : []),
-                      ...(s.milestoneDetail?.submit ? [{ label: t(C.milestoneSubmitLabel), items: (C.submit[s.dayOffset] ?? s.milestoneDetail.submit).map(t) }] : []),
-                    ]}
+                    listLabel={t(C.milestoneConditionsLabel)}
+                    rows={(C.conditions[s.dayOffset] ?? s.milestoneDetail?.conditions ?? []).map((c, j) => {
+                      const k = s.milestoneDetail?.checks?.[j];
+                      return { text: t(c), check: k ? t(C.checkLabels[k]) : "" };
+                    })}
+                    reward={t(C.milestoneReward)}
+                    upload={t(C.milestoneUpload)}
+                    href={`/crossing/team?day=${s.dayOffset}`}
                   />
                 ) : s.submit ? (
                   <Disclosure

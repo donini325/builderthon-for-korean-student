@@ -2078,7 +2078,8 @@ export const naru = {
         // 2026-10-19 (사용자): 미션은 Day 2와 Day 3에만. 그 전 "Day 2부터 날마다 하나씩".
         // DECIDED 2026-10-25 (사용자: 칸마다 줄 수를 같게): 두 줄로. 그 전 "Day 2와 Day 3에 하나씩 있고, 무엇을 냈는지보다 함께 있었는지를 봅니다. 해낸 팀은 모두 그날 지원을 받고, 그 미션은 팀의 기록으로 남습니다."
         // DECIDED 2026-11-06 (docs/think-different-brief.md T4, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 11/05 출제사 미팅: 생각이 어떻게 바뀌었는지를 1장으로.
-        v: { ko: "Day 2와 Day 3에 하나씩, 함께 있었는지와 생각이 어떻게 달라졌는지(고친 1장)를 봅니다. 해낸 팀은 모두 그날 지원을 받습니다.", en: "Day 2 and 3: together on site, and how your thinking changed (revised page). Each team that does it gets support." },
+        // DECIDED 2026-11-08 (docs/mission-card-brief.md S9): 지원은 그날 세션이 끝난 뒤. 그 전 둘째 문장 "해낸 팀은 모두 그날 지원을 받습니다." / "Each team that does it gets support."
+        v: { ko: "Day 2와 Day 3에 하나씩, 함께 있었는지와 생각이 어떻게 달라졌는지(고친 1장)를 봅니다. 해낸 팀은 모두 그날 세션이 끝난 뒤 지원을 받습니다.", en: "Day 2 and 3: together on site, and how your thinking changed (revised page). Every team that does it gets that day's support after the session." },
       },
     ] as { k: Phrase; v: Phrase }[],
 
@@ -2224,6 +2225,15 @@ export const naru = {
     // DECIDED 2026-10-17 (사용자): 미션 띠를 펼치면 서는 두 목록의 라벨.
     milestoneConditionsLabel: { ko: "인정 조건 (전부 충족)", en: "To complete it (all of these)" },
     milestoneSubmitLabel: { ko: "제출 방법", en: "How to submit" },
+    // DECIDED 2026-11-08 (docs/mission-card-brief.md 2장, S5~S7): 새 화면의 펼친 미션 카드. 조건 줄마다 어떻게 확인하는지 칩 하나와, 카드 아래 두 줄.
+    // "지원"이 무엇인지는 적지 않습니다(brand 8장, D5). 한국어 새 화면 글은 components/crossing/redesign/copy.ts가 덮어씁니다.
+    checkLabels: {
+      staff: { ko: "운영진 체크", en: "Checked by organisers" },
+      photo: { ko: "사진 1장", en: "One photo" },
+      pdf: { ko: "PDF 1장", en: "One PDF" },
+    } as { staff: Phrase; photo: Phrase; pdf: Phrase },
+    milestoneReward: { ko: "다 하면 그날 세션이 끝난 뒤 지원을 받습니다.", en: "Do all of these and your team gets that day's support after the session." },
+    milestoneUpload: { ko: "사진과 PDF는 시간표 페이지에서 날마다 한 번씩 올립니다.", en: "Photos and PDFs go up on the timetable page, once a day." },
     // DECIDED 2026-11-05 (사이트 점검, UX): /crossing Day 카드에서 빠진 멘토링 정보 둘. 문장은 brand 7장과 data/crossingTeam.ts에서 가져옵니다.
     visitLabel: { ko: "멘토 찾아가기", en: "Visiting a mentor" },
     visitItem: { ko: "멘토가 계신 곳(오피스, 카페, 온라인)으로 팀이 함께 찾아갑니다.", en: "The team goes together to where the mentor is (an office, a café, or online)." },
@@ -2885,7 +2895,8 @@ export const naru = {
         // 설명(milestoneDetail)도 뺐습니다. 같은 날 앞서 적었던 것: "팀 전원이 멘토를 찾아가 확인받기". 정해지면 milestoneDetail과 함께 다시 적습니다.
         // DECIDED 2026-10-17 (사용자, 스크린숏 표): Day 2와 Day 3의 미션 인정 조건이 정해졌습니다. "이후 공개"를 이것으로 바꿉니다.
         // 조건 셋(과반 현장, 멘토 찾아가기, 진척 PDF). 2026-10-26: 멘토 찾아가기는 Day 2, 3 날마다 팀이 함께(10/17의 하루 이상 완화를 되돌림). 확인은 현장 체크, 멘토와 찍은 사진(찾아간 날), PDF입니다.
-        milestone: { ko: "멘토 찾아가기와 진척 공유", en: "Visit a mentor, share progress" },
+        // DECIDED 2026-11-08 (docs/mission-card-brief.md S1, missions-brief): 조건에 PO session이 들어와 제목에도. 그 전 "멘토 찾아가기와 진척 공유" / "Visit a mentor, share progress".
+        milestone: { ko: "멘토 만나기, PO session, 고친 1장 올리기", en: "Meet a mentor, sit in the PO session, upload your revised page" },
         // DECIDED 2026-10-17 (사용자, 스크린숏: "문장으로 말고, bullet point로, 그리고 제출하는 방법으로"): 설명은 문단이 아니라
         // 인정 조건과 제출 방법 두 목록입니다. 그 전: "세 가지를 모두 채우면 인정됩니다. ..." 한 문단.
         milestoneDetail: {
@@ -2895,12 +2906,17 @@ export const naru = {
             // 10/17의 완화("이틀 중 하루 이상", 멘토 수로 20팀 × 이틀을 못 채워서)를 되돌립니다. 멘토 수는 운영에서 맞춥니다.
             // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C8/C10, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
             // DECIDED 2026-10-31 (사용자, 스크린숏: "상자의 길이가 다름. day 1 이랑 day 2 and 3 가 다름"): 인정 조건을 1440 칸에서 한 줄씩으로. Day 1(할 것 셋 + 세션 두 줄)과 같은 다섯 줄. 그 전: 팀원 과반이 함께 멘토를 찾아가 사진 한 장
-            { ko: "팀원 과반이 멘토를 찾아가 사진 한 장", en: "Most of the team visits a mentor, one photo" },
+            // DECIDED 2026-11-08 (docs/mission-card-brief.md S3, missions-brief): 조건은 넷. 멘토는 한 분 이상을 과반이 함께, 그날 세션(PO session)에 함께 있기.
+            // 그 전 둘째 줄 "팀원 과반이 멘토를 찾아가 사진 한 장", 넷째 줄 "1장을 반박에 맞춰 고쳐 공유하기".
+            { ko: "멘토 한 분 이상을 과반이 함께 찾아가기", en: "Visit at least one mentor, more than half of you together" },
+            { ko: "PO session에 함께 있기", en: "Be at the PO session together" },
             // DECIDED 2026-10-26 (사용자): 진척 PDF는 새 문서가 아니라 1장을 멘토의 피드백과 그날의 진척에 맞춰 고친 것.
             // DECIDED 2026-10-31 (사용자, 스크린숏: "상자의 길이가 다름. day 1 이랑 day 2 and 3 가 다름"): 인정 조건을 1440 칸에서 한 줄씩으로. Day 1(할 것 셋 + 세션 두 줄)과 같은 다섯 줄. 그 전: 1장을 피드백과 진척에 맞춰 고쳐 공유하기(진척은 띠 제목이 말함)
             // DECIDED 2026-11-06 (docs/write-first-brief.md W6): "피드백"을 사이트의 말 "반박"으로. 그 전 문장은 git 93a69c2.
-            { ko: "1장을 반박에 맞춰 고쳐 공유하기", en: "Revise your one page to the pushback and share it" },
+            { ko: "1장을 반박에 맞춰 고쳐 올리기", en: "Revise your page to the pushback and upload it" },
           ],
+          // 2026-11-08 (mission-card-brief 2장): 조건 줄마다 어떻게 확인하는지. conditions와 같은 길이.
+          checks: ["staff", "photo", "staff", "pdf"],
           submit: [
             { ko: "멘토와 팀이 함께 찍은 사진", en: "A photo of the team with the mentor" },
             { ko: "고쳐 올린 1장 (PDF)", en: "Your updated one page (PDF)" },
@@ -2972,7 +2988,8 @@ export const naru = {
         // 조건 셋(과반 현장, 멘토 찾아가기, 진척 PDF). 2026-10-26: 멘토 찾아가기는 Day 2, 3 날마다 팀이 함께(10/17의 하루 이상 완화를 되돌림). 확인은 현장 체크, 멘토와 찍은 사진(찾아간 날), PDF입니다.
         // DECIDED 2026-10-24 (사용자: "3일차 미션은 open session과 연관이 있어야 함. 다른 팀에게 progress 공유가 미션의 일부"):
         // Day 3의 진척 공유는 Open tables에서 다른 팀에게 하는 것입니다.
-        milestone: { ko: "멘토 찾아가기와 Open tables 공유", en: "Mentor visit, Open tables" },
+        // DECIDED 2026-11-08 (docs/mission-card-brief.md S2): 그 전 "멘토 찾아가기와 Open tables 공유" / "Mentor visit, Open tables".
+        milestone: { ko: "멘토 만나기, Open tables 공유, 발표 자료 올리기", en: "Meet a mentor, share at Open tables, upload your deck" },
         // DECIDED 2026-10-17 (사용자, 스크린숏: "문장으로 말고, bullet point로, 그리고 제출하는 방법으로"): 설명은 문단이 아니라
         // 인정 조건과 제출 방법 두 목록입니다. 그 전: "세 가지를 모두 채우면 인정됩니다. ..." 한 문단.
         milestoneDetail: {
@@ -2982,10 +2999,13 @@ export const naru = {
             // 10/17의 완화("이틀 중 하루 이상", 멘토 수로 20팀 × 이틀을 못 채워서)를 되돌립니다. 멘토 수는 운영에서 맞춥니다.
             // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C8/C10, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
             // DECIDED 2026-10-31 (사용자, 스크린숏: "상자의 길이가 다름. day 1 이랑 day 2 and 3 가 다름"): 인정 조건을 1440 칸에서 한 줄씩으로. Day 1(할 것 셋 + 세션 두 줄)과 같은 다섯 줄. 그 전: 팀원 과반이 함께 멘토를 찾아가 사진 한 장
-            { ko: "팀원 과반이 멘토를 찾아가 사진 한 장", en: "Most of the team visits a mentor, one photo" },
-            // DECIDED 2026-10-31 (사용자, 스크린숏: "상자의 길이가 다름. day 1 이랑 day 2 and 3 가 다름"): 인정 조건을 1440 칸에서 한 줄씩으로. Day 1(할 것 셋 + 세션 두 줄)과 같은 다섯 줄. 그 전: Open tables에서 다른 팀에게 그날의 진척 공유하기(다른 팀은 세션 줄이 말함)
-            { ko: "Open tables에서 진척 공유하기", en: "Share progress at Open tables" },
+            // DECIDED 2026-11-08 (docs/mission-card-brief.md S4): 조건은 넷. 그 전 둘째 줄 "팀원 과반이 멘토를 찾아가 사진 한 장".
+            { ko: "멘토 한 분 이상을 과반이 함께 찾아가기", en: "Visit at least one mentor, more than half of you together" },
+            // DECIDED 2026-10-31 (사용자, 스크린숏: "상자의 길이가 다름. day 1 이랑 day 2 and 3 가 다름"): 인정 조건을 1440 칸에서 한 줄씩으로. 그 전: Open tables에서 다른 팀에게 그날의 진척 공유하기(다른 팀은 세션 줄이 말함)
+            { ko: "Open tables에서 어디까지 왔는지 공유하기", en: "Share where you are at Open tables" },
+            { ko: "발표 자료 올리기", en: "Upload your deck" },
           ],
+          checks: ["staff", "photo", "staff", "pdf"],
           submit: [
             { ko: "멘토와 팀이 함께 찍은 사진", en: "A photo of the team with the mentor" },
             // 2026-10-26 (사용자): Day 3에 올리는 것은 발표 자료(슬라이드 PDF).
@@ -3089,7 +3109,7 @@ export const naru = {
       /** 그날의 마일스톤(2026-10-10). 넘은 팀 모두가 지원을 받습니다. Day 0에는 없습니다. */
       milestone?: Phrase;
       /** 마일스톤 띠를 누르면 열리는 설명(2026-10-11). 2026-10-17부터 인정 조건과 제출 방법 두 목록. */
-      milestoneDetail?: { conditions: Phrase[]; submit: Phrase[] };
+      milestoneDetail?: { conditions: Phrase[]; submit: Phrase[]; checks?: ("staff" | "photo" | "pdf")[] };
     }[],
     tbdLabel: { ko: "아직 정해지지 않은 것", en: "Not settled yet" },
     // 2026-09-15: "이벤트 이름"이 이 목록에서 빠졌습니다. 크로싱 서울로
