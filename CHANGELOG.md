@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 세션 설명을 두 줄씩](#2026-11-09-session-short)
 - [2026-11-09 세션 이름을 누르면 설명](#2026-11-09-session-detail)
 - [2026-11-09 브리프 색인의 상태를 커밋과 대조](#2026-11-09-docs-index)
 - [2026-11-09 README를 지금 레포에 맞게 다시 씀](#2026-11-09-readme)
@@ -530,6 +531,12 @@
 
 ---
 
+<a id="2026-11-09-session-short"></a>
+## 2026-11-09 세션 설명을 두 줄씩
+- 범위: components/crossing/redesign/copy.ts sessionDetail, data/naru.ts stages[1~3].session.detail
+- 한 것: 사용자 요청("설명이 너무 긴 거 같아"). 세션마다 네 줄이던 설명을 두 줄로: 누가 무엇을 하는지 한 줄, 무엇을 얻는지 한 줄. 빠진 것은 워크숍 순서와 현장에 남는다는 줄, PO session과 멘토의 차이, Open tables의 8월 이유. 근거: brand 5장(짧은 문장).
+- 검증: 1440, 390 펼침 스크린숏, npm run build 통과
+- 커밋: d983edf
 <a id="2026-11-09-session-detail"></a>
 ## 2026-11-09 세션 이름을 누르면 설명
 - 범위: components/crossing/redesign/CrossingSeoul.tsx(세션 버튼과 펼침 카드), components/crossing/redesign/copy.ts(sessionDetail), data/naru.ts(stages[1~3].session.detail, EN과 기본값)
