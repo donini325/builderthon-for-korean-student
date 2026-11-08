@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 brand.md를 새 화면의 해요체에 맞춤](#2026-11-09-brand-voice)
 - [2026-11-09 미션 카드는 누르면 펼쳐지게](#2026-11-09-mission-fold)
 - [2026-11-08 Day 2, 3 미션을 펼친 카드로](#2026-11-08-mission-card)
 - [2026-11-08 멘토 칸 마감과 팀 간격 2시간](#2026-11-08-booking-cutoff)
@@ -526,6 +527,13 @@
 
 ---
 
+<a id="2026-11-09-brand-voice"></a>
+## 2026-11-09 brand.md를 새 화면의 해요체에 맞춤
+- 범위: docs/brand.md(머리, 0장, 1장, 2장 사이트 판 둘, 5장 문체와 표, 6장, 7장 괄호 둘), components/naru/redesign/copy.ts coreTitles, components/crossing/redesign/copy.ts naruLine
+- 한 것: 사용자 요청(새 화면의 톤과 매너에 brand.md의 문장 구조와 워딩 규칙을 맞춤). 5장 문체를 해요체와 문장 끝, 줄임, 줄 나눔, 자문 규칙으로. 어휘 표에 회사, 꾸리다, 절반 넘게(사이트 말). 1장 정의문, 2장 코어 본문, 6장 캐치프레이즈와 정체성 문장은 정본을 두고 사이트 판을 나란히. 2장과 3장 정본 문장은 그대로. 사이트는 코어 제목 둘을 2장 정본으로 되돌리고(D1, brand 0장과 11장: 2장은 사이트가 먼저 바꾸지 않음), 히어로의 "나루가 엽니다"를 "나루가 열어요"로(D3). 근거: brand 5장 문체, 0장.
+- 검증: brand.md diff가 브리프 2장 자리뿐, 2장 3장 정본 문장 변화 0, 새 줄에 em dash와 가운뎃점 0, 홈 코어와 크로싱 히어로 스크린숏, npm run build 통과
+- 브리프: docs/brand-voice-brief.md
+- 커밋: 0e88d33, e6bd1d2
 <a id="2026-11-09-mission-fold"></a>
 ## 2026-11-09 미션 카드는 누르면 펼쳐지게
 - 범위: components/crossing/redesign/CrossingSeoul.tsx MissionCard, docs/brand.md 7장 미션 줄
