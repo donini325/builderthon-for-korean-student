@@ -52,7 +52,9 @@ export async function GET(req: Request) {
       bookings: (bookings ?? []).filter((b) => b.mentor_id === m.id).map((b) => ({
         id: b.id, team: b.team_name, track: b.track, startsAt: b.starts_at, endsAt: b.ends_at,
       })),
-    })).filter((m) => m.windows.length > 0),
+    })).filter((m) => m.windows.length > 0)
+      // DECIDED 2026-11-08 (사용자, 스크린숏: "오전 먼저, 오후 그 다음"): 열은 첫 칸 시각 순서. 같은 시각이면 sort 순서 그대로(안정 정렬).
+      .sort((a, b) => Date.parse(a.windows[0].startsAt) - Date.parse(b.windows[0].startsAt)),
     // 2026-11-03: 넣은 멘토링이 아직 끝나지 않은 팀(이틀 통틀어, lib/crossingOps.ts teamHasPending). 그 팀은 다음 칸을 넣지 못합니다.
     pendingTeams: [...new Set((pending ?? []).map((b) => b.team_name))],
   });

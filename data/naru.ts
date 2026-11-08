@@ -2256,7 +2256,8 @@ export const naru = {
     // DECIDED 2026-11-06 (사용자: "merge the mentor list in day 2 and day 3 button", "이런분들 말고도 다양한 분들이 오신다 이런느낌으로"): 두 날 모두 같은 명단, 머리는 "함께하는 멘토".
     mentorsListLabel: { ko: "함께하는 멘토", en: "Mentors" },
     // 2026-11-06 (사용자: "이 맨토들 다 AI community 에서 활동하고 있는 사람들이라고 써줘"): 명단 머리 아래 한 줄.
-    mentorsListNote: { ko: "그중 몇 분을 먼저 소개합니다. 모두 AI 커뮤니티에서 활동하는 현업이고, 이 밖에도 여러 분야의 멘토가 함께합니다.", en: "A few of them, all active in AI communities. Mentors from other fields join too." },
+    // DECIDED 2026-11-08 (사용자: "ai 를 적극적으로 각자의 도메인 안 현업에서 쓰는 사람들"): 커뮤니티 활동 대신 자기 일에 AI를 쓰는 사람으로.
+    mentorsListNote: { ko: "그중 몇 분을 먼저 소개합니다. 모두 각자의 현업에서 AI를 적극적으로 쓰는 분들이고, 이 밖에도 여러 분야의 멘토가 함께합니다.", en: "A few of them, all actively using AI in their own work. Mentors from other fields join too." },
     mentorsLead: {
       ko: "멘토는 답을 주러 오지 않습니다. 일을 해 본 사람이면 누구나 아는 감각으로, 팀이 들고 간 한 장과 시안에 \"실제로는 그렇게 안 돌아간다\"를 그대로 말해 줍니다.",
       en: "Mentors do not come with answers. With the sense anyone who has done the work has, they tell the team, to its one page and draft, \"that is not how it works in practice.\"",

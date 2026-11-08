@@ -64,7 +64,9 @@ export async function GET(req: Request) {
     ...publicMentorName(m.id, m.name), field: m.field, me: m.id === mentor.id,
     slots: slotStarts(windowsFor(d, (allWindows ?? []).filter((w) => w.mentor_id === m.id && w.day === d))).map((t) => new Date(t).toISOString()),
     bookings: (allBookings ?? []).filter((b) => b.mentor_id === m.id && b.day === d).map((b) => ({ team: b.team_name, track: b.track, startsAt: b.starts_at, endsAt: b.ends_at })),
-  })).filter((m) => m.slots.length || m.bookings.length)]));
+  })).filter((m) => m.slots.length || m.bookings.length)
+    // DECIDED 2026-11-08 (사용자: "오전 먼저, 오후 그 다음"): 학생 시간표와 같이 첫 칸 시각 순서. 같으면 sort 순서 그대로.
+    .sort((a, b) => Date.parse(a.slots[0] ?? a.bookings[0]?.startsAt ?? "") - Date.parse(b.slots[0] ?? b.bookings[0]?.startsAt ?? ""))]));
 
   // DECIDED 2026-11-05 (사용자: 출제사와 정리한 PDF를 멘토는 자기 페이지에서, 참가자는 절대 접근 못 하게): 멘토 열쇠를 확인한 이 자리에서만
   // 비공개 버킷(BRIEF_BUCKET)의 30분짜리 보기 URL을 만듭니다. 자료가 없거나 읽지 못하면 빈 목록이고, 페이지의 나머지는 그대로 뜹니다.
