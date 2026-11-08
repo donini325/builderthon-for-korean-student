@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-08 멘토 칸 마감과 팀 간격 2시간](#2026-11-08-booking-cutoff)
 - [2026-11-08 트레바리 독서모임 쿠폰](#2026-11-08-trevari)
 - [2026-11-08 나루 홈 행사 묶음 제목](#2026-11-08-events-heading)
 - [2026-11-08 크로싱 서울, 나루 홈 새 화면](#2026-11-08-redesign)
@@ -523,6 +524,13 @@
 
 ---
 
+<a id="2026-11-08-booking-cutoff"></a>
+## 2026-11-08 멘토 칸 마감과 팀 간격 2시간
+- 범위: lib/crossingOps.ts, app/api/crossing/mentoring/route.ts, supabase/migrations/0022_crossing_booking_cutoffs_and_gap.sql(파일만, 미적용), components/crossing/TeamTool.tsx, components/crossing/MentorTool.tsx, data/crossingTeam.ts, docs/brand.md 7장
+- 한 것: 사용자 요청(멘토가 갑자기 튀어나온 예약에 놀라지 않게). 오전 칸은 전날(Day 2는 Day 1 17:00, Day 3은 Day 2 14:00), 오후 칸은 그날 12:00에 닫히고 화면에 회색 "닫힘". 2026-11-03의 "이틀 통틀어 한 번에 한 칸"을 없애고 칸 수는 제한 없이, 같은 팀의 칸끼리 시작 2시간 이상(DB 제약 60분에서 120분). 마감은 DB 트리거 crossing_bookings_cutoff로도 막음. 멘토 장소(place) 열을 더해 시간표 머리에 소속 아래 한 줄. 멘토 페이지에 확정 시각 한 줄. 근거: brand 7장 멘토링 줄(목적: 모든 팀이 한 번은 만나고 멘토에게 무리가 가지 않게).
+- 검증: slotState 단위 표 9/9, POST 7경우(가짜 시계) 응답이 브리프와 같음, PGlite에서 0022 적용 전후 같은 여섯 insert(전 team_pending, 뒤 23P01 team_overlap, P0001 closed), 가짜 시계 스크린숏, npm run build 통과
+- 브리프: docs/booking-cutoff-brief.md
+- 커밋: ca5ce6b
 <a id="2026-11-08-trevari"></a>
 ## 2026-11-08 트레바리 독서모임 쿠폰
 - 범위: data/naru.ts decemberPartners(새 줄 "독서모임 쿠폰"), components/shared/HeroPartnerStrip.tsx DECEMBER_MASS, public/partners/logos/paper/trevari.png
