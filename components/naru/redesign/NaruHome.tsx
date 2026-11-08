@@ -5,7 +5,7 @@
 // 데이터와 링크는 data/naru.ts 그대로이고, 한국어 문구만 ./copy.ts에서 덮어씁니다. 그 전 화면은 components/naru/NaruPage.tsx에 그대로 있습니다.
 //
 //   #top        인장, 태그라인, 나루 소개
-//   #events     지금 여는 자리(크로싱 서울, #record 8월, 다음)
+//   #events     함께한 곳, 함께할 곳(크로싱 서울, #record 8월, 다음)
 //   #core       변하지 않는 두 개, 경첩, 방법은 바뀝니다
 //   #how        세 층, 회사가 얻는 것, 연락
 //   #why        왜 이런 자리가 필요한가
@@ -63,7 +63,7 @@ export default function NaruHome() {
           </div>
         </section>
 
-        {/* ── 지금 여는 자리 ─────────────────────────────────────────────── */}
+        {/* ── 함께한 곳, 함께할 곳 ─────────────────────────────────────────────── */}
         <section id="events" aria-labelledby="events-title" className="mt-12 lg:mt-16">
           <div className={FRAME}>
             <h2 id="events-title" className={`break-keep ${TITLE} ${NAVY}`}>{t(C.eventsHeading)}</h2>

@@ -16,7 +16,7 @@ export const copy = {
   groupName: ko("나루는 한국에 뿌리를 둔 학생 그룹이에요. 학생이 직접 꾸리고, 돈을 벌려는 곳이 아니죠.\n이벤트로 학생을 모으는 데서 끝내지 않고, 모인 사람들이 그 뒤로도 이어지게 하는 게 나루의 일이에요.", naru.group.name),
   groupConcrete: ko("건너는 건 각자의 몫이에요. 나루는 그 전에 연습할 자리를 열 뿐이죠.\n먼저 건넌 사람이 돌아와, 다음 사람에게 노 젓는 법을 알려 주는 곳.", naru.group.concrete),
 
-  eventsHeading: ko("지금 여는 자리", naru.events.label),
+  eventsHeading: ko("함께한 곳, 함께할 곳", naru.events.label),
   decemberLine: ko("어느 나라에 있든, 한인 학생이 모여 먼저 생각해 보는 닷새예요.", naru.december.heading),
   recordLine: ko("나루는 2026년 8월, 싱가포르의 제로백 빌더톤에서 시작했어요.", naru.record.lead2),
   recordCta: ko("8월 기록 보기", naru.record.cta),
