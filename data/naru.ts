@@ -2274,8 +2274,9 @@ export const naru = {
         bio: { ko: "한독, SK케미칼에서 15년 넘게 임상 개발", en: "15+ years in clinical development at Handok and SK Chemicals" }, days: [2], confirmed: true },
       { name: { ko: "김규리 님", en: "Kim Gyu-ri" }, org: { ko: "Aside (YC F25)", en: "Aside (YC F25)" }, role: { ko: "Chief of Staff", en: "Chief of Staff" },
         bio: { ko: "SaaS 스타트업 스코디 공동창업, B2B GTM", en: "Co-founded SaaS startup Scordi, B2B GTM" }, days: [2], confirmed: true },
+      // DECIDED 2026-11-08 (사용자): 이 멘토와 강상우 님이 맡는 날을 서로 바꿈. 시간은 둘 다 오후 13:00~16:00 그대로(DB 0021).
       { name: { ko: "조동현 님", en: "Cho Dong-hyun" }, org: { ko: "KAIST AI 대학원, 인클리즈랩", en: "KAIST Graduate School of AI, Inclease Lab" }, role: { ko: "박사과정, Co-founder&CTO", en: "PhD student, Co-founder & CTO" },
-        bio: { ko: "네이버클라우드 이미지 생성 모델 연구 인턴", en: "AI research intern on image generation at NAVER Cloud" }, days: [2], confirmed: true },
+        bio: { ko: "네이버클라우드 이미지 생성 모델 연구 인턴", en: "AI research intern on image generation at NAVER Cloud" }, days: [3], confirmed: true },
       { name: { ko: "최우현 님", en: "Choi Woo-hyun" }, org: { ko: "DanaMed, 수일개발", en: "DanaMed, SOOIL Development" }, role: { ko: "CEO, 의료기기 인허가", en: "CEO, medical device regulatory affairs" },
         bio: { ko: "인슐린 펌프 인허가(EU MDR)와 AI 업무 자동화", en: "Insulin pump approval (EU MDR) and AI workflow automation" }, days: [2], confirmed: true },
       { name: { ko: "강정민 님", en: "Kang Jeong-min" }, org: { ko: "Independent AI Researcher", en: "Independent AI Researcher" }, role: { ko: "NeurIPS 2026 TAE 워크숍 포스터 저자 (AX 인재전쟁 본선, Upstage MABC 결선)", en: "Author of a NeurIPS 2026 TAE workshop poster (AX Talent War finals, Upstage MABC finals)" },
