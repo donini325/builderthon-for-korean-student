@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-08 트레바리 독서모임 쿠폰](#2026-11-08-trevari)
 - [2026-11-08 나루 홈 행사 묶음 제목](#2026-11-08-events-heading)
 - [2026-11-08 크로싱 서울, 나루 홈 새 화면](#2026-11-08-redesign)
 - [2026-11-08 시간표 오전 먼저, 멘토 소개 한 줄](#2026-11-08-timetable-order)
@@ -522,6 +523,12 @@
 
 ---
 
+<a id="2026-11-08-trevari"></a>
+## 2026-11-08 트레바리 독서모임 쿠폰
+- 범위: data/naru.ts decemberPartners(새 줄 "독서모임 쿠폰"), components/shared/HeroPartnerStrip.tsx DECEMBER_MASS, public/partners/logos/paper/trevari.png
+- 한 것: 사용자 요청("트레바리 반영"). 파트너맵 11-07 확정분: 참가 학생 전원에게 독서모임 쿠폰. 같은 원본을 쓰는 세 자리(/crossing 히어로 로고 띠, 함께하는 곳 띠, 푸터 띠)에 한 번에 섭니다. 로고는 파트너맵 소스의 주황 워드마크를 여백만 잘라 원래 색. 금액은 쓰지 않음(brand 9장).
+- 검증: 로컬 빌드, /crossing과 홈 HTML에 로고, 무게 0.577 측정
+- 커밋: 9894a6b
 <a id="2026-11-08-events-heading"></a>
 ## 2026-11-08 나루 홈 행사 묶음 제목
 - 범위: components/naru/redesign/copy.ts eventsHeading
