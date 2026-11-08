@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 미션 카드는 누르면 펼쳐지게](#2026-11-09-mission-fold)
 - [2026-11-08 Day 2, 3 미션을 펼친 카드로](#2026-11-08-mission-card)
 - [2026-11-08 멘토 칸 마감과 팀 간격 2시간](#2026-11-08-booking-cutoff)
 - [2026-11-08 트레바리 독서모임 쿠폰](#2026-11-08-trevari)
@@ -525,6 +526,12 @@
 
 ---
 
+<a id="2026-11-09-mission-fold"></a>
+## 2026-11-09 미션 카드는 누르면 펼쳐지게
+- 범위: components/crossing/redesign/CrossingSeoul.tsx MissionCard, docs/brand.md 7장 미션 줄
+- 한 것: 사용자 요청(스크린숏, "클릭하면 펼쳐지게"). 전날의 펼친 카드(mission-card-brief D1)를 되돌려, 처음에는 ★ 미션 제목 줄과 ⌄만 보이고 누르면 조건 넷, 확인 칩, 아래 두 줄이 펼쳐집니다. 글과 칩은 그대로. 근거: brand 7장 미션 줄.
+- 검증: 1440 접힘, 펼침 스크린숏, 390 펼침, npm run build 통과
+- 커밋: 6f5be85
 <a id="2026-11-08-mission-card"></a>
 ## 2026-11-08 Day 2, 3 미션을 펼친 카드로
 - 범위: components/crossing/redesign/CrossingSeoul.tsx(MissionCard), components/crossing/redesign/copy.ts, data/naru.ts(checks, checkLabels, milestoneReward, milestoneUpload, 조건 넷, facts 미션 줄), docs/brand.md 7장 미션 줄
