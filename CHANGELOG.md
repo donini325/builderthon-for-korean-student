@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 세션 이름을 누르면 설명](#2026-11-09-session-detail)
 - [2026-11-09 브리프 색인의 상태를 커밋과 대조](#2026-11-09-docs-index)
 - [2026-11-09 README를 지금 레포에 맞게 다시 씀](#2026-11-09-readme)
 - [2026-11-09 brand.md를 새 화면의 해요체에 맞춤](#2026-11-09-brand-voice)
@@ -529,6 +530,12 @@
 
 ---
 
+<a id="2026-11-09-session-detail"></a>
+## 2026-11-09 세션 이름을 누르면 설명
+- 범위: components/crossing/redesign/CrossingSeoul.tsx(세션 버튼과 펼침 카드), components/crossing/redesign/copy.ts(sessionDetail), data/naru.ts(stages[1~3].session.detail, EN과 기본값)
+- 한 것: 사용자 요청(스크린숏, "각 세션 클릭하면 세션 설명이 나오게"). /crossing Day 1~3의 "세션 OOO"을 누르면 그 아래에 설명 서너 줄이 펼쳐짐. 글은 운영 미팅 기록에서: Lovable workshop은 워크숍 진행자와의 10/29, 11/05 미팅(생각을 화면으로 빨리, 목적부터 정하고 AI에게 되물어 맥락을 쌓는 순서, 워크숍 뒤 현장에 남음), PO session은 10/21~11/04 주간 회의(PO 셋이 무엇을 왜 만들고 어디서 멈췄는지, 주제는 덜어내기, 대담과 질문). Open tables는 기록에 세부가 없어 사이트와 brand에 있는 뜻만. 시각은 쓰지 않음. 근거: brand 5장 쓰는 말, 7장 세션.
+- 검증: 1440 접힘과 펼침, 390 펼침, EN 펼침 스크린숏, copy.ts 줄 수 = data/naru.ts, npm run build 통과
+- 커밋: 13ed03b
 <a id="2026-11-09-docs-index"></a>
 ## 2026-11-09 브리프 색인의 상태를 커밋과 대조
 - 범위: docs/README.md 2장과 3장의 상태 칸, CLAUDE.md(브리프 절 새로)
