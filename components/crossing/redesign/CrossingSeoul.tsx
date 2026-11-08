@@ -188,6 +188,8 @@ export default function CrossingSeoul() {
 
   const [photoOpen, setPhotoOpen] = useState<number | null>(null);
   const [flowDay, setFlowDay] = useState<number | null>(null);
+  // 2026-11-09: 설명이 펼쳐진 세션(그날의 dayOffset). 한 번에 하나.
+  const [openSession, setOpenSession] = useState<number | null>(null);
   const [mentorsDay, setMentorsDay] = useState<number | null>(null);
 
   const name = locale === "en" ? (DECEMBER_EVENT_NAME?.en ?? decemberEventLabel(locale)) : (DECEMBER_EVENT_NAME?.ko ?? decemberEventLabel(locale));
@@ -347,12 +349,37 @@ export default function CrossingSeoul() {
                       <p className={`mt-2 max-w-[42rem] break-keep ${BODY} ${SOFT} lg:max-w-none`}><Lines text={t(C.line[s.dayOffset] ?? s.line)} /></p>
                       {(s.session || s.chips.length > 0) && (
                         <p className={`mt-4 flex flex-wrap gap-x-5 gap-y-1 ${META} text-caption`}>
-                          {s.session && (
+                          {/* DECIDED 2026-11-09 (사용자, 스크린숏: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름이 버튼이고, 누르면 아래에 설명이 펼쳐집니다. */}
+                          {s.session && (s.session.detail?.length ? (
+                            <button
+                              type="button"
+                              aria-expanded={openSession === s.dayOffset}
+                              aria-controls={`session-${s.dayOffset}`}
+                              onClick={() => setOpenSession((v) => (v === s.dayOffset ? null : s.dayOffset))}
+                              className="-my-2 inline-flex items-center gap-1.5 rounded-md py-2 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-naru-navy"
+                            >
+                              {t(d.sessionLabel)}{" "}
+                              <span lang="en" className={`font-semibold ${INK} underline decoration-naru-navy/30 decoration-dotted underline-offset-[4px]`}>{t(s.session.title)}</span>
+                              <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className={`shrink-0 transition-transform duration-200 motion-reduce:transition-none ${openSession === s.dayOffset ? "rotate-180" : ""}`}>
+                                <path d="m6 9 6 6 6-6" />
+                              </svg>
+                            </button>
+                          ) : (
                             <span>{t(d.sessionLabel)} <span lang="en" className={`font-semibold ${INK}`}>{t(s.session.title)}</span></span>
-                          )}
+                          ))}
                           {(C.chips[s.dayOffset] ?? s.chips).map((c, j) => <span key={j}>{t(c)}</span>)}
                         </p>
                       )}
+                      {s.session?.detail?.length ? (
+                        <div id={`session-${s.dayOffset}`} hidden={openSession !== s.dayOffset} className={`mt-3 max-w-[42rem] rounded-xl border ${RULE} bg-[#FFFFFF] px-4 py-3.5`}>
+                          <p lang="en" className={`${META} font-bold ${INK}`}>{t(s.session.title)}</p>
+                          <ul className={`mt-1.5 flex flex-col gap-1.5 ${META} ${SOFT}`}>
+                            {(C.sessionDetail[s.dayOffset] ?? s.session.detail).map((x, j) => (
+                              <li key={j} className="break-keep leading-[1.65]">{t(x)}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
                       {strip && <div className="mt-5 max-w-[42rem] lg:max-w-none">{strip}</div>}
                       {(s.flow?.length || s.matchCta || mentorsOn) && (
                         <div className="mt-3 flex flex-wrap gap-x-6">

@@ -82,6 +82,35 @@ export const copy = {
     3: kos(["멘토랑 팀이 같이 찍은 사진", "발표 자료 (슬라이드 PDF)", "현장 출석은 운영진이 체크해요"], stage(3).milestoneDetail!.submit ?? []),
   } as Record<number, Phrase[]>,
 
+  // DECIDED 2026-11-09 (사용자: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명. 영어와 근거는 data/naru.ts stages[n].session.detail.
+  sessionDetail: {
+    1: kos(
+      [
+        "Lovable로 사이트 넷을 띄워 운영하는 Carraway & Gatsby가 현장에서 진행해요.",
+        "Lovable은 생각을 짧은 시간에 화면으로 띄우는 데 강해요. 멘토를 찾아갈 때 한 장과 같이 보여 줄 시안을 만드는 데 써요.",
+        "바로 만들지 않아요. 회사가 이 일로 뭘 풀고 싶은지부터 정하고, AI한테 되물어 맥락을 쌓은 다음 화면으로 옮기는 순서를 직접 보여 줘요.",
+        "워크숍이 끝나도 현장에 남아서 팀들 질문을 받을 예정이에요.",
+      ],
+      stage(1).session?.detail ?? [],
+    ),
+    2: kos(
+      [
+        "현업 PO 세 명이 한 사람씩 나와서, 뭘 왜 만들기로 했고 어디서 멈췄는지를 자기 제품 이야기로 들려줘요.",
+        "주제는 덜어내기예요. 하고 싶은 것 여럿 중에 뭘 빼고 하나를 남겼는지가 가운데에 있어요.",
+        "마지막엔 셋이 같이 대담하고 질문을 받아요.",
+        "멘토가 일해 본 사람의 감각으로 반박해 준다면, PO session은 뭘 만들지 고르는 법을 보여 줘요.",
+      ],
+      stage(2).session?.detail ?? [],
+    ),
+    3: kos(
+      [
+        "만드는 날, 팀과 팀이 한자리에 모여요.",
+        "팀마다 지금 어디까지 왔는지 나누고, 막힌 지점을 다른 팀에 물어 서로의 생각을 빌려 가요.",
+        "8월엔 팀 안에서는 붙었는데 팀과 팀은 섞이지 않았어요. 그 자리를 메우는 시간이에요.",
+      ],
+      stage(3).session?.detail ?? [],
+    ),
+  } as Record<number, Phrase[]>,
   dayFlowLabel: ko("하루 일정 보기", d.dayFlowLabel),
   matchLabel: ko("AI 유형 테스트 해 보기", stage(1).matchCta!.label),
   voteLocked: ko("성과 공유회 날 현장에서 열려요.", stage(4).voteCta!.lockedNote!),
