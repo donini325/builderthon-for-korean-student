@@ -32,9 +32,11 @@ export const teamCopy = {
   confirmPut: { ko: "넣기?", en: "Put in?" },
   noMentors: { ko: "이 날 시간을 연 멘토가 아직 없습니다.", en: "No mentors have opened times on this day yet." },
   errTaken: { ko: "방금 다른 팀이 들어간 칸입니다.", en: "Another team just took that cell." },
-  errTeamBusy: { ko: "우리 팀의 다른 칸과 시간이 겹칩니다.", en: "This overlaps another of your team's slots." },
-  // 2026-11-03: 이틀 통틀어 한 번에 한 칸. 시간표 위 안내로도 씁니다.
-  errPending: { ko: "우리 팀이 넣은 멘토링이 끝나면 다음 칸을 넣을 수 있습니다.", en: "Your team can add the next slot once its booked session is over." },
+  // DECIDED 2026-11-08 (docs/booking-cutoff-brief.md 3장): errTeamBusy(겹침)는 errGap이 대신하고, errPending(한 번에 한 칸)은 규칙이 없어져 뺍니다.
+  errClosed: { ko: "닫힌 칸입니다. 오전 칸은 전날에, 오후 칸은 그날 12:00에 닫힙니다.", en: "This slot is closed. Morning slots close the day before, afternoon slots at 12:00 that day." },
+  errGap: { ko: "우리 팀의 다른 칸과 2시간 이상 띄워 주세요. 이동 시간이 있습니다.", en: "Leave at least two hours after your team's other slot; you need time to get there." },
+  // 닫힌 칸의 글자이자 범례(D4: 빗금 없이 회색 글자, "+" 없음).
+  legendClosed: { ko: "닫힘", en: "Closed" },
   errPast: { ko: "지난 시간입니다.", en: "That time has passed." },
   errNotYet: { ko: "Day 1(12.18) 12:00부터 넣을 수 있습니다.", en: "Slots open on Day 1 (Dec 18) at 12:00." },
   errGeneric: { ko: "잠시 뒤 다시 해 주세요.", en: "Try again in a moment." },
@@ -73,9 +75,13 @@ export const teamCopy = {
   errPhone: { ko: "칸 넣기는 노트북이나 PC에서 합니다.", en: "Please book from a laptop or PC." },
   rulesHeading: { ko: "넣는 규칙", en: "How booking works" },
   // 시간표 넣는 규칙(2026-10-26 카드 여섯 장). DECIDED 2026-11-03 (사용자): 규칙의 목적은 모든 팀이 한 번은 멘토님을 만나는 것과
-  // 멘토님께 무리가 가지 않는 것이라, 남길 규칙만 한 줄로 씁니다. 정본은 lib/crossingOps.ts(SESSION_MINUTES, teamHasPending, BOOKING_OPENS_AT).
+  // 멘토님께 무리가 가지 않는 것이라, 남길 규칙만 한 줄로 씁니다. 정본은 lib/crossingOps.ts(SESSION_MINUTES, TEAM_GAP_MINUTES, MORNING_CUTOFF, AFTERNOON_CUTOFF, BOOKING_OPENS_AT).
+  // DECIDED 2026-11-08 (사용자, docs/booking-cutoff-brief.md): 한 번에 한 칸을 없애고 마감과 2시간 간격으로. 그 전: "팀마다 한 번에 한 칸, 40분입니다. 넣은 멘토링이 끝나면 다음 칸을 넣을 수 있습니다. ..."
   // 같은 날 사용자: 이동 시간을 생각해 무리하게 붙여 잡지 않게 하는 한 줄을 더합니다(멘토는 오피스, 카페에 계시고 팀이 찾아감, brand 7장).
-  rulesLine: { ko: "팀마다 한 번에 한 칸, 40분입니다. 넣은 멘토링이 끝나면 다음 칸을 넣을 수 있습니다. 12.18 12:00에 열리고, 넣은 칸은 바꿀 수 없습니다.", en: "One 40-minute slot per team at a time; book the next once it ends. Opens Dec 18, 12:00. No changes." },
+  rulesLine: {
+    ko: "한 칸은 40분이고 12.18 12:00에 열립니다. 오전 칸은 전날에 닫히고(Day 2는 12.18 17:00, Day 3은 12.19 14:00), 오후 칸은 그날 12:00에 닫힙니다. 칸은 여럿 넣을 수 있지만 우리 팀의 다른 칸과 2시간 이상 띄웁니다. 넣은 칸은 바꿀 수 없습니다.",
+    en: "Each slot is 40 minutes; booking opens Dec 18 at 12:00. Morning slots close the day before (Day 2 at 17:00 on Dec 18, Day 3 at 14:00 on Dec 19); afternoon slots close at 12:00 that day. Book as many as you like, but leave at least two hours between your team's slots. Slots cannot be changed once added.",
+  },
   travelLine: { ko: "멘토님이 계신 곳(오피스, 카페)까지 가는 시간을 생각해, 다른 일정과 바로 붙여 무리하게 잡지 마세요.", en: "Allow travel time to the mentor's office or café; don't book back-to-back." },
   // 2026-10-26 (사용자: 한 번만 올리기, 하루가 끝나기 전에 신중하게): 고른 뒤 한 번 더 묻고 올립니다.
   // 같은 날 이어서(사용자: "잘못 업로드 하면 운영진에게 알려달라"): 운영진이 crossing_mission_proofs의 그 행을 지우면 다시 올릴 수 있습니다.
@@ -117,6 +123,11 @@ export const mentorCopy = {
   // DECIDED 2026-11-03 (사용자: "본인이 맡지 않는 날은 그냥 없애는 걸로"): 맡지 않은 날은 구획째 그리지 않습니다.
   // 이 한 줄은 맡은 날이 하나도 없을 때(보류, 예비 자리)만 뜹니다.
   offDay: { ko: "아직 맡은 날이 없습니다.", en: "No day assigned to you yet." },
+  // DECIDED 2026-11-08 (docs/booking-cutoff-brief.md C5): 멘토가 언제 표가 굳는지 알게, 표 위 한 줄. 알림(메일, 카톡)은 만들지 않습니다.
+  mentorCutoffLine: {
+    ko: "오전 칸은 전날에 확정됩니다(Day 2는 12.18 17:00, Day 3은 12.19 14:00). 오후 칸은 그날 12:00에 확정됩니다. 그 뒤로는 표가 바뀌지 않습니다.",
+    en: "Your morning is final the day before (Day 2 at 17:00 on Dec 18, Day 3 at 14:00 on Dec 19), your afternoon at 12:00 that day. Nothing changes after that.",
+  },
   openSlot: { ko: "빈 칸", en: "Open" },
   // 2026-11-03 (사용자: 같은 날 맡은 다른 멘토의 칸도 보이게): 표의 머리와 맡은 시간 줄.
   me: { ko: "내 칸", en: "You" },

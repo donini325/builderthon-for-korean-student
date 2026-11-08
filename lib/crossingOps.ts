@@ -6,6 +6,8 @@
 // DECIDED 2026-10-17 (사용자: "10분씩 보여주니까 너무 정신이 없음, 30분 간격으로, 어짜피 앞뒤 10분하면 1시간"): 줄은 30분이었습니다.
 // DECIDED 2026-11-02 (사용자): 칸은 정각에만 시작하고 줄은 한 시간입니다(GRID_MINUTES). 칸 하나(40분)가 한 줄입니다.
 // DECIDED 2026-11-03 (사용자): 한 팀은 한 번에 한 칸(이틀 통틀어), 넣은 멘토링이 끝나면 다음 칸. 2시간 규칙과 당일 오후 규칙은 없앴습니다(마이그레이션 0018).
+// DECIDED 2026-11-08 (사용자, docs/booking-cutoff-brief.md): 위 "한 번에 한 칸"을 없애고 칸 수는 제한 없이, 같은 팀의 칸끼리 2시간 띄웁니다(TEAM_GAP_MINUTES).
+//   오전 칸은 전날에, 오후 칸은 그날 12:00에 닫힙니다(slotClosed). DB는 마이그레이션 0022(team_overlap 120분, 트리거 crossing_bookings_cutoff).
 // DECIDED 2026-11-03 (사용자): 멘토 한 분은 Day 2 또는 Day 3 중 하루의 반나절(오전 10:00~13:00 또는 오후 13:00~16:00)만 맡습니다(마이그레이션 0017, 0019). 점심시간은 없고 13:00에 오후 멘토로 이어집니다.
 // 막는 규칙의 정본은 DB의 exclude 제약입니다. 여기의 계산은 화면에 칸을 그리고 미리 거절하는 용도이고,
 // BUFFER_MINUTES를 바꾸면 마이그레이션 0008의 crossing_plus_minutes(ends_at, 10)도 같이 바꿔야 합니다.
@@ -24,14 +26,29 @@ export const BUFFER_MINUTES = 10;
  * 앞뒤 10분 규칙(DB 0008)은 그대로 맞습니다. 그 전 30분(2026-10-17). */
 export const GRID_MINUTES = 60;
 /**
- * 한 팀은 한 번에 한 칸만 넣습니다(Day 2, 3 통틀어). 넣은 멘토링이 끝나면(칸의 시작에서 한 줄, GRID_MINUTES) 다음 칸을 넣습니다.
- * DECIDED 2026-11-03 (사용자): 목적은 모든 팀이 한 번은 멘토님을 만나는 것과 멘토님께 무리가 가지 않는 것. "한 칸 이상 가능",
- * "본인이 booking 한 멘토링 시간이 끝나면 그때 넣을 수 있는거로". 그래서 미리(Day 1) 넣는 칸은 하나이고, 칸 24개에 16팀이 먼저 한 번씩 갑니다.
- * 그 전(2026-11-02)에는 날마다 따로 세고 2시간 규칙(TEAM_COOLDOWN_MINUTES 120)이 있었습니다. 둘 다 없앴습니다.
- * DB 트리거(0018 crossing_bookings_one_pending)와 같아야 합니다. teamBookings는 그 팀의 모든 날 칸입니다.
+ * 같은 팀의 두 칸은 시작 시각이 이만큼(분) 떨어져야 합니다. 멘토가 계신 곳까지 가는 시간입니다.
+ * DECIDED 2026-11-08 (사용자: "한 번 넣으면 바로 다음 칸은 넣을 수 없다", "원하는 만큼, 단지 back to back은 안 됨"): 10:00을 넣으면 9:00과 11:00이 막히고 12:00부터.
+ * 칸 수 제한(2026-11-03 teamHasPending, 0018 트리거)은 없앴습니다. DB 0022의 crossing_bookings_team_overlap(120분)과 같아야 합니다.
  */
-export const teamHasPending = (teamBookings: { startsAt: string }[], now = Date.now()): boolean =>
-  teamBookings.some((b) => Date.parse(b.startsAt) + GRID_MINUTES * MIN > now);
+export const TEAM_GAP_MINUTES = 120;
+/**
+ * 칸 마감(KST). 오전 칸은 시작이 MORNING_END 전인 칸(9:00 칸 포함, D6)이고 전날에 닫힙니다. 오후 칸은 그날 AFTERNOON_CUTOFF에 닫힙니다.
+ * DECIDED 2026-11-08 (사용자): 멘토가 갑자기 튀어나온 예약에 놀라지 않게. Day 2 오전은 Day 1 17:00, Day 3 오전은 Day 2 14:00(D7 그대로),
+ * 오후는 그날 오전 중(D1, 12:00). 닫힌 칸은 비어 있어도 넣지 못하고 "닫힘"으로 보입니다. DB 0022 트리거 crossing_bookings_cutoff와 같아야 합니다.
+ */
+export const MORNING_END = "13:00";
+export const MORNING_CUTOFF: Record<2 | 3, [number, string]> = { 2: [1, "17:00"], 3: [2, "14:00"] };
+export const AFTERNOON_CUTOFF = "12:00";
+/** 시작 시각 t의 칸이 닫혔는지. day는 그 칸의 Day(2, 3). */
+export function slotClosed(day: 2 | 3, t: number, now = Date.now()): boolean {
+  const at = fmtKst(t) < MORNING_END ? kstTime(...MORNING_CUTOFF[day]) : kstTime(day, AFTERNOON_CUTOFF);
+  return !!at && now >= at.getTime();
+}
+/** 시각 t가 들어 있는 Day(2, 3). 아니면 null. */
+export function opsDayOf(t: number): 2 | 3 | null {
+  const d = new Date(t + 9 * 60 * MIN).toISOString().slice(0, 10);
+  return d === dayDate(2) ? 2 : d === dayDate(3) ? 3 : null;
+}
 /**
  * 홈의 Day 2, Day 3 카드 버튼이 눌리는지. false면 버튼이 보이되 잠겨 있습니다.
  * DECIDED 2026-10-17 (사용자: "production에도 열어줘, 그런데 당장은 이용자들이 바로면 안되서, 일단 button은 disable").
@@ -104,13 +121,13 @@ export function fmtKst(iso: string | number | Date): string {
 export type Window = { startsAt: string; endsAt: string };
 export type Booking = { startsAt: string; endsAt: string; mine?: boolean };
 
-export type SlotState = "open" | "booked" | "buffer" | "mine" | "past" | "teamBusy";
+export type SlotState = "open" | "booked" | "buffer" | "mine" | "closed" | "past" | "teamBusy";
 
 const overlap = (a0: number, a1: number, b0: number, b1: number) => a0 < b1 && b0 < a1;
 
 /**
  * 시작 시각 t에 예약할 수 있는지. 같은 멘토의 다른 예약과 BUFFER_MINUTES 이상 떨어져야 하고(DB 제약과 같은 규칙),
- * 팀의 다른 예약과 겹치면 안 됩니다.
+ * 닫힌 칸(slotClosed)이 아니어야 하고, 우리 팀의 다른 예약과 TEAM_GAP_MINUTES 이상 떨어져야 합니다.
  */
 export function slotState(t: number, mentorBookings: Booking[], teamBookings: Booking[], now = Date.now()): SlotState {
   const end = t + SESSION_MINUTES * MIN;
@@ -121,10 +138,14 @@ export function slotState(t: number, mentorBookings: Booking[], teamBookings: Bo
     if (overlap(t, end, b0, b1)) return "booked";
     if (overlap(t, end, b0 - buf, b1 + buf)) return "buffer";
   }
+  // 2026-11-08: 마감은 지남보다 먼저 봅니다(브리프 C1). 마감이 늘 시작보다 앞이라 지난 칸도 여기서 "closed"입니다.
+  // 화면(TeamTool)과 서버(POST)는 지난 칸을 따로 먼저 걸러 "지남"으로 말합니다.
+  const day = opsDayOf(t);
+  if (day && slotClosed(day, t, now)) return "closed";
   if (t < now) return "past";
-  // 한 팀의 두 칸은 겹치지 않습니다(DB 0018 team_overlap, 60분). 2시간 규칙은 2026-11-03에 없앴습니다.
+  // 2026-11-08: 우리 팀의 다른 칸과 시작이 2시간 이상(DB 0022 team_overlap, 120분). 그 전 60분(겹치지만 않으면, 2026-11-03).
   for (const b of teamBookings) {
-    if (Math.abs(t - Date.parse(b.startsAt)) < GRID_MINUTES * MIN) return "teamBusy";
+    if (Math.abs(t - Date.parse(b.startsAt)) < TEAM_GAP_MINUTES * MIN) return "teamBusy";
   }
   return "open";
 }

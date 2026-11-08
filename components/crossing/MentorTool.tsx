@@ -117,6 +117,8 @@ export default function MentorTool() {
               )}
             </section>
             <p className={`${BODY} leading-relaxed text-naru-muted`}>{t(c.lead)} <span className={`${META} text-naru-muted/80`}>{t(c.refresh)}</span></p>
+            {/* DECIDED 2026-11-08 (docs/booking-cutoff-brief.md C5): 표가 언제 굳는지 한 줄. 팀 쪽 마감(lib/crossingOps.ts slotClosed)과 같은 시각입니다. */}
+            <p className={`${META} leading-relaxed text-white/85`}>{t(c.mentorCutoffLine)}</p>
             {/* DECIDED 2026-11-03 (사용자: "본인이 맡지 않는 날은 그냥 없애는 걸로"): 칸도 팀도 없는 날은 구획째 뺍니다. */}
             {!OPS_DAYS.some((d) => (data.slots?.[String(d)] ?? []).length || data.bookings.some((b) => b.day === d)) && <p className={`${META} text-naru-muted`}>{t(c.offDay)}</p>}
             {OPS_DAYS.map((d) => {

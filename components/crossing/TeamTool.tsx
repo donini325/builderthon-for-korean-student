@@ -18,7 +18,7 @@ import { buttonClass } from "@/components/ui/Button";
 import LocaleToggle from "@/components/LocaleToggle";
 import { teamCopy as c, mentorTitle } from "@/data/crossingTeam";
 import {
-  BUFFER_MINUTES, bookingGate, isPhoneUA, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotState, slotStarts, trackTint,
+  BUFFER_MINUTES, bookingGate, isPhoneUA, PROOF_DAYS, PROOF_MAX_BYTES, PROOF_TYPES, dayDate, fitsWindow, fmtKst, isProofDay, proofKindsFor, slotClosed, slotState, slotStarts, trackTint,
   type ProofDay, type ProofKind, type Track, type Window,
 } from "@/lib/crossingOps";
 
@@ -29,7 +29,7 @@ const TEAM_KEY = "crossing-team";
 const SLOT_ALPHA = "1F", SLOT_ALPHA_END = "1F";
 const MIN = 60_000;
 type Bk = { id: string; team: string; track: string; startsAt: string; endsAt: string };
-type Mentor = { id: string; name: string; nameEn?: string; field: string | null; windows: Window[]; bookings: Bk[] };
+type Mentor = { id: string; name: string; nameEn?: string; field: string | null; place?: string | null; windows: Window[]; bookings: Bk[] };
 type Proof = { id: string; day: number; kind: ProofKind; createdAt: string; sizeBytes?: number };
 
 const load = (k: string) => { try { return localStorage.getItem(k) ?? ""; } catch { return ""; } };
@@ -42,8 +42,6 @@ export default function TeamTool() {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [teamTracks, setTeamTracks] = useState<Record<string, string>>({});
   const [mentors, setMentors] = useState<Mentor[] | null>(null);
-  // 2026-11-03: 넣은 멘토링이 아직 끝나지 않은 팀(이틀 통틀어). 서버가 계산해 줍니다(lib/crossingOps.ts teamHasPending).
-  const [pendingTeams, setPendingTeams] = useState<string[]>([]);
   const [team, setTeam] = useState(""); // 팀 이름. 따로 만드는 ID는 없습니다
   const [pending, setPending] = useState<{ m: string; r: number } | null>(null); // 넣기 전에 한 번 묻는 칸
   const [msg, setMsg] = useState<string | null>(null);
@@ -78,7 +76,7 @@ export default function TeamTool() {
     if (!r.ok) { setMsg(t(c.errGeneric)); return; }
     const j = await r.json();
     if (dayNow.current !== day) return;
-    setTeams(j.teams ?? []); setTracks(j.tracks ?? []); setTeamTracks(j.teamTracks ?? {}); setMentors(j.mentors ?? []); setPendingTeams(j.pendingTeams ?? []);
+    setTeams(j.teams ?? []); setTracks(j.tracks ?? []); setTeamTracks(j.teamTracks ?? {}); setMentors(j.mentors ?? []);
     setLoaded(true);
   }, [day]);
   useEffect(() => { setMentors(null); setMsg(null); setPending(null); void refresh(); }, [refresh]);
@@ -93,7 +91,6 @@ export default function TeamTool() {
   const picked = teams.includes(team) ? team : "";
   const noTeams = loaded && teams.length === 0;
   const mine = (mentors ?? []).flatMap((m) => m.bookings.filter((b) => b.team === picked));
-  const teamPending = !!picked && pendingTeams.includes(picked);
   const trackOf = (id: string | undefined) => tracks.find((x) => x.id === id);
   const tintOf = (id: string | undefined) => trackTint(trackOf(id)?.color);
   const myTint = tintOf(teamTracks[picked]);
@@ -103,7 +100,7 @@ export default function TeamTool() {
     const r = await fetch("/api/crossing/mentoring", { method, headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
     if (!r.ok) {
       const e = (await r.json().catch(() => ({}))).error;
-      setMsg(t(e === "taken" ? c.errTaken : e === "team_busy" ? c.errTeamBusy : e === "team_pending" ? c.errPending : e === "past" ? c.errPast
+      setMsg(t(e === "taken" ? c.errTaken : e === "team_gap" ? c.errGap : e === "closed" ? c.errClosed : e === "past" ? c.errPast
         : e === "not_yet" ? c.errNotYet : e === "phone" ? c.errPhone : c.errGeneric));
     }
     setPending(null); setBusy(false); void refresh();
@@ -143,12 +140,14 @@ export default function TeamTool() {
     if (gap) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(20,20,24,0.07)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/70`}>{t(c.gap)}</td>;
     // 2026-10-26 (사용자: 지난 칸이 막힌 것이 보이게, 넣은 팀의 칸은 그대로 남게): 시작 시각이 지난 빈칸은 빗금과 "지남"입니다.
     // 쉬는 10분과 같은 빗금이되 더 흐립니다. 팀이 넣은 칸은 위에서 먼저 그려져 시간이 지나도 그대로 남습니다.
-    if (r < Date.now()) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(20,20,24,0.045)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/55`}>{t(c.past)}</td>;
-    const free = fitsWindow(r, m.windows) && slotState(r, m.bookings, []) === "open";
-    const full = teamPending; // 2026-11-03: 넣은 칸이 끝나기 전에는 다음 칸을 열지 않습니다(이틀 통틀어)
+    if (r < (now || Date.now())) return <td key={m.id} className={`border-l border-white/5 bg-[repeating-linear-gradient(45deg,rgba(20,20,24,0.045)_0_4px,transparent_4px_8px)] px-2 ${META} text-white/55`}>{t(c.past)}</td>;
+    // DECIDED 2026-11-08 (docs/booking-cutoff-brief.md C4, D4): 닫힌 칸(오전은 전날, 오후는 그날 12:00)은 빗금 없이 회색 글자 "닫힘", "+"는 없습니다.
+    // 지금 시각을 읽기 전(now 0)에는 닫힘을 그리지 않습니다(빌드 시각이 박히지 않게, 아래 gated).
+    if (now > 0 && (day === 2 || day === 3) && slotClosed(day, r, now)) return <td key={m.id} className={`border-l border-white/5 px-2 ${META} text-caption`}>{t(c.legendClosed)}</td>;
+    const free = fitsWindow(r, m.windows) && slotState(r, m.bookings, [], now || Date.now()) === "open";
     // 2026-10-26: Day 1 12:00 전에는 닫혀 있습니다(bookingGate). 닫힌 칸도 흐린 "+"로 보입니다.
     const gated = now === 0 || notYet; // 지금 시각을 읽기 전(첫 그림)에는 잠가 둡니다
-    const ok = !phone && !timetableLocked && !gated && !!picked && !full && free && slotState(r, m.bookings, mine) === "open";
+    const ok = !phone && !timetableLocked && !gated && !!picked && free && slotState(r, m.bookings, mine, now) === "open";
     const asking = pending?.m === m.id && pending.r === r;
     const locked = (phone || timetableLocked || gated || !picked) && free; // 팀을 고르면 열릴 칸: "+"를 흐리게 보여 줍니다
     return (
@@ -229,7 +228,8 @@ export default function TeamTool() {
           </div>
 
           {/* DECIDED 2026-11-03 (사용자): 규칙 카드 여섯 장을 한 줄 안내로. 남긴 규칙은 한 번에 한 칸(40분), 12.18 12:00 열림, 넣으면 못 바꿈.
-              두 번 눌러 넣기, 정각과 앞뒤 10분은 표가 보여 주므로 설명하지 않습니다. 이동 시간 한 줄을 더합니다(같은 날 사용자). */}
+              두 번 눌러 넣기, 정각과 앞뒤 10분은 표가 보여 주므로 설명하지 않습니다. 이동 시간 한 줄을 더합니다(같은 날 사용자).
+              2026-11-08 (docs/booking-cutoff-brief.md): 첫 줄을 마감과 2시간 간격으로(한 번에 한 칸은 없앰). */}
           <div className="card-sunken flex flex-col gap-[8px] rounded-2xl px-[20px] py-[16px]">
             <p className={`flex items-start gap-[10px] ${BODY} text-white`}>
               <span aria-hidden className="mt-[3px] shrink-0 text-naru-muted"><RuleIcon name="clock" size={18} /></span>{t(c.rulesLine)}
@@ -241,9 +241,9 @@ export default function TeamTool() {
 
           {phone && <Note tone="accent">{t(c.phoneNotice)}</Note>}
           {!phone && notYet && <Note tone="accent">{t(c.notYet)}</Note>}
-          {!phone && !notYet && teamPending && <Note tone="accent">{t(c.errPending)}</Note>}
 
-          {tracks.length > 0 && (
+          {/* 2026-11-08 (C4): 범례에 "닫힘"을 더합니다. 칸에 그리는 글자와 같은 모양(회색 글자)입니다. */}
+          {(tracks.length > 0 || !!rows.length) && (
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               {tracks.map((x) => (
                 <span key={x.id} className={`flex items-center gap-2 ${META} ${teamTracks[picked] === x.id ? "font-semibold text-white" : "text-naru-muted"}`}>
@@ -251,7 +251,8 @@ export default function TeamTool() {
                   {t(x.label)}
                 </span>
               ))}
-              <span className={`${META} text-naru-muted`}>{t(c.trackLegend)}</span>
+              {tracks.length > 0 && <span className={`${META} text-naru-muted`}>{t(c.trackLegend)}</span>}
+              {!!rows.length && <span className={`${META} text-caption`}>{t(c.legendClosed)}</span>}
             </div>
           )}
 
@@ -270,6 +271,8 @@ export default function TeamTool() {
                         {/* 2026-11-06 (사용자: 오전, 오후 멘토의 구분): 그날 맡은 반나절. 안내 PDF 4쪽(멘토님별 맡으신 시간)과 같은 말. */}
                         {m.windows.length > 0 && <span className={`block ${META} font-normal tabular-nums text-accent`}>{halfDay(m.windows)}</span>}
                         {m.field && <span className={`block ${META} font-normal text-naru-muted`}>{m.field}</span>}
+                        {/* DECIDED 2026-11-08 (docs/booking-cutoff-brief.md C6): 팀이 고를 근거가 이름뿐이라 소속 아래 장소(0022 place). 비어 있으면 그리지 않습니다. */}
+                        {m.place && <span className={`block ${META} font-normal text-naru-muted`}>{m.place}</span>}
                       </th>
                     ))}
                   </tr>
