@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 멘토 모달을 멘토 브리프의 세 묶음으로](#2026-11-09-mentor-talk)
 - [2026-11-09 Day 3 일요일은 Zoom, 시간표 상자는 닷새 위로](#2026-11-09-sunday-zoom)
 - [2026-11-09 폰 목차 줄이 지금 칸을 숨기던 것](#2026-11-09-rail-fix)
 - [2026-11-09 세션 연사는 이름까지](#2026-11-09-speaker-name)
@@ -535,6 +536,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-09-mentor-talk"></a>
+## 2026-11-09 멘토 모달을 멘토 브리프의 세 묶음으로
+- 범위: data/naru.ts(mentorsIntro, mentorsTalk, mentorsTalkNote), components/crossing/redesign/copy.ts, CrossingSeoul.tsx, components/home/NaruHome.tsx(타입만)
+- 한 것: 사용자가 멘토 브리프의 "현업의 감각을 들려주세요" 장을 보여 주며 "이거대로 update". 카드 넷(따옴표 하나씩)을 브리프의 세 묶음(솔직한 반응, 신입한테 바랐던 것, 받게 될 질문)과 그 따옴표 열로. 리드에 "누가 돈을 내고 결재하는지, 누구 책상에서 어떻게 돌아가는지". 끝에 "반박은 솔직하게 들어요. 그래도 점수는 매기지 않아요." 근거: brand 2장 코어 01(점수 없이 끝까지 들어 준다), 7장 멘토링 줄. 멘토에게 하는 부탁을 학생이 듣는 말로 옮김.
+- 검증: npm run build 통과, 1440과 390 스크린숏(모달 안 한 줄로 쌓음, 세 칸은 좁아 뺌)
+- 커밋: e4389cf
 
 <a id="2026-11-09-sunday-zoom"></a>
 ## 2026-11-09 Day 3 일요일은 Zoom, 시간표 상자는 닷새 위로
