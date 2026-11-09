@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 Day 3 Open tables는 Zoom](#2026-11-09-open-tables-zoom)
 - [2026-11-09 세션 설명을 두 줄씩](#2026-11-09-session-short)
 - [2026-11-09 세션 이름을 누르면 설명](#2026-11-09-session-detail)
 - [2026-11-09 브리프 색인의 상태를 커밋과 대조](#2026-11-09-docs-index)
@@ -530,6 +531,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-09-open-tables-zoom"></a>
+## 2026-11-09 Day 3 Open tables는 Zoom
+- 범위: data/naru.ts(Day 3 하루 흐름의 장소, Open tables 설명), components/crossing/redesign/copy.ts, README.md, docs/brand.md 7장
+- 한 것: 사용자 "day 3 는 zoom 으로", 물어서 정함: Open tables만 Zoom이고 멘토 찾아가기와 만들기는 그대로. 하루 흐름의 장소를 현장에서 Zoom으로, 세션 설명 첫 줄의 "한자리에 모여"를 "Zoom에 모여"로. README의 "모든 활동을 대면으로"도 맞춤. 근거: brand 7장 미션 줄(세션에 함께 있기는 그대로).
+- 검증: npm run build 통과, 로컬 /crossing에 "Zoom에 모여" 1, "한자리에 모여" 0
+- 커밋: 1c60e7f
 
 <a id="2026-11-09-session-short"></a>
 ## 2026-11-09 세션 설명을 두 줄씩
