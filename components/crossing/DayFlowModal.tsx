@@ -14,7 +14,9 @@ import Link from "next/link";
 import { useBodyScrollLock } from "@/lib/useBodyScrollLock";
 import { META, BODY, SUBTITLE } from "@/components/ui/typography";
 
-export type DayFlowRow = { time?: string; what: string; where?: string; href?: string };
+// 2026-11-09 (사용자: "조여준 파트너님 얼굴이 여기 있으면 좋겠어", "opening session 어젠다가 디테일하게"): 세션 줄에 연사 카드(사진, 이름, 직함, 나눌 이야기).
+export type DayFlowSpeaker = { photo: string; name: string; role: string; agendaLabel: string; agenda: string[] };
+export type DayFlowRow = { time?: string; what: string; where?: string; href?: string; speaker?: DayFlowSpeaker };
 export type DayFlowContent = { dayLabel: string; date: string; title: string; lead: string; rows: DayFlowRow[]; venue?: { src: string; name: string; w: number; h: number } };
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
@@ -147,6 +149,28 @@ export default function DayFlowModal({
                         {name}
                       </p>
                       {detail && <p className={`mt-1 break-keep ${META} leading-[1.6] text-naru-muted`}>{detail}</p>}
+                      {r.speaker && (
+                        <div className="mt-3 rounded-xl card-sunken p-3.5 sm:p-4">
+                          <div className="flex items-center gap-3.5">
+                            <span className="block h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[#FFFFFF]">
+                              <Image src={r.speaker.photo} alt={r.speaker.name} width={160} height={160} className="h-full w-full origin-[50%_18%] scale-[1.75] object-cover" />
+                            </span>
+                            <div className="min-w-0">
+                              <p className={`${BODY} font-bold leading-snug text-white`}>{r.speaker.name}</p>
+                              <p className={`break-keep ${META} leading-[1.5] text-naru-muted`}>{r.speaker.role}</p>
+                            </div>
+                          </div>
+                          <p className={`mt-3.5 ${META} font-bold text-white/85`}>{r.speaker.agendaLabel}</p>
+                          <ul className="mt-1.5 flex flex-col gap-1.5">
+                            {r.speaker.agenda.map((a, k) => (
+                              <li key={k} className={`relative break-keep pl-3.5 ${META} leading-[1.6] text-naru-muted`}>
+                                <span aria-hidden className="absolute left-0 top-[0.62em] h-1 w-1 rounded-full bg-accent" />
+                                {a}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                       {!onSite && (
                         <p className={`mt-1.5 inline-flex items-center gap-1 ${META} text-caption`}>
                           <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>

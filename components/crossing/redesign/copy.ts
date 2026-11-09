@@ -95,6 +95,17 @@ export const copy = {
   timetableLabel: ko("멘토 시간표, 미션 올리기", stage(1).timetableCta!.label),
   timetableNote: ko("Day 1부터 3까지 써요. Day 1(12.18) 낮 12시에 열리고, 칸은 노트북으로 넣어 주세요.", d.timetableNote),
 
+  // 2026-11-09 (사용자): Day 1 오프닝 세션 연사 카드. data/naru.ts stages[1].flow[0].speaker와 같은 길이.
+  openingAgendaLabel: ko("나눌 이야기 (30분)", { ko: "나눌 이야기 (30분)", en: "What he'll talk about (30 min)" }),
+  openingAgenda: kos(
+    [
+      "요즘 세대와 한국의 창업 생태계를 보며 느끼는 것",
+      "학생이 아이디어를 진지하게 검증받고 현업 피드백을 받을 자리가 왜 부족한지",
+      "그래서 내년에 준비하는 이니셔티브와 그 배경, 준비 중인 프로그램 소개",
+    ],
+    stage(1).flow![0].speaker!.agenda,
+  ),
+
   flow: {
     1: kos(
       [

@@ -2795,7 +2795,22 @@ export const naru = {
         flow: [
           // DECIDED 2026-11-09 (사용자: "day 1 에 오프닝 session, 조여준 파트너가 하는걸로", 소속은 더벤처스 TheVentures): 이름은 쓰지 않고 회사와 직함(brand 5장, 9장 사람 이름). 그 전: "오프닝" / "Opening".
           // 같은 날 뒤 (사용자, 스크린숏: "정확히 누가 오는지를 보여줘야지"): 이름까지. brand 5장 세션 연사 예외. 그 전: "더벤처스 파트너가 엶".
-          { what: { ko: "오프닝 세션. 더벤처스 조여준 파트너가 엶", en: "Opening session, given by Ethan Cho, Partner at TheVentures" }, where: { ko: "현장", en: "On site" } },
+          // 2026-11-09 (사용자: 얼굴과 어젠다를 자세히, 근거는 연사에게 보낸 11/09 요청 메일과 수락 회신): 30분, 나눌 이야기 셋. 시각은 day-flow 결정대로 아직 쓰지 않음.
+          // 사진은 본인 LinkedIn 프로필 사진(320px, public/crossing/speakers/ethan-cho.jpg). brand 5장 세션 연사 예외.
+          {
+            what: { ko: "오프닝 세션. 더벤처스 조여준 파트너가 엶", en: "Opening session, given by Ethan Cho, Partner at TheVentures" },
+            where: { ko: "현장", en: "On site" },
+            speaker: {
+              photo: "/crossing/speakers/ethan-cho.jpg",
+              name: { ko: "조여준", en: "Ethan Cho" },
+              role: { ko: "더벤처스 파트너, CIO", en: "Partner & CIO, TheVentures" },
+              agenda: [
+                { ko: "요즘 세대와 한국의 창업 생태계를 보며 느끼는 것", en: "What he sees in this generation and in Korea's startup ecosystem" },
+                { ko: "학생이 아이디어를 진지하게 검증받고 현업의 피드백을 받을 자리가 왜 부족한지", en: "Why students rarely get to test an idea seriously and hear back from people in the field" },
+                { ko: "그래서 내년에 준비하는 이니셔티브와 그 배경, 준비 중인 프로그램 소개", en: "The initiative he is preparing for next year, why, and the program behind it" },
+              ],
+            },
+          },
           { what: { ko: "출제사의 30분. 아직 손으로 하는 일 하나와 그 일이 왜 있는지를 출제사가 직접 말로", en: "30 minutes with the issuing company: the task it still does by hand and why it exists, in its own words" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "팀 맺기. AI 유형 테스트 결과로 현장에서. 모든 팀에 싱가포르 학생 1~2명과 한국 학교별 학생", en: "Forming teams on site from the AI type test. Every team has 1 to 2 students from Singapore and students from each school in Korea" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "트랙 고르기. 1~3순위를 적고 운영진이 고르게 섞음", en: "Choosing tracks: write your top three, and the organizers mix teams evenly" }, where: { ko: "현장", en: "On site" } },
@@ -3142,7 +3157,7 @@ export const naru = {
       dayOffset: number;
       /** 하루의 흐름(2026-11-05, day-flow 브리프). time은 KST "10:00" 꼴, 정하지 않았으면 비웁니다. 필참 표시는 없습니다(전원 전부 참여). */
       // href(2026-11-06, docs/first-click-brief.md F8): 장소가 우리 사이트의 페이지면 "어디" 글자가 그 링크.
-      flow?: { time?: string; what: Phrase; where?: Phrase; href?: string }[];
+      flow?: { time?: string; what: Phrase; where?: Phrase; href?: string; speaker?: { photo: string; name: Phrase; role: Phrase; agenda: Phrase[] } }[];
       /** 노선도 정거장 위의 로고(2026-10-19). 흰색 단색 PNG. name은 스크린리더가 읽습니다. */
       // url (2026-10-20, hwang 브리프 3.8): 있으면 노선도 로고가 새 창 링크가 됩니다(호버 설명 대신).
       logo?: { src: string; name: string; w: number; h: number; url?: string };
