@@ -43,7 +43,7 @@ export const copy = {
     0: ko("어느 회사가 어떤 고민을 들고 오는지 미리 알려 드려요. 자세한 얘기는 Day 1에 회사가 직접.", stage(0).line),
     1: ko("팀을 꾸리고, 그 일에서 누가 어디서 막히는지 하나를 골라요. 왜 거기인지는 팀이 먼저 한 장으로 적어 두세요.", stage(1).line),
     2: ko("고른 병목이 맞는지 멘토를 찾아가 물어봐요.\n일을 해 본 사람은 바로 반박하거든요. 그 말을 듣고 한 장을 고치는 날이에요.", stage(2).line),
-    3: ko("그 병목 하나만 푸는 작은 툴을 만들어요. 회사가 정말 가져다 쓸 수 있을지, 멘토에게 한 번 더 물어보세요.", stage(3).line),
+    3: ko("그 병목 하나만 푸는 작은 툴을 만들어요. 회사가 정말 가져다 쓸 수 있을지, 멘토에게 한 번 더 물어보세요.\n일요일이라 만들기와 Open tables는 Zoom으로 해요. 닷새를 다 현장에서 하면 지치거든요.", stage(3).line),
     4: ko("이슈를 낸 회사 앞에서 고른 병목과 만든 툴을 발표하고 질문을 받아요.\n회사로서는 같은 고민에 대한 서로 다른 답을 한자리에서 보는 셈이죠.\n끝나면 멘토에게 뭘 만들었는지 한 줄로 먼저 연락해 주세요.", stage(4).line),
   } as Record<number, Phrase>,
 
@@ -66,7 +66,7 @@ export const copy = {
   // DECIDED 2026-11-08 (docs/mission-card-brief.md S3, S4): 조건 넷. kos는 길이가 같을 때만 덮어쓰므로 data/naru.ts의 conditions도 넷입니다.
   conditions: {
     2: kos(["팀원 절반 넘게 현장에 오기", "멘토 한 분 이상을 절반 넘게 같이 찾아가기", "PO session에 같이 있기", "반박 들은 대로 한 장을 고쳐서 올리기"], stage(2).milestoneDetail!.conditions),
-    3: kos(["팀원 절반 넘게 현장에 오기", "멘토 한 분 이상을 절반 넘게 같이 찾아가기", "Open tables에서 어디까지 왔는지 나누기", "발표 자료 올리기"], stage(3).milestoneDetail!.conditions),
+    3: kos(["팀원 절반 넘게 Zoom에 들어오기", "멘토 한 분 이상을 절반 넘게 같이 찾아가기", "Open tables에서 어디까지 왔는지 나누기", "발표 자료 올리기"], stage(3).milestoneDetail!.conditions),
   } as Record<number, Phrase[]>,
   // S5~S7: 확인 칩 셋과 카드 아래 두 줄. "시간표 페이지"는 CrossingSeoul이 링크로 그립니다.
   checkLabels: {
@@ -79,7 +79,7 @@ export const copy = {
   // 2026-11-08: 펼친 미션 카드(mission-card-brief)부터 이 화면은 submit을 그리지 않습니다. 확인 칩이 대신합니다. 키는 남겨 둡니다.
   submit: {
     2: kos(["멘토랑 팀이 같이 찍은 사진", "고친 한 장 (PDF)", "현장 출석은 운영진이 체크해요"], stage(2).milestoneDetail!.submit ?? []),
-    3: kos(["멘토랑 팀이 같이 찍은 사진", "발표 자료 (슬라이드 PDF)", "현장 출석은 운영진이 체크해요"], stage(3).milestoneDetail!.submit ?? []),
+    3: kos(["멘토랑 팀이 같이 찍은 사진", "발표 자료 (슬라이드 PDF)", "Zoom 출석은 운영진이 체크해요"], stage(3).milestoneDetail!.submit ?? []),
   } as Record<number, Phrase[]>,
 
   // DECIDED 2026-11-09 (사용자: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명. 영어와 근거는 data/naru.ts stages[n].session.detail.
@@ -93,7 +93,7 @@ export const copy = {
   matchLabel: ko("AI 유형 테스트 해 보기", stage(1).matchCta!.label),
   voteLocked: ko("성과 공유회 날 현장에서 열려요.", stage(4).voteCta!.lockedNote!),
   timetableLabel: ko("멘토 시간표, 미션 올리기", stage(1).timetableCta!.label),
-  timetableNote: ko("Day 1(12.18) 낮 12시에 열려요. 칸은 노트북으로 넣어 주세요.", d.timetableNote),
+  timetableNote: ko("Day 1부터 3까지 써요. Day 1(12.18) 낮 12시에 열리고, 칸은 노트북으로 넣어 주세요.", d.timetableNote),
 
   flow: {
     1: kos(

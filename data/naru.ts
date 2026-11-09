@@ -2237,7 +2237,8 @@ export const naru = {
     // DECIDED 2026-11-05 (사이트 점검, UX): /crossing Day 카드에서 빠진 멘토링 정보 둘. 문장은 brand 7장과 data/crossingTeam.ts에서 가져옵니다.
     visitLabel: { ko: "멘토 찾아가기", en: "Visiting a mentor" },
     visitItem: { ko: "멘토가 계신 곳(오피스, 카페, 온라인)으로 팀이 함께 찾아갑니다.", en: "The team goes together to where the mentor is (an office, a café, or online)." },
-    timetableNote: { ko: "Day 1(12.18) 12:00에 열립니다. 칸은 노트북에서 넣습니다.", en: "Opens Day 1 (Dec 18), 12:00. Use a laptop." },
+    // 2026-11-09 (사용자: Day 3 아래에만 있어 Day 3 것으로 읽힘. Day 1~3 다 씀): 상자를 닷새 목록 위로 옮기고 쓰는 날을 앞에.
+    timetableNote: { ko: "Day 1부터 3까지 씁니다. Day 1(12.18) 12:00에 열리고, 칸은 노트북에서 넣습니다.", en: "For Days 1 to 3. Opens Day 1 (Dec 18), 12:00. Use a laptop." },
     // DECIDED 2026-10-13 (사용자: "1일차 박스가 너무 비어있음"): 미션이 없는 Day 1 카드의 바닥 띠 라벨. 띠의 제목은 그날의 submit입니다.
     carryLabel: { ko: "Day 2에 들고 갈 것", en: "To bring on Day 2" },
     // DECIDED 2026-11-05 (docs/day-flow-brief.md 안 B, 사용자: "클릭하면 보이는 식으로 like 8월 처럼"): Day 카드의 "하루의 흐름 →" 링크와 그 모달.
@@ -2948,7 +2949,8 @@ export const naru = {
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
           { what: { ko: "멘토 찾아가기. 만든 툴을 들고, 기업이 가져다 쓸 수 있을지", en: "Visiting a mentor: bring the tool you built, and ask whether the company could use it" }, where: { ko: "멘토 계신 곳", en: "Where the mentor is" } },
-          { what: { ko: "만들기. 그 병목만 푸는 작은 툴", en: "Building: a small tool that clears that one bottleneck" }, where: { ko: "현장", en: "On site" } },
+          // DECIDED 2026-11-09 (사용자: "일요일은 줌으로, 이유는 다 현장에서 하면 힘드니까"): Day 3(일요일)은 만들기와 Open tables를 Zoom으로. 멘토 찾아가기는 그대로 멘토 계신 곳(같은 날 사용자: "멘토링은 zoom이 아님"). 그 전: 현장.
+          { what: { ko: "만들기. 그 병목만 푸는 작은 툴", en: "Building: a small tool that clears that one bottleneck" }, where: { ko: "Zoom", en: "Zoom" } },
           // DECIDED 2026-11-09 (사용자: "day 3 는 zoom 으로", 답: Open tables만. 멘토링과 만들기는 그대로). 그 전 where: 현장 / On site.
           { what: { ko: "Open tables. 막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 감", en: "Open tables: ask other teams where you are stuck and borrow each other's thinking" }, where: { ko: "Zoom", en: "Zoom" } },
           { what: { ko: "미션 제출. 멘토와 찍은 사진, 발표 자료 PDF", en: "Mission submission: a photo with the mentor and the presentation PDF" }, where: { ko: "멘토 시간표 페이지", en: "Timetable page" }, href: "/crossing/team?day=3" },
@@ -2971,8 +2973,9 @@ export const naru = {
           // DECIDED 2026-10-31 (docs/outputs-two-sides-brief.md O5, 사용자: 남는 것은 둘, 한 물건의 양면. 학생의 감각과 기업이 가져다 쓸 수 있는 툴): 그 전 문장은 git 6413abe.
           // DECIDED 2026-11-05 (사용자, 스크린숏: "3일 문장 길이를 1,2일에 맞춰줘"): 앞의 "흐름 전체를 바꾸는 시스템 대신"을 뺌. 네 줄에서 세 줄. 그 전 문장은 git 80e0e1f.
           // DECIDED 2026-11-06 (docs/think-different-brief.md T7, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 문장 +1. 브리프의 앞부분("흐름 전체를 바꾸는 시스템 대신")은 11-05 사용자 결정대로 넣지 않음.
-          ko: "그 병목만 푸는 작은 툴을 만들고, 기업이 가져다 쓸 수 있을지 멘토에게 여쭙니다. 같은 이슈에서 팀마다 다른 툴이 나옵니다.",
-          en: "Build a small tool for it and ask a mentor if the company could use it. Each team's tool differs.",
+          // 2026-11-09 (사용자): 일요일은 Zoom, 그 이유 한 문장을 끝에.
+          ko: "그 병목만 푸는 작은 툴을 만들고, 기업이 가져다 쓸 수 있을지 멘토에게 여쭙니다. 같은 이슈에서 팀마다 다른 툴이 나옵니다. 일요일이라 만들기와 Open tables는 Zoom으로 합니다. 닷새를 다 현장에서 하면 지치기 때문입니다.",
+          en: "Build a small tool for it and ask a mentor if the company could use it. Each team's tool differs. It's Sunday, so building and Open tables are on Zoom: five full days on site is a lot.",
         },
         // DECIDED 2026-10-10 (중복 브리프 B1): 칩 "멘토링은 이 날까지"를 뺐습니다. General Mentoring 상자의
         // "Day 3은 피칭 준비, Day 4는 멘토링이 없습니다"가 같은 말을 합니다.
@@ -3019,7 +3022,8 @@ export const naru = {
         // 인정 조건과 제출 방법 두 목록입니다. 그 전: "세 가지를 모두 채우면 인정됩니다. ..." 한 문단.
         milestoneDetail: {
           conditions: [
-            { ko: "팀원 과반이 현장에 오기", en: "More than half the team on site" },
+            // 2026-11-09 (사용자): Day 3은 Zoom. 그 전: 팀원 과반이 현장에 오기.
+            { ko: "팀원 과반이 Zoom에 들어오기", en: "More than half the team on Zoom" },
             // DECIDED 2026-10-26 (사용자: "모든 날 마다, 팀원의 과반이 현장에 와야하며, 같이 멘토를 찾아가야한다", 답: Day 2, 3 모두, 팀이 함께):
             // 10/17의 완화("이틀 중 하루 이상", 멘토 수로 20팀 × 이틀을 못 채워서)를 되돌립니다. 멘토 수는 운영에서 맞춥니다.
             // DECIDED 2026-10-31 (docs/rephrase-briefs-2026-10-31.md C8/C10, 사용자: 내용을 늘리지 말고 있는 문장을 다시 씀. 이슈는 기업이 아직 손으로 하는 일): 그 전 문장은 git 29f24f4.
@@ -3035,7 +3039,7 @@ export const naru = {
             { ko: "멘토와 팀이 함께 찍은 사진", en: "A photo of the team with the mentor" },
             // 2026-10-26 (사용자): Day 3에 올리는 것은 발표 자료(슬라이드 PDF).
             { ko: "발표 자료 (슬라이드 PDF)", en: "Presentation (slides as PDF)" },
-            { ko: "현장 출석은 운영진이 체크합니다", en: "The organisers check who is on site" },
+            { ko: "Zoom 출석은 운영진이 체크합니다", en: "The organisers check who is on Zoom" },
           ],
         },
       },

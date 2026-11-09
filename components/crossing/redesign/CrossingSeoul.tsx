@@ -300,6 +300,21 @@ export default function CrossingSeoul() {
               ))}
             </dl>
 
+            {/* DECIDED 2026-11-09 (사용자, 스크린숏: "day 2 and 3 두 날다 필요한데, day 3 에만 있으니 오해를 살거 같음. day 1 에도 필요한데"):
+                시간표와 미션 올리기 상자를 Day 3 칸 안에서 닷새 목록 위로. 글 기둥(데스크톱 날짜 칸 오른쪽)에 맞춥니다. */}
+            {timetable && (
+              <div className="mt-8 lg:mt-10 lg:pl-[16rem]">
+                <div className="max-w-[42rem] rounded-xl bg-[#F6F4EE] p-4 sm:p-5">
+                  {TIMETABLE_OPEN ? (
+                    <Link href="/crossing/team" className={`${BTN} w-full bg-naru-navy text-[#fff] hover:bg-[#1D338A]`}>{t(C.timetableLabel)}</Link>
+                  ) : (
+                    <span role="link" aria-disabled="true" className={BTN_LOCKED}>{LOCK}{t(C.timetableLabel)}</span>
+                  )}
+                  <p className={`mt-2 ${META} text-caption`}>{t(C.timetableNote)}</p>
+                </div>
+              </div>
+            )}
+
             <ol id="schedule" className="relative mt-8 lg:mt-10">
               <span aria-hidden className="absolute bottom-10 left-[5px] top-10 w-px bg-naru-navy/25 lg:left-[calc(11rem+5px)]" />
               {stages.map((s, i) => {
@@ -404,18 +419,6 @@ export default function CrossingSeoul() {
                               {s.voteCta.lockedNote && <p className={`mt-2 ${META} text-caption`}>{t(C.voteLocked)}</p>}
                             </>
                           )}
-                        </div>
-                      )}
-                      {s.dayOffset === 3 && timetable && (
-                        <div className={`mt-6 max-w-[42rem] rounded-xl bg-[#F6F4EE] p-4 sm:p-5`}>
-                          <div>
-                            {TIMETABLE_OPEN ? (
-                              <Link href="/crossing/team" className={`${BTN} w-full bg-naru-navy text-[#fff] hover:bg-[#1D338A]`}>{t(C.timetableLabel)}</Link>
-                            ) : (
-                              <span role="link" aria-disabled="true" className={BTN_LOCKED}>{LOCK}{t(C.timetableLabel)}</span>
-                            )}
-                          </div>
-                          <p className={`mt-2 ${META} text-caption`}>{t(C.timetableNote)}</p>
                         </div>
                       )}
                     </div>
