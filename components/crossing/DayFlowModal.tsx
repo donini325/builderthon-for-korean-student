@@ -152,9 +152,7 @@ export default function DayFlowModal({
                       {r.speaker && (
                         <div className="mt-3 rounded-xl card-sunken p-3.5 sm:p-4">
                           <div className="flex items-center gap-3.5">
-                            <span className="block h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[#FFFFFF]">
-                              <Image src={r.speaker.photo} alt={r.speaker.name} width={160} height={160} className="h-full w-full origin-[50%_18%] scale-[1.75] object-cover" />
-                            </span>
+                            <Image src={r.speaker.photo} alt={r.speaker.name} width={130} height={130} className="h-16 w-16 shrink-0 rounded-full object-cover" />
                             <div className="min-w-0">
                               <p className={`${BODY} font-bold leading-snug text-white`}>{r.speaker.name}</p>
                               <p className={`break-keep ${META} leading-[1.5] text-naru-muted`}>{r.speaker.role}</p>

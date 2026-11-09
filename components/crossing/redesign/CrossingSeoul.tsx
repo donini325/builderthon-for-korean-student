@@ -565,8 +565,8 @@ export default function CrossingSeoul() {
                 time: r.time, what: t(C.flow[st.dayOffset]?.[k] ?? r.what), where: r.where && t(r.where), href: r.href,
                 speaker: r.speaker && {
                   photo: r.speaker.photo, name: t(r.speaker.name), role: t(r.speaker.role),
-                  agendaLabel: t(C.openingAgendaLabel),
-                  agenda: (st.dayOffset === 1 && k === 0 ? C.openingAgenda : r.speaker.agenda).map(t),
+                  agendaLabel: t(C.speakerLabel[`${st.dayOffset}-${k}`] ?? r.speaker.agendaLabel),
+                  agenda: (C.speakerAgenda[`${st.dayOffset}-${k}`] ?? r.speaker.agenda).map(t),
                 },
               })),
             } : null}

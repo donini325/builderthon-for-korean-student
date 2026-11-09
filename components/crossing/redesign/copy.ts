@@ -95,16 +95,31 @@ export const copy = {
   timetableLabel: ko("멘토 시간표, 미션 올리기", stage(1).timetableCta!.label),
   timetableNote: ko("Day 1부터 3까지 써요. Day 1(12.18) 낮 12시에 열리고, 칸은 노트북으로 넣어 주세요.", d.timetableNote),
 
-  // 2026-11-09 (사용자): Day 1 오프닝 세션 연사 카드. data/naru.ts stages[1].flow[0].speaker와 같은 길이.
-  openingAgendaLabel: ko("나눌 이야기 (30분)", { ko: "나눌 이야기 (30분)", en: "What he'll talk about (30 min)" }),
-  openingAgenda: kos(
-    [
-      "요즘 세대와 한국의 창업 생태계를 보며 느끼는 것",
-      "학생이 아이디어를 진지하게 검증받고 현업 피드백을 받을 자리가 왜 부족한지",
-      "그래서 내년에 준비하는 이니셔티브와 그 배경, 준비 중인 프로그램 소개",
-    ],
-    stage(1).flow![0].speaker!.agenda,
-  ),
+  // 2026-11-09 (사용자): Day 1 연사 카드. 키는 "날-흐름 줄 번호". data/naru.ts의 speaker.agenda와 같은 길이.
+  speakerLabel: {
+    "1-0": ko("나눌 이야기 (30분)", stage(1).flow![0].speaker!.agendaLabel),
+    "1-4": ko("워크숍에서 하는 것", stage(1).flow![4].speaker!.agendaLabel),
+  } as Record<string, Phrase>,
+  speakerAgenda: {
+    "1-0": kos(
+      [
+        "요즘 세대와 한국의 창업 생태계를 보며 느끼는 것",
+        "학생이 아이디어를 진지하게 꺼내 보고 현업 피드백을 받을 자리가 왜 부족한지",
+        "그래서 내년에 준비하는 이니셔티브와 그 배경, 준비 중인 프로그램 소개",
+      ],
+      stage(1).flow![0].speaker!.agenda,
+    ),
+    "1-4": kos(
+      [
+        "회사가 낸 이슈를 그대로 받지 않고, 회사가 이걸로 뭘 풀고 싶은지 목적부터 정해요",
+        "목적에서 거꾸로 가요. AI한테 풀 방법 셋을 받아 하나를 고르고, 계속 되물으며 대화에 맥락을 쌓아요",
+        "쌓인 대화로 마지막 프롬프트를 뽑아 Lovable에 붙이면 시안이 떠요. 직접 보여 주고, 같이 해 봐요",
+        "'내가 이걸 매일 쓸까?' 회사의 이슈라도 해석하는 건 결국 나거든요",
+        "Lovable이 잘하는 곳(시안, 가벼운 앱)과 다른 도구로 넘어갈 때를 짚고, 끝난 뒤에도 남아서 질문을 받아요",
+      ],
+      stage(1).flow![4].speaker!.agenda,
+    ),
+  } as Record<string, Phrase[]>,
 
   flow: {
     1: kos(

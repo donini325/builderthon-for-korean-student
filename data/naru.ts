@@ -2804,9 +2804,10 @@ export const naru = {
               photo: "/crossing/speakers/ethan-cho.jpg",
               name: { ko: "조여준", en: "Ethan Cho" },
               role: { ko: "더벤처스 파트너, CIO", en: "Partner & CIO, TheVentures" },
+              agendaLabel: { ko: "나눌 이야기 (30분)", en: "What he'll talk about (30 min)" },
               agenda: [
                 { ko: "요즘 세대와 한국의 창업 생태계를 보며 느끼는 것", en: "What he sees in this generation and in Korea's startup ecosystem" },
-                { ko: "학생이 아이디어를 진지하게 검증받고 현업의 피드백을 받을 자리가 왜 부족한지", en: "Why students rarely get to test an idea seriously and hear back from people in the field" },
+                { ko: "학생이 아이디어를 진지하게 꺼내 보고 현업의 피드백을 받을 자리가 왜 부족한지", en: "Why students rarely get to test an idea seriously and hear back from people in the field" },
                 { ko: "그래서 내년에 준비하는 이니셔티브와 그 배경, 준비 중인 프로그램 소개", en: "The initiative he is preparing for next year, why, and the program behind it" },
               ],
             },
@@ -2814,7 +2815,25 @@ export const naru = {
           { what: { ko: "출제사의 30분. 아직 손으로 하는 일 하나와 그 일이 왜 있는지를 출제사가 직접 말로", en: "30 minutes with the issuing company: the task it still does by hand and why it exists, in its own words" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "팀 맺기. AI 유형 테스트 결과로 현장에서. 모든 팀에 싱가포르 학생 1~2명과 한국 학교별 학생", en: "Forming teams on site from the AI type test. Every team has 1 to 2 students from Singapore and students from each school in Korea" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "트랙 고르기. 1~3순위를 적고 운영진이 고르게 섞음", en: "Choosing tracks: write your top three, and the organizers mix teams evenly" }, where: { ko: "현장", en: "On site" } },
-          { what: { ko: "Lovable workshop. 사이트 넷을 띄운 Carraway & Gatsby가 진행", en: "Lovable workshop: run by Carraway & Gatsby, who launched four sites with it" }, where: { ko: "현장", en: "On site" } },
+          // 2026-11-09 (사용자: "임성엽님 링크드인이랑 이분 전사록 2개 참고해서 조여준님처럼"): 연사 카드. 근거는 10/29, 11/05 워크숍 미팅 전사록과
+          // 11/07 연사의 회신(문제 정의, 해결책 탐색, 프롬프트 설계, 프로토타이핑까지의 사고 과정, 실습, 끝난 뒤 질의응답). 사진은 본인 LinkedIn 프로필(얼굴만 잘라 260px).
+          {
+            what: { ko: "Lovable workshop. 사이트 넷을 띄운 Carraway & Gatsby가 진행", en: "Lovable workshop: run by Carraway & Gatsby, who launched four sites with it" },
+            where: { ko: "현장", en: "On site" },
+            speaker: {
+              photo: "/crossing/speakers/sungyeob-lim.jpg",
+              name: { ko: "임성엽", en: "Sungyeob Lim" },
+              role: { ko: "Carraway & Gatsby 대표", en: "Founder, Carraway & Gatsby" },
+              agendaLabel: { ko: "워크숍에서 하는 것", en: "What the workshop covers" },
+              agenda: [
+                { ko: "회사가 낸 이슈를 그대로 받지 않고, 회사가 이걸로 무엇을 풀고 싶은지 목적부터 정합니다.", en: "Don't take the issue as given. Start from what the company wants to solve with it." },
+                { ko: "목적에서 거꾸로 갑니다. AI에게 풀 방법 셋을 받아 하나를 고르고, 계속 되물으며 대화에 맥락을 쌓습니다.", en: "Work backwards from that goal: get three ways to solve it from AI, pick one, and keep pushing back so the context builds up." },
+                { ko: "쌓인 대화로 마지막 프롬프트를 뽑아 Lovable에 붙이면 시안이 뜹니다. 그 과정을 직접 보여 주고, 같이 해 봅니다.", en: "Turn that conversation into one final prompt and paste it into Lovable to get a first screen. He shows it live, then you try it." },
+                { ko: "'내가 이걸 매일 쓸까?' 회사의 이슈라도 해석하는 건 결국 나라서, 이 질문으로 돌아봅니다.", en: "\"Would I use this every day?\" Even with a company's issue, the reading of it comes from you." },
+                { ko: "Lovable이 잘하는 곳(시안, 가벼운 앱)과 다른 도구로 넘어갈 때를 짚고, 끝난 뒤에도 현장에 남아 질문을 받습니다.", en: "Where Lovable fits (first screens, light apps) and when to move on, and he stays after to take questions." },
+              ],
+            },
+          },
           { what: { ko: "멘토 시간표 열림. Day 2, 3 칸을 노트북에서 넣음", en: "The mentor timetable opens. Book Day 2 and 3 slots from a laptop" }, where: { ko: "멘토 시간표 페이지", en: "Timetable page" }, href: "/crossing/team?day=2" },
           { what: { ko: "팀의 생각 1장 쓰기. Day 1 PDF로 올려 두면 칸을 넣은 멘토가 미리 읽음", en: "Write the team's one page. Upload it as the Day 1 PDF and the mentor you booked reads it ahead" } },
         ],
@@ -3157,7 +3176,7 @@ export const naru = {
       dayOffset: number;
       /** 하루의 흐름(2026-11-05, day-flow 브리프). time은 KST "10:00" 꼴, 정하지 않았으면 비웁니다. 필참 표시는 없습니다(전원 전부 참여). */
       // href(2026-11-06, docs/first-click-brief.md F8): 장소가 우리 사이트의 페이지면 "어디" 글자가 그 링크.
-      flow?: { time?: string; what: Phrase; where?: Phrase; href?: string; speaker?: { photo: string; name: Phrase; role: Phrase; agenda: Phrase[] } }[];
+      flow?: { time?: string; what: Phrase; where?: Phrase; href?: string; speaker?: { photo: string; name: Phrase; role: Phrase; agendaLabel: Phrase; agenda: Phrase[] } }[];
       /** 노선도 정거장 위의 로고(2026-10-19). 흰색 단색 PNG. name은 스크린리더가 읽습니다. */
       // url (2026-10-20, hwang 브리프 3.8): 있으면 노선도 로고가 새 창 링크가 됩니다(호버 설명 대신).
       logo?: { src: string; name: string; w: number; h: number; url?: string };
