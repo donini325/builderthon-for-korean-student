@@ -2798,7 +2798,7 @@ export const naru = {
           // 2026-11-09 (사용자: 얼굴과 어젠다를 자세히, 근거는 연사에게 보낸 11/09 요청 메일과 수락 회신): 30분, 나눌 이야기 셋. 시각은 day-flow 결정대로 아직 쓰지 않음.
           // 사진은 본인 LinkedIn 프로필 사진(320px, public/crossing/speakers/ethan-cho.jpg). brand 5장 세션 연사 예외.
           {
-            what: { ko: "오프닝 세션. 더벤처스 조여준 파트너가 엶", en: "Opening session, given by Ethan Cho, Partner at TheVentures" },
+            what: { ko: "오프닝 세션. 더벤처스 조여준 파트너님이 엶", en: "Opening session, given by Ethan Cho, Partner at TheVentures" },
             where: { ko: "현장", en: "On site" },
             speaker: {
               photo: "/crossing/speakers/ethan-cho.jpg",
@@ -2826,11 +2826,10 @@ export const naru = {
               role: { ko: "Carraway & Gatsby 대표", en: "Founder, Carraway & Gatsby" },
               agendaLabel: { ko: "워크숍에서 하는 것", en: "What the workshop covers" },
               agenda: [
-                { ko: "회사가 낸 이슈를 그대로 받지 않고, 회사가 이걸로 무엇을 풀고 싶은지 목적부터 정합니다.", en: "Don't take the issue as given. Start from what the company wants to solve with it." },
-                { ko: "목적에서 거꾸로 갑니다. AI에게 풀 방법 셋을 받아 하나를 고르고, 계속 되물으며 대화에 맥락을 쌓습니다.", en: "Work backwards from that goal: get three ways to solve it from AI, pick one, and keep pushing back so the context builds up." },
-                { ko: "쌓인 대화로 마지막 프롬프트를 뽑아 Lovable에 붙이면 시안이 뜹니다. 그 과정을 직접 보여 주고, 같이 해 봅니다.", en: "Turn that conversation into one final prompt and paste it into Lovable to get a first screen. He shows it live, then you try it." },
-                { ko: "'내가 이걸 매일 쓸까?' 회사의 이슈라도 해석하는 건 결국 나라서, 이 질문으로 돌아봅니다.", en: "\"Would I use this every day?\" Even with a company's issue, the reading of it comes from you." },
-                { ko: "Lovable이 잘하는 곳(시안, 가벼운 앱)과 다른 도구로 넘어갈 때를 짚고, 끝난 뒤에도 현장에 남아 질문을 받습니다.", en: "Where Lovable fits (first screens, light apps) and when to move on, and he stays after to take questions." },
+                // 같은 날 (사용자: "너무 많은데? 3 bulletpoints like 조여준 파트너"): 다섯을 셋으로.
+                { ko: "회사가 이 이슈로 무엇을 풀고 싶은지, 목적부터 정하기", en: "Start from what the company wants to solve with the issue" },
+                { ko: "AI와 거꾸로 대화를 쌓아 Lovable 시안 띄우기 (같이 실습)", en: "Work backwards with AI, then turn it into one prompt and a first screen in Lovable (hands-on)" },
+                { ko: "'내가 이걸 매일 쓸까?' 묻기, 끝난 뒤에는 남아서 질문 받기", en: "Ask \"would I use this every day?\", and he stays after for questions" },
               ],
             },
           },
