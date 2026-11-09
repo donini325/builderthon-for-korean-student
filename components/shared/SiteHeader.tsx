@@ -69,10 +69,16 @@ export default function SiteHeader({ page }: { page: SitePage }) {
   }, []);
 
   // 폰 목차 줄이 넘치면 지금 칸을 보이는 곳으로 옮깁니다.
+  // 2026-11-09 (사용자: "모바일 version 에서 TOC 가 좀 이상했었음"): offsetLeft는 줄이 아니라 헤더 기준이라 앞의 메뉴 폭만큼
+  // 더 밀려, 지금 칸(프로그램)이 왼쪽으로 숨었습니다. 줄 기준으로 재고, 칸이 이미 보이면 움직이지 않습니다.
   useEffect(() => {
     const rail = railRef.current;
     const current = rail?.querySelector<HTMLElement>(`a[href="#${active ?? "top"}"]`);
-    if (rail && current && rail.scrollWidth > rail.clientWidth + 1) rail.scrollLeft = current.offsetLeft - 20;
+    if (!rail || !current || rail.scrollWidth <= rail.clientWidth + 1) return;
+    const r = rail.getBoundingClientRect(), c = current.getBoundingClientRect();
+    const fade = 32; // 오른쪽 끝의 흐려지는 폭(mask)
+    if (c.left < r.left) rail.scrollLeft += c.left - r.left;
+    else if (c.right > r.right - fade) rail.scrollLeft += c.right - (r.right - fade);
   }, [active]);
 
   const jump = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
