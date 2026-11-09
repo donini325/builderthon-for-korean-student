@@ -1080,8 +1080,8 @@ export default function NaruHome() {
                       <p className={`flex items-baseline gap-2 ${BODY} font-bold leading-snug text-white`}>
                         <span className={`${META} font-bold tabular-nums text-accent`}>{j + 1}</span>{t(x.title)}
                       </p>
-                      <p className={`break-keep ${META} font-semibold leading-[1.5] text-accent`}>{t(x.quote)}</p>
                       <p className={`break-keep ${META} leading-[1.6] text-naru-muted`}>{t(x.body)}</p>
+                      {x.quotes.map((q, k) => <p key={k} className={`break-keep ${META} font-semibold leading-[1.5] text-accent`}>{t(q)}</p>)}
                     </li>
                   ))}
                 </ol>

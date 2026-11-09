@@ -577,15 +577,21 @@ export default function CrossingSeoul() {
             closeLabel={t(d.dayFlowClose)}
             day={st ? { dayLabel: `${t(d.dayLabel)} ${st.dayOffset}`, date: formatDecemberDayWithWeekday(locale, st.dayOffset), title: t(d.mentorsHeading), lead: t(C.mentorsIntro), rows: [] } : null}
           >
-            <ol className="grid gap-2.5 sm:grid-cols-2">
+            {/* DECIDED 2026-11-09 (사용자, 멘토 브리프 장 스크린숏: "이거대로 update"): 세 묶음, 묶음마다 설명 뒤 따옴표 여럿. 끝에 점수 없는 자리 한 줄. */}
+            <ol className="grid gap-2.5">
               {d.mentorsTalk.map((x, j) => (
                 <li key={j} className="flex flex-col gap-1.5 rounded-xl card-sunken px-4 py-3.5">
-                  <p className={`text-[0.9375rem] font-bold leading-snug ${INK}`}>{t(x.title)}</p>
-                  <p className={`break-keep ${META} font-semibold ${NAVY}`}>{t(x.quote)}</p>
+                  <p className={`text-[0.9375rem] font-bold leading-snug ${INK}`}>{t(C.mentorsTalkTitles[j] ?? x.title)}</p>
                   <p className={`break-keep ${META} ${SOFT}`}>{t(C.mentorsTalkBody[j])}</p>
+                  <ul className="mt-1.5 flex flex-col gap-1">
+                    {x.quotes.map((q, k) => (
+                      <li key={k} className={`break-keep ${META} font-semibold ${NAVY}`}>{t(q)}</li>
+                    ))}
+                  </ul>
                 </li>
               ))}
             </ol>
+            <p className={`mt-3 break-keep ${META} font-bold ${INK}`}>{t(C.mentorsTalkNote)}</p>
             <p className={`mt-7 border-t ${RULE} pt-5 ${META} font-bold ${INK}`}>{t(d.mentorsListLabel)}</p>
             <p className={`mt-1 break-keep ${META} ${SOFT}`}>{t(C.mentorsListNote)}</p>
             <ul className="mt-2 flex flex-col">

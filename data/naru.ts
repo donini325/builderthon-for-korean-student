@@ -2253,17 +2253,45 @@ export const naru = {
     mentorsCtaLabel: { ko: "멘토 보기", en: "See the mentors" },
     // 2026-11-06 (사용자, 스크린숏: 모달 "뭔가 내용이 아쉬움", 멘토 브리프의 "현업의 감각을 들려주세요" 장을 보여 주며 "이 내용이 더 반영되어 있으면"):
     // 멘토에게 부탁한 넷을 학생 쪽에서 듣는 말로 옮깁니다. 브리프의 "바이브 코더", "빌더"는 brand 5장 안 쓰는 말이라 뜻만 남깁니다.
+    // DECIDED 2026-11-09 (사용자, 멘토 브리프 "현업의 감각을 들려주세요" 장 스크린숏: "이거대로 update"): 카드 넷(제목, 따옴표 하나, 설명)을
+    // 브리프의 세 묶음(이런 이야기면 충분, 신입에게 바랐던 것, 학생에게 던질 질문)과 그 따옴표들로. 멘토에게 하는 부탁을 학생이 듣는 말로 옮김.
+    // 끝 줄 "반박은 솔직하게, 점수는 매기지 않는다"는 brand 2장 코어 01. 그 전 카드 넷은 git 3f70e2d.
     mentorsIntro: {
-      ko: "멘토링은 도메인 지식보다 현업의 감각을 듣는 자리입니다. 좋은 것을 만드는 것과 그것을 팔 수 있는 것은 다르고, 그 차이를 만드는 감각을 일해 본 사람에게 듣습니다.",
-      en: "Mentoring is where you hear the sense of the field, more than domain knowledge. Making something good and being able to sell it are different, and you hear what makes that difference from people who have done the work.",
+      ko: "멘토링은 도메인 지식보다 현업의 감각을 듣는 자리입니다. 누가 값을 치르고 결재하는지, 실제로 누구 책상에서 어떻게 돌아가는지처럼 일해 본 사람이면 아는 것들입니다.",
+      en: "Mentoring is where you hear the sense of the field, more than domain knowledge: who pays and who signs off, and how it really runs on whose desk. Things anyone who has done the work knows.",
     },
     mentorsTalkLabel: { ko: "이런 이야기를 듣게 됩니다", en: "What you will hear" },
     mentorsTalk: [
-      { title: { ko: "솔직한 첫 반응", en: "An honest first reaction" }, quote: { ko: "\"나라면 안 샀을 것 같아요\"", en: "\"I don't think I would have bought it.\"" }, body: { ko: "이해가 안 된다, 안 살 것 같다는 말을 그대로 듣습니다. 그 말이 가장 도움이 됩니다.", en: "You hear \"I don't get it\" or \"I wouldn't buy it\" as it is. That helps most." } },
-      { title: { ko: "누구에게 가져가나", en: "Who you take it to" }, quote: { ko: "\"과장님께 어떻게 발표할래요?\"", en: "\"How would you present this to your manager?\"" }, body: { ko: "누구에게 먼저 말하고, 그다음 누구를 설득할지 짚어 줍니다.", en: "Who to tell first, and who to win over next." } },
-      { title: { ko: "하나만 남기기", en: "Keep just one" }, quote: { ko: "\"하나만 풀면 되지 않을까요?\"", en: "\"Couldn't you solve just one?\"" }, body: { ko: "다 풀려는 팀이 막힌 곳 하나를 고르도록 돕습니다.", en: "They help a team that wants to solve everything pick the one place it is stuck." } },
-      { title: { ko: "일하며 겪은 이야기", en: "Stories from the work" }, quote: { ko: "\"제가 처음 일할 때는요\"", en: "\"When I first started working...\"" }, body: { ko: "제품 이야기가 아니어도 됩니다. 일하며 겪은 커리어 이야기도 듣습니다.", en: "Not only about the product. You also hear about their careers." } },
-    ] as { title: Phrase; quote: Phrase; body: Phrase }[],
+      {
+        title: { ko: "솔직한 반응", en: "Honest reactions" },
+        body: { ko: "이해가 안 된다, 안 살 것 같다는 말도 그대로 듣습니다. 그 말이 가장 도움이 됩니다.", en: "You hear \"I don't get it\" or \"I wouldn't buy it\" as it is. That helps most." },
+        quotes: [
+          { ko: "\"나라면 안 샀을 것 같아요\"", en: "\"I don't think I would have bought it.\"" },
+          { ko: "\"과장님께 어떻게 발표할래요?\"", en: "\"How would you present this to your manager?\"" },
+          { ko: "\"하나만 풀면 되지 않을까요?\"", en: "\"Couldn't you solve just one?\"" },
+          { ko: "\"제가 처음 일할 때는요\"", en: "\"When I first started working...\"" },
+        ],
+      },
+      {
+        title: { ko: "신입에게 바랐던 것", en: "What they wished new hires knew" },
+        body: { ko: "신입을 보며 갖추고 왔으면 했던 것을 듣습니다. 팀이 올린 1장은 신입이 처음 가져온 보고서처럼 읽힙니다.", en: "What they wished new hires came with. Your one page is read like a new hire's first report." },
+        quotes: [
+          { ko: "\"이건 알고 들어왔으면 했어요\"", en: "\"I wish you'd known this coming in.\"" },
+          { ko: "\"원가부터 따져 봤어요?\"", en: "\"Did you work out the cost first?\"" },
+        ],
+      },
+      {
+        title: { ko: "받게 될 질문", en: "Questions you will get" },
+        body: { ko: "멘토는 1장에서 가장 약한 곳 하나를 짚습니다.", en: "Mentors put a finger on the weakest point of your one page." },
+        quotes: [
+          { ko: "\"AI에 넣기 전 우리 팀 생각은 뭐였어요?\"", en: "\"What did your team think before you asked AI?\"" },
+          { ko: "\"이걸 누가 사요? 그 사람은 뭘 보고 결재해요?\"", en: "\"Who buys this? What do they look at to sign off?\"" },
+          { ko: "\"도입한 다음 날, 그 사람의 하루에서 정확히 뭐가 달라져요?\"", en: "\"The day after it's in, what exactly changes in that person's day?\"" },
+          { ko: "\"그냥 ChatGPT나 기존 툴로 하면 왜 안 돼요?\"", en: "\"Why not just use ChatGPT or an existing tool?\"" },
+        ],
+      },
+    ] as { title: Phrase; body: Phrase; quotes: Phrase[] }[],
+    mentorsTalkNote: { ko: "반박은 솔직하게 듣지만, 점수는 매기지 않습니다.", en: "The pushback is honest, but nobody gives you a score." },
     // DECIDED 2026-11-06 (사용자: "merge the mentor list in day 2 and day 3 button", "이런분들 말고도 다양한 분들이 오신다 이런느낌으로"): 두 날 모두 같은 명단, 머리는 "함께하는 멘토".
     mentorsListLabel: { ko: "함께하는 멘토", en: "Mentors" },
     // 2026-11-06 (사용자: "이 맨토들 다 AI community 에서 활동하고 있는 사람들이라고 써줘"): 명단 머리 아래 한 줄.

@@ -136,17 +136,18 @@ export const copy = {
     ),
   } as Record<number, Phrase[]>,
 
-  mentorsIntro: ko("멘토링에서 듣는 건 전문 지식보다 현장 감각이에요. 좋은 걸 만드는 것과 그걸 실제로 파는 건 다른 문제거든요. 그 차이를 일해 본 사람에게 들어요.", d.mentorsIntro),
+  mentorsIntro: ko("멘토링에서 듣는 건 전문 지식보다 현업의 감각이에요. 누가 돈을 내고 결재하는지, 실제로 누구 책상에서 어떻게 돌아가는지처럼 일해 본 사람이면 아는 것들이죠.", d.mentorsIntro),
   mentorsTalkLabel: ko("이런 얘기를 듣게 돼요", d.mentorsTalkLabel),
+  mentorsTalkTitles: kos(["솔직한 반응", "신입한테 바랐던 것", "받게 될 질문"], d.mentorsTalk.map((x) => x.title)),
   mentorsTalkBody: kos(
     [
       "이해가 안 된다, 안 살 것 같다는 말도 그대로 들어요. 사실 그게 제일 도움이 돼요.",
-      "누구한테 먼저 보여 주고, 그다음 누구를 설득할지 같이 짚어 줘요.",
-      "다 풀려는 팀이 막힌 곳 하나만 고르도록 도와줘요.",
-      "제품 얘기가 아니어도 괜찮아요. 일하면서 겪은 커리어 얘기도 들을 수 있어요.",
+      "신입을 보며 갖추고 왔으면 했던 걸 들려줘요. 팀이 올린 한 장은 신입이 처음 가져온 보고서처럼 읽혀요.",
+      "멘토는 한 장에서 가장 약한 곳 하나를 짚어요.",
     ],
     d.mentorsTalk.map((x) => x.body),
   ),
+  mentorsTalkNote: ko("반박은 솔직하게 들어요. 그래도 점수는 매기지 않아요.", d.mentorsTalkNote),
   mentorsListNote: ko("몇 분만 먼저 소개해요. 모두 각자의 현업에서 AI를 적극적으로 쓰는 분들이고, 다른 분야 멘토도 더 와요.", d.mentorsListNote),
 
   gainsHeading: ko("끝나고 손에 남는 것", naru.gains.heading),
