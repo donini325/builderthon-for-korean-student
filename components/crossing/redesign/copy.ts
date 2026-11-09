@@ -87,7 +87,7 @@ export const copy = {
   sessionDetail: {
     1: kos(["Lovable로 사이트 넷을 운영하는 Carraway & Gatsby가 진행해요.", "생각을 화면으로 빨리 띄워, 멘토에게 한 장과 같이 보여 줄 시안을 만드는 법을 배워요."], stage(1).session?.detail ?? []),
     2: kos(["현업 PO 세 명이 뭘 왜 만들기로 했고 어디서 멈췄는지 들려줘요.", "주제는 덜어내기, 하나를 남기려고 뭘 뺐는지예요. 끝엔 셋이 대담해요."], stage(2).session?.detail ?? []),
-    3: kos(["만드는 날, 팀과 팀이 한자리에 모여 어디까지 왔는지 나눠요.", "막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 가요."], stage(3).session?.detail ?? []),
+    3: kos(["만드는 날, 팀과 팀이 Zoom에 모여 어디까지 왔는지 나눠요.", "막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 가요."], stage(3).session?.detail ?? []),
   } as Record<number, Phrase[]>,
   dayFlowLabel: ko("하루 일정 보기", d.dayFlowLabel),
   matchLabel: ko("AI 유형 테스트 해 보기", stage(1).matchCta!.label),

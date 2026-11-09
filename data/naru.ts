@@ -2947,7 +2947,8 @@ export const naru = {
         flow: [
           { what: { ko: "멘토 찾아가기. 만든 툴을 들고, 기업이 가져다 쓸 수 있을지", en: "Visiting a mentor: bring the tool you built, and ask whether the company could use it" }, where: { ko: "멘토 계신 곳", en: "Where the mentor is" } },
           { what: { ko: "만들기. 그 병목만 푸는 작은 툴", en: "Building: a small tool that clears that one bottleneck" }, where: { ko: "현장", en: "On site" } },
-          { what: { ko: "Open tables. 막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 감", en: "Open tables: ask other teams where you are stuck and borrow each other's thinking" }, where: { ko: "현장", en: "On site" } },
+          // DECIDED 2026-11-09 (사용자: "day 3 는 zoom 으로", 답: Open tables만. 멘토링과 만들기는 그대로). 그 전 where: 현장 / On site.
+          { what: { ko: "Open tables. 막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 감", en: "Open tables: ask other teams where you are stuck and borrow each other's thinking" }, where: { ko: "Zoom", en: "Zoom" } },
           { what: { ko: "미션 제출. 멘토와 찍은 사진, 발표 자료 PDF", en: "Mission submission: a photo with the mentor and the presentation PDF" }, where: { ko: "멘토 시간표 페이지", en: "Timetable page" }, href: "/crossing/team?day=3" },
         ],
         // DECIDED 2026-11-04 (사용자, site-tells 목업, 3장 C1): /crossing Day 카드의 한 줄. 긴 line과 세션, 미션은 /crossing/team과 이 키들에 남습니다.
@@ -2996,7 +2997,8 @@ export const naru = {
           // 근거는 운영 미팅 기록(워크숍 진행자와의 10/29, 11/05 미팅, 10/21~11/04 주간 회의). 시각은 아직 쓰지 않습니다(day-flow 결정).
           // 운영 미팅 기록에 Open tables의 세부는 없어, 사이트와 brand에 있는 뜻(8월에 팀과 팀이 섞이지 않았던 것, Day 3 미션 조건)만 씁니다.
           detail: [
-            { ko: "만드는 날, 팀과 팀이 한자리에 모여 어디까지 왔는지 나눕니다.", en: "On the building day, teams meet in one room and share where they are." },
+            // 2026-11-09 (사용자): Open tables는 Zoom. 그 전 "한자리에 모여" / "in one room".
+            { ko: "만드는 날, 팀과 팀이 Zoom에 모여 어디까지 왔는지 나눕니다.", en: "On the building day, teams meet on Zoom and share where they are." },
             { ko: "막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 갑니다.", en: "Ask other teams where you are stuck and borrow their thinking." },
           ],
         },
