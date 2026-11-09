@@ -544,7 +544,8 @@
 - 범위: data/naru.ts(Day 1 흐름의 Lovable 줄 speaker, agendaLabel), copy.ts(speakerLabel, speakerAgenda), CrossingSeoul.tsx, DayFlowModal.tsx, public/crossing/speakers/
 - 한 것: 사용자 요청으로 오프닝 카드와 같은 모양을 Lovable workshop 줄에. "워크숍에서 하는 것" 다섯(목적부터 정하기, 거꾸로 가며 AI와 맥락 쌓기, 마지막 프롬프트로 Lovable 시안, '내가 매일 쓸까', Lovable이 맞는 곳과 끝난 뒤 질문)은 워크숍 미팅 두 번과 연사 회신에서. 사진 둘은 프로필 사진에서 얼굴만 잘라 260px(테두리 문구 제외). 오프닝 카드의 "검증받고"를 "꺼내 보고"로(brand 9장 참가자 금지어). 근거: brand 5장 세션 연사 예외, 7장 Day 1.
 - 검증: npm run build 통과, 1440과 390 스크린숏
-- 커밋: 07dbae4
+- 같은 날 뒤 (사용자: "너무 많은데? 3 bulletpoints", "파트너님이라고"): 워크숍 줄 다섯을 셋으로, 오프닝 줄은 "조여준 파트너님이 열어요".
+- 커밋: 07dbae4, e598020
 
 <a id="2026-11-09-opening-card"></a>
 ## 2026-11-09 오프닝 세션 연사 카드
