@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 세션 연사는 이름까지](#2026-11-09-speaker-name)
 - [2026-11-09 Day 1 오프닝 세션](#2026-11-09-opening)
 - [2026-11-09 Day 3 Open tables는 Zoom](#2026-11-09-open-tables-zoom)
 - [2026-11-09 세션 설명을 두 줄씩](#2026-11-09-session-short)
@@ -532,6 +533,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-09-speaker-name"></a>
+## 2026-11-09 세션 연사는 이름까지
+- 범위: docs/brand.md 5장, 9장, data/naru.ts, components/crossing/redesign/copy.ts
+- 한 것: 사용자 "정확히 누가 오는지를 보여줘야지". Day 1 오프닝 세션 줄에 연사의 소속, 이름, 직함을 씀. brand 5장의 사람 이름 규칙에 예외 하나(크로싱 서울 세션 연사는 화면에 씀)를 같은 커밋에 넣음. 체인지로그와 회의록 인용에는 여전히 이름을 쓰지 않음.
+- 검증: npm run build 통과
+- 커밋: 7c7de08
 
 <a id="2026-11-09-opening"></a>
 ## 2026-11-09 Day 1 오프닝 세션
