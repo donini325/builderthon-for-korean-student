@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 Day 1 오프닝 세션](#2026-11-09-opening)
 - [2026-11-09 Day 3 Open tables는 Zoom](#2026-11-09-open-tables-zoom)
 - [2026-11-09 세션 설명을 두 줄씩](#2026-11-09-session-short)
 - [2026-11-09 세션 이름을 누르면 설명](#2026-11-09-session-detail)
@@ -531,6 +532,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-09-opening"></a>
+## 2026-11-09 Day 1 오프닝 세션
+- 범위: data/naru.ts(Day 1 하루 흐름 첫 줄), components/crossing/redesign/copy.ts
+- 한 것: 사용자 요청으로 Day 1 하루 일정의 "오프닝"을 "오프닝 세션. 더벤처스 파트너가 열어요"로(EN: a partner at TheVentures). 진행자 이름은 쓰지 않고 회사와 직함만(brand 5장, 9장 사람 이름은 공개 레포에 쓰지 않음).
+- 검증: npm run build 통과, 새 문장이 /crossing 번들에 있음
+- 커밋: 8ba7acc
 
 <a id="2026-11-09-open-tables-zoom"></a>
 ## 2026-11-09 Day 3 Open tables는 Zoom
