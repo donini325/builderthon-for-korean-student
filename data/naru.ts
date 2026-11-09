@@ -2818,7 +2818,8 @@ export const naru = {
           // 2026-11-09 (사용자: "임성엽님 링크드인이랑 이분 전사록 2개 참고해서 조여준님처럼"): 연사 카드. 근거는 10/29, 11/05 워크숍 미팅 전사록과
           // 11/07 연사의 회신(문제 정의, 해결책 탐색, 프롬프트 설계, 프로토타이핑까지의 사고 과정, 실습, 끝난 뒤 질의응답). 사진은 본인 LinkedIn 프로필(얼굴만 잘라 260px).
           {
-            what: { ko: "Lovable workshop. 사이트 넷을 띄운 Carraway & Gatsby가 진행", en: "Lovable workshop: run by Carraway & Gatsby, who launched four sites with it" },
+            // 2026-11-09 (사용자: "사이트를 4개 띄워봤다고 하면 좀 쉬워보임"): 숫자 대신 기획부터 운영까지. 그 전: "사이트 넷을 띄운".
+            what: { ko: "Lovable workshop. 자기 프로덕트를 기획부터 운영까지 해 온 Carraway & Gatsby가 진행", en: "Lovable workshop: run by Carraway & Gatsby, who take their own products from idea to running service" },
             where: { ko: "현장", en: "On site" },
             speaker: {
               photo: "/crossing/speakers/sungyeob-lim.jpg",
@@ -2890,14 +2891,15 @@ export const naru = {
             // 사이트 넷은 10/29 미팅에서 진행자가 말한 숫자("러버블로 띄운 사이트가 4개 정도"). 그 전: "현장 워크숍입니다." / "An on-site workshop."
             // 같은 날 (사용자, 스크린숏: "3줄인데, 2줄로 조정"): 옆 날의 세션(PO session, Open tables)처럼 두 줄로. 제목이 Lovable이라 "Lovable로"는 뺐습니다.
             // 줄이기 전: "Lovable로 만든 사이트 넷을 운영하는 Carraway & Gatsby가 현장에서 알려 줍니다."
-            ko: "사이트 넷을 띄운 Carraway & Gatsby가 진행합니다.",
-            en: "Run by Carraway & Gatsby, who launched four sites with it.",
+            // 2026-11-09 (사용자: "사이트를 4개 띄워봤다고 하면 좀 쉬워보임"). 그 전: "사이트 넷을 띄운 Carraway & Gatsby가 진행합니다."
+            ko: "자기 프로덕트를 기획부터 운영까지 해 온 Carraway & Gatsby가 진행합니다.",
+            en: "Run by Carraway & Gatsby, who take their own products from idea to running service.",
           },
           // DECIDED 2026-11-09 (사용자, 스크린숏: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명. 같은 날 "너무 긴 거 같아"로 두 줄씩.
           // 근거는 운영 미팅 기록(워크숍 진행자와의 10/29, 11/05 미팅, 10/21~11/04 주간 회의). 시각은 아직 쓰지 않습니다(day-flow 결정).
           // 진행자가 말한 쓰임(생각을 짧은 시간에 화면으로, 멘토에게 보여 줄 시안)과 순서(목적부터 정하고 AI에게 되물어 맥락을 쌓은 뒤 화면으로), 워크숍 뒤 현장에 남는 것(11/05 합의).
           detail: [
-            { ko: "Lovable로 사이트 넷을 운영하는 Carraway & Gatsby가 진행합니다.", en: "Run by Carraway & Gatsby, who run four sites built with Lovable." },
+            { ko: "자기 프로덕트를 Lovable로 기획부터 운영까지 해 온 Carraway & Gatsby가 진행합니다.", en: "Run by Carraway & Gatsby, who take their own Lovable products from idea to running service." },
             { ko: "생각을 화면으로 빨리 띄워, 멘토에게 1장과 함께 보여 줄 시안을 만드는 법을 배웁니다.", en: "Learn to get an idea onto a screen fast, as a draft to show mentors with your one page." },
           ],
         },

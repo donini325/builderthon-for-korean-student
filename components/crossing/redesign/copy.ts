@@ -85,7 +85,7 @@ export const copy = {
   // DECIDED 2026-11-09 (사용자: "각 세션 클릭하면 세션 설명이 나오게"): 세션 이름을 누르면 펼쳐지는 설명. 영어와 근거는 data/naru.ts stages[n].session.detail.
   // 같은 날 사용자("설명이 너무 긴 거 같아"): 네 줄에서 두 줄씩으로.
   sessionDetail: {
-    1: kos(["Lovable로 사이트 넷을 운영하는 Carraway & Gatsby가 진행해요.", "생각을 화면으로 빨리 띄워, 멘토에게 한 장과 같이 보여 줄 시안을 만드는 법을 배워요."], stage(1).session?.detail ?? []),
+    1: kos(["자기 프로덕트를 Lovable로 기획부터 운영까지 해 온 Carraway & Gatsby가 진행해요.", "생각을 화면으로 빨리 띄워, 멘토에게 한 장과 같이 보여 줄 시안을 만드는 법을 배워요."], stage(1).session?.detail ?? []),
     2: kos(["현업 PO 세 명이 뭘 왜 만들기로 했고 어디서 멈췄는지 들려줘요.", "주제는 덜어내기, 하나를 남기려고 뭘 뺐는지예요. 끝엔 셋이 대담해요."], stage(2).session?.detail ?? []),
     3: kos(["만드는 날, 팀과 팀이 Zoom에 모여 어디까지 왔는지 나눠요.", "막힌 지점을 다른 팀에 묻고 서로의 생각을 빌려 가요."], stage(3).session?.detail ?? []),
   } as Record<number, Phrase[]>,
@@ -126,7 +126,7 @@ export const copy = {
         "출제사 30분. 아직 손으로 하는 일이 뭔지, 왜 그렇게 하는지 회사가 직접 설명해요",
         "팀 꾸리기. AI 유형 테스트 결과를 보고 현장에서 정해요. 팀마다 싱가포르 학생이 1~2명씩 들어가요",
         "트랙 고르기. 1~3순위를 적으면 운영진이 고르게 나눠요",
-        "Lovable workshop. 사이트 네 개를 띄워 본 Carraway & Gatsby가 진행해요",
+        "Lovable workshop. 자기 프로덕트를 기획부터 운영까지 해 온 Carraway & Gatsby가 진행해요",
         "멘토 시간표 열림. Day 2, 3 칸을 노트북으로 넣어요",
         "팀 생각 한 장 쓰기. PDF로 올려 두면 칸을 잡은 멘토가 미리 읽어요",
       ],
