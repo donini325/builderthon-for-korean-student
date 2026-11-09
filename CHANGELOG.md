@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-10 멘토 모달을 반으로](#2026-11-10-mentor-short)
 - [2026-11-09 Lovable 진행자 소개에서 사이트 수를 뺌](#2026-11-09-lovable-intro)
 - [2026-11-09 Lovable workshop 연사 카드](#2026-11-09-lovable-card)
 - [2026-11-09 오프닝 세션 연사 카드](#2026-11-09-opening-card)
@@ -539,6 +540,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-10-mentor-short"></a>
+## 2026-11-10 멘토 모달을 반으로
+- 범위: data/naru.ts(mentorsTalk), components/crossing/redesign/copy.ts(mentorsTalkBody)
+- 한 것: 사용자 스크린숏 "너무 길다". 세 묶음은 그대로, 묶음마다 설명을 한 줄로, 따옴표를 넷/둘/넷에서 둘씩으로. 남긴 따옴표: 나라면 안 샀을 것 같아요, 하나만 풀면 되지 않을까요, 이건 알고 들어왔으면 했어요, 원가부터 따져 봤어요, 이걸 누가 사요, 그냥 ChatGPT나 기존 툴로 하면 왜 안 돼요. 근거: brand 5장 짧은 문장, 세 줄을 넘기지 않는다.
+- 검증: npm run build 통과, 1440 스크린숏(모달 높이 약 절반)
+- 커밋: 443c54c
 
 <a id="2026-11-09-lovable-intro"></a>
 ## 2026-11-09 Lovable 진행자 소개에서 사이트 수를 뺌
