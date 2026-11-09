@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 Day 3 일요일은 Zoom, 시간표 상자는 닷새 위로](#2026-11-09-sunday-zoom)
 - [2026-11-09 폰 목차 줄이 지금 칸을 숨기던 것](#2026-11-09-rail-fix)
 - [2026-11-09 세션 연사는 이름까지](#2026-11-09-speaker-name)
 - [2026-11-09 Day 1 오프닝 세션](#2026-11-09-opening)
@@ -534,6 +535,14 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-09-sunday-zoom"></a>
+## 2026-11-09 Day 3 일요일은 Zoom, 시간표 상자는 닷새 위로
+- 범위: data/naru.ts(Day 3 줄, 흐름, 미션 조건과 확인, timetableNote), components/crossing/redesign/copy.ts, CrossingSeoul.tsx, docs/brand.md 7장, README.md
+- 한 것: 사용자 "일요일은 줌으로, 이유는 다 현장에서 하면 힘드니까". Day 3 카드 끝에 "일요일이라 만들기와 Open tables는 Zoom으로 해요. 닷새를 다 현장에서 하면 지치거든요." 하루 흐름의 만들기 장소 Zoom. 미션 첫 조건을 "팀원 절반 넘게 Zoom에 들어오기", 출석 확인도 Zoom으로. 멘토 찾아가기는 그대로(같은 날 사용자: 멘토링은 Zoom 아님).
+- 시간표와 미션 올리기 상자가 Day 3 칸 안에만 있어 Day 3 것으로 읽힌다(사용자). Day 1~3 다 쓰므로 닷새 목록 위로 옮기고 안내 첫머리에 "Day 1부터 3까지 써요". 근거: brand 7장 미션과 멘토링 줄.
+- 검증: npm run build 통과, 1440과 390 스크린숏(상자는 Day 0 위, Day 3 미션 첫 줄 Zoom)
+- 커밋: 60df7fc
 
 <a id="2026-11-09-rail-fix"></a>
 ## 2026-11-09 폰 목차 줄이 지금 칸을 숨기던 것
