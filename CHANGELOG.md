@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 Lovable 진행자 소개에서 사이트 수를 뺌](#2026-11-09-lovable-intro)
 - [2026-11-09 Lovable workshop 연사 카드](#2026-11-09-lovable-card)
 - [2026-11-09 오프닝 세션 연사 카드](#2026-11-09-opening-card)
 - [2026-11-09 멘토 모달을 멘토 브리프의 세 묶음으로](#2026-11-09-mentor-talk)
@@ -538,6 +539,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-09-lovable-intro"></a>
+## 2026-11-09 Lovable 진행자 소개에서 사이트 수를 뺌
+- 범위: data/naru.ts(Day 1 흐름, Lovable 세션 body와 detail), components/crossing/redesign/copy.ts
+- 한 것: 사용자 "사이트를 4개 띄워봤다고 하면 좀 쉬워보임". "사이트 넷을 띄운/운영하는"을 "자기 프로덕트를 (Lovable로) 기획부터 운영까지 해 온"으로. 근거는 워크숍 미팅과 연사 회신(직접 기획하고 개발해 운영). brand 5장 숫자로 설득할 때 그 숫자가 가볍게 읽히면 쓰지 않음.
+- 검증: npm run build 통과, 사이트에 "사이트 넷/네 개" 0
+- 커밋: 91a5e8c
 
 <a id="2026-11-09-lovable-card"></a>
 ## 2026-11-09 Lovable workshop 연사 카드
