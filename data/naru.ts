@@ -2764,7 +2764,8 @@ export const naru = {
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         // DECIDED 2026-11-06 (docs/first-click-brief.md F8): Day 1, 2, 3의 "어디"가 경로 문자열 "/crossing/team" 그대로였습니다. "멘토 시간표 페이지"로 쓰고 링크로.
         flow: [
-          { what: { ko: "오프닝", en: "Opening" }, where: { ko: "현장", en: "On site" } },
+          // DECIDED 2026-11-09 (사용자: "day 1 에 오프닝 session, 조여준 파트너가 하는걸로", 소속은 더벤처스 TheVentures): 이름은 쓰지 않고 회사와 직함(brand 5장, 9장 사람 이름). 그 전: "오프닝" / "Opening".
+          { what: { ko: "오프닝 세션. 더벤처스 파트너가 엶", en: "Opening session, given by a partner at TheVentures" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "출제사의 30분. 아직 손으로 하는 일 하나와 그 일이 왜 있는지를 출제사가 직접 말로", en: "30 minutes with the issuing company: the task it still does by hand and why it exists, in its own words" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "팀 맺기. AI 유형 테스트 결과로 현장에서. 모든 팀에 싱가포르 학생 1~2명과 한국 학교별 학생", en: "Forming teams on site from the AI type test. Every team has 1 to 2 students from Singapore and students from each school in Korea" }, where: { ko: "현장", en: "On site" } },
           { what: { ko: "트랙 고르기. 1~3순위를 적고 운영진이 고르게 섞음", en: "Choosing tracks: write your top three, and the organizers mix teams evenly" }, where: { ko: "현장", en: "On site" } },
