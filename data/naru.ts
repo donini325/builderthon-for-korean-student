@@ -2264,17 +2264,15 @@ export const naru = {
     mentorsTalk: [
       {
         title: { ko: "솔직한 반응", en: "Honest reactions" },
-        body: { ko: "이해가 안 된다, 안 살 것 같다는 말도 그대로 듣습니다. 그 말이 가장 도움이 됩니다.", en: "You hear \"I don't get it\" or \"I wouldn't buy it\" as it is. That helps most." },
+        body: { ko: "안 살 것 같다는 말도 그대로 듣습니다.", en: "Even \"I wouldn't buy it\" comes straight." },
         quotes: [
           { ko: "\"나라면 안 샀을 것 같아요\"", en: "\"I don't think I would have bought it.\"" },
-          { ko: "\"과장님께 어떻게 발표할래요?\"", en: "\"How would you present this to your manager?\"" },
           { ko: "\"하나만 풀면 되지 않을까요?\"", en: "\"Couldn't you solve just one?\"" },
-          { ko: "\"제가 처음 일할 때는요\"", en: "\"When I first started working...\"" },
         ],
       },
       {
         title: { ko: "신입에게 바랐던 것", en: "What they wished new hires knew" },
-        body: { ko: "신입을 보며 갖추고 왔으면 했던 것을 듣습니다. 팀이 올린 1장은 신입이 처음 가져온 보고서처럼 읽힙니다.", en: "What they wished new hires came with. Your one page is read like a new hire's first report." },
+        body: { ko: "1장은 신입의 첫 보고서처럼 읽힙니다.", en: "Your one page is read like a new hire's first report." },
         quotes: [
           { ko: "\"이건 알고 들어왔으면 했어요\"", en: "\"I wish you'd known this coming in.\"" },
           { ko: "\"원가부터 따져 봤어요?\"", en: "\"Did you work out the cost first?\"" },
@@ -2282,14 +2280,13 @@ export const naru = {
       },
       {
         title: { ko: "받게 될 질문", en: "Questions you will get" },
-        body: { ko: "멘토는 1장에서 가장 약한 곳 하나를 짚습니다.", en: "Mentors put a finger on the weakest point of your one page." },
+        body: { ko: "1장에서 가장 약한 곳 하나를 짚습니다.", en: "They find the weakest point of your one page." },
         quotes: [
-          { ko: "\"AI에 넣기 전 우리 팀 생각은 뭐였어요?\"", en: "\"What did your team think before you asked AI?\"" },
           { ko: "\"이걸 누가 사요? 그 사람은 뭘 보고 결재해요?\"", en: "\"Who buys this? What do they look at to sign off?\"" },
-          { ko: "\"도입한 다음 날, 그 사람의 하루에서 정확히 뭐가 달라져요?\"", en: "\"The day after it's in, what exactly changes in that person's day?\"" },
           { ko: "\"그냥 ChatGPT나 기존 툴로 하면 왜 안 돼요?\"", en: "\"Why not just use ChatGPT or an existing tool?\"" },
         ],
       },
+    // 2026-11-10 (사용자, 스크린숏: "너무 길다"): 묶음마다 설명 한 줄, 따옴표 둘.
     ] as { title: Phrase; body: Phrase; quotes: Phrase[] }[],
     mentorsTalkNote: { ko: "반박은 솔직하게 듣지만, 점수는 매기지 않습니다.", en: "The pushback is honest, but nobody gives you a score." },
     // DECIDED 2026-11-06 (사용자: "merge the mentor list in day 2 and day 3 button", "이런분들 말고도 다양한 분들이 오신다 이런느낌으로"): 두 날 모두 같은 명단, 머리는 "함께하는 멘토".
