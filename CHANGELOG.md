@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-09 오프닝 세션 연사 카드](#2026-11-09-opening-card)
 - [2026-11-09 멘토 모달을 멘토 브리프의 세 묶음으로](#2026-11-09-mentor-talk)
 - [2026-11-09 Day 3 일요일은 Zoom, 시간표 상자는 닷새 위로](#2026-11-09-sunday-zoom)
 - [2026-11-09 폰 목차 줄이 지금 칸을 숨기던 것](#2026-11-09-rail-fix)
@@ -536,6 +537,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-09-opening-card"></a>
+## 2026-11-09 오프닝 세션 연사 카드
+- 범위: components/crossing/DayFlowModal.tsx(연사 카드), data/naru.ts(Day 1 흐름 첫 줄 speaker), copy.ts, CrossingSeoul.tsx, public/crossing/speakers/
+- 한 것: 사용자 요청으로 Day 1 하루 일정의 오프닝 세션 줄 아래에 연사 카드: 사진(본인 LinkedIn 프로필 사진을 320px로), 이름과 직함, "나눌 이야기 (30분)" 셋(요즘 세대와 창업 생태계, 학생이 검증과 현업 피드백을 받을 자리, 내년 이니셔티브와 프로그램). 내용은 운영진이 연사에게 보낸 요청과 수락에서 옴. 시각은 day-flow 결정대로 아직 쓰지 않음. 근거: brand 5장 세션 연사 예외, 2장 판단 질문 2(현업 앞에서 증명할 자리).
+- 검증: npm run build 통과, 1440과 390 스크린숏
+- 커밋: 2c4e21a
 
 <a id="2026-11-09-mentor-talk"></a>
 ## 2026-11-09 멘토 모달을 멘토 브리프의 세 묶음으로
