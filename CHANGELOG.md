@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-10 디캠프, Lovable 로고 표기 조건 점검](#2026-11-10-logo-rules)
 - [2026-11-10 Readray는 시상 상품](#2026-11-10-readray)
 - [2026-11-10 함께하는 곳에 디캠프](#2026-11-10-dcamp-partner)
 - [2026-11-10 Day 3 장소 칸에 온라인 (Zoom)](#2026-11-10-day3-online)
@@ -544,6 +545,14 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-10-logo-rules"></a>
+## 2026-11-10 디캠프, Lovable 로고 표기 조건 점검
+- 범위: data/naru.ts(Day 2 logo, decemberPartners 장소 줄), public/partners/logos/paper/dcamp.png, HeroPartnerStrip.tsx(DECEMBER_MASS)
+- 한 것: 사용자 요청으로 두 곳의 로고 조건을 사이트와 대조. 디캠프(11-10 대관 승인 메일): 최신 로고만, 표기는 "공간 후원 : 로고", 장소는 "디캠프 선릉". 8월 폴더의 로고가 흰 로고 필터로 회색이 되던 것을 공식 RGB 검정 파일로, 장소 줄 이름을 "공간 후원"으로, Day 2 로고 이름을 "디캠프 선릉"으로. Lovable(승인 메일과 플레이북 정리): 공식 파일, 원래 색, 밝은 바탕, "공식 파트너" 류 표현 없음, 다른 코딩 툴 후원 없음을 확인해 그대로. 근거: brand 10장 로고 규칙(비율, 색 변경 금지).
+- 남은 것(사이트 밖): 디캠프는 웹페이지를 포함한 모든 홍보물 시안을 행사 7일 전까지 venue@dcamp.kr로 보내 확인받아야 함. Lovable 로고는 포스터, SNS에도 넣어야 함.
+- 검증: npm run build 통과, 1440 스크린숏
+- 커밋: f17e7f8
 
 <a id="2026-11-10-readray"></a>
 ## 2026-11-10 Readray는 시상 상품
