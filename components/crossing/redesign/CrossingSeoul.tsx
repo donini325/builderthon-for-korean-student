@@ -359,9 +359,17 @@ export default function CrossingSeoul() {
                         </a>
                       )}
                       {!s.logo && s.venueText && (
-                        <span className={`inline-flex min-h-[44px] items-center gap-1.5 ${BODY} font-bold ${SOFT} lg:mt-1`}>
-                          <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="3" y="5" width="18" height="12" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
-                          {t(s.venueText)}
+                        <span className={`flex flex-col gap-1 ${META} font-semibold ${SOFT} lg:mt-2`}>
+                          <span className="inline-flex items-center gap-1.5">
+                            <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="3" y="5" width="18" height="12" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
+                            {t(s.venueText)}
+                          </span>
+                          {s.venueNote && (
+                            <span className="inline-flex items-center gap-1.5">
+                              <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+                              {t(s.venueNote)}
+                            </span>
+                          )}
                         </span>
                       )}
                     </div>
@@ -567,7 +575,7 @@ export default function CrossingSeoul() {
               title: t(st.title),
               lead: t(C.line[st.dayOffset] ?? st.line),
               venue: st.logo,
-              venueText: st.venueText && t(st.venueText),
+              venueText: st.venueText && [t(st.venueText), st.venueNote && t(st.venueNote)].filter(Boolean).join(", "),
               rows: st.flow.map((r, k) => ({
                 time: r.time, what: t(C.flow[st.dayOffset]?.[k] ?? r.what), where: r.where && t(r.where), href: r.href,
                 speaker: r.speaker && {

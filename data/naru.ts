@@ -3010,7 +3010,9 @@ export const naru = {
         when: { ko: "Day 3", en: "Day 3" },
         dayOffset: 3,
         // DECIDED 2026-11-10 (사용자: "day 3 는 온라인으로 한다는걸 여기에도 넣어"): 다른 날 장소 로고 자리에 "온라인 (Zoom)". 멘토 찾아가기는 그대로 멘토 계신 곳.
+        // 같은 날 뒤 (사용자: "온라인만 있으니까 모든 것들이 줌이라고 생각할 수도, 멘토링은 in person으로 찾아가야 함"): 두 줄로 나눔.
         venueText: { ko: "온라인 (Zoom)", en: "Online (Zoom)" },
+        venueNote: { ko: "멘토링은 직접 찾아가기", en: "Mentoring in person" },
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
           { what: { ko: "멘토 찾아가기. 만든 툴을 들고, 기업이 가져다 쓸 수 있을지", en: "Visiting a mentor: bring the tool you built, and ask whether the company could use it" }, where: { ko: "멘토 계신 곳", en: "Where the mentor is" } },
@@ -3039,8 +3041,8 @@ export const naru = {
           // DECIDED 2026-11-05 (사용자, 스크린숏: "3일 문장 길이를 1,2일에 맞춰줘"): 앞의 "흐름 전체를 바꾸는 시스템 대신"을 뺌. 네 줄에서 세 줄. 그 전 문장은 git 80e0e1f.
           // DECIDED 2026-11-06 (docs/think-different-brief.md T7, 사용자: 생각과 팀마다 다른 것을 강조, 상자는 그대로): 문장 +1. 브리프의 앞부분("흐름 전체를 바꾸는 시스템 대신")은 11-05 사용자 결정대로 넣지 않음.
           // 2026-11-09 (사용자): 일요일은 Zoom, 그 이유 한 문장을 끝에.
-          ko: "그 병목만 푸는 작은 툴을 만들고, 기업이 가져다 쓸 수 있을지 멘토에게 여쭙니다. 같은 이슈에서 팀마다 다른 툴이 나옵니다. 일요일이라 만들기와 Open tables는 Zoom으로 합니다. 닷새를 다 현장에서 하면 지치기 때문입니다.",
-          en: "Build a small tool for it and ask a mentor if the company could use it. Each team's tool differs. It's Sunday, so building and Open tables are on Zoom: five full days on site is a lot.",
+          ko: "그 병목만 푸는 작은 툴을 만들고, 기업이 가져다 쓸 수 있을지 멘토에게 여쭙니다. 같은 이슈에서 팀마다 다른 툴이 나옵니다. 일요일이라 만들기와 Open tables는 Zoom으로 하고, 멘토만 직접 찾아갑니다. 닷새를 다 현장에서 하면 지치기 때문입니다.",
+          en: "Build a small tool for it and ask a mentor if the company could use it. Each team's tool differs. It's Sunday, so building and Open tables are on Zoom and only mentor visits are in person: five full days on site is a lot.",
         },
         // DECIDED 2026-10-10 (중복 브리프 B1): 칩 "멘토링은 이 날까지"를 뺐습니다. General Mentoring 상자의
         // "Day 3은 피칭 준비, Day 4는 멘토링이 없습니다"가 같은 말을 합니다.
@@ -3185,6 +3187,7 @@ export const naru = {
       logo?: { src: string; name: string; w: number; h: number; url?: string };
       // 2026-11-10 (사용자: "day 3 는 온라인으로 한다는걸 여기에도"): 로고 대신 장소를 글자로(온라인 날).
       venueText?: Phrase;
+      venueNote?: Phrase;
       body: Phrase;
       /** 폰 노선도 카드에서 세션 자리에 그리는 그날의 진행(2026-10-22). 없으면 그리지 않습니다. body에서 뽑은 문장입니다. */
       panelBody?: Phrase;
