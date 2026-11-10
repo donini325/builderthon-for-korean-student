@@ -3702,6 +3702,8 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
         { name: "MARU180", src: "/partners/logos/white/trimmed/maru180.png", w: 385, h: 91, url: "https://maru.org/" },
         // DECIDED 2026-11-04 (사용자: 노선도 Day 1과 같이 함께하는 곳에도 Fastfive). 원본은 CI/Fastfive.png.
         { name: "FASTFIVE", src: "/partners/logos/white/trimmed/fastfive.png", w: 457, h: 78, url: "https://fastfive.co.kr/" },
+        // DECIDED 2026-11-10 (사용자: "디캠프 후원들에도 추가"): Day 2 장소. 노선도 Day 2 로고와 같은 파일.
+        { name: "DCAMP 디캠프", src: "/partners/logos/white/trimmed/dcamp.png", w: 408, h: 100, url: "https://dcamp.kr/" },
       ],
     },
     {
