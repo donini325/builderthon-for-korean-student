@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-10 Day 2 장소 로고 디캠프](#2026-11-10-dcamp)
 - [2026-11-10 멘토 모달을 반으로](#2026-11-10-mentor-short)
 - [2026-11-09 Lovable 진행자 소개에서 사이트 수를 뺌](#2026-11-09-lovable-intro)
 - [2026-11-09 Lovable workshop 연사 카드](#2026-11-09-lovable-card)
@@ -540,6 +541,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-10-dcamp"></a>
+## 2026-11-10 Day 2 장소 로고 디캠프
+- 범위: data/naru.ts(Day 2 logo), public/partners/logos/white/trimmed/dcamp.png
+- 한 것: 사용자 "day 2 에 디캠프 로고 나오게 해줘". Day 1 FASTFIVE, Day 4 MARU180처럼 Day 2 날짜 칸 아래와 하루 일정 모달 머리에 디캠프 로고(디캠프 선릉 대관). 레포에 있던 흰색 로고를 같은 규칙(흰 단색, 투명 바탕)으로 옮김. 근거: brand 10장 사이트 UI.
+- 검증: npm run build 통과, 1440 스크린숏
+- 커밋: 50847be
 
 <a id="2026-11-10-mentor-short"></a>
 ## 2026-11-10 멘토 모달을 반으로
