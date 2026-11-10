@@ -17,7 +17,7 @@ import { META, BODY, SUBTITLE } from "@/components/ui/typography";
 // 2026-11-09 (사용자: "조여준 파트너님 얼굴이 여기 있으면 좋겠어", "opening session 어젠다가 디테일하게"): 세션 줄에 연사 카드(사진, 이름, 직함, 나눌 이야기).
 export type DayFlowSpeaker = { photo: string; name: string; role: string; agendaLabel: string; agenda: string[] };
 export type DayFlowRow = { time?: string; what: string; where?: string; href?: string; speaker?: DayFlowSpeaker };
-export type DayFlowContent = { dayLabel: string; date: string; title: string; lead: string; rows: DayFlowRow[]; venue?: { src: string; name: string; w: number; h: number }; venueText?: string };
+export type DayFlowContent = { dayLabel: string; date: string; title: string; lead: string; rows: DayFlowRow[]; venue?: { src: string; name: string; w: number; h: number }; venueText?: string; venueNote?: string };
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
 
@@ -130,6 +130,12 @@ export default function DayFlowModal({
                   <span className="inline-flex items-center gap-1.5 self-center font-bold text-naru-muted">
                     <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-caption"><rect x="3" y="5" width="18" height="12" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
                     {day.venueText}
+                  </span>
+                )}
+                {day.venueNote && (
+                  <span className="inline-flex items-center gap-1 self-center font-semibold text-naru-muted">
+                    <svg aria-hidden width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-caption"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+                    {day.venueNote}
                   </span>
                 )}
               </p>
