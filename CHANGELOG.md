@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-10 Readray는 시상 상품](#2026-11-10-readray)
 - [2026-11-10 함께하는 곳에 디캠프](#2026-11-10-dcamp-partner)
 - [2026-11-10 Day 3 장소 칸에 온라인 (Zoom)](#2026-11-10-day3-online)
 - [2026-11-10 Day 2 장소 로고 디캠프](#2026-11-10-dcamp)
@@ -543,6 +544,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-10-readray"></a>
+## 2026-11-10 Readray는 시상 상품
+- 범위: data/naru.ts(decemberPartners, Readray 줄 이름. 함께하는 곳과 히어로 아래 띠에 같이 보임)
+- 한 것: 사용자 요청. Lovable 승인 조건(Lovable이 행사의 exclusive tool, 다른 파트너와 후원사는 보조 이름)에 맞춰, 행사 크레딧은 Lovable 한 곳으로 읽히게 Readray 줄 이름을 "시상 크레딧"에서 "시상 상품"(Award prizes)으로. Lovable 줄 "기술, 크레딧"은 그대로. 근거: 12월 빌더톤/이벤트 기획/툴의 승인 메일과 플레이북 정리, brand 4장 부문별 시상.
+- 검증: npm run build 통과
+- 커밋: 846140c
 
 <a id="2026-11-10-dcamp-partner"></a>
 ## 2026-11-10 함께하는 곳에 디캠프
