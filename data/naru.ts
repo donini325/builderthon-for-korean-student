@@ -3715,7 +3715,9 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
     // 기술, 크레딧 줄과 따로 둡니다. 이름은 "시상"(brand 4장 부문별 시상, 9장 금지어 우승, 1등을 피함). 원본은 12월 빌더톤/CI/Readray.svg이고,
     // 어두운 바탕에서 읽히게 워드마크(#1C1E15)만 흰색으로 바꿨습니다. 라임 원과 눈은 원래 색입니다(밝은 판 없이). 옛 이름은 LilysAI(lilys.ai가 readray.ai로 넘어감).
     {
-      label: { ko: "시상 크레딧", en: "Award credits" },
+      // DECIDED 2026-11-10 (사용자: "러버블 조건을 보면 무조건 본인들이 행사 크레딧 후원이어야 한다", 근거 12월 빌더톤/이벤트 기획/툴의 Lovable 승인 메일과
+      // 플레이북 정리: Lovable이 행사의 exclusive tool, 다른 파트너는 보조 이름으로만). 행사 크레딧은 Lovable 한 곳이라 Readray 줄에서 "크레딧"을 빼고 상품으로. 그 전: 시상 크레딧 / Award credits.
+      label: { ko: "시상 상품", en: "Award prizes" },
       logos: [{ name: "Readray", src: "/partners/logos/paper/readray.png", w: 1983, h: 377, url: "https://readray.ai" }],
     },
     // DECIDED 2026-11-06 (사용자: "와이드모바일 (상금 후원) 넣어줘"). 로고는 CI/250207_도시락eSIM_LogoGuide.pdf의 가로형(도시락eSIM은 와이드모바일의 브랜드,
