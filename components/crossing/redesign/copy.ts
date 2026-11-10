@@ -175,8 +175,9 @@ export const copy = {
   mentorsListNote: ko("몇 분만 먼저 소개해요. 모두 각자의 현업에서 AI를 적극적으로 쓰는 분들이고, 다른 분야 멘토도 더 와요.", d.mentorsListNote),
 
   gainsHeading: ko("끝나고 손에 남는 것", naru.gains.heading),
+  // 2026-11-10 (사용자, 스크린숏: "여기 2줄"): 셋째 줄 "과정은 마지막 날, 그 회사 앞에서 보여 줄 차례예요."를 뺌. 그 말은 아래 04가 받음(brand 5장).
   gainsSpine: ko(
-    "학생에게는 '이걸 왜 아직 손으로 하지?'부터 묻는 습관이 남아요.\n회사에는 그 일에 바로 써 볼 만한 작은 툴 하나.\n과정은 마지막 날, 그 회사 앞에서 보여 줄 차례예요.",
+    "학생에게는 '이걸 왜 아직 손으로 하지?'부터 묻는 습관이 남아요.\n회사에는 그 일에 바로 써 볼 만한 작은 툴 하나가 남고요.",
     naru.gains.spine.heading,
   ),
   gainsTitles: kos(
