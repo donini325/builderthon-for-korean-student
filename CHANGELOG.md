@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-10 Day 3 장소 칸에 온라인 (Zoom)](#2026-11-10-day3-online)
 - [2026-11-10 Day 2 장소 로고 디캠프](#2026-11-10-dcamp)
 - [2026-11-10 멘토 모달을 반으로](#2026-11-10-mentor-short)
 - [2026-11-09 Lovable 진행자 소개에서 사이트 수를 뺌](#2026-11-09-lovable-intro)
@@ -541,6 +542,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-10-day3-online"></a>
+## 2026-11-10 Day 3 장소 칸에 온라인 (Zoom)
+- 범위: data/naru.ts(stage.venueText, Day 3), CrossingSeoul.tsx(날짜 칸), DayFlowModal.tsx(모달 머리)
+- 한 것: 사용자 "day 3 는 온라인으로 한다는걸 여기에도 넣어". Day 1, 2, 4가 장소 로고를 두는 자리에 Day 3은 화면 아이콘과 "온라인 (Zoom)". 하루 일정 모달 머리에도 같은 글자. 멘토 찾아가기는 그대로 멘토 계신 곳(11-09 결정). 근거: brand 7장 Day 3 일요일 Zoom.
+- 검증: npm run build 통과, 1440과 390 스크린숏
+- 커밋: d49ecb9
 
 <a id="2026-11-10-dcamp"></a>
 ## 2026-11-10 Day 2 장소 로고 디캠프
