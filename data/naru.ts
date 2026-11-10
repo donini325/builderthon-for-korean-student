@@ -2915,7 +2915,8 @@ export const naru = {
         when: { ko: "Day 2", en: "Day 2" },
         dayOffset: 2,
         // DECIDED 2026-11-10 (사용자: "day 2 에 디캠프 로고 나오게 해줘"): Day 2 장소 디캠프 선릉. 흰색 단색(public/partners/zero100/04-dcamp.webp를 그대로 칠함).
-        logo: { src: "/partners/logos/white/trimmed/dcamp.png", name: "DCAMP", w: 408, h: 100, url: "https://dcamp.kr/" },
+        // 2026-11-10 (사용자: 디캠프 표기 조건 확인. 디캠프 대관 승인 메일 11-10: 최신 로고 파일만, 장소는 "디캠프 선릉"): 공식 RGB 검정 로고(CI/dcamp_로고파일.zip), 색 필터 없는 paper 폴더.
+        logo: { src: "/partners/logos/paper/dcamp.png", name: "디캠프 선릉", w: 900, h: 220, url: "https://dcamp.kr/" },
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
           { what: { ko: "멘토 찾아가기. 넣은 칸의 시각에 팀이 함께, 생각 1장을 들고", en: "Visiting a mentor: the team goes together at the booked time, with the one page" }, where: { ko: "멘토 계신 곳(오피스, 카페, 온라인)", en: "Where the mentor is (an office, a café, or online)" } },
@@ -3694,7 +3695,8 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
       ],
     },
     {
-      label: { ko: "장소", en: "Venues" },
+      // DECIDED 2026-11-10 (디캠프 대관 승인 메일: 홍보물 표기는 "공간 후원 : (디캠프 로고)"): 장소 줄 이름을 "공간 후원"으로. 아산나눔재단(MARU180), FASTFIVE도 공간을 내준 곳이라 같은 이름. 그 전: 장소 / Venues.
+      label: { ko: "공간 후원", en: "Venue sponsors" },
       logos: [
         // DECIDED 2026-10-26 (사용자: "다 빼줘"): GSC 로고를 장소 줄에서도 뺐습니다. 노선도 Day 1 로고도 같은 날 뺐습니다.
         // 2026-10-22 (UX 점검): 영문 화면의 링크 이름과 alt에 한글만 남아 있었습니다. 로고는 한글이라 두 표기를 같이 둡니다.
@@ -3703,7 +3705,8 @@ export const decemberPartners: { heading: Phrase; groups: { label: Phrase; lead?
         // DECIDED 2026-11-04 (사용자: 노선도 Day 1과 같이 함께하는 곳에도 Fastfive). 원본은 CI/Fastfive.png.
         { name: "FASTFIVE", src: "/partners/logos/white/trimmed/fastfive.png", w: 457, h: 78, url: "https://fastfive.co.kr/" },
         // DECIDED 2026-11-10 (사용자: "디캠프 후원들에도 추가"): Day 2 장소. 노선도 Day 2 로고와 같은 파일.
-        { name: "DCAMP 디캠프", src: "/partners/logos/white/trimmed/dcamp.png", w: 408, h: 100, url: "https://dcamp.kr/" },
+        // 2026-11-10: 공식 RGB 검정 로고로(디캠프 대관 승인 메일, 과거 로고 사용 제한).
+        { name: "디캠프 DCAMP", src: "/partners/logos/paper/dcamp.png", w: 900, h: 220, url: "https://dcamp.kr/" },
       ],
     },
     {

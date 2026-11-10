@@ -263,7 +263,7 @@ const DECEMBER_MASS: Record<string, number> = {
   "/partners/logos/white/trimmed/asan-nanum.png": 0.256,
   "/partners/logos/white/trimmed/maru180.png": 0.386,
   "/partners/logos/white/trimmed/fastfive.png": 0.45,
-  "/partners/logos/white/trimmed/dcamp.png": 0.387, // 2026-11-10 측정, Day 2 장소
+  "/partners/logos/paper/dcamp.png": 0.389, // 2026-11-10 측정, Day 2 장소(공식 RGB 검정)
   "/partners/logos/paper/lovable.png": 0.529,
   "/partners/logos/paper/readray.png": 0.393,
   "/partners/logos/paper/cgc.png": 0.279,
