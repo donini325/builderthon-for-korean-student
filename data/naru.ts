@@ -2914,6 +2914,8 @@ export const naru = {
         title: { ko: "확인받기", en: "Check" },
         when: { ko: "Day 2", en: "Day 2" },
         dayOffset: 2,
+        // DECIDED 2026-11-10 (사용자: "day 2 에 디캠프 로고 나오게 해줘"): Day 2 장소 디캠프 선릉. 흰색 단색(public/partners/zero100/04-dcamp.webp를 그대로 칠함).
+        logo: { src: "/partners/logos/white/trimmed/dcamp.png", name: "DCAMP", w: 408, h: 100, url: "https://dcamp.kr/" },
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
           { what: { ko: "멘토 찾아가기. 넣은 칸의 시각에 팀이 함께, 생각 1장을 들고", en: "Visiting a mentor: the team goes together at the booked time, with the one page" }, where: { ko: "멘토 계신 곳(오피스, 카페, 온라인)", en: "Where the mentor is (an office, a café, or online)" } },
