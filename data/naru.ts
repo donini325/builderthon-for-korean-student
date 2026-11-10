@@ -3008,6 +3008,8 @@ export const naru = {
         title: { ko: "만들기", en: "Build" },
         when: { ko: "Day 3", en: "Day 3" },
         dayOffset: 3,
+        // DECIDED 2026-11-10 (사용자: "day 3 는 온라인으로 한다는걸 여기에도 넣어"): 다른 날 장소 로고 자리에 "온라인 (Zoom)". 멘토 찾아가기는 그대로 멘토 계신 곳.
+        venueText: { ko: "온라인 (Zoom)", en: "Online (Zoom)" },
         // DECIDED 2026-11-05 (docs/day-flow-brief.md 2장, 사용자): 하루의 흐름. 시각은 아직 넣지 않습니다(같은 날 사용자: "아직 정확한 시간은 넣지 말아줘"). 정해지면 time만 채웁니다. 필참 표시 없음(같은 날 사용자: "다 참여해야지").
         flow: [
           { what: { ko: "멘토 찾아가기. 만든 툴을 들고, 기업이 가져다 쓸 수 있을지", en: "Visiting a mentor: bring the tool you built, and ask whether the company could use it" }, where: { ko: "멘토 계신 곳", en: "Where the mentor is" } },
@@ -3180,6 +3182,8 @@ export const naru = {
       /** 노선도 정거장 위의 로고(2026-10-19). 흰색 단색 PNG. name은 스크린리더가 읽습니다. */
       // url (2026-10-20, hwang 브리프 3.8): 있으면 노선도 로고가 새 창 링크가 됩니다(호버 설명 대신).
       logo?: { src: string; name: string; w: number; h: number; url?: string };
+      // 2026-11-10 (사용자: "day 3 는 온라인으로 한다는걸 여기에도"): 로고 대신 장소를 글자로(온라인 날).
+      venueText?: Phrase;
       body: Phrase;
       /** 폰 노선도 카드에서 세션 자리에 그리는 그날의 진행(2026-10-22). 없으면 그리지 않습니다. body에서 뽑은 문장입니다. */
       panelBody?: Phrase;

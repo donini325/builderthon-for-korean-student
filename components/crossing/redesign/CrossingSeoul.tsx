@@ -358,6 +358,12 @@ export default function CrossingSeoul() {
                           <Image src={s.logo.src} alt="" width={s.logo.w} height={s.logo.h} className="h-[18px] w-auto" />
                         </a>
                       )}
+                      {!s.logo && s.venueText && (
+                        <span className={`inline-flex min-h-[44px] items-center gap-1.5 ${BODY} font-bold ${SOFT} lg:mt-1`}>
+                          <svg aria-hidden width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="3" y="5" width="18" height="12" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
+                          {t(s.venueText)}
+                        </span>
+                      )}
                     </div>
                     <div className="mt-3 min-w-0 lg:mt-0 lg:pl-10">
                       <h3 className={`break-keep ${HEADING} ${INK}`}>{t(s.title)}</h3>
@@ -561,6 +567,7 @@ export default function CrossingSeoul() {
               title: t(st.title),
               lead: t(C.line[st.dayOffset] ?? st.line),
               venue: st.logo,
+              venueText: st.venueText && t(st.venueText),
               rows: st.flow.map((r, k) => ({
                 time: r.time, what: t(C.flow[st.dayOffset]?.[k] ?? r.what), where: r.where && t(r.where), href: r.href,
                 speaker: r.speaker && {
