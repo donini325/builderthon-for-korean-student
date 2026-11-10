@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-10 Day 3 멘토링은 직접 찾아가기](#2026-11-10-day3-inperson)
 - [2026-11-10 디캠프, Lovable 로고 표기 조건 점검](#2026-11-10-logo-rules)
 - [2026-11-10 Readray는 시상 상품](#2026-11-10-readray)
 - [2026-11-10 함께하는 곳에 디캠프](#2026-11-10-dcamp-partner)
@@ -545,6 +546,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-10-day3-inperson"></a>
+## 2026-11-10 Day 3 멘토링은 직접 찾아가기
+- 범위: data/naru.ts(stage.venueNote, Day 3 line), copy.ts, CrossingSeoul.tsx(날짜 칸, 모달 머리)
+- 한 것: 사용자 "온라인만 있으니까 모든 것들이 줌이라고 생각할 수도, 멘토링은 in person으로". 장소 칸을 두 줄로(화면 아이콘 "온라인 (Zoom)", 핀 아이콘 "멘토링은 직접 찾아가기"), 카드 둘째 문장을 "만들기와 Open tables는 Zoom으로 하고, 멘토만 직접 찾아가요"로, 하루 일정 모달 머리도 같은 두 마디. 근거: brand 7장 멘토링 줄(팀이 멘토 계신 곳으로 찾아감).
+- 검증: npm run build 통과, 1440과 390 스크린숏
+- 커밋: a07fc2d
 
 <a id="2026-11-10-logo-rules"></a>
 ## 2026-11-10 디캠프, Lovable 로고 표기 조건 점검
