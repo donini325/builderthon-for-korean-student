@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-10 함께하는 곳에 디캠프](#2026-11-10-dcamp-partner)
 - [2026-11-10 Day 3 장소 칸에 온라인 (Zoom)](#2026-11-10-day3-online)
 - [2026-11-10 Day 2 장소 로고 디캠프](#2026-11-10-dcamp)
 - [2026-11-10 멘토 모달을 반으로](#2026-11-10-mentor-short)
@@ -542,6 +543,13 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-10-dcamp-partner"></a>
+## 2026-11-10 함께하는 곳에 디캠프
+- 범위: data/naru.ts(decemberPartners 장소 줄), components/shared/HeroPartnerStrip.tsx(DECEMBER_MASS)
+- 한 것: 사용자 "디캠프 후원들에도 추가". 장소 줄의 FASTFIVE 다음에 디캠프(Day 2 장소). 히어로 아래 로고 띠도 같은 목록이라 함께 보임. 광학 질량은 측정값 0.387을 넣음(없으면 빌드가 멈춤). 근거: brand 10장 사이트 UI.
+- 검증: npm run build 통과(질량을 넣기 전에는 /2026-08 정적 생성에서 멈춤, 푸시 전), 1440과 390 스크린숏
+- 커밋: df25fa3
 
 <a id="2026-11-10-day3-online"></a>
 ## 2026-11-10 Day 3 장소 칸에 온라인 (Zoom)
