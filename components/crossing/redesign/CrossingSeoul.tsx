@@ -486,7 +486,7 @@ export default function CrossingSeoul() {
               return (
                 <>
                   <div id="naru" className="mt-6">
-                    <h3 className={`${META} font-bold ${INK}`}>{t(naru.teaser.eyebrow)}</h3>
+                    <h3 className={`text-[1.125rem] lg:text-[1.25rem] leading-[1.4] font-bold ${INK}`}>{t(naru.teaser.eyebrow)}</h3>
                     <div className="mt-3">
                       <Banner
                         href={naru.teaser.cta.href}
@@ -508,7 +508,7 @@ export default function CrossingSeoul() {
                   </div>
 
                   <div className={GROUP}>
-                    <h3 className={`${META} font-bold ${INK}`}>{t(main.label)}</h3>
+                    <h3 className={`text-[1.125rem] lg:text-[1.25rem] leading-[1.4] font-bold ${INK}`}>{t(main.label)}</h3>
                     {main.lead && (
                       <div className="mt-3">
                         <Banner
@@ -527,7 +527,7 @@ export default function CrossingSeoul() {
                   </div>
 
                   <div className={GROUP}>
-                    <h3 className={`${META} font-bold ${INK}`}>{t({ ko: "후원", en: "Sponsors and partners" })}</h3>
+                    <h3 className={`text-[1.125rem] lg:text-[1.25rem] leading-[1.4] font-bold ${INK}`}>{t({ ko: "후원", en: "Sponsors and partners" })}</h3>
                     <div className="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-5">
                       {others.map(({ l, caption }) => (
                         <PartnerCell key={l.name} l={l} caption={caption} area={2600} maxH={42} className={ROW4} />
@@ -542,7 +542,6 @@ export default function CrossingSeoul() {
                           <svg aria-hidden viewBox="0 0 20 20" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2.5" y="4.5" width="15" height="11" rx="2" /><path d="M3 5.5l7 5.5 7-5.5" /></svg>
                           {t({ ko: "후원 문의", en: "Become a sponsor" })}
                         </a>
-                        <p className={`mt-2 break-keep text-center ${META} text-caption`}>{t({ ko: "메일로 연락 주세요", en: "Write to us" })}</p>
                       </div>
                     </div>
                   </div>
