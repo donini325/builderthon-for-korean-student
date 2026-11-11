@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-11 등록 열림](#2026-11-11-register-open)
 - [2026-11-11 일정 노선 채움, 펼침 애니메이션, 등록 폼 문구](#2026-11-11-schedule-motion)
 - [2026-11-11 나루 인장을 크게, 묶음 이름 키움](#2026-11-11-seal-overlay)
 - [2026-11-11 후원 문의 칸, 매니페스토 안내 뺌](#2026-11-11-sponsor-mail)
@@ -550,6 +551,12 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-11-register-open"></a>
+## 2026-11-11 등록 열림
+- 범위: lib/registrationWindow.ts
+- 한 것: 사용자 요청(naru.community만, 마감 없음). CROSSING_WINDOW.opensAt을 2026-11-11T00:00+09:00으로, closesAt은 null. 이 사이트 Vercel에 Supabase, Turnstile 키를 같은 날 넣음
+- 검증: tsc 통과. 실제 제출은 Turnstile에 naru.community 호스트를 넣은 뒤 확인 필요
 
 <a id="2026-11-11-schedule-motion"></a>
 ## 2026-11-11 일정 노선 채움, 펼침 애니메이션, 등록 폼 문구
