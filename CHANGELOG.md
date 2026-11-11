@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-11 일정 노선 채움, 펼침 애니메이션, 등록 폼 문구](#2026-11-11-schedule-motion)
 - [2026-11-11 나루 인장을 크게, 묶음 이름 키움](#2026-11-11-seal-overlay)
 - [2026-11-11 후원 문의 칸, 매니페스토 안내 뺌](#2026-11-11-sponsor-mail)
 - [2026-11-10 남는 것 리드 두 줄](#2026-11-10-gains-two)
@@ -549,6 +550,12 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-11-schedule-motion"></a>
+## 2026-11-11 일정 노선 채움, 펼침 애니메이션, 등록 폼 문구
+- 범위: components/crossing/redesign/CrossingSeoul.tsx(닷새), data/crossingForm.ts, data/naru.ts(register), components/naru/redesign/NaruHome.tsx(히어로)
+- 한 것: 사용자 요청. 닷새 노선이 화면 가운데 선까지 남색으로 차고, 지난 날의 정거장 속이 참(useScheduleProgress, 스크롤에만 붙음). 세션 설명, Day 1 "들고 갈 것", 미션 카드가 0.2초 동안 펼쳐짐(Collapse, grid-rows 0fr→1fr, 닫히면 inert, 동작 줄이기와 data-motion=off면 바로). 등록 폼 문구를 해요체로 다듬고 겹치는 도움말을 줄임(수집 항목과 동의 거부 고지는 내용 그대로). 나루 홈 제목과 소개 사이를 한 줄쯤 더 띄움(mt-6/8 → mt-12/60px).
+- 검증: tsc 통과, 로컬 /, /crossing 200, 펼침 칸 6개 inert로 렌더. 화면으로는 확인하지 못함
 
 <a id="2026-11-11-seal-overlay"></a>
 ## 2026-11-11 나루 인장을 크게, 묶음 이름 키움
