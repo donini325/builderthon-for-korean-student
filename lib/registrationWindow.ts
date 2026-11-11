@@ -12,9 +12,10 @@ import { CONSENT_NOTICE_READY } from "@/data/crossingForm";
 /** 지금 등록을 받는 회차. crossing_registrations.event_slug에 그대로 들어갑니다. */
 export const CURRENT_EVENT = "crossing-seoul-2026-12";
 
-/** TODO: confirm. 등록 창. 예: opensAt "2026-10-20T12:00:00+09:00". 둘 다 null = 아직 안 엶. */
+/** 등록 창. 예: opensAt "2026-10-20T12:00:00+09:00". 둘 다 null = 아직 안 엶.
+ *  DECIDED 2026-11-11 (사용자: "크로싱서울 등록 열어줄 수 있니", naru.community만, 마감 없음): 11월 14일을 기다리지 않고 지금 엽니다. */
 export const CROSSING_WINDOW: { opensAt: string | null; closesAt: string | null } = {
-  opensAt: null,
+  opensAt: "2026-11-11T00:00:00+09:00",
   closesAt: null,
 };
 
