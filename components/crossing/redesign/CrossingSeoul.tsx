@@ -139,6 +139,9 @@ function logoSize(l: { w: number; h: number; boost?: boolean }, area: number, ma
   return { width: Math.round(w), height: Math.round(h) };
 }
 
+/** 후원 문의 메일을 받는 주소. */
+const SPONSOR_MAIL = "pjh030924@gmail.com";
+
 const CARD = "flex h-[5.5rem] items-center justify-center rounded-2xl bg-[#FFFFFF] px-3 ring-1 ring-[#E3E0D8] lg:h-24";
 const CARD_LINK = "transition-colors hover:bg-[#F6F4EE] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-naru-navy";
 const BANNER = "flex min-h-[5rem] items-center gap-5 rounded-2xl bg-[#F0EEE8] px-5 py-4 transition-colors hover:bg-[#E9E6DE] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-naru-navy lg:px-7";
@@ -529,6 +532,18 @@ export default function CrossingSeoul() {
                       {others.map(({ l, caption }) => (
                         <PartnerCell key={l.name} l={l} caption={caption} area={2600} maxH={42} className={ROW4} />
                       ))}
+                      {/* DECIDED 2026-11-11 (사용자): 후원 줄 맨 끝, 미디어 파트너 옆에 후원 문의. 누르면 메일 앱이 열립니다. */}
+                      <div className={ROW4}>
+                        <a
+                          href={`mailto:${SPONSOR_MAIL}?subject=${encodeURIComponent(t({ ko: "크로싱 서울 후원 문의", en: "Crossing Seoul sponsorship" }))}`}
+                          onClick={() => track("naru_mail", { src: "partners_sponsor" })}
+                          className={`${CARD} ${CARD_LINK} gap-2 !bg-[#FCFBF8] border border-dashed border-naru-navy/40 !ring-0 ${META} font-bold ${NAVY}`}
+                        >
+                          <svg aria-hidden viewBox="0 0 20 20" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2.5" y="4.5" width="15" height="11" rx="2" /><path d="M3 5.5l7 5.5 7-5.5" /></svg>
+                          {t({ ko: "후원 문의", en: "Become a sponsor" })}
+                        </a>
+                        <p className={`mt-2 break-keep text-center ${META} text-caption`}>{t({ ko: "메일로 연락 주세요", en: "Write to us" })}</p>
+                      </div>
                     </div>
                   </div>
                 </>
