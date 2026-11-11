@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-11 등록 시작을 11월 16일(월)로](#2026-11-11-register-monday)
 - [2026-11-11 등록 열림](#2026-11-11-register-open)
 - [2026-11-11 일정 노선 채움, 펼침 애니메이션, 등록 폼 문구](#2026-11-11-schedule-motion)
 - [2026-11-11 나루 인장을 크게, 묶음 이름 키움](#2026-11-11-seal-overlay)
@@ -551,6 +552,12 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-11-register-monday"></a>
+## 2026-11-11 등록 시작을 11월 16일(월)로
+- 범위: lib/registrationWindow.ts, data/naru.ts, components/crossing/redesign/copy.ts
+- 한 것: 사용자 요청. 여는 날 문구를 11월 14일(토)에서 16일(월)로, opensAt을 2026-11-16T00:00+09:00으로. 같은 날 연 등록은 그때까지 다시 미리 보기
+- 검증: tsc 통과
 
 <a id="2026-11-11-register-open"></a>
 ## 2026-11-11 등록 열림
