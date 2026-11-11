@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-11 후원 문의 칸, 매니페스토 안내 뺌](#2026-11-11-sponsor-mail)
 - [2026-11-10 남는 것 리드 두 줄](#2026-11-10-gains-two)
 - [2026-11-10 Day 3 멘토링은 직접 찾아가기](#2026-11-10-day3-inperson)
 - [2026-11-10 디캠프, Lovable 로고 표기 조건 점검](#2026-11-10-logo-rules)
@@ -547,6 +548,12 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-11-sponsor-mail"></a>
+## 2026-11-11 후원 문의 칸, 매니페스토 안내 뺌
+- 범위: components/crossing/redesign/CrossingSeoul.tsx(후원 줄), components/naru/ManifestoViewer.tsx
+- 한 것: 사용자 요청. /crossing 함께하는 곳의 후원 줄 맨 끝(미디어 파트너 옆)에 "후원 문의" 칸. 점선 테두리 카드라 후원사 로고와 구분되고, 누르면 pjh030924@gmail.com으로 제목 "크로싱 서울 후원 문의" 메일 창이 열림. 나루 홈 매니페스토 아래 "쪽을 누르면 크게 봅니다" 한 줄을 뺌.
+- 검증: tsc 통과, 로컬 /crossing에 mailto 링크, / 에서 안내 문구 0건
 
 <a id="2026-11-10-gains-two"></a>
 ## 2026-11-10 남는 것 리드 두 줄
