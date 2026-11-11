@@ -65,24 +65,25 @@ export const COUNTRY_OTHER_KEY = "study_country_other";
 export const CONSENT_RETENTION: { ko: string; en: string } | null = registerFacts.retentionLine;
 export const CONSENT_NOTICE_READY = CONSENT_RETENTION !== null;
 const retention = CONSENT_RETENTION;
+// DECIDED 2026-11-11 (사용자: "다 말 humanise 하고 삭제해도 될 것은 삭제"): 폼 문구를 해요체로. 수집 항목과 동의 거부 고지는 법정 고지라 내용은 그대로 둡니다.
 const CONSENT_BASE = {
-  ko: "수집 항목: 이름, 이메일, 카카오톡 ID, 학교, 공부하는 나라, 전공, AI로 해 본 것, 링크드인(선택). 목적: 참가 안내와 현장 팀 편성. 동의하지 않을 수 있고, 그 경우 등록할 수 없습니다.",
+  ko: "수집 항목: 이름, 이메일, 카카오톡 ID, 학교, 공부하는 나라, 전공, AI로 해 본 것, 링크드인(선택). 목적: 참가 안내와 현장 팀 편성. 동의하지 않을 수도 있지만, 그러면 등록할 수 없어요.",
   en: "What we collect: name, email, KakaoTalk ID, school, country of study, major, your AI step, and LinkedIn (optional). Purpose: participation notices and on-site team formation. You may decline, in which case you cannot register.",
 };
 const CONSENT_HELP = retention
   ? { ko: `${CONSENT_BASE.ko} 보유 기간: ${retention.ko}.`, en: `${CONSENT_BASE.en} Retention: ${retention.en}.` }
-  : { ko: `${CONSENT_BASE.ko} 보유 기간은 등록이 열릴 때 함께 적습니다.`, en: `${CONSENT_BASE.en} The retention period will be written here when registration opens.` };
+  : { ko: `${CONSENT_BASE.ko} 보유 기간은 등록이 열릴 때 같이 적을게요.`, en: `${CONSENT_BASE.en} The retention period will be written here when registration opens.` };
 
 export const CROSSING_FORM: Field[] = [
   // ── 사람 단위 ────────────────────────────────────────────────────────────
   { key: "name", scope: "member", type: "text", required: true, fixed: true, autoComplete: "name",
     label: { ko: "이름", en: "Name" },
     // DECIDED 2026-10-17 (사용자: "등록에도 본명을 쓰라는걸 명시"): Day 1 유형 테스트와 팀 명단을 이 이름으로 잇습니다(0010 crossing_matching_pool).
-    help: { ko: "본명으로 적어 주세요. Day 1의 AI 유형 테스트와 팀 구성을 이 이름으로 잇습니다.", en: "Use your real name. Your Day 1 AI type test and your team are matched to it." } },
+    help: { ko: "본명으로 적어 주세요. Day 1 AI 유형 테스트와 팀을 이 이름으로 맞춰요.", en: "Use your real name. Your Day 1 AI type test and your team are matched to it." } },
   { key: "email", scope: "member", type: "email", required: true, fixed: true, autoComplete: "email", inputMode: "email", verbatim: true,
     label: { ko: "이메일", en: "Email" },
     // DECIDED 2026-10-15 (사용자: 메일은 보내지 않고 소식은 카카오톡으로): 안내 메일을 약속하지 않습니다.
-    help: { ko: "운영진이 따로 연락할 일이 있을 때만 씁니다.", en: "Only used if the organisers need to reach you directly." } },
+    help: { ko: "따로 연락할 일이 있을 때만 써요.", en: "Only used if the organisers need to reach you directly." } },
   { key: "contact", scope: "member", type: "text", required: true, fixed: true, verbatim: true,
     label: { ko: "카카오톡 ID", en: "KakaoTalk ID" },
     // DECIDED 2026-10-23 (사용자, 스크린숏: "이거는 빼줘"): 아래 설명 세 문장(참가자 방 초대, ID 찾는 곳, 오픈채팅과 다른 방)을 뺐습니다.
@@ -92,10 +93,10 @@ export const CROSSING_FORM: Field[] = [
     // DECIDED 2026-10-15 (사용자: "학교 이름은 필수임"): 필수입니다.
     label: { ko: "학교", en: "School" },
     // DECIDED 2026-10-15 (사용자: "서울대랑 nus 넣지 말아줘, 가장 좋은 학교를 넣으면 intimidate 될 수 있어"): 예시에 학교 이름을 두지 않습니다.
-    placeholder: { ko: "다니는 학교 이름", en: "Your school's name" } },
+    placeholder: { ko: "학교 이름", en: "Your school's name" } },
   { key: "study_country", scope: "member", type: "country", required: true, fixed: true,
     label: { ko: "공부하는 나라", en: "Country you study in" },
-    help: { ko: "한국과 해외의 학생이 한 팀에 섞이도록 팀을 맺을 때 봅니다.", en: "Used when forming teams so students in Korea and abroad are mixed." },
+    help: { ko: "한국과 해외 학생이 한 팀에 섞이도록 팀을 짤 때 봐요.", en: "Used when forming teams so students in Korea and abroad are mixed." },
     options: [
       { value: "KR", label: { ko: "한국", en: "Korea" } },
       { value: "SG", label: { ko: "싱가포르", en: "Singapore" } },
@@ -131,23 +132,23 @@ export const CROSSING_FORM: Field[] = [
     // 전공과 아래 AI 질문은 선발처럼 읽히기 쉬운 두 칸입니다. 둘 다 바로 아래에 왜 묻는지를 적습니다.
     // DECIDED 2026-10-12 (등록 브리프 1.4, 리뷰 S5): "스크리닝이 아닙니다"는 두 도움말에서 빼고 모달 도입부 한 번만 둡니다.
     // 세 번 되풀이하니 오히려 선발처럼 읽혔습니다(docs/brand.md 9장: 한 자리에 한 번).
-    help: { ko: "여러분에게 맞는 과정을 준비하려고 묻습니다. 무엇을 적어도 참가에는 영향이 없습니다.", en: "We ask so we can prepare a programme that fits you. Your answer does not affect whether you can join." },
+    help: { ko: "무엇을 적어도 참가에는 영향이 없어요. 과정을 맞춰 준비하려고 묻는 거예요.", en: "We ask so we can prepare a programme that fits you. Your answer does not affect whether you can join." },
     placeholder: { ko: "예: 경영학, 컴퓨터공학, 미정", en: "e.g. Business, Computer Science, Undeclared" } },
   // DECIDED 2026-10-12 (등록 브리프 1.4 D2, 리뷰 S5): 0단계 "아직 거의 써 보지 않았다"(값 none)를 맨 앞에 더합니다. 그 전에는
   // 아무것도 해 보지 않은 사람이 고를 칸이 없는데 필수였습니다. 번호는 0부터입니다(firstStep). 기존 넷의 값과 번호(1~4)는
   // 그대로라 이미 있는 답과 명단의 번호가 바뀌지 않습니다. 라벨은 "가장 위"가 아니라 "번호가 가장 큰 것"입니다(카드는 1번이 맨 위).
   { key: "ai_level", scope: "member", type: "radio", required: true, firstStep: 0,
-    label: { ko: "AI로 해 본 것 중 번호가 가장 큰 것 하나를 골라 주세요.", en: "Of the things you have done with AI, pick the one with the highest number." },
-    help: { ko: "여러분에게 맞는 과정을 준비하려고 묻습니다. 무엇을 골라도 참가에는 영향이 없습니다.", en: "We ask so we can prepare a programme that fits you. Your answer does not affect whether you can join." },
+    label: { ko: "AI로 해 본 것 중 가장 큰 번호 하나를 골라 주세요.", en: "Of the things you have done with AI, pick the one with the highest number." },
+    help: { ko: "이것도 참가에는 영향이 없어요.", en: "We ask so we can prepare a programme that fits you. Your answer does not affect whether you can join." },
     options: [
-      { value: "none", label: { ko: "아직 거의 써 보지 않았다", en: "Have barely used it yet" } },
+      { value: "none", label: { ko: "아직 거의 안 써 봤다", en: "Have barely used it yet" } },
       { value: "chat", label: { ko: "채팅창에 물어보고 답을 받아 써 봤다", en: "Asked a chatbot and used its answers" },
-        hint: { ko: "ChatGPT나 Claude에 질문하고 글, 요약, 번역을 받아 씀", en: "Questions, drafts, summaries or translations from ChatGPT or Claude" } },
+        hint: { ko: "ChatGPT나 Claude에게 글, 요약, 번역을 받아 씀", en: "Questions, drafts, summaries or translations from ChatGPT or Claude" } },
       { value: "agent", label: { ko: "AI에게 일을 맡겨 끝까지 해내게 해 봤다", en: "Handed AI a task and let it finish the job" },
         hint: { ko: "Claude Cowork나 ChatGPT 에이전트 모드로 파일 정리, 자료 조사, 문서 만들기", en: "Sorting files, research or making documents with Claude Cowork or ChatGPT agent mode" } },
-      { value: "terminal", label: { ko: "터미널에서 AI 코딩 도구를 켜서 무언가를 만들어 봤다", en: "Opened an AI coding tool in the terminal and built something" },
+      { value: "terminal", label: { ko: "터미널에서 AI 코딩 도구로 뭔가 만들어 봤다", en: "Opened an AI coding tool in the terminal and built something" },
         hint: { ko: "Claude Code나 Codex CLI로 앱이나 스크립트 만들기", en: "An app or a script with Claude Code or Codex CLI" } },
-      { value: "connect", label: { ko: "AI에 다른 도구를 연결해 함께 쓰게 해 봤다", en: "Connected other tools to AI so it can use them" },
+      { value: "connect", label: { ko: "AI에 다른 도구를 연결해 써 봤다", en: "Connected other tools to AI so it can use them" },
         hint: { ko: "MCP로 Claude나 ChatGPT에 노션, 깃허브, 캘린더 등을 연결", en: "Notion, GitHub or a calendar linked to Claude or ChatGPT through MCP" } },
     ] },
   // DECIDED 2026-11-02 (사용자: "질문의 순서를 다시 생각. 필수가 먼저 와야함"): 필수 질문을 다 묻고 선택을 맨 끝에 둡니다.

@@ -59,7 +59,8 @@ export default function NaruHome() {
                 <span className="block text-[#845185]">{t(naru.hero.titleLine2)}</span>
               </h1>
             </div>
-            <div className="relative z-10 mt-6 grid gap-4 lg:mt-8 lg:grid-cols-12 lg:gap-12">
+            {/* DECIDED 2026-11-11 (사용자: "조금만 더 밑으로. 엔터 하나"): 제목과 소개 사이를 한 줄쯤 더 띄웁니다. 그 전 mt-6 lg:mt-8. */}
+            <div className="relative z-10 mt-12 grid gap-4 lg:mt-[60px] lg:grid-cols-12 lg:gap-12">
               <p className={`break-keep ${HEADING} ${INK} lg:col-span-8`}><Lines text={t(C.groupConcrete)} /></p>
               <p className={`break-keep ${BODY} ${SOFT} lg:col-span-8`}><Lines text={t(C.groupName)} /></p>
             </div>

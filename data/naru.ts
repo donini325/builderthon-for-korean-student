@@ -264,9 +264,9 @@ export const register = {
   previewCta: { ko: "등록 폼 미리 보기", en: "Preview the form" },
   // DECIDED 2026-10-15 (사용자: "그냥 바로 form만 보여줘"): 모달의 미리 보기 안내 상자와 previewKeep은 없앴습니다.
   // DECIDED 2026-11-02 (사용자, 등록 UX 브리프 D2: "14일에 여는 걸로"): 여는 날을 "11월 둘째 주 끝"에서 11월 14일(토)로. 여는 시각은 보류(opensAt은 비움), 카운트다운은 그대로.
-  previewSubmit: { ko: "11월 14일(토)에 열리면 보낼 수 있습니다", en: "You can send this when it opens on Saturday, 14 November" },
+  previewSubmit: { ko: "11월 14일(토)부터 보낼 수 있어요", en: "You can send this when it opens on Saturday, 14 November" },
   // 미리 보기일 때의 제목. 등록이 열리면 아래 title을 그대로 씁니다.
-  previewTitle: { ko: "크로싱 서울 등록 (미리 보기)", en: "CROSSING SEOUL registration (preview)" },
+  previewTitle: { ko: "크로싱 서울 등록 미리 보기", en: "CROSSING SEOUL registration (preview)" },
   requiredLegend: { ko: "필수", en: "required" },
   // 창이 열리기 전에도 버튼은 보입니다(사용자, 2026-09-18: "넣어는 줘. 클릭이 되게 하지는 말고").
   // disabled이고 title로 이 문장을 보여 줍니다.
@@ -276,10 +276,10 @@ export const register = {
   // DECIDED 2026-10-15 (사용자: "이 내용 빼줘"): 폼 첫 줄(intro, 스크리닝과 혼자 등록)은 없앴습니다. 폼이 바로 시작합니다.
   // 2026-10-08 (폼 리뷰 10): 초안이 이 기기에 남는다는 것을 알립니다. 동의 표시는 초안에 넣지 않습니다.
   // 2026-10-12: 등록이 열린 뒤에만 그립니다.
-  draftNote: { ko: "입력한 내용은 보내기 전까지 이 기기에만 임시로 저장됩니다.", en: "What you type is kept on this device only until you send it." },
+  draftNote: { ko: "적은 내용은 보내기 전까지 이 기기에만 저장돼요.", en: "What you type is kept on this device only until you send it." },
   // DECIDED 2026-11-02 (docs/register-ux-brief.md R1, D1 둠): 미리 보기에서도 적은 내용이 이 기기에 남습니다. 열린 뒤 draftNote가 서는 그 한 줄 자리에 섭니다.
   // 2026-10-15에 뺀 것은 안내 상자 세 줄이고 이것은 그 상자가 아닙니다.
-  previewNote: { ko: "적은 내용은 보내기 전까지 이 기기에만 남고 열리면 그대로 보낼 수 있습니다.", en: "What you type stays on this device only until you send it, and you can send it as it is when registration opens." },
+  previewNote: { ko: "적은 내용은 이 기기에만 저장되니, 등록이 열리면 그대로 보내면 돼요.", en: "What you type stays on this device only until you send it, and you can send it as it is when registration opens." },
   optional: { ko: "(선택)", en: "(optional)" },
   selectPlaceholder: { ko: "선택", en: "Select" },
   submit: { ko: "등록 보내기", en: "Send registration" },

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { track } from "@vercel/analytics";
 import { useLocale } from "@/lib/LocaleContext";
 import { type Phrase } from "@/data/dictionaryCore";
@@ -34,14 +34,72 @@ const LOCK = (
   </svg>
 );
 
-/** 노선의 정거장. Day 4는 도착(성과 공유회)이라 로고의 접안점과 같은 주황입니다. */
-function Stop({ arrive, size = "md" }: { arrive: boolean; size?: "sm" | "md" }) {
+/** 노선의 정거장. Day 4는 도착(성과 공유회)이라 로고의 접안점과 같은 주황입니다. passed면 스크롤이 지나간 날이라 속이 찹니다. */
+function Stop({ arrive, passed = false, size = "md" }: { arrive: boolean; passed?: boolean; size?: "sm" | "md" }) {
   const s = size === "sm" ? "h-2 w-2" : "h-3 w-3";
+  const look = arrive
+    ? `bg-naru-orange ${passed ? "ring-4 ring-naru-orange/25" : ""}`
+    : `border-[1.5px] border-naru-navy ${passed ? "bg-naru-navy" : "bg-[#FCFBF8]"}`;
+  return <span aria-hidden className={`relative z-10 block shrink-0 rounded-full transition-colors duration-300 motion-reduce:transition-none ${s} ${look}`} />;
+}
+
+/**
+ * DECIDED 2026-11-11 (사용자: 닷새 일정의 세로선이 스크롤 따라 차오르기): 화면 가운데 선까지 노선이 남색으로 차고,
+ * 그 선을 지난 날의 정거장에 불이 들어옵니다. 지금 며칠째를 읽고 있는지 알려 주는 표시라 스크롤에 붙어 움직이고, 스스로 움직이지는 않습니다.
+ * 채움은 transform만 바꿔 다시 그리지 않고, 정거장은 지난 개수가 바뀔 때만 다시 그립니다.
+ */
+function useScheduleProgress(count: number) {
+  const listRef = useRef<HTMLOListElement>(null);
+  const fillRef = useRef<HTMLSpanElement>(null);
+  const stopRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const [passed, setPassed] = useState(0);
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const list = listRef.current;
+      const fill = fillRef.current;
+      if (!list || !fill) return;
+      const line = window.innerHeight / 2;
+      // 노선은 목록 위아래 40px(top-10, bottom-10) 안쪽에 그어져 있습니다.
+      const r = list.getBoundingClientRect();
+      const span = r.height - 80;
+      const p = span > 0 ? Math.min(1, Math.max(0, (line - (r.top + 40)) / span)) : 0;
+      fill.style.transform = `scaleY(${p})`;
+      let n = 0;
+      for (let i = 0; i < count; i++) {
+        const el = stopRefs.current[i];
+        if (el && el.getBoundingClientRect().top + 6 <= line) n = i + 1;
+      }
+      setPassed(n);
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [count]);
+  return { listRef, fillRef, stopRefs, passed };
+}
+
+/**
+ * DECIDED 2026-11-11 (사용자: 세션 설명과 "들고 갈 것"이 부드럽게 펼쳐지게): 높이가 0.2초 동안 열립니다(grid-rows 0fr→1fr).
+ * 닫혀 있으면 inert라 포커스와 화면 낭독기가 건너뜁니다. 위 간격은 안쪽에 두어야 닫혔을 때 남지 않습니다.
+ * 동작 줄이기(OS)나 사이트의 움직임 끄기(html[data-motion=off])면 바로 열립니다.
+ */
+function Collapse({ id, open, className = "", children }: { id: string; open: boolean; className?: string; children: ReactNode }) {
   return (
-    <span
-      aria-hidden
-      className={`relative z-10 block shrink-0 rounded-full ${s} ${arrive ? "bg-naru-orange" : "border-[1.5px] border-naru-navy bg-[#FCFBF8]"}`}
-    />
+    <div
+      id={id}
+      inert={!open}
+      className={`grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none [html[data-motion=off]_&]:transition-none ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} ${className}`}
+    >
+      <div className="min-h-0 overflow-hidden">{children}</div>
+    </div>
   );
 }
 
@@ -63,20 +121,22 @@ function Disclosure({ id, label, title, groups, mission }: { id: string; label: 
           <path d="m6 9 6 6 6-6" />
         </svg>
       </button>
-      <div id={id} hidden={!open} className={`border-t ${RULE} px-4 pb-4 pt-3`}>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {groups.map((g) => (
-            <div key={g.label}>
-              <p className={`${META} font-bold ${INK}`}>{g.label}</p>
-              <ul className={`mt-1.5 flex flex-col gap-1 ${META} ${SOFT}`}>
-                {g.items.map((it) => (
-                  <li key={it} className="flex gap-2 break-keep"><span aria-hidden className="text-caption">–</span>{it}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+      <Collapse id={id} open={open}>
+        <div className={`border-t ${RULE} px-4 pb-4 pt-3`}>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {groups.map((g) => (
+              <div key={g.label}>
+                <p className={`${META} font-bold ${INK}`}>{g.label}</p>
+                <ul className={`mt-1.5 flex flex-col gap-1 ${META} ${SOFT}`}>
+                  {g.items.map((it) => (
+                    <li key={it} className="flex gap-2 break-keep"><span aria-hidden className="text-caption">–</span>{it}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </Collapse>
     </div>
   );
 }
@@ -109,7 +169,8 @@ function MissionCard({ id, label, title, listLabel, rows, reward, upload, href }
           <path d="m6 9 6 6 6-6" />
         </svg>
       </button>
-      <div id={id} hidden={!open} className="px-4 pb-4">
+      <Collapse id={id} open={open}>
+      <div className="px-4 pb-4">
       <ul aria-label={listLabel} className={`border-t ${RULE}`}>
         {rows.map((r) => (
           <li key={r.text} className={`flex flex-col gap-1.5 border-b ${RULE} py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4`}>
@@ -123,6 +184,7 @@ function MissionCard({ id, label, title, listLabel, rows, reward, upload, href }
         {m ? <>{upload.slice(0, m.index)}<Link href={href} className={linkCls}>{m[0]}</Link>{upload.slice(m.index! + m[0].length)}</> : upload}
       </p>
       </div>
+      </Collapse>
     </div>
   );
 }
@@ -194,6 +256,7 @@ export default function CrossingSeoul() {
   // 2026-11-09: 설명이 펼쳐진 세션(그날의 dayOffset). 한 번에 하나.
   const [openSession, setOpenSession] = useState<number | null>(null);
   const [mentorsDay, setMentorsDay] = useState<number | null>(null);
+  const progress = useScheduleProgress(stages.length);
 
   const name = locale === "en" ? (DECEMBER_EVENT_NAME?.en ?? decemberEventLabel(locale)) : (DECEMBER_EVENT_NAME?.ko ?? decemberEventLabel(locale));
   const note = t(regState === "open" ? C.noteOpen : C.noteShort);
@@ -318,8 +381,9 @@ export default function CrossingSeoul() {
               </div>
             )}
 
-            <ol id="schedule" className="relative mt-8 lg:mt-10">
+            <ol ref={progress.listRef} id="schedule" className="relative mt-8 lg:mt-10">
               <span aria-hidden className="absolute bottom-10 left-[5px] top-10 w-px bg-naru-navy/25 lg:left-[calc(11rem+5px)]" />
+              <span ref={progress.fillRef} aria-hidden style={{ transform: "scaleY(0)" }} className="absolute bottom-10 left-[5px] top-10 w-px origin-top bg-naru-navy will-change-transform lg:left-[calc(11rem+5px)]" />
               {stages.map((s, i) => {
                 const mentorsOn = s.mentorsCta && d.mentors.some((m) => m.confirmed);
                 // DECIDED 2026-11-08 (docs/mission-card-brief.md D1): 미션은 접는 띠 대신 펼친 카드. Day 1 "들고 갈 것" 띠는 그대로 Disclosure.
@@ -351,7 +415,7 @@ export default function CrossingSeoul() {
                 ) : null;
                 return (
                   <li key={s.dayOffset} id={`day-${s.dayOffset}`} className={`relative grid scroll-mt-28 gap-x-10 border-b ${RULE} py-6 pl-8 lg:grid-cols-[11rem_minmax(0,1fr)] lg:py-7 lg:pl-0`}>
-                    <span aria-hidden className="absolute left-0 top-[36px] lg:left-[11rem] lg:top-[48px]"><Stop arrive={s.dayOffset === 4} /></span>
+                    <span ref={(el) => { progress.stopRefs.current[i] = el; }} aria-hidden className="absolute left-0 top-[36px] lg:left-[11rem] lg:top-[48px]"><Stop arrive={s.dayOffset === 4} passed={i < progress.passed} /></span>
                     {/* 왼쪽 날짜 칸. 큰 Day 번호가 목차 구실을 하고, 긴 날을 읽는 동안 데스크톱에서 따라 내려옵니다. */}
                     <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 lg:sticky lg:top-28 lg:flex-col lg:gap-1.5 lg:self-start">
                       <span className={`${TITLE} tabular-nums ${NAVY}`}>Day {s.dayOffset}</span>
@@ -403,14 +467,18 @@ export default function CrossingSeoul() {
                         </p>
                       )}
                       {s.session?.detail?.length ? (
-                        <div id={`session-${s.dayOffset}`} hidden={openSession !== s.dayOffset} className={`mt-3 max-w-[42rem] rounded-xl border ${RULE} bg-[#FFFFFF] px-4 py-3.5`}>
-                          <p lang="en" className={`${META} font-bold ${INK}`}>{t(s.session.title)}</p>
-                          <ul className={`mt-1.5 flex flex-col gap-1.5 ${META} ${SOFT}`}>
-                            {(C.sessionDetail[s.dayOffset] ?? s.session.detail).map((x, j) => (
-                              <li key={j} className="break-keep leading-[1.65]">{t(x)}</li>
-                            ))}
-                          </ul>
-                        </div>
+                        <Collapse id={`session-${s.dayOffset}`} open={openSession === s.dayOffset} className="max-w-[42rem]">
+                          <div className="pt-3">
+                            <div className={`rounded-xl border ${RULE} bg-[#FFFFFF] px-4 py-3.5`}>
+                              <p lang="en" className={`${META} font-bold ${INK}`}>{t(s.session.title)}</p>
+                              <ul className={`mt-1.5 flex flex-col gap-1.5 ${META} ${SOFT}`}>
+                                {(C.sessionDetail[s.dayOffset] ?? s.session.detail).map((x, j) => (
+                                  <li key={j} className="break-keep leading-[1.65]">{t(x)}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </Collapse>
                       ) : null}
                       {strip && <div className="mt-5 max-w-[42rem] lg:max-w-none">{strip}</div>}
                       {(s.flow?.length || s.matchCta || mentorsOn) && (
