@@ -8,6 +8,7 @@
 
 ### 2026-11
 
+- [2026-11-13 8월 기록 새 화면, 미디어 섹션](#2026-11-13-august-media)
 - [2026-11-11 등록 시작을 11월 16일(월)로](#2026-11-11-register-monday)
 - [2026-11-11 등록 열림](#2026-11-11-register-open)
 - [2026-11-11 일정 노선 채움, 펼침 애니메이션, 등록 폼 문구](#2026-11-11-schedule-motion)
@@ -552,6 +553,12 @@
 - [2026-06-15 Design-revamp polish cycle](#changelog-june-15-2026)
 
 ---
+
+<a id="2026-11-13-august-media"></a>
+## 2026-11-13 8월 기록 새 화면, 미디어 섹션
+- 범위: app/2026-08/page.tsx, components/archive/redesign/(AugustRecord, copy), data/media.ts, components/shared/MediaList.tsx, CrossingSeoul.tsx, NaruHome.tsx, SiteHeader.tsx
+- 한 것: 사용자 요청. /2026-08을 나루 홈, 크로싱 서울과 같은 종이 화면으로. 기록이라 모집 때의 장(취지, 참가 대상, 혜택, 체크인, 시간표, FAQ)과 배경 영상, 스티키 바를 빼고 날짜와 소개, 숫자 넷(신청에서 발표까지), 8일, 사진 12장, 어워드 4부문, 연사와 피드백 패널과 멘토, 당시 표기의 주최 주관 후원, 미디어, 고마운 이름들, 크로싱 서울로 가는 줄. 문구는 해요체로 새로 쓰고 humanize-scan(6신호 중 2개, 연결어미 뒤 쉼표 고침). 8월 목차를 새 섹션으로. 미디어: 기사 목록(data/media.ts)을 크로싱 서울(이넷뉴스 2026.11.13), 8월 기록(CNA와 ST, 경인일보, BZCF), 나루 홈(전부, 줄마다 행사 이름)에. 옛 Journey 화면 파일은 그대로 둠
+- 검증: tsc 통과, 로컬 /, /crossing, /2026-08 200. 화면으로는 확인하지 못함
 
 <a id="2026-11-11-register-monday"></a>
 ## 2026-11-11 등록 시작을 11월 16일(월)로
