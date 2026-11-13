@@ -11,6 +11,8 @@
 //   #why        왜 이런 자리가 필요한가
 //   #join-ways  매니페스토
 import Image from "next/image";
+import MediaList from "@/components/shared/MediaList";
+import { mediaCopy } from "@/data/media";
 import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { useLocale } from "@/lib/LocaleContext";
@@ -216,6 +218,15 @@ export default function NaruHome() {
                 {C.closingBody.map((line, i) => <p key={i}><Lines text={t(line)} /></p>)}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ── 미디어 ─────────────────────────────────────────────── */}
+        {/* DECIDED 2026-11-13 (사용자: 각 페이지에 미디어 섹션, 나루 홈에는 모든 기사): 목록은 data/media.ts. */}
+        <section id="media" aria-labelledby="media-title" className="mt-14 lg:mt-20">
+          <div className={FRAME}>
+            <h2 id="media-title" className={`${TITLE} ${NAVY}`}>{t(mediaCopy.heading)}</h2>
+            <div className="mt-6 lg:mt-8"><MediaList src="naru" /></div>
           </div>
         </section>
 

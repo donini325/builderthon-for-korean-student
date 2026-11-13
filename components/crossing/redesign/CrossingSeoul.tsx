@@ -20,6 +20,8 @@ import { useCrossingRegisterOptional } from "@/components/crossing/RegisterProvi
 import DayFlowModal from "@/components/crossing/DayFlowModal";
 import PhotoLightbox, { warmPhoto } from "@/components/shared/PhotoLightbox";
 import MobileChatBar from "@/components/shared/MobileChatBar";
+import MediaList from "@/components/shared/MediaList";
+import { mediaCopy } from "@/data/media";
 import OpenChatLink from "@/components/ui/OpenChatLink";
 import { SiteFooter } from "@/components/home/shared";
 import { copy as C } from "./copy";
@@ -616,6 +618,15 @@ export default function CrossingSeoul() {
                 </>
               );
             })()}
+          </div>
+        </section>
+
+        {/* ── 미디어 ─────────────────────────────────────────────── */}
+        {/* DECIDED 2026-11-13 (사용자: 각 페이지에 미디어 섹션): 목록은 data/media.ts. */}
+        <section id="media" aria-labelledby="media-title" className="mt-14 lg:mt-20">
+          <div className={FRAME}>
+            <h2 id="media-title" className={`${TITLE} ${NAVY}`}>{t(mediaCopy.heading)}</h2>
+            <div className="mt-6 lg:mt-8"><MediaList event="2026-12" src="crossing" /></div>
           </div>
         </section>
 
